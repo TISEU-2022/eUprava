@@ -10,5 +10,4 @@ if __name__ == '__main__':
         os.getenv("MYSQL_PORT"),
         os.getenv("MYSQL_DB"),
     )
-    print(url)
     main(repository='./maticar/migrations', url=url, debug='True')
