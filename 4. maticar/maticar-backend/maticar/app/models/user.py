@@ -21,9 +21,10 @@ parent_child = Table(
 class User(Base):
     __tablename__ = "user"
     id = Column(BIGINT(), primary_key=True)
+    identification_number = Column(String(50), nullable=False)
     first_name = Column(String(255), nullable=False)
     last_name = Column(String(255), nullable=False)
-    gender = Column(String(255), nullable=True, index=True)
+    gender = Column(String(255), nullable=True)
     city_of_birth = Column(String(255), nullable=False)
     date_of_birth = Column(DateTime(), nullable=False)
     children = relationship(
