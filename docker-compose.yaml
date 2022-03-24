@@ -33,8 +33,11 @@ services:
       tiseu:
         aliases:
           - auth-app
+    depends_on:
+      auth-mongo:
+        condition: service_healthy
     healthcheck:
-      test: [ "CMD", "CHECK_PORT=3101", "node", "healthcheck.js" ]
+      test: [ "CMD", "node", "healthcheck.js" ]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -47,22 +50,28 @@ services:
     environment:
       - AUTH_APP_PROXY_PORT=3101
       - AUTH_APP_PROXY_HOSTNAME=auth-app
+    depends_on:
+      auth-app:
+        condition: service_healthy
     networks:
       tiseu:
         aliases:
           - auth-app-proxy
-    depends_on:
-      - "auth-app"
     ports:
       - "4101:4101"
       - "4443:4443"
 
   auth-mongo:
     image: mongo
-    restart: always
     container_name: auth-mongo
     ports:
       - "4117:27017"
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/db --quiet
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
     volumes:
       - auth-mongodb:/data/db
     networks:
