@@ -284,7 +284,11 @@ function searchArray<T>(array: T[], value: string) {
     Object.values(obj).some(
       (val: any) =>
         (val?.toString().toLowerCase().includes(value.toLowerCase()) ||
-          value.toLowerCase().includes(val?.toString().toLowerCase())) ??
+          value.toLowerCase().includes(val?.toString().toLowerCase()) ||
+          value
+            .toLowerCase()
+            .split(' ')
+            .some((split) => val?.toString().toLowerCase().includes(split))) ??
         false,
     ),
   );
