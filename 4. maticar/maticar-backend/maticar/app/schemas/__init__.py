@@ -5,11 +5,14 @@ from .common import (
 )
 
 from .admin import WorkerAddSchema, WorkerUpdateSchema
+from .worker import MarriageAddSchema, MarriageGetSchema
 
 __all__ = [
     "CheckName",
     "ErrorSchemaResp",
     "PaginationPage",
     "WorkerAddSchema",
-    "WorkerUpdateSchema"
+    "WorkerUpdateSchema",
+    "MarriageAddSchema",
+    "MarriageGetSchema"
 ]

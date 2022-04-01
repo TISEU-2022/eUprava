@@ -14,9 +14,11 @@ birth_register = Table(
     'birth_register',
     meta,
     Column('id', BIGINT(unsigned=True), primary_key=True),
-    Column('identification_number', String(13), nullable=False),
+    Column('identification_number', String(13), nullable=False, index=True),
     Column('first_name', String(50), nullable=False),
     Column('last_name', String(50), nullable=False),
+    Column('citizenship', String(50), nullable=False),
+    Column('country_of_birth', String(50), nullable=False),
     Column('gender', String(10), nullable=False),
     Column('date_of_birth', DateTime(), nullable=False),
     Column('deceased_at', DateTime(), nullable=True),
@@ -28,16 +30,18 @@ marriage = Table(
     Column('id', BIGINT(unsigned=True), primary_key=True),
     Column('created_at', DateTime(), nullable=False),
     Column('divorced_at', DateTime(), nullable=True),
-    Column('party_1_id', BIGINT(unsigned=True), ForeignKey("birth_register.id", ondelete="CASCADE"), nullable=False),
-    Column('party_2_id', BIGINT(unsigned=True), ForeignKey("birth_register.id", ondelete="CASCADE"), nullable=False),
+    Column('party_1_id', String(13), ForeignKey("birth_register.identification_number", ondelete="CASCADE"), nullable=False),
+    Column('party_2_id', String(13), ForeignKey("birth_register.identification_number", ondelete="CASCADE"), nullable=False),
+    Column('witness_1_id', String(13), ForeignKey("birth_register.identification_number", ondelete="CASCADE"), nullable=False),
+    Column('witness_2_id', String(13), ForeignKey("birth_register.identification_number", ondelete="CASCADE"), nullable=False),
 )
 
 user_relations = Table(
     'user_relation',
     meta,
-    Column('id', BIGINT(unsigned=True), primary_key=True),
-    Column('user_relation_parent_id_foreign', BIGINT(unsigned=True), ForeignKey('birth_register.id', ondelete="CASCADE"), primary_key=True, unique=False, index=True),
-    Column('user_relation_child_id_foreign', BIGINT(unsigned=True), ForeignKey('birth_register.id', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
+    Column('id', String(13), primary_key=True),
+    Column('user_relation_parent_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), primary_key=True, unique=False, index=True),
+    Column('user_relation_child_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
     )
 
 
