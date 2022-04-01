@@ -7,7 +7,6 @@ ENV PYTHONUNBUFFERED 1
 ARG APP_VERSION
 ENV APP_VERSION=$APP_VERSION
 
-RUN apt-get update && apt-get -y install build-essential git
 WORKDIR /wheels
 COPY ./requirements/ /wheels/requirements/
 RUN pip install -U pip && pip wheel -r ./requirements/prod.txt
@@ -17,8 +16,6 @@ FROM python:${PYTHON_VERSION}
 ENV PYTHONUNBUFFERED=1
 ARG APP_VERSION
 ENV APP_VERSION=$APP_VERSION
-
-RUN apt-get update && apt-get -y install git curl && apt-get autoremove && apt-get clean
 
 COPY --from=builder /wheels /wheels
 RUN pip install -U pip \
