@@ -51,14 +51,13 @@ export type CommonDataTablePropsWithoutSearch<T> = {
   data: T[];
 };
 
-export type CommonDataTableProps<T> =
-  | CommonDataTablePropsWithoutSearch<T> &
-      Partial<{
-        canSearch: boolean;
-        searchInputProps: InputProps;
-        searchInputGroupProps: InputGroupProps;
-        searchButtonProps: ButtonProps;
-      }>;
+export type CommonDataTableProps<T> = CommonDataTablePropsWithoutSearch<T> &
+  Partial<{
+    disableSearch: boolean;
+    searchInputProps: InputProps;
+    searchInputGroupProps: InputGroupProps;
+    searchButtonProps: ButtonProps;
+  }> & { disableSort?: boolean };
 
 const CommonDataTable = <T extends unknown>({
   data: tableData,
@@ -68,7 +67,8 @@ const CommonDataTable = <T extends unknown>({
   tableCaption,
   placeholderTableRow,
   wrapInBoxProps,
-  canSearch,
+  disableSearch,
+  disableSort,
   searchInputProps,
   searchInputGroupProps,
   searchButtonProps,
@@ -110,7 +110,7 @@ const CommonDataTable = <T extends unknown>({
 
   return (
     <BoxWrap wrapping={wrapInBoxProps}>
-      {canSearch && (
+      {!disableSearch && (
         <SearchComponent
           handler={setSearchTerm}
           value={searchTerm}
@@ -127,6 +127,7 @@ const CommonDataTable = <T extends unknown>({
               <Thead>
                 <Tr>
                   <TheadsComponent
+                    disableSort={disableSort}
                     sortState={sortState}
                     setSortState={setSortState}
                     tableHeadings={tableHeadings}
@@ -219,14 +220,16 @@ const TbodyComponent: React.FC<{
 };
 
 const TheadsComponent: React.FC<{
+  disableSort?: boolean;
   tableHeadings: CommonDataTableHeadings<any>[];
   sortState: SortState;
   setSortState: Handler<SortState>;
-}> = ({ tableHeadings, sortState, setSortState }) => {
+}> = ({ disableSort, tableHeadings, sortState, setSortState }) => {
   return (
     <>
       {tableHeadings.map((th, i) => (
         <ThComponent
+          disableSort={disableSort}
           key={i}
           thData={th}
           sortState={sortState}
@@ -238,10 +241,11 @@ const TheadsComponent: React.FC<{
 };
 
 const ThComponent: React.FC<{
+  disableSort?: boolean;
   thData: CommonDataTableHeadings<unknown>;
   sortState: SortState;
   setSortState: Handler<SortState>;
-}> = ({ thData: th, sortState, setSortState }) => {
+}> = ({ disableSort, thData: th, sortState, setSortState }) => {
   const [isDescending, isAscending] = [
     sortState.key === th.key && sortState.order === 'desc',
     sortState.key === th.key && sortState.order === 'asc',
@@ -250,24 +254,26 @@ const ThComponent: React.FC<{
     <Th isNumeric={th?.numeric ?? false}>
       <Box display="flex">
         <Text>{th.title ?? th.key}</Text>
-        <Box display="flex" flexDirection="column" ml={1}>
-          <TriangleUpIcon
-            onClick={() => {
-              setSortState({ key: th.key as string, order: 'asc' });
-            }}
-            boxSize="0.8em"
-            cursor="pointer"
-            color={isAscending ? 'cyan.700' : 'gray.500'}
-          />
-          <TriangleDownIcon
-            onClick={() =>
-              setSortState({ key: th.key as string, order: 'desc' })
-            }
-            boxSize="0.8em"
-            cursor="pointer"
-            color={isDescending ? 'cyan.700' : 'gray.500'}
-          />
-        </Box>
+        {!disableSort && (
+          <Box display="flex" flexDirection="column" ml={1}>
+            <TriangleUpIcon
+              onClick={() => {
+                setSortState({ key: th.key as string, order: 'asc' });
+              }}
+              boxSize="0.8em"
+              cursor="pointer"
+              color={isAscending ? 'cyan.700' : 'gray.500'}
+            />
+            <TriangleDownIcon
+              onClick={() =>
+                setSortState({ key: th.key as string, order: 'desc' })
+              }
+              boxSize="0.8em"
+              cursor="pointer"
+              color={isDescending ? 'cyan.700' : 'gray.500'}
+            />
+          </Box>
+        )}
       </Box>
     </Th>
   );
