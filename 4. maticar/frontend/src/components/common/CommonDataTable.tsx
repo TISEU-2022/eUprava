@@ -74,9 +74,12 @@ const CommonDataTable = <T extends unknown>({
   searchButtonProps,
 }: CommonDataTableProps<T>) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const [sortState, setSortState] = useState<SortState>({
-    order: 'asc',
-    key: Object.keys((tableData as any[])[0])[0],
+  const [sortState, setSortState] = useState<SortState>(() => {
+    const firstTableEntry = (tableData as any[])?.[0];
+    if (!firstTableEntry) return { order: 'none' };
+    const key = Object.keys(firstTableEntry)?.[0];
+    if (!key) return { order: 'none' };
+    return { key, order: 'asc' };
   });
 
   const data = useMemo(() => {
@@ -90,13 +93,11 @@ const CommonDataTable = <T extends unknown>({
     return (searchArray(tableData, searchTerm) as any[]).sort(
       (first, second) => {
         if (first === second) return 0;
-        let ret: number;
         if (sortOrder === 'asc')
           return first[sortKey] > second[sortKey] ? 1 : -1;
         else {
           return first[sortKey] < second[sortKey] ? 1 : -1;
         }
-        return ret;
       },
     );
   }, [tableData, searchTerm, sortState]);
