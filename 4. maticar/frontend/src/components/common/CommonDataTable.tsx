@@ -47,6 +47,7 @@ export type CommonDataTablePropsWithoutSearch<T> = {
   tableHeadings: CommonDataTableHeadings<T>[];
   tableContainerProps?: TableContainerProps;
   placeholderTableRow?: string | ReactElement;
+  onRowClickHandler?: (value: T) => void;
   wrapInBoxProps?: BoxProps;
   data: T[];
 };
@@ -72,6 +73,7 @@ const CommonDataTable = <T extends unknown>({
   searchInputProps,
   searchInputGroupProps,
   searchButtonProps,
+  onRowClickHandler,
 }: CommonDataTableProps<T>) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [sortState, setSortState] = useState<SortState>(() => {
@@ -137,6 +139,7 @@ const CommonDataTable = <T extends unknown>({
               </Thead>
               <Tbody>
                 <TbodyComponent
+                  onRowClickHandler={onRowClickHandler}
                   placeHolderTableRow={placeholderTableRow}
                   data={data}
                   tableHeadings={tableHeadings}
@@ -191,10 +194,11 @@ const BoxWrap: React.FC<{ wrapping?: BoxProps }> = ({ wrapping, children }) => {
 };
 
 const TbodyComponent: React.FC<{
+  onRowClickHandler?: (value: any) => void;
   tableHeadings: CommonDataTableHeadings<any>[];
   data: any[];
   placeHolderTableRow?: string | ReactElement;
-}> = ({ data, tableHeadings, placeHolderTableRow }) => {
+}> = ({ data, tableHeadings, placeHolderTableRow, onRowClickHandler }) => {
   const keys = tableHeadings.map((e) => e.key);
 
   const rowColumnPlaceholder = () => {
@@ -208,7 +212,11 @@ const TbodyComponent: React.FC<{
     <>
       {data.map((entry, ei) => {
         return (
-          <Tr key={ei}>
+          <Tr
+            key={ei}
+            onClick={() => onRowClickHandler?.(entry)}
+            cursor={onRowClickHandler ? 'pointer' : 'initial'}
+          >
             {keys.map((key, ki) => {
               const value = entry[key] ?? rowColumnPlaceholder();
               return <Td key={ki}>{value}</Td>;
