@@ -20,14 +20,12 @@ import {
   Th,
   Thead,
   Tr,
-  useTheme,
 } from '@chakra-ui/react';
 import React, {
   ChangeEvent,
   Dispatch,
   ReactElement,
   SetStateAction,
-  useEffect,
   useMemo,
   useState,
 } from 'react';
