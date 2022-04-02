@@ -12,12 +12,12 @@
     "jmbg": "1234567981234",
     "ime_ustanove": "",
     "tip_ustanove": "", <!-- "osnovna" v "srednja" -->
-    "prosek": [
+    "prosek": {
             "1": 1.23,
             "2": 1.23,
             "3": 1.23,
             "4": 1.23,
-        ]
+        }
 }
 ```
 OR
