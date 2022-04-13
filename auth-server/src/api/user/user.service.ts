@@ -11,21 +11,25 @@ export class UserService {
   ) {}
 
   async findByUsernameInternal(username: string): Promise<User> {
-    return this.userModel.findOne({ username }).exec();
+    return this.userModel
+      .findOne({ username }, undefined, { lean: true })
+      .exec();
   }
 
   async createUser(param: Omit<User, '_id'>) {
     return await this.userModel.create(param);
   }
 
-  async findById(id: string): Promise<Omit<User & Document, 'password'>> {
+  async findById(id: string) {
     if (!Types.ObjectId.isValid(id)) {
       throw new HttpException(
         `Id ${id} is not valid ObjectId`,
         HttpStatus.BAD_REQUEST,
       );
     }
-    const ret = await this.userModel.findById(id).exec();
+    const ret = await this.userModel
+      .findById(id, undefined, { lean: true })
+      .exec();
     if (!ret) {
       throw new HttpException(
         `User by id ${id} not found`,
@@ -36,10 +40,10 @@ export class UserService {
     return ret;
   }
 
-  async findByIdentityNumber(
-    identityNumber: string,
-  ): Promise<Omit<User & Document, 'password'>> {
-    const ret = await this.userModel.findOne({ identityNumber }).exec();
+  async findByIdentityNumber(identityNumber: string) {
+    const ret = await this.userModel
+      .findOne({ identityNumber }, undefined, { lean: true })
+      .exec();
     if (!ret) {
       throw new HttpException(
         `User by identityNumber ${identityNumber} not found`,
@@ -50,10 +54,10 @@ export class UserService {
     return ret;
   }
 
-  async findByUsername(
-    username: string,
-  ): Promise<Omit<User & Document, 'password'>> {
-    const ret = await this.userModel.findOne({ username }).exec();
+  async findByUsername(username: string) {
+    const ret = await this.userModel
+      .findOne({ username }, undefined, { lean: true })
+      .exec();
     if (!ret) {
       throw new HttpException(
         `User by username ${username} not found`,
@@ -65,7 +69,9 @@ export class UserService {
   }
 
   async findByRole(role: string) {
-    const ret = await this.userModel.find({ roles: role }).exec();
+    const ret = await this.userModel
+      .find({ roles: role }, undefined, { lean: true })
+      .exec();
     if (!ret) {
       throw new HttpException(
         `Users by role ${role} not found`,
@@ -83,7 +89,7 @@ export class UserService {
       );
     }
     const foundUser = await this.userModel.findById(id).exec();
-    const res = await foundUser.update(user).exec();
+    const res = await foundUser.update(user, { lean: true }).exec();
     delete res.password;
     return res;
   }
