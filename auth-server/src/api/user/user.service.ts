@@ -18,7 +18,7 @@ export class UserService {
     return await this.userModel.create(param);
   }
 
-  async findById(id: string) {
+  async findById(id: string): Promise<Omit<User & Document, 'password'>> {
     if (!Types.ObjectId.isValid(id)) {
       throw new HttpException(
         `Id ${id} is not valid ObjectId`,
@@ -32,10 +32,13 @@ export class UserService {
         HttpStatus.NOT_FOUND,
       );
     }
+    delete ret.password;
     return ret;
   }
 
-  async findByIdentityNumber(identityNumber: string) {
+  async findByIdentityNumber(
+    identityNumber: string,
+  ): Promise<Omit<User & Document, 'password'>> {
     const ret = await this.userModel.findOne({ identityNumber }).exec();
     if (!ret) {
       throw new HttpException(
@@ -43,10 +46,13 @@ export class UserService {
         HttpStatus.NOT_FOUND,
       );
     }
+    delete ret.password;
     return ret;
   }
 
-  async findByUsername(username: string) {
+  async findByUsername(
+    username: string,
+  ): Promise<Omit<User & Document, 'password'>> {
     const ret = await this.userModel.findOne({ username }).exec();
     if (!ret) {
       throw new HttpException(
@@ -54,18 +60,19 @@ export class UserService {
         HttpStatus.NOT_FOUND,
       );
     }
+    delete ret.password;
     return ret;
   }
 
   async findByRole(role: string) {
-    const ret = await this.userModel.find({ 'roles': role }).exec();
+    const ret = await this.userModel.find({ roles: role }).exec();
     if (!ret) {
       throw new HttpException(
         `Users by role ${role} not found`,
         HttpStatus.NOT_FOUND,
       );
     }
-    return ret;
+    return ret.map((e) => ({ ...e, password: undefined }));
   }
 
   async updateUserById(id: string, user: UserUpdateDto) {
@@ -76,7 +83,9 @@ export class UserService {
       );
     }
     const foundUser = await this.userModel.findById(id).exec();
-    await foundUser.update(user).exec();
+    const res = await foundUser.update(user).exec();
+    delete res.password;
+    return res;
   }
 
   async deleteUserById(id: string) {
