@@ -20,7 +20,7 @@ const AdminAddEditWorker: React.FC<WorkerProps> = (props) => {
         identityNumber: Yup.string().required('Identity Number is required!').min(13, 'Identity Number must have 13 digits!').max(13, 'Identity Number must have 13 digits!'),
         firstName: Yup.string().required('First name is required!'),
         lastName: Yup.string().required('Last name is required!'),
-        password: Yup.string().min(6, 'Password must contain 6 characters').required('Password is required!')
+        password: Yup.string().min(6, 'Password must contain 6 characters')
     });
 
     const initialValues = {
@@ -28,7 +28,7 @@ const AdminAddEditWorker: React.FC<WorkerProps> = (props) => {
         username: worker?.username || "",
         firstName: worker?.firstName || "",
         lastName: worker?.lastName || "",
-        password: worker?.password || "",
+        password: "",
     };
 
     const onSubmit = (values: any, actions: FormikHelpers<{

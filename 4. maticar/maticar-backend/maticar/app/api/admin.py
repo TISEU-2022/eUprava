@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 from maticar.app.auth import (
     JWTBearer,
 )
-from maticar.app.schemas import WorkerAddSchema
+from maticar.app.schemas import WorkerAddSchema, WorkerUpdateSchema
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,7 +51,7 @@ async def add_worker(
 @admin_router.put("/workers/{worker_id:str}", status_code=201, dependencies=[Depends(JWTBearer())])
 async def edit_worker(
     worker_id: str,
-    worker: WorkerAddSchema = Body(...),
+    worker: WorkerUpdateSchema = Body(...),
     db: Session = Depends(m_api.get_db)
 ):
     try:

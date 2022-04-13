@@ -6,12 +6,15 @@ export const getWorkers = () => {
 };
 
 export const addEditWorker = (worker?: WorkerSchemaType, id?: string) => {
-    let data = {
+    let data: any = {
         identity_number: worker?.identityNumber,
-        password: worker?.password,
         first_name: worker?.firstName,
         last_name: worker?.lastName,
-        username: worker?.username
+        username: worker?.username,
+        roles: ["maticar_worker"]
+    }
+    if (worker?.password) {
+        data['password'] = worker?.password
     }
     if (id) {
         return apiAxios.put(`/admin/workers/${id}`, data)

@@ -35,13 +35,20 @@ class AdminManager(object):
 
     async def update_worker(self, worker_id, worker):
         try:
-            return requests.put(
-                os.getenv('AUTH_SERVER_API') + "/user/" + worker_id,
-                data={
+            data = {
+                    "username": worker.username,
                     "firstName": worker.first_name,
                     "lastName": worker.last_name,
-                    "password": worker.password
-                })
+                    "identityNumber": worker.identity_number,
+                    "roles": ["maticar_worker"]
+                }
+
+            if worker.password:
+                data["password"] = worker.password
+
+            return requests.put(
+                os.getenv('AUTH_SERVER_API') + "/user/" + worker_id,
+                data=data)
         except Exception as e:
             logger.error("Error ocured getting workers. Error {}".format(str(e)))
         return None

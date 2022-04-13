@@ -4,8 +4,8 @@ export interface WorkerSchemaType {
     firstName: string,
     lastName: string,
     identityNumber: string,
-    password: string,
-    roles: string[]
+    password?: string,
+    roles?: string[]
 }
 
 export interface WorkerProps {
