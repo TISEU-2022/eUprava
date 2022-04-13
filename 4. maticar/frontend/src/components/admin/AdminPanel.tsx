@@ -1,47 +1,16 @@
-import { Box, Flex } from '@chakra-ui/react';
-import React, { useEffect, useState } from 'react';
-import { getWorkers } from '../../api/api';
-import CommonDataTable, { CommonDataTableHeadings } from '../common/CommonDataTable';
+import React from 'react';
+import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import AdminViewWorkers from './AdminViewWorkers';
 
 const AdminPanel = () => {
-  const [workers, setWorkers] = useState([]);
-
-  const columns = [
-    {
-      key: 'firstName',
-      numeric: false,
-      title: 'First name'
-    },
-    {
-      key: 'lastName',
-      numeric: false,
-      title: 'Last name'
-    },
-    {
-      key: 'identityNumber',
-      numeric: false,
-      title: 'Identity Number'
-    },
-    {
-      key: 'username',
-      numeric: false,
-      title: 'Username'
-    }]
-
-  useEffect(() => {
-    getWorkers().then((res) => {
-      setWorkers(res?.data)
-    });
-  }, []);
-
-  return <Box mt={20} ml={50} mr={50}>
-    <CommonDataTable
-      data={workers}
-      searchInputProps={{width: 200, m: 2}}
-      onRowClickHandler={(value) => {console.log(value)}}
-      tableHeadings={columns}
-    />
-  </Box>
+  return <Tabs width="95%" isFitted variant="line">
+    <TabList>
+      <Tab>Workers</Tab>
+    </TabList>
+    <TabPanels>
+      <AdminViewWorkers />
+    </TabPanels>
+  </Tabs>
 };
 
 export default AdminPanel;

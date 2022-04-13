@@ -4,7 +4,7 @@ from .common import (
     PaginationPage
 )
 
-from .admin import WorkerAddSchema, WorkerUpdateSchema
+from .admin import WorkerAddSchema
 from .worker import MarriageAddSchema, MarriageGetSchema
 
 __all__ = [
@@ -12,7 +12,6 @@ __all__ = [
     "ErrorSchemaResp",
     "PaginationPage",
     "WorkerAddSchema",
-    "WorkerUpdateSchema",
     "MarriageAddSchema",
     "MarriageGetSchema"
 ]

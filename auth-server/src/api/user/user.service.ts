@@ -78,4 +78,14 @@ export class UserService {
     const foundUser = await this.userModel.findById(id).exec();
     await foundUser.update(user).exec();
   }
+
+  async deleteUserById(id: string) {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new HttpException(
+        `Id ${id} is not valid ObjectId`,
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    await this.userModel.findById(id).remove().exec();
+  }
 }

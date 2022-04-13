@@ -45,3 +45,10 @@ class AdminManager(object):
         except Exception as e:
             logger.error("Error ocured getting workers. Error {}".format(str(e)))
         return None
+
+    async def delete_worker(self, worker_id):
+        try:
+            return requests.delete(os.getenv('AUTH_SERVER_API') + "/user/" + worker_id)
+        except Exception as e:
+            logger.error("Error ocured getting workers. Error {}".format(str(e)))
+        return None
