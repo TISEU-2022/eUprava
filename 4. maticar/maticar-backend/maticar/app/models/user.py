@@ -46,5 +46,5 @@ class UserMarriageRegister(Base):
 class UserRelation(Base):
     __tablename__ = 'user_relation'
     id = Column(BIGINT(unsigned=True), primary_key=True, index=True)
-    parent_id = Column('user_relation_parent_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
-    child_id = Column('user_relation_child_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
+    parent_id = Column('user_relation_parent_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), unique=False, index=True)
+    child_id = Column('user_relation_child_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), unique=False, index=True)
