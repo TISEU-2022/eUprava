@@ -1,7 +1,9 @@
 from .common import (
     CheckName,
     ErrorSchemaResp,
-    PaginationPage
+    PaginationPage,
+    BirthCertificateSchema,
+    ParentSchema
 )
 
 from .admin import WorkerAddSchema, WorkerUpdateSchema
@@ -14,5 +16,7 @@ __all__ = [
     "WorkerAddSchema",
     "MarriageAddSchema",
     "MarriageGetSchema",
-    "WorkerUpdateSchema"
+    "WorkerUpdateSchema",
+    "BirthCertificateSchema",
+    "ParentSchema"
 ]

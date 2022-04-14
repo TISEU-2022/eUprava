@@ -25,3 +25,7 @@ export const addEditWorker = (worker?: WorkerSchemaType, id?: string) => {
 export const deleteWorker = (id: string) => {
     return apiAxios.delete(`/admin/workers/${id}`)
 }
+
+export const getUsers = () => {
+    return apiAxios.get(`/worker/users`)
+}

@@ -5,7 +5,7 @@ from .base import (
     get_db,
 )
 
-from .user import UserBirthRegister, UserMarriageRegister
+from .user import UserBirthRegister, UserMarriageRegister, UserRelation
 
 __all__ = [
     "Session",
@@ -13,5 +13,6 @@ __all__ = [
     "Base",
     "get_db",
     "UserBirthRegister",
-    "UserMarriageRegister"
+    "UserMarriageRegister",
+    "UserRelation"
 ]

@@ -13,7 +13,7 @@ def generate_uuid():
 birth_register = Table(
     'birth_register',
     meta,
-    Column('id', BIGINT(unsigned=True), primary_key=True),
+    Column('id', BIGINT(unsigned=True), primary_key=True, index=True),
     Column('identification_number', String(13), nullable=False, index=True),
     Column('first_name', String(50), nullable=False),
     Column('last_name', String(50), nullable=False),
@@ -27,7 +27,7 @@ birth_register = Table(
 marriage = Table(
     'user_marriage',
     meta,
-    Column('id', BIGINT(unsigned=True), primary_key=True),
+    Column('id', BIGINT(unsigned=True), primary_key=True, index=True),
     Column('created_at', DateTime(), nullable=False),
     Column('divorced_at', DateTime(), nullable=True),
     Column('party_1_id', String(13), ForeignKey("birth_register.identification_number", ondelete="CASCADE"), nullable=False),
@@ -39,7 +39,7 @@ marriage = Table(
 user_relations = Table(
     'user_relation',
     meta,
-    Column('id', String(13), primary_key=True),
+    Column('id', BIGINT(unsigned=True), primary_key=True, index=True),
     Column('user_relation_parent_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), primary_key=True, unique=False, index=True),
     Column('user_relation_child_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
     )

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 import logging
-from typing import Optional, Generic, Sequence, TypeVar
+from typing import Optional, Generic, Sequence, TypeVar, List
 from fastapi_pagination.bases import AbstractParams, BasePage
 from pydantic import conint
 from fastapi_pagination import Params
@@ -11,10 +11,23 @@ logger = logging.getLogger(__name__)
 T = TypeVar("T")
 
 
+class RelationsSchema(BaseModel):
+    children: Optional[List[str]] = Field(None)
+
+
 class ParentSchema(BaseModel):
-    id: int = Field(...)
-    name: str = Field(...)
-    type: Optional[str] = Field(None)
+    parent_1_iden_number: str = Field(...)
+    parent_2_iden_number: str = Field(...)
+
+
+class BirthCertificateSchema(BaseModel):
+    identification_number: str = Field(...)
+    first_name: str = Field(...)
+    last_name: str = Field(...)
+    gender: str = Field(...)
+    date_of_birth: dt.date = Field(...)
+    country_of_birth: str = Field(...)
+    citizenship: str = Field(...)
 
 
 class SynonymSchema(BaseModel):

@@ -24,7 +24,7 @@ const AdminViewWorkers = () => {
                 status: 'success',
                 duration: 9000,
                 isClosable: true,
-              }) 
+            })
         }).catch((error) => {
             console.log(error)
             toast({
@@ -32,7 +32,7 @@ const AdminViewWorkers = () => {
                 status: 'error',
                 duration: 9000,
                 isClosable: true,
-              }) 
+            })
         })
     }
 
@@ -65,9 +65,11 @@ const AdminViewWorkers = () => {
         }]
 
     useEffect(() => {
-        getWorkers().then((res) => {
-            setWorkers(res?.data)
-        });
+        if (!isAddEdit) {
+            getWorkers().then((res) => {
+                setWorkers(res?.data)
+            });
+        }
     }, [isAddEdit]);
 
     return isAddEdit ?
