@@ -32,8 +32,8 @@ class BirthCertificateSchema(BaseModel):
 
 class UserGetSchema(BaseModel):
     birth_certificate: BirthCertificateSchema = Field(None)
-    parents: List[int] = Field([])
-    children: List[int] = Field([])
+    parents: List[str] = Field([])
+    children: List[str] = Field([])
 
 
 class CheckName(BaseModel):
