@@ -1,5 +1,4 @@
 import { createStandaloneToast } from '@chakra-ui/react';
-import jwtDecode from 'jwt-decode';
 import { atom, selector, selectorFamily } from 'recoil';
 import localStorageEffect from '../effects.recoil';
 import authAxios from './auth.axios';
