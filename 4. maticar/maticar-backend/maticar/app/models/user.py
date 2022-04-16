@@ -11,7 +11,7 @@ from .base import Base
 
 class UserBirthRegister(Base):
     __tablename__ = "birth_register"
-    id = Column(BIGINT(unsigned=True), primary_key=True)
+    id = Column(BIGINT(unsigned=True), primary_key=True, index=True)
     identification_number = Column(String(13), nullable=False, index=True)
     first_name = Column(String(50), nullable=False)
     last_name = Column(String(50), nullable=False)
@@ -45,6 +45,6 @@ class UserMarriageRegister(Base):
 
 class UserRelation(Base):
     __tablename__ = 'user_relation'
-    id = Column(BIGINT(unsigned=True), primary_key=True)
-    parent_id = Column(String(13), ForeignKey('birth_register.identification_number', name='user_relation_parent_id_foreign', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
-    child_id = Column(String(13), ForeignKey('birth_register.identification_number', name='user_relation_child_id_foreign', ondelete="CASCADE"), primary_key=True, unique=False, index=True)
+    id = Column(BIGINT(unsigned=True), primary_key=True, index=True)
+    parent_id = Column('user_relation_parent_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), unique=False, index=True)
+    child_id = Column('user_relation_child_id_foreign', String(13), ForeignKey('birth_register.identification_number', ondelete="CASCADE"), unique=False, index=True)

@@ -14,6 +14,8 @@ class WorkerAddSchema(BaseModel):
 
 
 class WorkerUpdateSchema(BaseModel):
+    identity_number: str = Field(...)
     password: Optional[str] = Field(None)
-    first_name: Optional[str] = Field(None)
-    last_name: Optional[str] = Field(None)
+    first_name: str = Field(...)
+    last_name: str = Field(...)
+    username: str = Field(...)
