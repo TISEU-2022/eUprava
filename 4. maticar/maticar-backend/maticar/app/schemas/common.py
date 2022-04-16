@@ -30,11 +30,10 @@ class BirthCertificateSchema(BaseModel):
     citizenship: str = Field(...)
 
 
-class SynonymSchema(BaseModel):
-    index: Optional[int] = Field(None)
-    id: Optional[int] = Field(None)
-    name: str = Field(...)
-    lang: str = Field(...)
+class UserGetSchema(BaseModel):
+    birth_certificate: BirthCertificateSchema = Field(None)
+    parents: List[int] = Field([])
+    children: List[int] = Field([])
 
 
 class CheckName(BaseModel):

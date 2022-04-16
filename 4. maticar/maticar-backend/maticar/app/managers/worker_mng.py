@@ -21,51 +21,6 @@ class WorkerManager(object):
         return users
 
     async def get_marriages(self):
-        # user_1 = m_mng.UserBirthRegister(
-        #     identification_number="0312999800094",
-        #     first_name="Ivan",
-        #     last_name="Djuraki",
-        #     gender="Male",
-        #     date_of_birth=dt.now(),
-        #     deceased_at=None,
-        #     country_of_birth="Serbia",
-        #     citizenship="Serbian"
-        # )
-        # user_2 = m_mng.UserBirthRegister(
-        #     identification_number="0312999800093",
-        #     first_name="Brajko",
-        #     last_name="Radic",
-        #     gender="Male",
-        #     date_of_birth=dt.now(),
-        #     deceased_at=None,
-        #     country_of_birth="Serbia",
-        #     citizenship="Serbian"
-        # )
-        # user_3 = m_mng.UserBirthRegister(
-        #     identification_number="0312999800091",
-        #     first_name="Zunja",
-        #     last_name="Marin",
-        #     gender="Male",
-        #     date_of_birth=dt.now(),
-        #     deceased_at=None,
-        #     country_of_birth="Serbia",
-        #     citizenship="Serbian"
-        # )
-        # user_4 = m_mng.UserBirthRegister(
-        #     identification_number="0312999800092",
-        #     first_name="Gepard",
-        #     last_name="Orovicki",
-        #     gender="Male",
-        #     date_of_birth=dt.now(),
-        #     deceased_at=None,
-        #     country_of_birth="Serbia",
-        #     citizenship="Serbian"
-        # )
-        # self.db.add(user_1)
-        # self.db.add(user_2)
-        # self.db.add(user_3)
-        # self.db.add(user_4)
-        # self.db.commit()
         marriages = self.db.query(
             m_mng.UserMarriageRegister.id,
             m_mng.UserMarriageRegister.party_1_id,

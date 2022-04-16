@@ -7,7 +7,7 @@ from fastapi import (
 from maticar.app import models as m_api
 from maticar.app import managers as mm_mng
 from sqlalchemy.orm import Session
-from maticar.app.schemas import BirthCertificateSchema, ParentSchema
+from maticar.app.schemas import BirthCertificateSchema, ParentSchema, UserGetSchema
 import logging
 
 logger = logging.getLogger(__name__)
@@ -62,3 +62,31 @@ async def add_parents(
     except Exception as e:
         logger.error(f"Error occured getting creating marriage. Error {str(e)}")
     raise HTTPException(status_code=422, detail=result)
+
+
+@user_router.get("/{identification_number:str}", status_code=201, response_model=UserGetSchema)
+async def get_user_info(
+    identification_number: str,
+    db: Session = Depends(m_api.get_db)
+):
+    try:
+        result = await mm_mng.UserManager().get_user_info(identification_number)
+        if result:
+            return result
+    except Exception as e:
+        logger.error("Error occured getting user. Error {}".format(str(e)))
+    raise HTTPException(status_code=404, detail="User by identification number not found!")
+
+
+@user_router.put("/{identification_number:str}", status_code=201)
+async def mark_user_as_deceased(
+    identification_number: str,
+    db: Session = Depends(m_api.get_db)
+):
+    try:
+        result = await mm_mng.UserManager().mark_user_as_deceased(identification_number)
+        if result:
+            return result
+    except Exception as e:
+        logger.error("Error occured getting user. Error {}".format(str(e)))
+    raise HTTPException(status_code=404, detail="User by identification number not found or already deceased!")

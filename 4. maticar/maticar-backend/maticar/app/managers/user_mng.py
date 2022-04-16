@@ -1,4 +1,5 @@
 from maticar.app import models as m_mng
+from datetime import datetime as dt
 
 
 class UserManager(object):
@@ -18,6 +19,56 @@ class UserManager(object):
         self.db.add(user)
         self.db.commit()
         return True
+
+    async def mark_user_as_deceased(self, identification_number):
+        user = self.db.query(
+            m_mng.UserBirthRegister
+        ).filter(
+            m_mng.UserBirthRegister.identification_number == identification_number,
+            m_mng.UserBirthRegister.deceased_at.is_(None)
+        ).first()
+        if user:
+            user.deceased_at = dt.now()
+            self.db.commit()
+            return {"status": "Success"}
+        return None
+
+    async def get_user_info(self, identification_number):
+        birth_certificate = self.db.query(
+            m_mng.UserBirthRegister.identification_number,
+            m_mng.UserBirthRegister.first_name,
+            m_mng.UserBirthRegister.last_name,
+            m_mng.UserBirthRegister.gender,
+            m_mng.UserBirthRegister.date_of_birth,
+            m_mng.UserBirthRegister.deceased_at,
+            m_mng.UserBirthRegister.country_of_birth,
+            m_mng.UserBirthRegister.citizenship
+        ).filter(
+            m_mng.UserBirthRegister.identification_number == identification_number
+        ).first()
+
+        if birth_certificate:
+            return_object = {}
+            return_object['birth_certificate'] = birth_certificate
+            birth_certificate = birth_certificate._asdict()
+            parents = self.db.query(
+                m_mng.UserRelation.parent_id
+            ).filter(
+                m_mng.UserRelation.child_id == birth_certificate['identification_number']
+            ).all()
+            if parents:
+                parents = [k._asdict()['parent_id'] for k in parents]
+                return_object['parents'] = parents
+            children = self.db.query(
+                m_mng.UserRelation.child_id
+            ).filter(
+                m_mng.UserRelation.parent_id == birth_certificate['identification_number']
+            ).all()
+            if children:
+                children = [k._asdict()['child_id'] for k in children]
+                return_object['children'] = children
+            return return_object
+        return None
 
     async def add_parents(self, parents, identification_number):
         parents = parents.__dict__
