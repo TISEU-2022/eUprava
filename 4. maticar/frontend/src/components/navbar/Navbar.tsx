@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
         const value = isLoggedIn.contents;
         if (value)
           return (
-            <Button colorScheme="pink" onClick={performLogout}>
+            <Button colorScheme="teal" onClick={performLogout}>
               Log-out
             </Button>
           );

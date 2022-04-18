@@ -1,9 +1,8 @@
 from fastapi import (
     APIRouter,
     Depends,
-    Request,
-    Body,
-    Response
+    Response,
+    HTTPException
 )
 from maticar.app import models as m_api
 from typing import List
@@ -24,7 +23,7 @@ worker_router = APIRouter(
 )
 
 
-@worker_router.post("/marriage", status_code=200)
+@worker_router.post("/marriage", status_code=200, dependencies=[Depends(JWTBearer())])
 async def add_marriage(
     marriage: MarriageAddSchema,
     db: Session = Depends(m_api.get_db)
@@ -37,20 +36,33 @@ async def add_marriage(
     return None
 
 
-@worker_router.put("/marriage", status_code=200)
+@worker_router.get("/users", status_code=200, dependencies=[Depends(JWTBearer())])
+async def get_users(
+    db: Session = Depends(m_api.get_db)
+):
+    try:
+        result = await mm_mng.WorkerManager().get_users()
+        return result
+    except Exception as e:
+        logger.error(f"Error occured getting users. Error {str(e)}")
+    return None
+
+
+@worker_router.put("/marriage/{marriage_id:str}", status_code=200, dependencies=[Depends(JWTBearer())])
 async def divorce_marriage(
     marriage_id: str,
     db: Session = Depends(m_api.get_db)
 ):
     try:
         result = await mm_mng.WorkerManager().divorce_marriage(marriage_id)
-        return result
+        if result:
+            return Response(status_code=201)
     except Exception as e:
-        logger.error(f"Error occured getting creating marriage. Error {str(e)}")
-    return None
+        logger.error(f"Error occured getting divorcing marriage. Error {str(e)}")
+    raise HTTPException(status_code=400, detail="Marriage not found or already divorced.")
 
 
-@worker_router.get("/marriage", response_model=List[MarriageGetSchema], status_code=200)
+@worker_router.get("/marriage", response_model=List[MarriageGetSchema], status_code=200, dependencies=[Depends(JWTBearer())])
 async def get_marriages(
     db: Session = Depends(m_api.get_db)
 ):

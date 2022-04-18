@@ -3,7 +3,7 @@ import { getRecoil } from 'recoil-nexus';
 import { MATICAR_BACKEND_URL } from '../constants';
 import { tokenAtom } from '../state/auth/auth.atom';
 
-const apiAxios = axios.create({
+export const apiAxios = axios.create({
   baseURL: MATICAR_BACKEND_URL,
 });
 
@@ -23,7 +23,3 @@ apiAxios.interceptors.request.use(
   },
   (error) => Promise.reject(error),
 );
-
-export const getWorkers = async () => {
-  return apiAxios.get(`admin/workers`);
-};

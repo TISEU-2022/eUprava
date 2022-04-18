@@ -26,17 +26,23 @@ import React, {
   Dispatch,
   ReactElement,
   SetStateAction,
+  useCallback,
   useMemo,
   useState,
 } from 'react';
 import { TriangleDownIcon, TriangleUpIcon } from '@chakra-ui/icons';
 
-type SortState = { key?: string; order: 'asc' | 'desc' | 'none' };
+type SortState = {
+  key?: string | number | symbol;
+  order: 'asc' | 'desc' | 'none';
+};
 
 export type CommonDataTableHeadings<T> = {
-  key: keyof T;
   numeric?: boolean;
   title?: string;
+} & {
+  key: keyof T | number;
+  componentInstead?: (value: T) => ReactElement;
 };
 
 export type CommonDataTablePropsWithoutSearch<T> = {
@@ -177,11 +183,9 @@ const SearchComponent: React.FC<{
         value={value}
         {...inputProps}
       />
-      <InputRightElement width="4.5rem">
-        <Button h="1.75rem" size="sm" {...buttonProps} onClick={handleClick}>
+        <Button mt={2} color="teal" {...buttonProps} onClick={handleClick}>
           Clear
         </Button>
-      </InputRightElement>
     </InputGroup>
   );
 };
@@ -198,6 +202,17 @@ const TbodyComponent: React.FC<{
   placeHolderTableRow?: string | ReactElement;
 }> = ({ data, tableHeadings, placeHolderTableRow, onRowClickHandler }) => {
   const keys = tableHeadings.map((e) => e.key);
+  const tableHeadingsWithComponent = tableHeadings.filter(
+    (e) => !!e.componentInstead,
+  );
+
+  const getComponentFromTableHeadings = useCallback(
+    (key: string | number | symbol) => {
+      return tableHeadingsWithComponent.find((e) => e.key === key)
+        ?.componentInstead;
+    },
+    [tableHeadingsWithComponent],
+  );
 
   const rowColumnPlaceholder = () => {
     if (!placeHolderTableRow) return <></>;
@@ -216,7 +231,9 @@ const TbodyComponent: React.FC<{
             cursor={onRowClickHandler ? 'pointer' : 'initial'}
           >
             {keys.map((key, ki) => {
-              const value = entry[key] ?? rowColumnPlaceholder();
+              const foundComponent = getComponentFromTableHeadings(key);
+              const value =
+                foundComponent?.(entry) ?? entry[key] ?? rowColumnPlaceholder();
               return <Td key={ki}>{value}</Td>;
             })}
           </Tr>
@@ -249,7 +266,7 @@ const TheadsComponent: React.FC<{
 
 const ThComponent: React.FC<{
   disableSort?: boolean;
-  thData: CommonDataTableHeadings<unknown>;
+  thData: CommonDataTableHeadings<any>;
   sortState: SortState;
   setSortState: Handler<SortState>;
 }> = ({ disableSort, thData: th, sortState, setSortState }) => {
@@ -265,16 +282,14 @@ const ThComponent: React.FC<{
           <Box display="flex" flexDirection="column" ml={1}>
             <TriangleUpIcon
               onClick={() => {
-                setSortState({ key: th.key as string, order: 'asc' });
+                setSortState({ key: th.key, order: 'asc' });
               }}
               boxSize="0.8em"
               cursor="pointer"
               color={isAscending ? 'cyan.700' : 'gray.500'}
             />
             <TriangleDownIcon
-              onClick={() =>
-                setSortState({ key: th.key as string, order: 'desc' })
-              }
+              onClick={() => setSortState({ key: th.key, order: 'desc' })}
               boxSize="0.8em"
               cursor="pointer"
               color={isDescending ? 'cyan.700' : 'gray.500'}

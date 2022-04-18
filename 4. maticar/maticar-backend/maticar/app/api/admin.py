@@ -43,7 +43,6 @@ async def add_worker(
 ):
     try:
         result = await mm_mng.AdminManager().add_worker(worker)
-        print(result.content)
         return Response(status_code=result.status_code, content=result.content)
     except Exception as e:
         logger.error(f"Error occured deleting workers API. Error {str(e)}")
@@ -57,6 +56,18 @@ async def edit_worker(
 ):
     try:
         result = await mm_mng.AdminManager().update_worker(worker_id, worker)
+        return Response(status_code=result.status_code, content=result.content)
+    except Exception as e:
+        logger.error(f"Error occured deleting workers API. Error {str(e)}")
+
+
+@admin_router.delete("/workers/{worker_id:str}", status_code=201, dependencies=[Depends(JWTBearer())])
+async def delete_worker(
+    worker_id: str,
+    db: Session = Depends(m_api.get_db)
+):
+    try:
+        result = await mm_mng.AdminManager().delete_worker(worker_id)
         return Response(status_code=result.status_code, content=result.content)
     except Exception as e:
         logger.error(f"Error occured deleting workers API. Error {str(e)}")
