@@ -7,6 +7,12 @@
 - [Docker](https://docs.docker.com/get-docker/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
+## Svi API endpointi koji u swaggeru nemaju katanac sa desne strane su auth endpointi koji su predvidjeni da se gadjaju sa drugih servisa(ne zahtevaju JWT token)
+
+## DODAVANJE U KNJIGU RODJENIH
+1. Prvo upisati na api endpoint /api/user/ osnovne podatke iz knjige rodjenih(videti semu u docs-swagger)
+2. ZATIM roditelje dodati na /api/user/parents/{id_usera_koji_je_dodat}
+
 This project is using docker for databases and it needs to be installed, also you need docker compose to be able to start docker containers easily.
 
 Here are list of instructions to get you started:
