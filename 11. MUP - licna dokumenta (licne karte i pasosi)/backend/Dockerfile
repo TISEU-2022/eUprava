@@ -6,7 +6,7 @@ WORKDIR /app
 
 #copy pom
 COPY pom.xml .
-    
+
 #copy source
 COPY src ./src
 
