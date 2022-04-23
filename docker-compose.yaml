@@ -152,6 +152,21 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
+  # --- ePortal ---
+  eportal:
+    environment:
+      - VITE_PORT=4011
+      - VITE_APP_URL=http://localhost:4011
+      - VITE_AUTH_SERVER_URL=http://localhost:4101
+    build:
+      context: ./eportal/
+    container_name: eportal 
+    networks:
+      tiseu:
+        aliases:
+          - eportal 
+    ports:
+      - "4011:4011"
 
 
 volumes:
