@@ -16,7 +16,7 @@ import { ApiParam, ApiQuery } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @ApiQuery({ name: 'successUrl', type: 'string' })
   @Get('login')
@@ -48,6 +48,7 @@ export class AuthController {
     if (!successUrl) {
       return res.json({ message: 'successUrl query parameter needed' });
     }
+    this.authService.clearUserTokensById(session.user_id);
     session.destroy();
     return res.redirect(successUrl);
   }
@@ -73,6 +74,7 @@ export class AuthController {
     }
     const url = new URL(successUrl);
     const jwt = await this.authService.jwt(user);
+    session.user_id = user._id;
     session.user = jwt;
     url.searchParams.append('token', jwt);
     return res.redirect(url.toString());
@@ -85,6 +87,7 @@ export class AuthController {
       const user = await this.authService.findUserByUsername(
         jwtToken.username as string,
       );
+      if (!user.tokens?.includes(token)) throw Error("Token not persistent")
       return {
         claims: jwtToken,
         user: user,
