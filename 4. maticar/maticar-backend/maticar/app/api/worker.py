@@ -30,10 +30,11 @@ async def add_marriage(
 ):
     try:
         result = await mm_mng.WorkerManager().add_marriage(marriage)
-        return result
+        if result is True:
+            return {"status": "Added marriage."}
     except Exception as e:
         logger.error(f"Error occured getting creating marriage. Error {str(e)}")
-    return None
+    raise HTTPException(status_code=400, detail=result)
 
 
 @worker_router.get("/users", status_code=200, dependencies=[Depends(JWTBearer())])

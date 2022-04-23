@@ -129,7 +129,7 @@ class UserManager(object):
             m_mng.UserRelation.child_id == identification_number
         ).all()
         if already_is_child:
-            if list(already_is_child) == 2:
+            if len(list(already_is_child)) >= 2:
                 return {
                         "detail": [
                             {
