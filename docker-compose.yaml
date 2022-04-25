@@ -38,6 +38,7 @@ services:
         condition: service_healthy
     ports:
       - "4101:3101"
+      - "5101:3101"
 
   auth-mongo:
     image: mongo
@@ -137,6 +138,30 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
+
+
+
+  # --- Zdravstvo ---
+  zdravstvo-frontend:
+    environment:
+      - PORT=5000
+      - APP_URL=http://localhost:5000
+      - AUTH_SERVER_URL=http://localhost:5101
+      - BACKEND_URL=http://localhost:5001/api
+    build:
+      context: ./5. zdravstvo/zdravstvo-frontend
+    container_name: zdravstvo-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "5000:5000"
+    command: npm start
+
+
+
+
   # --- ePortal ---
   eportal:
     environment:
