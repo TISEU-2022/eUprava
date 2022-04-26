@@ -180,17 +180,13 @@ services:
     image: mysql:8.0.23
     container_name: zdravstvo-mysql
     ports:
-      - "5002:5002"
+      - "5002:3306"
     environment:
-      - MYSQL_TCP_PORT=5002
       - MYSQL_ROOT_PASSWORD=zdravstvo123
       - MYSQL_DATABASE=zdravstvo
+      - MYSQL_ROOT_HOST=%
     volumes:
       - zdravstvo-mysql:/var/lib/mysql
-    networks:
-      tiseu:
-        aliases:
-          - "zdravstvoDB"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
