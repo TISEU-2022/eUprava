@@ -2,6 +2,7 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
 import lombok.*;
 
+import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -21,6 +22,9 @@ public class KomunalniProblem {
     private Date datumDogadjaja;
     private VrstaKomunalnogProblema vrstaKomunalnogProblema;
     private List<String> putanjeDoDatoteka;
+
+    @OneToOne
+    private Izvestaj izvestaj;
 
     @Override
     public String toString() {

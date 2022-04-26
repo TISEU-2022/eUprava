@@ -1,7 +1,10 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO;
 
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Izvestaj;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.VrstaPredstavke;
 import lombok.*;
 
+import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
 
@@ -20,4 +23,6 @@ public class PredstavkaDTO {
     private String mestoDogadjaja;
     private Date datumDogadjaja;
     private List<String> putanjeDoDatoteka;
+    private VrstaPredstavke vrstaPredstavke;
+    private Izvestaj izvestaj;
 }
