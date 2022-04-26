@@ -1,8 +1,8 @@
-package model.DTO;
+package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO;
 
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Podnosilac;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.VrstaKomunalnogProblema;
 import lombok.Data;
-import model.Podnosilac;
-import model.VrstaKomunalnogProblema;
 
 import java.util.Date;
 import java.util.List;

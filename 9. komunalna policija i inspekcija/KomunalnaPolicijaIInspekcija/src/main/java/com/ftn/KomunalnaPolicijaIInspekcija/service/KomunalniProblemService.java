@@ -1,6 +1,6 @@
-package service;
+package com.ftn.KomunalnaPolicijaIInspekcija.service;
 
-import model.KomunalniProblem;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
 
 import java.util.List;
 import java.util.UUID;

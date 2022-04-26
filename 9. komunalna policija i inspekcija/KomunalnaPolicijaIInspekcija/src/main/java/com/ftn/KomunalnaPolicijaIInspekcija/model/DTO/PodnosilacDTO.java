@@ -1,4 +1,4 @@
-package model.DTO;
+package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO;
 
 import lombok.Data;
 

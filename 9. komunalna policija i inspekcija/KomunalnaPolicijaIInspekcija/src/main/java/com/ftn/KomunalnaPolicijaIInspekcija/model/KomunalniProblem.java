@@ -1,4 +1,4 @@
-package model;
+package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
 import lombok.*;
 

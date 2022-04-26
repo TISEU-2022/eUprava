@@ -1,6 +1,6 @@
-package repository;
+package com.ftn.KomunalnaPolicijaIInspekcija.repository;
 
-import model.KomunalniProblem;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
