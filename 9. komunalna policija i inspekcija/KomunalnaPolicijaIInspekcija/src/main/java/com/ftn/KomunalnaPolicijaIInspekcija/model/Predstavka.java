@@ -11,6 +11,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table
 public class Predstavka {
 
     @Id

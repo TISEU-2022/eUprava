@@ -8,7 +8,7 @@ public interface SluzbenikService {
 
     SluzbenikDTO getOne(UUID id);
     UUID createSluzbenik(SluzbenikDTO sluzbenikDTO);
-    void updateSluzbenik(SluzbenikDTO sluzbenikDTO);
-    void deleteSluzbenik(UUID id);
+    void updateSluzbenik(UUID uuid, SluzbenikDTO sluzbenikDTO);
+    boolean deleteSluzbenik(UUID id);
 
 }

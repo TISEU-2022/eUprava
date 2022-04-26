@@ -2,10 +2,7 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Setter
@@ -14,6 +11,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @Builder
+@Entity
+@Table
 public class Sluzbenik {
 
     @Id

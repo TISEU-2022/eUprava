@@ -10,6 +10,8 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
+@Table
 public class Izvestaj {
 
     @Id

@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.UUID;
 
 public interface SluzbenikRepository extends JpaRepository<Sluzbenik, UUID> {
+
+    Sluzbenik findSluzbenikById(UUID uuid);
 }
