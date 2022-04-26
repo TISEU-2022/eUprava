@@ -28,7 +28,10 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    private String address;
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String role;
