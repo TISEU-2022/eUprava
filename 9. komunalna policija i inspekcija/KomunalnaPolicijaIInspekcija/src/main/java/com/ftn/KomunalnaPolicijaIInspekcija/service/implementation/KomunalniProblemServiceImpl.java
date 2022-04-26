@@ -19,22 +19,22 @@ public class KomunalniProblemServiceImpl implements KomunalniProblemService {
     }
 
     @Override
-    public KomunalniProblem getOne(UUID id) {
+    public KomunalniProblem getOne(Long id) {
         return komunalniProblemRepository.findById(id).orElse(null);
     }
 
     @Override
-    public UUID createKomunalniProblem(KomunalniProblem komunalniProblem) {
-        return null;
+    public Long createKomunalniProblem(KomunalniProblem komunalniProblem) {
+        return komunalniProblemRepository.save(komunalniProblem).getId();
     }
 
     @Override
     public KomunalniProblem updateKomunalniProblem(KomunalniProblem komunalniProblem) {
-        return null;
+        return komunalniProblemRepository.save(komunalniProblem);
     }
 
     @Override
-    public void deleteKomunalniProblem(UUID id) {
-
+    public void deleteKomunalniProblem(Long id) {
+        komunalniProblemRepository.deleteKomunalniProblemById(id);
     }
 }

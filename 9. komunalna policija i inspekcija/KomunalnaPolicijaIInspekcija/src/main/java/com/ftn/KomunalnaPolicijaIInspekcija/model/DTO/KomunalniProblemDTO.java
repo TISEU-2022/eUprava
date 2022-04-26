@@ -11,13 +11,14 @@ import java.util.UUID;
 @Data
 public class KomunalniProblemDTO {
 
-    private UUID id;
+    private Long id;
     private String opis;
-    private Podnosilac podnosilac;
+    private PodnosilacDTO podnosilacDTO;
     private String adresaDogadjaja;
     private String mestoDogadjaja;
     private Date datumPodnosenja;
     private Date datumDogadjaja;
+    private IzvestajDTO izvestajDTO;
     private VrstaKomunalnogProblema vrstaKomunalnogProblema;
     private List<String> putanjeDoDatoteka;
 }

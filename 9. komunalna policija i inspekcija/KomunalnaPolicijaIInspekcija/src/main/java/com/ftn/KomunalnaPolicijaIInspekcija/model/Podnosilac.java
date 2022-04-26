@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 
+import javax.persistence.Column;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -13,14 +15,21 @@ import java.util.UUID;
 @Setter
 public class Podnosilac {
 
+    @Id
     private UUID id;
     private String ime;
     private String prezime;
+
+    @Column(name = "jmbg", unique = true)
     private String jmbg;
     private String adresa;
     private String mesto;
+
+    @Column(name = "email", unique = true)
     private String email;
-    private String telefon;
+
+    @Column(name = "brojTelefona", unique = true)
+    private String brojTelefona;
     private int pttBroj;
 
     @Override
@@ -33,7 +42,7 @@ public class Podnosilac {
                 ", adresa='" + adresa + '\'' +
                 ", mesto='" + mesto + '\'' +
                 ", email='" + email + '\'' +
-                ", telefon='" + telefon + '\'' +
+                ", telefon='" + brojTelefona + '\'' +
                 ", pttBroj=" + pttBroj +
                 '}';
     }

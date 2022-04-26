@@ -2,6 +2,9 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
 import lombok.*;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
@@ -13,7 +16,9 @@ import java.util.UUID;
 @Getter
 public class KomunalniProblem {
 
-    private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String opis;
     private Podnosilac podnosilac;
     private String adresaDogadjaja;
