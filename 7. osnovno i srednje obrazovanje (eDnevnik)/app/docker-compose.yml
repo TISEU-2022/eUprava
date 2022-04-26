@@ -1,0 +1,42 @@
+version: '3.8'
+
+networks:
+  app-net:
+
+services:
+  backend:
+    container_name: backend
+    image: edfeahs
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/edfeahs?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: 'root'
+      SPRING_DATASOURCE_PASSWORD: 'root'
+    build:
+      context: './'
+      dockerfile: 'Dockerfile'
+    ports:
+      - '7002:8080'
+    networks:
+      - app-net
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+  db:
+    container_name: db
+    image: 'mysql:8.0.28'
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=test
+      - MYSQL_DATABASE=edfeahs
+    ports:
+      - '7003:3306'
+    networks:
+      app-net:
+    healthcheck:
+      test: [ 'CMD', 'mysqladmin' ,'ping', '-h', 'localhost' ]
+      timeout: 20s
+      retries: 10
