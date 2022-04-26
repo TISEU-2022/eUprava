@@ -2,8 +2,6 @@ package com.ftn.KomunalnaPolicijaIInspekcija.controller;
 
 import com.ftn.KomunalnaPolicijaIInspekcija.exception.NotFoundException;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.SluzbenikDTO;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.SluzbenikMapper;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.Sluzbenik;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.SluzbenikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -12,6 +12,7 @@ import java.util.Date;
 @ToString
 @Entity
 @Table
+@Builder
 public class Izvestaj {
 
     @Id

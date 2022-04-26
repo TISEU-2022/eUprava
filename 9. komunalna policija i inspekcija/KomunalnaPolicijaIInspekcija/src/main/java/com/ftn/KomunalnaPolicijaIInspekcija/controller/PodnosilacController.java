@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/api/podnosilac")
+@RequestMapping(value = "api/podnosilac")
 public class PodnosilacController {
 
     @Autowired
