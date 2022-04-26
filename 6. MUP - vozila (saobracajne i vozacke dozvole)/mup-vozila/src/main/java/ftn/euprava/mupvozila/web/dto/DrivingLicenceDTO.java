@@ -20,6 +20,6 @@ public class DrivingLicenceDTO {
 
     private DrivingLicenceType drivingLicenceType;
 
-    private UserDTO userDTO;
+    private String userId;
 
 }

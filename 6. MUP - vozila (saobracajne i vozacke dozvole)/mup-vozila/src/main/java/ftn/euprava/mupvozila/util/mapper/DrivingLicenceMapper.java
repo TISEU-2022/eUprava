@@ -8,9 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {UserMapper.class})
 public interface DrivingLicenceMapper {
 
-    @Mapping(target = "userDTO", source = "user")
     DrivingLicenceDTO toDto(DrivingLicence drivingLicence);
 
-    @Mapping(target = "user", source = "userDTO")
     DrivingLicence toEntity(DrivingLicenceDTO drivingLicenceDTO);
 }

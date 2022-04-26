@@ -15,7 +15,8 @@ services:
       SPRING_DATASOURCE_USERNAME: newuser
       SPRING_DATASOURCE_PASSWORD: NewUser123
     networks:
-      - backend  
+      - backend
+      - frontend  
 
   db:
     image: mysql:8.0-oracle
@@ -28,14 +29,24 @@ services:
       MYSQL_PASSWORD: NewUser123
       MYSQL_ROOT_PASSWORD: root
     networks:
-      - backend  
-# Volumes
+      - backend
+
+  mup-vozila-frontend:
+    build:
+      context: ./mup-vozila-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "6000:80"
+    restart: always
+    networks:
+      - frontend  
+
 volumes:
   db-data:
 
-# Networks to be created to facilitate communication between containers
 networks:
   backend:
+  frontend:
   
 
 

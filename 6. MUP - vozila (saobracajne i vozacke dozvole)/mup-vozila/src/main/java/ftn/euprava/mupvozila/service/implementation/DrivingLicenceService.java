@@ -34,13 +34,16 @@ public class DrivingLicenceService implements IDrivingLicenceService {
     @Override
     public DrivingLicenceDTO findOneByIdentityNumber(String identityNumber) {
 
-        DrivingLicence drivingLicence = drivingLicenceRepository.findByUser_IdentityNumber(identityNumber).orElse(null);
+        //TODO prosledis identity number do drugog servera i uzmes userov id i onda nadjes
 
-        //TODO custom exception
-        if(drivingLicence == null)
-            throw new RuntimeException();
-
-        return drivingLicenceMapper.toDto(drivingLicence);
+//        DrivingLicence drivingLicence = drivingLicenceRepository.findByUser_IdentityNumber(identityNumber).orElse(null);
+//
+//        //TODO custom exception
+//        if(drivingLicence == null)
+//            throw new RuntimeException();
+//
+//        return drivingLicenceMapper.toDto(drivingLicence);
+        return null;
     }
 
     @Override

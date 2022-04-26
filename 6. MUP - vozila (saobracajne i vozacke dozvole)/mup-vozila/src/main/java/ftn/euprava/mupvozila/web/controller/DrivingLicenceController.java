@@ -24,8 +24,8 @@ public class DrivingLicenceController {
         return new ResponseEntity<>(iDrivingLicenceService.findOne(id), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/user/{identityNumber}")
-    public ResponseEntity<DrivingLicenceDTO> getDrivingLicenceByIdentityNumber(@PathVariable String identityNumber){
-        return new ResponseEntity<>(iDrivingLicenceService.findOneByIdentityNumber(identityNumber), HttpStatus.OK);
-    }
+//    @GetMapping(value = "/user/{identityNumber}")
+//    public ResponseEntity<DrivingLicenceDTO> getDrivingLicenceByIdentityNumber(@PathVariable String identityNumber){
+//        return new ResponseEntity<>(iDrivingLicenceService.findOneByIdentityNumber(identityNumber), HttpStatus.OK);
+//    }
 }
