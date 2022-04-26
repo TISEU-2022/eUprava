@@ -16,7 +16,7 @@ import java.util.List;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value = "/api/komunalni-problem")
+@RequestMapping(value = "api/komunalni-problem")
 public class KomunalniProblemController {
 
     @Autowired

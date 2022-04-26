@@ -37,7 +37,7 @@ public class SluzbenikServiceImpl implements SluzbenikService {
     }
 
     @Override
-    public void updateSluzbenik(UUID uuid, SluzbenikDTO sluzbenikDTO) throws NotFoundException{
+        public void updateSluzbenik(UUID uuid, SluzbenikDTO sluzbenikDTO) throws NotFoundException{
         Sluzbenik sluzbenik = sluzbenikRepository.findSluzbenikById(uuid);
         if (sluzbenik == null){
             throw new NotFoundException("Ne postoji sluzbenik sa id-om: " + uuid);
