@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @Entity
 @Table
+@Builder
 public class Predstavka {
 
     @Id

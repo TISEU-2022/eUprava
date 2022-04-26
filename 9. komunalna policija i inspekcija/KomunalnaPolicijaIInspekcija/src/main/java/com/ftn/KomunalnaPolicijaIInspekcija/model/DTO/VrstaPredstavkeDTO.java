@@ -7,6 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class VrstaPredstavkeDTO {
     private Long id;
     private String naziv;
