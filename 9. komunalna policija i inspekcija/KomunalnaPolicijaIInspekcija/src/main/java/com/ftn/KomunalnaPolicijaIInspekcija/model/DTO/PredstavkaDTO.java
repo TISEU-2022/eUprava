@@ -13,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class PredstavkaDTO {
 
     private Long id;
@@ -23,6 +24,6 @@ public class PredstavkaDTO {
     private String mestoDogadjaja;
     private Date datumDogadjaja;
     private List<String> putanjeDoDatoteka;
-    private VrstaPredstavke vrstaPredstavke;
-    private Izvestaj izvestaj;
+    private VrstaPredstavkeDTO vrstaPredstavkeDTO;
+    private IzvestajDTO izvestajDTO;
 }

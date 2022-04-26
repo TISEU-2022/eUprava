@@ -11,6 +11,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table
+@Builder
 public class VrstaPredstavke {
 
     @Id
