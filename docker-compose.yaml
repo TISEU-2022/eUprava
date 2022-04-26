@@ -18,7 +18,7 @@ x-auth-base-service: &auth-base-service
 
 x-auth-direct-run-service: &auth-direct-run-service
   <<: *auth-base-service
-  profiles: [ "direct-run" ]
+  profiles: ["direct-run"]
   build:
     context: ./auth-server/
     dockerfile: Dockerfile.dev
@@ -133,13 +133,11 @@ services:
         aliases:
           - "mysqlDB"
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
       timeout: 5s
       retries: 3
       start_period: 20s
-
-
 
   # --- Zdravstvo ---
   zdravstvo-frontend:
@@ -159,8 +157,47 @@ services:
       - "5000:5000"
     command: npm start
 
+  zdravstvo:
+    depends_on:
+      - zdravstvo-mysql
+    build:
+      context: ./5. zdravstvo/zdravstvo/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 5001:5001
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - MYSQL_PASSWORD=zdravstvo123
+      - MYSQL_DB=zdravstvo
+      - MYSQL_HOST=zdravstvoDB
+      - MYSQL_PORT=5002
 
-
+  zdravstvo-mysql:
+    image: mysql:8.0.23
+    container_name: zdravstvo-mysql
+    ports:
+      - "5002:5002"
+    environment:
+      - MYSQL_TCP_PORT=5002
+      - MYSQL_ROOT_PASSWORD=zdravstvo123
+      - MYSQL_DATABASE=zdravstvo
+    volumes:
+      - zdravstvo-mysql:/var/lib/mysql
+      - ./5. zdravstvo/init_db:/docker-entrypoint-initdb.d
+    networks:
+      tiseu:
+        aliases:
+          - "zdravstvoDB"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
   # --- ePortal ---
   eportal:
@@ -170,17 +207,18 @@ services:
       - VITE_AUTH_SERVER_URL=http://localhost:4101
     build:
       context: ./eportal/
-    container_name: eportal 
+    container_name: eportal
     networks:
       tiseu:
         aliases:
-          - eportal 
+          - eportal
     ports:
       - "4011:4011"
-
 
 volumes:
   auth-mongodb:
     driver: local
   maticar-mysql:
+    driver: local
+  zdravstvo-mysql:
     driver: local
