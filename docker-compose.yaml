@@ -187,7 +187,6 @@ services:
       - MYSQL_DATABASE=zdravstvo
     volumes:
       - zdravstvo-mysql:/var/lib/mysql
-      - ./5. zdravstvo/init_db:/docker-entrypoint-initdb.d
     networks:
       tiseu:
         aliases:

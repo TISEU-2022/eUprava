@@ -1,17 +1,7 @@
-# pull official base image
-FROM node:latest
-
-# set working directory
+FROM node:16.13.2 as build-stage
 WORKDIR /app
-
-# install app dependencies
-COPY package.json ./
-COPY package-lock.json ./
-
+COPY package.json package-lock.json /app/
 RUN npm install
+COPY ./ /app/
+RUN npm run build
 
-# add app
-COPY . ./
-
-# start app
-CMD ["npm", "start"]
