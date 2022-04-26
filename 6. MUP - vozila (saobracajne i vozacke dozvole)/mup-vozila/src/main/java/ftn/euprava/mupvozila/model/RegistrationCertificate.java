@@ -28,9 +28,8 @@ public class RegistrationCertificate {
     @Column(nullable = false)
     private String placeOfIssue;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private String userId;
 
     @OneToOne(mappedBy = "registrationCertificate", orphanRemoval = true)
     private Car car;

@@ -35,8 +35,7 @@ public class DrivingLicence {
     @Column(nullable = false)
     private DrivingLicenceType drivingLicenceType;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(nullable = false)
+    private String userId;
 
 }

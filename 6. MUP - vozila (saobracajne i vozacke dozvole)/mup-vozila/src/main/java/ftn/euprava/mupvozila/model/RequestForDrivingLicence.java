@@ -21,11 +21,9 @@ public class RequestForDrivingLicence {
     @Column(nullable = false)
     private DrivingLicenceType drivingLicenceType;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "citizen_id")
-    private User citizen;
+    @Column(nullable = false)
+    private String citizenId;
 
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "employee_id")
-    private User employee;
+    @Column(nullable = false)
+    private String employeeId;
 }
