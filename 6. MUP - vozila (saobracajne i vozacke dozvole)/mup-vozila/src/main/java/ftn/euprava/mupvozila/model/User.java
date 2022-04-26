@@ -16,7 +16,7 @@ import javax.persistence.Id;
 public class User {
 
     @Id
-    private Long id;
+    private String id;
 
     @Column(nullable = false, unique = true)
     private String identityNumber;
@@ -28,7 +28,10 @@ public class User {
     private String lastName;
 
     @Column(nullable = false)
-    private String address;
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
 
     @Column(nullable = false)
     private String role;
