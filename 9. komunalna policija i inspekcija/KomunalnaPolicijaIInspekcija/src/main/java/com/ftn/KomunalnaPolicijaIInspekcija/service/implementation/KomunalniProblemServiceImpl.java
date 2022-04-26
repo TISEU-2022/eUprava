@@ -4,10 +4,12 @@ import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.KomunalniProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ftn.KomunalnaPolicijaIInspekcija.repository.KomunalniProblemRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
+@Service
 public class KomunalniProblemServiceImpl implements KomunalniProblemService {
 
     @Autowired
@@ -20,7 +22,7 @@ public class KomunalniProblemServiceImpl implements KomunalniProblemService {
 
     @Override
     public KomunalniProblem getOne(Long id) {
-        return komunalniProblemRepository.findById(id).orElse(null);
+        return komunalniProblemRepository.findKomunalniProblemById(id);
     }
 
     @Override

@@ -14,6 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class KomunalniProblem {
 
     @Id

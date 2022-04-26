@@ -1,9 +1,6 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
@@ -13,6 +10,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Podnosilac {
 
     @Id
