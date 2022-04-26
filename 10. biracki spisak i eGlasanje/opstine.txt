@@ -1,3 +1,4 @@
+Beograd
 Bačka Topola
 Mali Iđoš
 Subotica
@@ -32,7 +33,6 @@ Bečej
 Vrbas
 Žabalj
 Novi Sad
-Petrovaradin
 Srbobran
 Sremski Karlovci
 Temerin
@@ -72,11 +72,7 @@ Kučevo
 Aranđelovac
 Topola
 Rača
-Aerodrom
-Pivara
-Stanovo
-Stari grad
-Stragari
+Kragujevac
 Batočina
 Knić
 Lapovo
@@ -107,7 +103,7 @@ Sjenica
 Čačak
 Gornji Milanovac
 Lučani
-Velika Ivanjica
+Ivanjica
 Kraljevo
 Vrnjačka Banja
 Raška
@@ -123,11 +119,7 @@ Aleksinac
 Svrljig
 Merošina
 Ražanj
-Mediana
-Niška Banja
-Palilula
-Pantelej
-Crveni Krst
+Niš
 Doljevac
 Gadžin Han
 Prokuplje
