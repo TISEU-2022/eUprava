@@ -1,9 +1,11 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -11,9 +13,12 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@Entity
+@Table
 public class Podnosilac {
 
     @Id
+    @Column(name = "id", unique = true, nullable = false)
     private UUID id;
     private String ime;
     private String prezime;
