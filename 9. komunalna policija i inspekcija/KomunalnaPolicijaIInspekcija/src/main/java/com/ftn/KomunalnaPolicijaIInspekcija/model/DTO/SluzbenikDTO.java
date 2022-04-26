@@ -1,5 +1,6 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 
@@ -7,6 +8,7 @@ import java.util.UUID;
 
 @Data
 @ToString
+@Builder
 public class SluzbenikDTO {
 
     private UUID id;
