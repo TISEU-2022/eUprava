@@ -1,0 +1,40 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "serve-docker": "vite --host 0.0.0.0",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.8",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "axios": "^0.26.1",
+    "csstype": "3.0.10",
+    "framer-motion": "^6.2.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2",
+    "recoil": "^0.6.1",
+    "recoil-nexus": "^0.3.15"
+  },
+  "resolutions": {
+    "csstype": "3.0.10"
+  },
+  "overrides": {
+    "csstype": "3.0.10"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@vitejs/plugin-react": "^1.0.7",
+    "prettier": "2.6.0",
+    "typescript": "^4.5.4",
+    "vite": "^2.8.0"
+  }
+}

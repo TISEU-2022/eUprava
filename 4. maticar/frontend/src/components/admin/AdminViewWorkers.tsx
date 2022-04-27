@@ -68,6 +68,8 @@ const AdminViewWorkers = () => {
         if (!isAddEdit) {
             getWorkers().then((res) => {
                 setWorkers(res?.data)
+            }).catch((e) => {
+                console.log(e)
             });
         }
     }, [isAddEdit]);
@@ -75,7 +77,7 @@ const AdminViewWorkers = () => {
     return isAddEdit ?
         <>
             <Flex flex={1} justifyContent="center">
-                <Button mt={5} width={500} color="teal" onClick={() => { setAddEdit(false); setSelectedWorker(null as any) }}>Back to workers</Button>
+                <Button mt={5} width={500} color="teal" onClick={() => { setAddEdit(false); setSelectedWorker(null as any)}}>Back to workers</Button>
             </Flex>
             <AdminAddEditWorker worker={selectedWorker} onFinish={() => setAddEdit(false)} />
         </> :

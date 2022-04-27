@@ -1,3 +1,3 @@
 export interface MarriageProps {
-    onFinish: any
+    onFinish: Function
 }

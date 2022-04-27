@@ -43,7 +43,7 @@ const WorkerAddMarriage: React.FC<MarriageProps> = (props) => {
                   })
                   props.onFinish()
             }).catch((error) => {
-                console.log(error)
+                actions.setFieldError("witness_2_id", error?.response?.data?.detail)
             }).finally(() => {
                 actions.setSubmitting(false);
             })

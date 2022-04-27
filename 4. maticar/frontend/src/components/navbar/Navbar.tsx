@@ -29,13 +29,13 @@ const Navbar: React.FC = () => {
         const value = isLoggedIn.contents;
         if (value)
           return (
-            <Button colorScheme="teal" onClick={performLogout}>
+            <Button colorScheme="teal" onClick={performLogout} mx="1">
               Log-out
             </Button>
           );
         else
           return (
-            <Button colorScheme="teal" onClick={performLogin}>
+            <Button colorScheme="teal" onClick={performLogin} mx="1">
               Log-in
             </Button>
           );
@@ -46,6 +46,9 @@ const Navbar: React.FC = () => {
     <Flex padding={3}>
       <Flex flex={1} justifyContent="flex-end">
         <AuthButton />
+        <Button mx="1" colorScheme="orange" onClick={() => {
+          window.location.href = "http://localhost:4011"
+        }}>ePortal</Button>
       </Flex>
     </Flex>
   );

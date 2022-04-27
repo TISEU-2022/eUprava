@@ -90,7 +90,7 @@ class WorkerManager(object):
                 )
                 self.db.add(new_marriage)
                 self.db.commit()
-                return "Successfully created the marriage."
+                return True
         except Exception as e:
             logger.error("Error ocured getting workers. Error {}".format(str(e)))
         return "IDs not found"

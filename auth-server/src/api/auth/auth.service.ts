@@ -30,7 +30,13 @@ export class AuthService {
       roles: user.roles,
       identityNumber: user.identityNumber,
     };
-    return this.jwtService.sign(payload);
+    const token = this.jwtService.sign(payload);
+    this.userService.addTokenToUser(user._id, token);
+    return token;
+  }
+
+  async clearUserTokensById(id: string) {
+    return this.userService.clearUserTokensById(id);
   }
 
   async findUserByUsername(username: string) {
