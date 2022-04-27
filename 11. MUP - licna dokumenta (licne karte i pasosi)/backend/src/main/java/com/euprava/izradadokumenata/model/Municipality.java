@@ -1,0 +1,32 @@
+package com.euprava.izradadokumenata.model;
+
+public enum Municipality {
+    ADA,
+    ALEKSANDROVAC,
+    ALEKSINAC,
+    ALIBUNAR,
+    APATIN,
+    ARANDJELOVAC,
+    ARILJE,
+    BABUSNICA,
+    BAJINA_BASTA,
+    BARAJEVO,
+    BATOCINA,
+    BAC,
+    BACKA_PALANKA,
+    BACKA_TOPOLA,
+    BACKI_PETROVAC,
+    BELA_PALANKA,
+    BELA_CRKVA,
+    BEOCIN,
+    BECEJ,
+    BLACE,
+    BOGATIC,
+    BOJNIK,
+    BOLJEVAC,
+    BOR,
+    BOSILEGRAD,
+    BRUS,
+    BUJANOVAC,
+
+}
