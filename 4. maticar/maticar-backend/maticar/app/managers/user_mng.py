@@ -104,6 +104,20 @@ class UserManager(object):
                         }
                     ]
                 }
+        if child.identification_number in parents:
+            return {
+                    "detail": [
+                        {
+                            "loc": [
+                                "body",
+                                "parent_1_iden_number",
+                                "parent_2_iden_number"
+                            ],
+                            "msg": "Values must be unique. Child cannot be its own parent.",
+                            "type": "value_error.unique"
+                        }
+                    ]
+                }
         parents = self.db.query(
             m_mng.UserBirthRegister.identification_number
         ).filter(
@@ -124,7 +138,8 @@ class UserManager(object):
                     ]
                 }
         already_is_child = self.db.query(
-            m_mng.UserRelation
+            m_mng.UserRelation.child_id,
+            m_mng.UserRelation.parent_id
         ).filter(
             m_mng.UserRelation.child_id == identification_number
         ).all()
@@ -143,6 +158,27 @@ class UserManager(object):
                             }
                         ]
                     }
+        is_related = self.db.query(
+            m_mng.UserRelation.child_id
+        ).filter(
+            m_mng.UserRelation.parent_id == identification_number
+        ).all()
+        if is_related:
+            for parent in is_related:
+                if parent in parents:
+                    return {
+                    "detail": [
+                        {
+                            "loc": [
+                                "body",
+                                "parent_1_iden_number",
+                                "parent_2_iden_number"
+                            ],
+                            "msg": "Cannot have cross relations!",
+                            "type": "value_error.unique"
+                        }
+                    ]
+                }
         parents = [k.identification_number for k in parents]
         for parent_id in parents:
             relation = m_mng.UserRelation(

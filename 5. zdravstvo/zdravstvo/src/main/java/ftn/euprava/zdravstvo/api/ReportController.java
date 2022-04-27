@@ -26,6 +26,6 @@ public class ReportController {
     @PostMapping
     private ResponseEntity addReport(ReportRequest request) throws URISyntaxException {
         ReportResponse result = reportService.addReport(request);
-        ResponseEntity.created(new URI("/api/reports/" + result.getId())).body(result);
+        return ResponseEntity.created(new URI("/api/reports/" + result.getId())).body(result);
     }
 }
