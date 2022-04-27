@@ -1,5 +1,7 @@
 package com.example.SluzbaZaposljavanja.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -22,9 +24,11 @@ public class Firma implements Serializable {
     @Column(name = "oblast_poslovanja", unique = false, nullable = false)
     private String oblastPoslovanja;
 
+    @JsonIgnore
     @OneToMany(cascade = {ALL}, mappedBy = "firma")
     private List<Gradjanin> zaposleni = new ArrayList<Gradjanin>();
 
+    @JsonIgnore
     @OneToMany(cascade = {ALL}, mappedBy = "firma")
     private List<OglasZaPosao> oglasiZaPosao = new ArrayList<OglasZaPosao>();
 

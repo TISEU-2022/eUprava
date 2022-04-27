@@ -1,5 +1,7 @@
 package com.example.SluzbaZaposljavanja.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -36,6 +38,7 @@ public class OglasZaPosao {
     @JoinColumn(name = "vrsta_posla_id", referencedColumnName = "vrsta_posla_id")
     private VrstaPosla vrstaPosla;
 
+    @JsonIgnore
     @OneToMany(cascade = {ALL}, mappedBy = "oglasZaPosao")
     private List<Konkurs> konkursi = new ArrayList<Konkurs>();
 
