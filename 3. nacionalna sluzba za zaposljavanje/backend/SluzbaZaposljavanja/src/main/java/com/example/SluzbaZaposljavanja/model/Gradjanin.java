@@ -1,5 +1,7 @@
 package com.example.SluzbaZaposljavanja.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -35,15 +37,17 @@ public class Gradjanin {
     private LocalDate datumRodjenja;
 
     @Column(name = "jmbg", unique = false, nullable = false)
-    private LocalDate jmbg;
+    private String jmbg;
 
     @ManyToOne
     @JoinColumn(name = "firma_id", referencedColumnName = "firma_id")
     private Firma firma;
 
+    @JsonIgnore
     @OneToMany(cascade = {ALL}, mappedBy = "gradjanin")
     private List<ZahtevEvidencije> zahteviEvidencije = new ArrayList<ZahtevEvidencije>();
 
+    @JsonIgnore
     @OneToMany(cascade = {ALL}, mappedBy = "gradjanin")
     private List<Konkurs> oglasiZaPosao = new ArrayList<Konkurs>();
 
@@ -78,7 +82,7 @@ public class Gradjanin {
         return datumRodjenja;
     }
 
-    public LocalDate getJmbg() {
+    public String getJmbg() {
         return jmbg;
     }
 
@@ -114,7 +118,7 @@ public class Gradjanin {
         this.datumRodjenja = datumRodjenja;
     }
 
-    public void setJmbg(LocalDate jmbg) {
+    public void setJmbg(String jmbg) {
         this.jmbg = jmbg;
     }
 
@@ -125,7 +129,7 @@ public class Gradjanin {
 
 
 
-    public Gradjanin(String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, LocalDate jmbg, Firma firma) {
+    public Gradjanin(String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, String jmbg, Firma firma) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
@@ -136,7 +140,7 @@ public class Gradjanin {
         this.firma = firma;
     }
 
-    public Gradjanin(Integer id, String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, LocalDate jmbg, Firma firma) {
+    public Gradjanin(Integer id, String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, String jmbg, Firma firma) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;

@@ -1,15 +1,13 @@
 package com.example.SluzbaZaposljavanja.controller;
 
+import com.example.SluzbaZaposljavanja.model.Firma;
 import com.example.SluzbaZaposljavanja.model.OglasZaPosao;
 import com.example.SluzbaZaposljavanja.service.OglasZaPosaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,5 +28,17 @@ public class OglasZaPosaoController {
     public void save(@RequestBody OglasZaPosao oglasZaPosao){
         oglasZaPosaoService.save(oglasZaPosao);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<OglasZaPosao> getOglasZaPosao(@PathVariable("id") Integer id) {
+        OglasZaPosao oglasZaPosao = oglasZaPosaoService.findOne(id);
+        if (oglasZaPosao == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(oglasZaPosao, HttpStatus.OK);
+    }
+
+
 
 }

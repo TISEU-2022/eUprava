@@ -1,9 +1,9 @@
 package com.example.SluzbaZaposljavanja.controller;
 
 import com.example.SluzbaZaposljavanja.model.Firma;
-import com.example.SluzbaZaposljavanja.model.Gradjanin;
+import com.example.SluzbaZaposljavanja.model.VrstaPosla;
 import com.example.SluzbaZaposljavanja.service.FirmaService;
-import com.example.SluzbaZaposljavanja.service.GradjaninService;
+import com.example.SluzbaZaposljavanja.service.VrstaPoslaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "api/firme")
-public class FirmaController {
+@RequestMapping(value = "api/poslovi")
+public class VrstaPoslaController {
 
     @Autowired
-    private FirmaService firmaService;
+    private VrstaPoslaService vrstaPoslaService;
 
     @GetMapping
-    public ResponseEntity<List<Firma>> getFirme(){
-        List<Firma> firme = firmaService.findAll();
-        return new ResponseEntity<>(firme, HttpStatus.OK);
+    public ResponseEntity<List<VrstaPosla>> getVrstePoslova(){
+        List<VrstaPosla> vrstePoslova = vrstaPoslaService.findAll();
+        return new ResponseEntity<>(vrstePoslova, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Firma> getFirma(@PathVariable("id") Integer id) {
-        Firma firma = firmaService.findOne(id);
-        if (firma == null) {
+    public ResponseEntity<VrstaPosla> getVrstuPosla(@PathVariable("id") Integer id) {
+        VrstaPosla vrstaPosla = vrstaPoslaService.findOne(id);
+        if (vrstaPosla == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<>(firma, HttpStatus.OK);
+        return new ResponseEntity<>(vrstaPosla, HttpStatus.OK);
     }
 
 }
