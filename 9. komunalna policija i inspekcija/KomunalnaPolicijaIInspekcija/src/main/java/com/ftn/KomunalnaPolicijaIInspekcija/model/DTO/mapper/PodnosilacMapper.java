@@ -7,6 +7,7 @@ public class PodnosilacMapper {
 
     public static Podnosilac mapModel(PodnosilacDTO podnosilacDTO){
         return Podnosilac.builder()
+                .id(podnosilacDTO.getId())
                 .ime(podnosilacDTO.getIme())
                 .prezime(podnosilacDTO.getPrezime())
                 .jmbg(podnosilacDTO.getJmbg())
@@ -19,6 +20,7 @@ public class PodnosilacMapper {
 
     public static PodnosilacDTO mapDTO(Podnosilac podnosilac){
         return PodnosilacDTO.builder()
+                .id(podnosilac.getId())
                 .ime(podnosilac.getIme())
                 .prezime(podnosilac.getPrezime())
                 .jmbg(podnosilac.getJmbg())
