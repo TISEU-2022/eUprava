@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class PodnosilacServiceImpl implements PodnosilacService {
@@ -21,12 +20,12 @@ public class PodnosilacServiceImpl implements PodnosilacService {
     }
 
     @Override
-    public Podnosilac getOne(UUID id) {
-        return podnosilacRepository.findPodnosilacById(id);
+    public Podnosilac getOne(Long id) {
+        return podnosilacRepository.findById(id).orElse(null);
     }
 
     @Override
-    public UUID createPodnosilac(Podnosilac podnosilac) {
+    public Long createPodnosilac(Podnosilac podnosilac) {
         return podnosilacRepository.save(podnosilac).getId();
     }
 
@@ -36,7 +35,7 @@ public class PodnosilacServiceImpl implements PodnosilacService {
     }
 
     @Override
-    public void deletePodnosilac(UUID id) {
+    public void deletePodnosilac(Long id) {
         podnosilacRepository.deletePodnosilacById(id);
     }
 }

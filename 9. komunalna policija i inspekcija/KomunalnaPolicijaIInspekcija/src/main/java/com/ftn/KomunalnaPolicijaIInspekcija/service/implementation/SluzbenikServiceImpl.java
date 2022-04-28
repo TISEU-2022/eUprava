@@ -8,8 +8,6 @@ import com.ftn.KomunalnaPolicijaIInspekcija.repository.SluzbenikRepository;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.SluzbenikService;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class SluzbenikServiceImpl implements SluzbenikService {
 
@@ -20,7 +18,7 @@ public class SluzbenikServiceImpl implements SluzbenikService {
     }
 
     @Override
-    public SluzbenikDTO getOne(UUID id) throws NotFoundException {
+    public SluzbenikDTO getOne(Long id) throws NotFoundException {
         Sluzbenik sluzbenik = sluzbenikRepository.findSluzbenikById(id);
         if(sluzbenik == null){
             throw new NotFoundException("Nema sluzbenika sa id-om: " + id);
@@ -29,25 +27,23 @@ public class SluzbenikServiceImpl implements SluzbenikService {
     }
 
     @Override
-    public UUID createSluzbenik(SluzbenikDTO sluzbenikDTO) {
-        UUID id = UUID.randomUUID();
-        Sluzbenik sluzbenik = new Sluzbenik(id, sluzbenikDTO.getIme(), sluzbenikDTO.getPrezime(), sluzbenikDTO.getEmail(), sluzbenikDTO.getJmbg());
-        sluzbenikRepository.save(sluzbenik);
-        return id;
+    public Long createSluzbenik(SluzbenikDTO sluzbenikDTO) {
+        Sluzbenik sluzbenik = new Sluzbenik(sluzbenikDTO.getIme(), sluzbenikDTO.getPrezime(), sluzbenikDTO.getEmail(), sluzbenikDTO.getJmbg());
+        return sluzbenikRepository.save(sluzbenik).getId();
     }
 
     @Override
-        public void updateSluzbenik(UUID uuid, SluzbenikDTO sluzbenikDTO) throws NotFoundException{
-        Sluzbenik sluzbenik = sluzbenikRepository.findSluzbenikById(uuid);
+        public void updateSluzbenik(Long id, SluzbenikDTO sluzbenikDTO) throws NotFoundException{
+        Sluzbenik sluzbenik = sluzbenikRepository.findSluzbenikById(id);
         if (sluzbenik == null){
-            throw new NotFoundException("Ne postoji sluzbenik sa id-om: " + uuid);
+            throw new NotFoundException("Ne postoji sluzbenik sa id-om: " + id);
         }
-        sluzbenikDTO.setId(uuid);
+        sluzbenikDTO.setId(id);
         sluzbenikRepository.save(SluzbenikMapper.mapModel(sluzbenikDTO));
     }
 
     @Override
-    public boolean deleteSluzbenik(UUID id) {
+    public boolean deleteSluzbenik(Long id) {
         Sluzbenik sluzbenik = sluzbenikRepository.findSluzbenikById(id);
         if(sluzbenik == null){
             return false;

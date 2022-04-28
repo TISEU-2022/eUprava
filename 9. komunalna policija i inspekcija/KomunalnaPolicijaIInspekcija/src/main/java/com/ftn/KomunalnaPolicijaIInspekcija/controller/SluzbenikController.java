@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.UUID;
 
 @CrossOrigin
 @RestController
@@ -22,9 +21,9 @@ public class SluzbenikController {
     private SluzbenikService sluzbenikService;
 
     @GetMapping( value = "/{id}",produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<SluzbenikDTO> getOneSluzbenik(@PathVariable(value = "id") UUID uuid){
+    public ResponseEntity<SluzbenikDTO> getOneSluzbenik(@PathVariable(value = "id") Long id){
         try {
-            SluzbenikDTO sluzbenikDTO = sluzbenikService.getOne(uuid);
+            SluzbenikDTO sluzbenikDTO = sluzbenikService.getOne(id);
             return new ResponseEntity<SluzbenikDTO>(sluzbenikDTO, HttpStatus.OK);
         }catch (NotFoundException exception){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -32,9 +31,9 @@ public class SluzbenikController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<SluzbenikDTO> updateSluzbenik(@PathVariable("id") UUID uuid, @RequestBody SluzbenikDTO sluzbenikDTO){
+    public ResponseEntity<SluzbenikDTO> updateSluzbenik(@PathVariable("id") Long id, @RequestBody SluzbenikDTO sluzbenikDTO){
         try {
-            sluzbenikService.updateSluzbenik(uuid, sluzbenikDTO);
+            sluzbenikService.updateSluzbenik(id, sluzbenikDTO);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }catch (NotFoundException exception){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -42,15 +41,15 @@ public class SluzbenikController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> createSluzbenik(@RequestBody SluzbenikDTO sluzbenikDTO){
-        UUID sluzbenikUuid = sluzbenikService.createSluzbenik(sluzbenikDTO);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sluzbenikUuid).toUri();
+    public ResponseEntity<Long> createSluzbenik(@RequestBody SluzbenikDTO sluzbenikDTO){
+        Long sluzbenikId = sluzbenikService.createSluzbenik(sluzbenikDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(sluzbenikId).toUri();
         return ResponseEntity.created(uri).build();
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<?> deleteSluzbenik(@PathVariable(value = "id") UUID uuid){
-        boolean deleted = sluzbenikService.deleteSluzbenik(uuid);
+    public ResponseEntity<?> deleteSluzbenik(@PathVariable(value = "id") Long id){
+        boolean deleted = sluzbenikService.deleteSluzbenik(id);
         if (deleted){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else {

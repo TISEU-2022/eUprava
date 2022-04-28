@@ -2,11 +2,7 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.UUID;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,8 +14,9 @@ import java.util.UUID;
 public class Podnosilac {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     private String ime;
     private String prezime;
 

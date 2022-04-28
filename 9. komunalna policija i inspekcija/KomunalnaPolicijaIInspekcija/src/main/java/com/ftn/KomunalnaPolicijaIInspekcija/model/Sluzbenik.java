@@ -3,7 +3,6 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Setter
 @Getter
@@ -16,8 +15,8 @@ import java.util.UUID;
 public class Sluzbenik {
 
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "ime", nullable = true)
     private String ime;
@@ -32,4 +31,10 @@ public class Sluzbenik {
     private String jmbg;
 
 
+    public Sluzbenik(String ime, String prezime, String email, String jmbg) {
+        this.ime = ime;
+        this.prezime = prezime;
+        this.email = email;
+        this.jmbg = jmbg;
+    }
 }

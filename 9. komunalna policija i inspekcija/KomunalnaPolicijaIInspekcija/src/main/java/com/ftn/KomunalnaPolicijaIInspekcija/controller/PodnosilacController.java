@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+
 
 @CrossOrigin
 @RestController
@@ -37,15 +37,15 @@ public class PodnosilacController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PodnosilacDTO> getOne(@PathVariable UUID id){
+    public ResponseEntity<PodnosilacDTO> getOne(@PathVariable Long id){
         Podnosilac podnosilac = podnosilacService.getOne(id);
 
         return new ResponseEntity<>(PodnosilacMapper.mapDTO(podnosilac), HttpStatus.OK);
     }
 
     @PostMapping()
-    public ResponseEntity<UUID> createKomunalniProblem(@RequestBody PodnosilacDTO podnosilacDTO){
-        UUID id = podnosilacService.createPodnosilac(PodnosilacMapper.mapModel(podnosilacDTO));
+    public ResponseEntity<Long> createKomunalniProblem(@RequestBody PodnosilacDTO podnosilacDTO){
+        Long id = podnosilacService.createPodnosilac(PodnosilacMapper.mapModel(podnosilacDTO));
 
         String location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

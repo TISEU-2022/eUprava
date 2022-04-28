@@ -7,6 +7,116 @@
 CREATE DATABASE IF NOT EXISTS eupravakomunalna;
 USE eupravakomunalna;
 
+create table if not exists eupravakomunalna.podnosilac
+(
+    id               bigint auto_increment
+        primary key,
+    adresa        varchar(255) null,
+    broj_telefona varchar(255) null,
+    email         varchar(255) null,
+    ime           varchar(255) null,
+    jmbg          varchar(255) null,
+    mesto         varchar(255) null,
+    prezime       varchar(255) null,
+    ptt_broj      int          not null,
+    constraint UK_6kof1amxuhh2l6ftvg3qx8oof
+        unique (email),
+    constraint UK_7d5p69c7frwd5mnocytcsdb1h
+        unique (broj_telefona),
+    constraint UK_er6ejbb2vgx56kasx6vdo7quf
+        unique (jmbg)
+);
+
+create table if not exists eupravakomunalna.sluzbenik
+(
+    id               bigint auto_increment
+        primary key,
+    email   varchar(255) not null,
+    ime     varchar(255) null,
+    jmbg    varchar(255) not null,
+    prezime varchar(255) null
+);
+
+create table if not exists eupravakomunalna.izvestaj
+(
+    id               bigint auto_increment
+        primary key,
+    izvestaj         varchar(255) null,
+    prihvaceno       bit          null,
+    vreme_podnosenja datetime     null,
+    sluzbenik_id     bigint  null,
+    constraint FKd561hwgawukmij5nqvv5juxx4
+        foreign key (sluzbenik_id) references eupravakomunalna.sluzbenik (id)
+);
+
+create table if not exists eupravakomunalna.vrsta_komunalnog_problema
+(
+    id    bigint auto_increment
+        primary key,
+    naziv varchar(255) null
+);
+
+create table if not exists eupravakomunalna.vrsta_predstavke
+(
+    id    bigint auto_increment
+        primary key,
+    naziv varchar(255) not null
+);
+
+create table if not exists eupravakomunalna.komunalni_problem
+(
+    id                           bigint auto_increment
+        primary key,
+    adresa_dogadjaja             varchar(255) null,
+    datum_dogadjaja              datetime     null,
+    datum_podnosenja             datetime     null,
+    mesto_dogadjaja              varchar(255) null,
+    opis                         varchar(255) null,
+    izvestaj_id                  bigint       null,
+    podnosilac_id                bigint  null,
+    vrsta_komunalnog_problema_id bigint       null,
+    constraint FK2ny8nubq6hn7p6jdsv7is5x57
+        foreign key (izvestaj_id) references eupravakomunalna.izvestaj (id),
+    constraint FK834mjsfnea43dugupt1muyfje
+        foreign key (vrsta_komunalnog_problema_id) references eupravakomunalna.vrsta_komunalnog_problema (id),
+    constraint FKkjyx2si1wqp2gg95bw3aka1ek
+        foreign key (podnosilac_id) references eupravakomunalna.podnosilac (id)
+);
+
+create table if not exists eupravakomunalna.komunalni_problem_putanje_do_datoteka
+(
+    komunalni_problem_id bigint       not null,
+    putanje_do_datoteka  varchar(255) null,
+    constraint FKgyyooabekvmrqurepr69b6cjw
+        foreign key (komunalni_problem_id) references eupravakomunalna.komunalni_problem (id)
+);
+
+create table if not exists eupravakomunalna.predstavka
+(
+    id                  bigint auto_increment
+        primary key,
+    adresa_dogadjaja    varchar(255) not null,
+    datum_dogadjaja     datetime     null,
+    mesto_dogadjaja     varchar(255) not null,
+    naslov              varchar(255) not null,
+    opis                varchar(255) not null,
+    vreme_podnosenja    datetime     not null,
+    izvestaj_id         bigint       null,
+    vrsta_predstavke_id bigint       null,
+    constraint FK22mvqcsamu7ennccrwvv17d8y
+        foreign key (izvestaj_id) references eupravakomunalna.izvestaj (id),
+    constraint FKrf2g67frhv50imiyobfik65ql
+        foreign key (vrsta_predstavke_id) references eupravakomunalna.vrsta_predstavke (id)
+);
+
+create table if not exists eupravakomunalna.predstavka_putanje_do_datoteka
+(
+    predstavka_id       bigint       not null,
+    putanje_do_datoteka varchar(255) null,
+    constraint FKr9lmlmuajxrd04vfbq5xl6moe
+        foreign key (predstavka_id) references eupravakomunalna.predstavka (id)
+);
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
