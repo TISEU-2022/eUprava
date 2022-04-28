@@ -15,12 +15,13 @@ public class PredstavkaMapper {
                 .mestoDogadjaja(predstavkaDTO.getMestoDogadjaja())
                 .datumDogadjaja(predstavkaDTO.getDatumDogadjaja())
                 .putanjeDoDatoteka(predstavkaDTO.getPutanjeDoDatoteka())
-                .vrstaPredstavke(VrstaPredstavkeMapper.mapModel(predstavkaDTO.getVrstaPredstavkeDTO()))
-                .izvestaj(IzvestajMapper.mapModel(predstavkaDTO.getIzvestajDTO()))
+                .vrstaPredstavke(VrstaPredstavkeMapper.mapModel(predstavkaDTO.getVrstaPredstavke()))
+                .izvestaj(predstavkaDTO.getIzvestaj() != null ? IzvestajMapper.mapModel(predstavkaDTO.getIzvestaj()) : null)
                 .build();
     }
 
     public static PredstavkaDTO mapDTO(Predstavka predstavka){
+
         return PredstavkaDTO.builder()
                 .id(predstavka.getId())
                 .naslov(predstavka.getNaslov())
@@ -30,8 +31,8 @@ public class PredstavkaMapper {
                 .mestoDogadjaja(predstavka.getMestoDogadjaja())
                 .datumDogadjaja(predstavka.getDatumDogadjaja())
                 .putanjeDoDatoteka(predstavka.getPutanjeDoDatoteka())
-                .vrstaPredstavkeDTO(VrstaPredstavkeMapper.mapDTO(predstavka.getVrstaPredstavke()))
-                .izvestajDTO(IzvestajMapper.mapDTO(predstavka.getIzvestaj()))
+                .vrstaPredstavke(VrstaPredstavkeMapper.mapDTO(predstavka.getVrstaPredstavke()))
+                .izvestaj(predstavka.getIzvestaj() != null ? IzvestajMapper.mapDTO(predstavka.getIzvestaj())  : null)
                 .build();
     }
 }

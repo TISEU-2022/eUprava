@@ -24,6 +24,6 @@ public class PredstavkaDTO {
     private String mestoDogadjaja;
     private Date datumDogadjaja;
     private List<String> putanjeDoDatoteka;
-    private VrstaPredstavkeDTO vrstaPredstavkeDTO;
-    private IzvestajDTO izvestajDTO;
+    private VrstaPredstavkeDTO vrstaPredstavke;
+    private IzvestajDTO izvestaj;
 }
