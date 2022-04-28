@@ -36,9 +36,24 @@ services:
     depends_on:
       auth-mongo:
         condition: service_healthy
+
+  auth-app-proxy:
+    build:
+      context: ./auth-server/
+      dockerfile: Dockerfile.nginx
+    container_name: auth-app-proxy
+    restart: on-failure
+    environment:
+      - AUTH_APP_PROXY_PORT=3101
+      - AUTH_APP_PROXY_HOSTNAME=auth-app
+    networks:
+      tiseu:
+        aliases:
+          - auth-app-proxy
     ports:
       - "4101:3101"
       - "5101:3101"
+      - "4443:4443"
 
   auth-mongo:
     image: mongo

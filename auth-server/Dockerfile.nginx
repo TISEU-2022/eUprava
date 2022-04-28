@@ -1,0 +1,9 @@
+FROM alpine/openssl as ssl-builder
+COPY ./nginx-cert.sh .
+RUN chmod +x nginx-cert.sh
+RUN  ./nginx-cert.sh
+
+FROM nginx:1.19-alpine
+COPY --from=ssl-builder /etc/ssl/certs/nginx-selfsigned.crt /etc/ssl/certs/nginx-selfsigned.crt
+COPY --from=ssl-builder /etc/ssl/certs/nginx-selfsigned.key /etc/ssl/certs/nginx-selfsigned.key
+COPY /nginx.conf /etc/nginx/templates/default.conf.template
