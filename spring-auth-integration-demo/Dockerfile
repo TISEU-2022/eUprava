@@ -17,12 +17,13 @@ RUN gradle bootJar --stacktrace
 RUN cp build/libs/spring-auth-integration-demo-0.0.1-SNAPSHOT.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM bellsoft/liberica-openjdk-alpine-musl:17
+FROM openjdk:17-alpine
 WORKDIR /app
 COPY --from=builder /app/dependencies/ ./
 COPY --from=builder /app/snapshot-dependencies/ ./
 COPY --from=builder /app/spring-boot-loader/ ./
 COPY --from=builder /app/application/ ./
 EXPOSE 8080
+
 ENTRYPOINT ["java"]
 CMD ["org.springframework.boot.loader.JarLauncher"]

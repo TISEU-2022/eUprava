@@ -1,4 +1,5 @@
 auth:
   server:
-    host-name: auth-app
-    port: 3101
+    host-name: auth-app-proxy
+    port: 4101
+    protocol: http

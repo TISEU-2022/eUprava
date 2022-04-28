@@ -51,8 +51,7 @@ services:
         aliases:
           - auth-app-proxy
     ports:
-      - "4101:3101"
-      - "5101:3101"
+      - "4101:4101"
       - "4443:4443"
 
   auth-mongo:
@@ -159,7 +158,7 @@ services:
     environment:
       - PORT=5000
       - APP_URL=http://localhost:5000
-      - AUTH_SERVER_URL=http://localhost:5101
+      - AUTH_SERVER_URL=http://localhost:4101
       - BACKEND_URL=http://localhost:5001/api
     build:
       context: ./5. zdravstvo/zdravstvo-frontend
@@ -185,7 +184,7 @@ services:
     environment:
       # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
       - MYSQL_USER=root
-      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - AUTH_SERVER_API=http://auth-app-proxy:4101
       - MYSQL_PASSWORD=zdravstvo123
       - MYSQL_DB=zdravstvo
       - MYSQL_HOST=zdravstvoDB
@@ -228,7 +227,7 @@ services:
 
   spring-auth-example:
     depends_on:
-      - auth-app
+      - auth-app-proxy
     build:
       context: ./spring-auth-integration-demo
     restart: on-failure

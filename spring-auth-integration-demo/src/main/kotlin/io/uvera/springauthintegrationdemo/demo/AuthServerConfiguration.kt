@@ -22,7 +22,7 @@ class AuthServerConfiguration(
 ) {
 
     @Bean
-    fun restTemplate(): RestTemplate = restTemplateBuilder.rootUri("http://${authProps.hostName}:${authProps.port}")
+    fun restTemplate(): RestTemplate = restTemplateBuilder.rootUri("${authProps.protocol}://${authProps.hostName}:${authProps.port}")
         .requestFactory { HttpComponentsClientHttpRequestFactory() }
         .errorHandler(object : DefaultResponseErrorHandler() {
             override fun hasError(response: ClientHttpResponse): Boolean {
@@ -43,5 +43,6 @@ class AuthServerConfiguration(
 @ConstructorBinding
 class AuthServerProperties(
     @field:NotBlank val hostName: String,
-    @field:NotBlank val port: String
+    @field:NotBlank val port: String,
+    @field:NotBlank val protocol: String,
 )
