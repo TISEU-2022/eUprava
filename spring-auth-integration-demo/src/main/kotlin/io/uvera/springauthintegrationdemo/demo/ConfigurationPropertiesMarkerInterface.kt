@@ -1,0 +1,3 @@
+package io.uvera.springauthintegrationdemo.demo
+
+interface ConfigurationPropertiesMarkerInterface

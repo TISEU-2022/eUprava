@@ -1,0 +1,4 @@
+auth:
+  server:
+    host-name: auth-app
+    port: 3101

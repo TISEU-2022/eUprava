@@ -209,6 +209,16 @@ services:
           - eportal
     ports:
       - "4011:4011"
+  # --- spring auth example ---
+
+  spring-auth-example:
+    depends_on:
+      - auth-app
+    build:
+      context: ./spring-auth-integration-demo
+    restart: on-failure
+    ports:
+      - "4567:8080"
 
 volumes:
   auth-mongodb:
