@@ -7,6 +7,7 @@ COPY .mvn .mvn
 
 COPY pom.xml .
 
+RUN dos2unix mvnw
 RUN ./mvnw dependency:go-offline -B
 
 COPY src src
