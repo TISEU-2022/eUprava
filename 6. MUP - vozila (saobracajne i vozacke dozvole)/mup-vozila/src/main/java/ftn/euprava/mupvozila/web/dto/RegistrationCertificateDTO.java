@@ -15,7 +15,11 @@ public class RegistrationCertificateDTO {
 
     private String placeOfIssue;
 
-    private UserDTO userDTO;
+    private Boolean request;
+
+    private Boolean status;
+
+    private String userId;
 
     private CarDTO carDTO;
 }

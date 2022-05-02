@@ -19,14 +19,19 @@ public class RegistrationCertificate {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(unique = true)
     private String licensePlate;
 
-    @Column(nullable = false)
+    @Column
     private LocalDate dayOfIssue;
 
-    @Column(nullable = false)
+    @Column
     private String placeOfIssue;
+
+    @Column
+    private Boolean request;
+
+    private Boolean status = null;
 
     @Column(nullable = false)
     private String userId;
