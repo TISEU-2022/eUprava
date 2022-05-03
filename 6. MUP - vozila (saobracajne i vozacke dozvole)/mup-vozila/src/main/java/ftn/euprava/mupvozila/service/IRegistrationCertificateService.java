@@ -7,9 +7,15 @@ import java.util.List;
 
 public interface IRegistrationCertificateService {
 
-    RegistrationCertificate findOne(Long id);
+    RegistrationCertificateDTO findOne(Long id);
 
     List<RegistrationCertificate> findAll();
+
+    List<RegistrationCertificateDTO> getAllRequests();
+
+    RegistrationCertificateDTO createRequest(RegistrationCertificateDTO registrationCertificateDTO);
+
+    RegistrationCertificateDTO createCertificationRequest(RegistrationCertificateDTO registrationCertificateDTO, Long requestId);
 
     RegistrationCertificateDTO save(RegistrationCertificateDTO registrationCertificate);
 
