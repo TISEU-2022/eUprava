@@ -1,0 +1,7 @@
+#Nakon sto korisnik podnese zahtev za prijavu deteta u predskolsko, zavod za zaposlene treba da proveri da li su roditelji zaposleni ili ne
+
+API ---> /api/zavodZaZaposlene/provera
+
+#Nakon sto korisnik podnese zahtev za prijavu deteta u predskolsko, zdravstvo treba da vrsi proveru da li dete ima nekih zdravstvenih problema koji bi ga spercaali da pohadjaju predskolsko
+
+API ---> /api/zdravstvo/provera

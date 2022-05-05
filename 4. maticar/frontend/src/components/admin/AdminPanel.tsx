@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
 import AdminViewWorkers from './AdminViewWorkers';
 
 const AdminPanel = () => {

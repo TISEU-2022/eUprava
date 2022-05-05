@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 export class UserService {
   constructor(
     @InjectModel(User.name) private userModel: Model<User & Document>,
-  ) {}
+  ) { }
 
   async findByUsernameInternal(username: string): Promise<User> {
     return this.userModel
@@ -17,7 +17,7 @@ export class UserService {
       .exec();
   }
 
-  async createUser(param: Omit<User, '_id'>) {
+  async createUser(param: Omit<User, '_id' | 'tokens'>) {
     if (param.password) {
       param = Object.assign(param, {
         password: await this.hashPassword(param.password),
@@ -117,5 +117,14 @@ export class UserService {
       );
     }
     await this.userModel.findById(id).remove().exec();
+  }
+
+  async addTokenToUser(userId: string, token: string) {
+    this.userModel.findByIdAndUpdate(userId, {
+      $push: { tokens: token }
+    }).exec()
+  }
+  async clearUserTokensById(id: string) {
+    this.userModel.findByIdAndUpdate(id, { tokens: [] }).exec()
   }
 }

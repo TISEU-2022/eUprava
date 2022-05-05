@@ -18,7 +18,7 @@ x-auth-base-service: &auth-base-service
 
 x-auth-direct-run-service: &auth-direct-run-service
   <<: *auth-base-service
-  profiles: [ "direct-run" ]
+  profiles: ["direct-run"]
   build:
     context: ./auth-server/
     dockerfile: Dockerfile.dev
@@ -36,23 +36,9 @@ services:
     depends_on:
       auth-mongo:
         condition: service_healthy
-
-  auth-app-proxy:
-    build:
-      context: ./auth-server/
-      dockerfile: Dockerfile.nginx
-    container_name: auth-app-proxy
-    restart: on-failure
-    environment:
-      - AUTH_APP_PROXY_PORT=3101
-      - AUTH_APP_PROXY_HOSTNAME=auth-app
-    networks:
-      tiseu:
-        aliases:
-          - auth-app-proxy
     ports:
-      - "4101:4101"
-      - "4443:4443"
+      - "4101:3101"
+      - "5101:3101"
 
   auth-mongo:
     image: mongo
@@ -115,7 +101,7 @@ services:
       - APP_VERSION=1
       - LOG_LEVEL=DEBUG
       - MYSQL_USER=root
-      - AUTH_SERVER_API=http://auth-app-proxy:4101
+      - AUTH_SERVER_API=http://auth-app:3101
       - MYSQL_PASSWORD=maticar123
       - MYSQL_DB=maticar
       - MYSQL_HOST=mysqlDB
@@ -147,15 +133,87 @@ services:
         aliases:
           - "mysqlDB"
     healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
       timeout: 5s
       retries: 3
       start_period: 20s
 
+  # --- Zdravstvo ---
+  zdravstvo-frontend:
+    environment:
+      - PORT=5000
+      - APP_URL=http://localhost:5000
+      - AUTH_SERVER_URL=http://localhost:5101
+      - BACKEND_URL=http://localhost:5001/api
+    build:
+      context: ./5. zdravstvo/zdravstvo-frontend
+    container_name: zdravstvo-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "5000:5000"
+    command: npm start
+
+  zdravstvo:
+    depends_on:
+      - zdravstvo-mysql
+    build:
+      context: ./5. zdravstvo/zdravstvo/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 5001:5001
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - MYSQL_PASSWORD=zdravstvo123
+      - MYSQL_DB=zdravstvo
+      - MYSQL_HOST=zdravstvoDB
+      - MYSQL_PORT=5002
+
+  zdravstvo-mysql:
+    image: mysql:8.0.23
+    container_name: zdravstvo-mysql
+    ports:
+      - "5002:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=zdravstvo123
+      - MYSQL_DATABASE=zdravstvo
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - zdravstvo-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # --- ePortal ---
+  eportal:
+    environment:
+      - VITE_PORT=4011
+      - VITE_APP_URL=http://localhost:4011
+      - VITE_AUTH_SERVER_URL=http://localhost:4101
+    build:
+      context: ./eportal/
+    container_name: eportal
+    networks:
+      tiseu:
+        aliases:
+          - eportal
+    ports:
+      - "4011:4011"
 
 volumes:
   auth-mongodb:
     driver: local
   maticar-mysql:
+    driver: local
+  zdravstvo-mysql:
     driver: local
