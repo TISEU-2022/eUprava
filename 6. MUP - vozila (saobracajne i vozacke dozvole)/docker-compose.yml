@@ -36,7 +36,7 @@ services:
       context: ./mup-vozila-frontend
       dockerfile: Dockerfile
     ports:
-      - "6000:80"
+      - "6003:80"
     restart: always
     networks:
       - frontend  

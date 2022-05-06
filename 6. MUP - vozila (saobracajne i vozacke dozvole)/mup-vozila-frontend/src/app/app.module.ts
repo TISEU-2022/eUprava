@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
-import { CollectJwtComponent } from './collect-jwt/collect-jwt.component';
+import { TokenHandlerComponent } from './token-handler/token-handler.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    CollectJwtComponent
+    TokenHandlerComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,

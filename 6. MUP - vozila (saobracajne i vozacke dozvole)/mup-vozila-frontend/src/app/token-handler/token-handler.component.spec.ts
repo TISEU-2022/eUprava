@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CollectJwtComponent } from './collect-jwt.component';
+import { TokenHandlerComponent } from './token-handler.component';
 
-describe('CollectJwtComponent', () => {
-  let component: CollectJwtComponent;
-  let fixture: ComponentFixture<CollectJwtComponent>;
+describe('TokenHandlerComponent', () => {
+  let component: TokenHandlerComponent;
+  let fixture: ComponentFixture<TokenHandlerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CollectJwtComponent ]
+      declarations: [ TokenHandlerComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CollectJwtComponent);
+    fixture = TestBed.createComponent(TokenHandlerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
