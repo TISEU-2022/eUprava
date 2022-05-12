@@ -33,4 +33,15 @@ public class GradjaninServiceImpl implements GradjaninService {
     public Gradjanin save(Gradjanin gradjanin) {
         return gradjaninRepository.save(gradjanin);
     }
+
+    @Override
+    public Gradjanin findByKorisnickoIme(String korisnickoIme) {
+        Gradjanin gradjanin = gradjaninRepository.findByKorisnickoIme(korisnickoIme);
+        if(gradjanin == null){
+            return null;
+        }
+        return gradjanin;
+    }
+
+
 }
