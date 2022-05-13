@@ -101,7 +101,7 @@ services:
       - APP_VERSION=1
       - LOG_LEVEL=DEBUG
       - MYSQL_USER=root
-      - AUTH_SERVER_API=http://auth-app-proxy:4101
+      - AUTH_SERVER_API=http://auth-app:3101
       - MYSQL_PASSWORD=maticar123
       - MYSQL_DB=maticar
       - MYSQL_HOST=mysqlDB
