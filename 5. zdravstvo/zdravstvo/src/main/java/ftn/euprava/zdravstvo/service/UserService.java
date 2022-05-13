@@ -37,6 +37,24 @@ public class UserService {
         return new ResponseEntity<>(new MaticarCertificateResponse("failed"), BAD_REQUEST);
     }
 
+    public ResponseEntity<MaticarCertificateResponse> recordDeceasedCitizen(final String jmbg) {
+        try {
+            final HttpHeaders headers = new HttpHeaders();
+            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+
+            final RestTemplate restTemplate = new RestTemplate();
+            return restTemplate.exchange(
+                    MATICAR_URI + "/" + jmbg,
+                    HttpMethod.PUT,
+                    null,
+                    MaticarCertificateResponse.class
+            );
+        }
+        catch (Exception e) {
+            return new ResponseEntity(new MaticarCertificateResponse("failed"), BAD_REQUEST);
+        }
+    }
+
     private ResponseEntity<MaticarCertificateResponse> sendBirthCertificateRequest(final BirthCertificateRequest request) {
         final BirthCertificateMaticarRequest maticarRequest = BirthCertificateMaticarRequest.of(request);
 
@@ -100,24 +118,6 @@ public class UserService {
             return Optional.of(objectMapper.readValue(requestAsJson, Map.class));
         } catch (JsonProcessingException e) {
             return Optional.empty();
-        }
-    }
-
-    private ResponseEntity<MaticarCertificateResponse> recordDeceasedCitizen(final String jmbg) {
-        try {
-            final HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
-
-            final RestTemplate restTemplate = new RestTemplate();
-            return restTemplate.exchange(
-                    MATICAR_URI + "/" + jmbg,
-                    HttpMethod.PUT,
-                    null,
-                    MaticarCertificateResponse.class
-            );
-        }
-        catch (Exception e) {
-            return new ResponseEntity(new MaticarCertificateResponse("failed"), BAD_REQUEST);
         }
     }
 }

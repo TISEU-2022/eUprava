@@ -12,7 +12,7 @@ async function recordDeceasedCitizen(jmbg) {
   return response.data;
 }
 
-export const InvoiceService = {
+export const UserService = {
   addBirthCertificate,
   recordDeceasedCitizen,
 };
