@@ -22,26 +22,24 @@ public class CertificateService {
     private CertificateRepository certificateRepository;
 
     public CertificateResponse generateCertificate(final CertificateRequest request) {
-
         CertificateResponse response =  new CertificateResponse("Izdaje se lekarsko uverenje za "
                 + request.getName() + " " + request.getLastName()
                 + ", JMBG: " + request.getJmbg() + " u svrhu " + request.getPurpose());
 
         noteUserRequestedCertificate(request, response.getMessage());
-
         return response;
     }
 
     private void noteUserRequestedCertificate(final CertificateRequest request, final String message) {
-        User user = new User(request.getUserId());
+        User user = new User(request.getJmbg());
         userRepository.save(user);
 
-        Certificate certificate = new Certificate(user, message);
+        Certificate certificate = new Certificate(user, message, request.getPurpose());
         certificateRepository.save(certificate);
     }
 
-    public CheckUserCertificateResponse checkIfUserHasCertificateNoted(final Long userId) {
-        User user = new User(userId);
+    public CheckUserCertificateResponse checkIfUserHasCertificateNoted(final String jmbg) {
+        User user = userRepository.findByJmbg(jmbg);
         List<Certificate> certificatesOfUser = certificateRepository.findByUser(user);
         if(certificatesOfUser.isEmpty()) {
             return  new CheckUserCertificateResponse(false);

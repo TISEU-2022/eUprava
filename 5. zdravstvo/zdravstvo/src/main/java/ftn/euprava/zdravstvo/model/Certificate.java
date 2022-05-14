@@ -17,10 +17,13 @@ public class Certificate {
     @OneToOne
     private User user;
 
-    private String message;
+    private String purpose;
 
-    public Certificate(User user, String message) {
+    private String content;
+
+    public Certificate(User user, String content, String purpose) {
         this.user = user;
-        this.message = message;
+        this.content = content;
+        this.purpose = purpose;
     }
 }

@@ -13,9 +13,6 @@ import javax.validation.constraints.NotNull;
 public class CertificateRequest {
 
     @NotNull
-    private Long userId;
-
-    @NotNull
     @NotBlank
     private String name;
 

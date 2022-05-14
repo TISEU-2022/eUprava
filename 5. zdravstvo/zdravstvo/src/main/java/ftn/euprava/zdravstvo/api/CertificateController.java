@@ -27,7 +27,7 @@ public class CertificateController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<CheckUserCertificateResponse> checkIfUserHasCertificate(@PathVariable Long userId) {
+    public ResponseEntity<CheckUserCertificateResponse> checkIfUserHasCertificate(@PathVariable String userId) {
         return ResponseEntity.ok(certificateService.checkIfUserHasCertificateNoted(userId));
     }
 }
