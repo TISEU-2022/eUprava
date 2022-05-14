@@ -11,12 +11,20 @@ const RecordDeceasedCitizen = () => {
   };
 
   async function sendDeceasedCitizenRequest() {
-    await UserService.recordDeceasedCitizen(jmbg);
-    setJmbg("");
-    Swal.fire({
-      icon: "success",
-      title: "Uspešno sačuvane informacije!",
-    });
+    await UserService.recordDeceasedCitizen(jmbg)
+      .then((response) => {
+        setJmbg("");
+        Swal.fire({
+          icon: "success",
+          title: "Uspešno sačuvane informacije!",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "success",
+          title: "Neispravan JMBG! Pokušajte ponovo",
+        });
+      });
   }
 
   return (

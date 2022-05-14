@@ -30,22 +30,31 @@ const AddBirthCertificate = () => {
   };
 
   async function sendBirthCertificateRequest() {
-    await UserService.addBirthCertificate(info);
-    Swal.fire({
-      icon: "success",
-      title: "Uspešno sačuvane informacije!",
-    });
-    setInfo({
-      identificationNumber: "",
-      firstName: "",
-      lastName: "",
-      gender: "",
-      dateOfBirth: new Date(),
-      countryOfBirth: "",
-      citizenship: "",
-      parent1Id: "",
-      parent2Id: "",
-    });
+    await UserService.addBirthCertificate(info)
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Uspešno sačuvane informacije!",
+        });
+        setInfo({
+          identificationNumber: "",
+          firstName: "",
+          lastName: "",
+          gender: "",
+          dateOfBirth: new Date(),
+          countryOfBirth: "",
+          citizenship: "",
+          parent1Id: "",
+          parent2Id: "",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title:
+            "Neispravno unete informacije! Proverite podatke i pokušajte opet",
+        });
+      });
   }
 
   return (
