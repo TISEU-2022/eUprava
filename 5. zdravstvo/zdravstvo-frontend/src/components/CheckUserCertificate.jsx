@@ -11,19 +11,27 @@ const CheckUserCertificate = () => {
   };
 
   async function checkIfUserHasCertificate() {
-    const response = await CertificateService.checkIfUserHasCertificate(jmbg);
-    if (response.userHasCertificate) {
-      Swal.fire({
-        icon: "success",
-        title: "Izabrani korisnik ima lekarsko uverenje",
+    await CertificateService.checkIfUserHasCertificate(jmbg)
+      .then((response) => {
+        if (response.userHasCertificate) {
+          Swal.fire({
+            icon: "success",
+            title: "Izabrani korisnik ima lekarsko uverenje",
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Izabrani korisnik nema lekarsko uverenje",
+          });
+        }
+        setJmbg("");
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Neispravan JMBG! Pokušajte ponovo",
+        });
       });
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "Izabrani korisnik nema lekarsko uverenje",
-      });
-    }
-    setJmbg("");
   }
 
   return (

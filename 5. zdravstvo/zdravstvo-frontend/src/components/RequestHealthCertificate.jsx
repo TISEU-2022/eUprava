@@ -17,18 +17,26 @@ const RequestHealthCertificate = () => {
   };
 
   async function sendCertificateRequest() {
-    await CertificateService.requestCertificate(info);
-    Swal.fire({
-      icon: "success",
-      title: "Uspešno poslat zahtev za lekarsko uverenje!",
-    });
-    setInfo({
-      jmbg: "",
-      firstName: "",
-      lastName: "",
-      gender: "",
-      purpose: "",
-    });
+    await CertificateService.requestCertificate(info)
+      .then((response) => {
+        Swal.fire({
+          icon: "success",
+          title: "Uspešno poslat zahtev za lekarsko uverenje!",
+        });
+        setInfo({
+          jmbg: "",
+          firstName: "",
+          lastName: "",
+          gender: "",
+          purpose: "",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Neispravne informacije! Ispravite podatke i pokušajte ponovo",
+        });
+      });
   }
 
   return (
