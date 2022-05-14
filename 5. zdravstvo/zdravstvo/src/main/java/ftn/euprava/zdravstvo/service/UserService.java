@@ -6,6 +6,7 @@ import ftn.euprava.zdravstvo.api.dto.BirthCertificateMaticarRequest;
 import ftn.euprava.zdravstvo.api.dto.BirthCertificateRequest;
 import ftn.euprava.zdravstvo.api.dto.MaticarCertificateResponse;
 import ftn.euprava.zdravstvo.api.dto.ParentsMaticarRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,23 +18,39 @@ import java.util.Optional;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @Service
+@Slf4j
 public class UserService {
 
-    private static final String MATICAR_URI = "http://localhost:4002/";
+    private static final String MATICAR_URI = "http://maticar:4002/api/user";
 
     public ResponseEntity<MaticarCertificateResponse> addBirthCertificate(final BirthCertificateRequest request) {
         try {
             ResponseEntity<MaticarCertificateResponse> birthCertificateResponse = sendBirthCertificateRequest(request);
             if (birthCertificateResponse.getStatusCode().is2xxSuccessful()) {
-                ResponseEntity<MaticarCertificateResponse> addParentsIdsResponse = addParentsIdsRequests((request));
-                if (birthCertificateResponse.getStatusCode().is2xxSuccessful()) {
+                log.info("uspesan je prvi");
+                if (request.getParent1Id() != null && request.getParent2Id() != null) {
+                    ResponseEntity<MaticarCertificateResponse> addParentsIdsResponse = addParentsIdsRequests((request));
+                    if (birthCertificateResponse.getStatusCode().is2xxSuccessful()) {
+                        return new ResponseEntity<>(new MaticarCertificateResponse("success"), HttpStatus.OK);
+                    }
+                }
+                else {
                     return new ResponseEntity<>(new MaticarCertificateResponse("success"), HttpStatus.OK);
                 }
             }
+            else {
+                log.info("nije uspeo prvi");
+                log.info(request.toString());
+                log.info(String.valueOf(birthCertificateResponse.getStatusCodeValue()));
+                log.info(birthCertificateResponse.getStatusCode().toString());
+            }
         }
         catch (Exception e) {
+            log.info("dosao u exception, exception: {}", e);
+            log.info(String.valueOf(e));
             return new ResponseEntity<>(new MaticarCertificateResponse("failed"), BAD_REQUEST);
         }
+        log.info("dosao skroz do poslenjeg failed");
         return new ResponseEntity<>(new MaticarCertificateResponse("failed"), BAD_REQUEST);
     }
 
@@ -60,6 +77,7 @@ public class UserService {
 
         final Optional<Map<String, Object>> requestBody = this.requestToMap(maticarRequest);
         if (requestBody.isEmpty()) {
+            log.info("nije dobar request body");
             return new ResponseEntity(new MaticarCertificateResponse("failed"), BAD_REQUEST);
         }
 
@@ -77,6 +95,8 @@ public class UserService {
             );
         }
         catch (Exception e) {
+            log.info("exception u ivketovom rquestu , ");
+            log.info(e.getMessage());
             return new ResponseEntity(new MaticarCertificateResponse("failed"), BAD_REQUEST);
         }
 

@@ -21,4 +21,6 @@ public class BirthCertificateRequest {
     private String parent1Id;
     private String parent2Id;
 
+
+
 }
