@@ -3,6 +3,7 @@ package ftn.euprava.mupvozila.service.implementation;
 import ftn.euprava.mupvozila.model.RegistrationCertificate;
 import ftn.euprava.mupvozila.repository.RegistrationCertificateRepository;
 import ftn.euprava.mupvozila.service.IRegistrationCertificateService;
+import ftn.euprava.mupvozila.util.exception.EntityNotFoundException;
 import ftn.euprava.mupvozila.util.mapper.CarMapper;
 import ftn.euprava.mupvozila.util.mapper.RegistrationCertificateMapper;
 import ftn.euprava.mupvozila.web.dto.RegistrationCertificateDTO;
@@ -29,6 +30,9 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
     @Override
     public RegistrationCertificateDTO findOne(Long id) {
         RegistrationCertificate registrationCertificate = registrationCertificateRepository.findById(id).orElse(null);
+        if (registrationCertificate == null){
+            throw new EntityNotFoundException("Registration certificate not found");
+        }
         return registrationCertificateMapper.toDto(registrationCertificate);
     }
 

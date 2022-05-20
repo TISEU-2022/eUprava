@@ -1,5 +1,8 @@
 package ftn.euprava.mupvozila.util.jwt;
 import ftn.euprava.mupvozila.service.ITokenService;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -19,21 +22,21 @@ public class JwtTokenUtil {
     }
 
     public boolean tokenVerified(String token) {
-        final String uri = "http://localhost:3101/auth/verify_token/"+token;
+        //final String uri = "http://auth-app:5101/auth/verify_token/"+token;
+        final String uri = "http://host.docker.internal:5101/auth/verify_token/"+token;
 
-        RestTemplate restTemplate = new RestTemplate();
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(uri)
+                .addHeader("Authorization","Bearer " + token)
+                .build();
 
         try {
-            restTemplate.getForObject(uri, Object.class);
+            Response response = client.newCall(request).execute();
+            System.out.println(response.body().string());
             return true;
-        }
-        catch (HttpClientErrorException | HttpServerErrorException httpClientOrServerExc) {
-            /*if (HttpStatus.UNAUTHORIZED.equals(httpClientOrServerExc.getStatusCode())) {
-                // handling of "UNAUTHORIZED" here
-            }
-            else {
-                // handling of other errors here
-            }*/
+        }catch (Exception e){
+            e.printStackTrace();
             return false;
         }
     }
