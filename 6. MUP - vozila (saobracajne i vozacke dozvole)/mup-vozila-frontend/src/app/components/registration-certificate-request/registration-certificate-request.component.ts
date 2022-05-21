@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenService} from '../../_services/token.service';
-import {RegistrationCertificateService} from "../../services/registration-certificate.service";
+import {RegistrationCertificateService} from "../../_services/registration-certificate.service";
 
 @Component({
   selector: 'app-registration-certificate-request',

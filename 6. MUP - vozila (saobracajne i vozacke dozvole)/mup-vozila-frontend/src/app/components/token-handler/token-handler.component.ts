@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../_services/auth-service';
-import { TokenService } from '../_services/token.service';
+import { AuthService } from '../../_services/auth-service';
+import { TokenService } from '../../_services/token.service';
 
 @Component({
   selector: 'app-token-handler',

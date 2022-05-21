@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DrivingLicence } from '../_models/driving-licence';
-import { DrivingLicenceChangeRequest } from '../_models/driving-licence-change-request';
-import { RequestForDrivingLicence } from '../_models/request-for-driving-licence';
-import { DrivingLicenceService } from '../_services/driving-licence.service';
-import { TokenService } from '../_services/token.service';
+import { DrivingLicence } from '../../_models/driving-licence';
+import { DrivingLicenceChangeRequest } from '../../_models/driving-licence-change-request';
+import { RequestForDrivingLicence } from '../../_models/request-for-driving-licence';
+import { DrivingLicenceService } from '../../_services/driving-licence.service';
+import { TokenService } from '../../_services/token.service';
 
 
 @Component({

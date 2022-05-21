@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CitizenHomePageComponent } from './citizen-home-page/citizen-home-page.component';
-import { EmployeeHomePageComponent } from './employee-home-page/employee-home-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LoginComponent } from './login/login.component';
-import { TokenHandlerComponent } from './token-handler/token-handler.component';
-import { ViewDrivingLicenceComponent } from './view-driving-licence/view-driving-licence.component';
+import { CitizenHomePageComponent } from './components/citizen-home-page/citizen-home-page.component';
+import { EmployeeHomePageComponent } from './components/employee-home-page/employee-home-page.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { TokenHandlerComponent } from './components/token-handler/token-handler.component';
+import { ViewDrivingLicenceComponent } from './components/view-driving-licence/view-driving-licence.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import {RegistrationCertificateRequestComponent} from "./components/registration-certificate-request/registration-certificate-request.component";
 

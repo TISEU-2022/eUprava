@@ -4,16 +4,17 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './components/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
-import { TokenHandlerComponent } from './token-handler/token-handler.component';
-import { HomePageComponent } from './home-page/home-page.component';
-import { EmployeeHomePageComponent } from './employee-home-page/employee-home-page.component';
-import { CitizenHomePageComponent } from './citizen-home-page/citizen-home-page.component';
-import { ViewDrivingLicenceComponent } from './view-driving-licence/view-driving-licence.component';
+import { TokenHandlerComponent } from './components/token-handler/token-handler.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { EmployeeHomePageComponent } from './components/employee-home-page/employee-home-page.component';
+import { CitizenHomePageComponent } from './components/citizen-home-page/citizen-home-page.component';
+import { ViewDrivingLicenceComponent } from './components/view-driving-licence/view-driving-licence.component';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { RegistrationCertificateRequestComponent } from './components/registration-certificate-request/registration-certificate-request.component';
+import {CreateDriverLicenseComponent} from "./components/create-driver-license/create-driver-license.component";
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { RegistrationCertificateRequestComponent } from './components/registrati
     EmployeeHomePageComponent,
     CitizenHomePageComponent,
     ViewDrivingLicenceComponent,
-    RegistrationCertificateRequestComponent
+    RegistrationCertificateRequestComponent,
+    CreateDriverLicenseComponent
   ],
   imports: [
     BrowserModule,
