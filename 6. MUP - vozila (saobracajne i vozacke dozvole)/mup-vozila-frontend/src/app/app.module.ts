@@ -9,19 +9,27 @@ import { FormsModule } from '@angular/forms';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { TokenHandlerComponent } from './token-handler/token-handler.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { EmployeeHomePageComponent } from './employee-home-page/employee-home-page.component';
+import { CitizenHomePageComponent } from './citizen-home-page/citizen-home-page.component';
+import { ViewDrivingLicenceComponent } from './view-driving-licence/view-driving-licence.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TokenHandlerComponent,
-    HomePageComponent
+    HomePageComponent,
+    EmployeeHomePageComponent,
+    CitizenHomePageComponent,
+    ViewDrivingLicenceComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgxPaginationModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

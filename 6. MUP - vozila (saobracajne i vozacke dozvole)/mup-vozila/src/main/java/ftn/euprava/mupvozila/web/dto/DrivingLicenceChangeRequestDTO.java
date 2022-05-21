@@ -1,7 +1,7 @@
 package ftn.euprava.mupvozila.web.dto;
 
-import ftn.euprava.mupvozila.model.DrivingLicenceType;
-import ftn.euprava.mupvozila.model.RequestType;
+import ftn.euprava.mupvozila.model.enums.DrivingLicenceType;
+import ftn.euprava.mupvozila.model.enums.RequestType;
 import lombok.Data;
 
 @Data

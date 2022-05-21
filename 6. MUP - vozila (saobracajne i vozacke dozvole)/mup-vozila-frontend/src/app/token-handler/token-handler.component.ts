@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth-service';
 import { TokenService } from '../_services/token.service';
 
@@ -13,7 +13,6 @@ export class TokenHandlerComponent implements OnInit {
 
   constructor(private tokenService: TokenService,
     private authService: AuthService,
-    private route: ActivatedRoute,
     private router: Router) { }
 
   ngOnInit(): void {

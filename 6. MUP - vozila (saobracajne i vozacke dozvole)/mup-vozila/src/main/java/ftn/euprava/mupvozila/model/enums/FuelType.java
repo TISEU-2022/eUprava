@@ -1,4 +1,4 @@
-package ftn.euprava.mupvozila.model;
+package ftn.euprava.mupvozila.model.enums;
 
 public enum FuelType {
     GASOLINE,

@@ -1,6 +1,6 @@
 package ftn.euprava.mupvozila.web.dto;
 
-import ftn.euprava.mupvozila.model.DrivingLicenceType;
+import ftn.euprava.mupvozila.model.enums.DrivingLicenceType;
 import lombok.Data;
 
 import java.time.LocalDate;

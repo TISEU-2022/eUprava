@@ -1,5 +1,8 @@
 package ftn.euprava.mupvozila.model;
 
+import ftn.euprava.mupvozila.model.enums.DrivingLicenceType;
+import ftn.euprava.mupvozila.model.enums.RequestStatus;
+import ftn.euprava.mupvozila.model.enums.RequestType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,12 +23,15 @@ public class DrivingLicenceChangeRequest {
     @Enumerated(EnumType.STRING)
     private RequestType requestType;
 
-    @Enumerated(EnumType.STRING)
-    private DrivingLicenceType drivingLicenceType;
-
     @ManyToOne
     @JoinColumn(name = "driving_licence_id")
     private DrivingLicence drivingLicence;
+
+    @Column(nullable = false)
+    private String employeeId;
+
+    @Enumerated(EnumType.STRING)
+    private RequestStatus requestStatus;
 
 
     // Korisnik vec postoji u vozackoj

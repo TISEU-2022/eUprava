@@ -1,5 +1,6 @@
 package ftn.euprava.mupvozila.model;
 
+import ftn.euprava.mupvozila.model.enums.DrivingLicenceType;
 import lombok.*;
 
 import javax.persistence.*;
