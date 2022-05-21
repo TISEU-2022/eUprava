@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LoginComponent } from './login/login.component';
-import { TokenHandlerComponent } from './token-handler/token-handler.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { LoginComponent } from './components/login/login.component';
+import { TokenHandlerComponent } from './components/token-handler/token-handler.component';
 import { AuthGuard } from './_helpers/auth.guard';
+import {RegistrationCertificateRequestComponent} from "./components/registration-certificate-request/registration-certificate-request.component";
 
 const routes: Routes = [
   {
@@ -18,6 +19,9 @@ const routes: Routes = [
   },
   {
     path: "auth/token_handler", component: TokenHandlerComponent,
+  },
+  {
+    path: "registration-certificate/create-request", component: RegistrationCertificateRequestComponent
   }
 ];
 
