@@ -1,6 +1,7 @@
 package ftn.euprava.mupvozila.web.dto;
 
-import ftn.euprava.mupvozila.model.DrivingLicenceType;
+import ftn.euprava.mupvozila.model.enums.DrivingLicenceType;
+import ftn.euprava.mupvozila.model.enums.RequestStatus;
 import lombok.Data;
 
 @Data
@@ -10,7 +11,11 @@ public class RequestForDrivingLicenceDTO {
 
     private DrivingLicenceType drivingLicenceType;
 
-    private UserDTO citizen;
+    private String citizenId;
 
-    private UserDTO employee;
+    private String employeeId;
+
+    private DrivingLicenceDTO drivingLicenceDTO;
+
+    private RequestStatus requestStatus;
 }

@@ -1,5 +1,7 @@
 package ftn.euprava.mupvozila.model;
 
+import ftn.euprava.mupvozila.model.enums.DrivingLicenceType;
+import ftn.euprava.mupvozila.model.enums.RequestStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,4 +28,12 @@ public class RequestForDrivingLicence {
 
     @Column(nullable = false)
     private String employeeId;
+
+    @OneToOne
+    @JoinColumn(name = "driving_licence_id")
+    private DrivingLicence drivingLicence;
+
+    @Enumerated(EnumType.STRING)
+    private RequestStatus requestStatus;
+
 }

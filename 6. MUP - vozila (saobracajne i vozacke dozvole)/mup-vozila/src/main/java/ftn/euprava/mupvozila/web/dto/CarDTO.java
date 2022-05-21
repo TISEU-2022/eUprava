@@ -1,6 +1,6 @@
 package ftn.euprava.mupvozila.web.dto;
 
-import ftn.euprava.mupvozila.model.FuelType;
+import ftn.euprava.mupvozila.model.enums.FuelType;
 import lombok.Data;
 
 @Data

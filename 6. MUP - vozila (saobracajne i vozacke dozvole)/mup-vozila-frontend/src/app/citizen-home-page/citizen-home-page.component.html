@@ -1,0 +1,95 @@
+<div class="container">
+
+  <button *ngIf="drivingLicence != null" (click)="onViewDLclick()" class="btn btn-info">
+    Pregled vozacke dozvole
+    <br />
+  </button>
+
+  <div *ngIf="drivingLicence != null && !changeDLrequestExist">
+    <u>Kreiranje zahteva za izmenu vozacke dozvole</u>
+    <br />
+    <button (click)="onCreateEditRequestClick()" class="btn btn-info">
+      Pokreni uslugu
+    </button>
+  </div>
+
+  <div *ngIf="!createDLrequestExist">
+    <u>Kreiranje zahteva za izdavanje nove vozacke dozvole</u>
+    <br />
+    <button (click)="onCreateRequestClick()" class="btn btn-info">
+      Pokreni uslugu
+    </button>
+  </div>
+
+
+  <br />
+
+  <div id="requestStatus">
+    Request status
+    <select>
+      <option *ngFor="let requestStatus of requestStatuses" (click)="onRequestStatusChange(requestStatus)">
+        {{requestStatus}}
+      </option>
+    </select>
+  </div>
+
+  <div id="viewType">
+    Requests for
+    <select>
+      <option *ngFor="let viewType of viewTypes" (click)="onViewTypeChange(viewType)">
+        {{viewType}}
+      </option>
+    </select>
+    driving licence
+  </div>
+
+
+
+
+
+  <table class="table table-striped" *ngIf="viewType=='new'">
+    <thead>
+      <tr>
+        <th>Driving licence type</th>
+        <th>Request status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of newDLrequests | paginate: {
+                                                      itemsPerPage: 5,
+                                                      currentPage: page }">
+
+
+        <td>{{ request.drivingLicenceType }}</td>
+        <td>{{ request.requestStatus }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <table class="table table-striped" *ngIf="viewType=='change of'">
+    <thead>
+      <tr>
+        <th>Request type</th>
+        <th>Request status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of changeDLrequests | paginate: {
+                                                      itemsPerPage: 5,
+                                                      currentPage: page }">
+
+        <td>{{ request.requestType }}</td>
+        <td>{{ request.requestStatus }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="pagination">
+    <pagination-controls (pageChange)="page = $event"></pagination-controls>
+  </div>
+
+</div>

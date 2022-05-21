@@ -1,1 +1,18 @@
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item" *ngIf="localStorageItem('TOKEN') && localStorageItem('STATE')">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" class="nav-link">Home</a>
+    </li>
+    <li class="nav-item" *ngIf="localStorageItem('TOKEN') && localStorageItem('STATE')">
+      <a style="cursor: pointer" (click)="onLogoutClick()" class="nav-link">Logout</a>
+    </li>
+  </ul>
+</nav>
+
 <router-outlet></router-outlet>
+
+<footer class="footer">
+  <div class="container">
+    <span>All Rights Reserved 2022 @Mup-Vozila</span>
+  </div>
+</footer>

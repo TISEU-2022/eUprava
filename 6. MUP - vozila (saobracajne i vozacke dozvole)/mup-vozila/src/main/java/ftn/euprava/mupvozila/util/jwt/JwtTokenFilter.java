@@ -1,5 +1,6 @@
 package ftn.euprava.mupvozila.util.jwt;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -10,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static java.util.List.of;
 import static java.util.Optional.ofNullable;
@@ -29,7 +31,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         // do nothing and return 200
         String path = request.getRequestURI().substring(request.getContextPath().length()).replaceAll("[/]+$", "");
         System.out.println(path);
-        if (path.contains("collect_jwt") || path.contains("jwt")){
+
+        String filterMethods = "GET,POST,PUT,DELETE";
+        // if request method is none of the above the request is not
+        // being filtered
+        if (!filterMethods.contains(request.getMethod())){
             filterChain.doFilter(request, response);
             return;
         }

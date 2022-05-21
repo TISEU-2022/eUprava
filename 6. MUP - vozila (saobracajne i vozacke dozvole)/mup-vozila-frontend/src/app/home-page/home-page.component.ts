@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from '../_services/auth-service';
 
 @Component({
@@ -8,7 +9,8 @@ import { AuthService } from '../_services/auth-service';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
 
@@ -17,13 +19,13 @@ export class HomePageComponent implements OnInit {
     // navigate to specific home-page componenet OR
     // add desired functionalities for each role in if statement
     if (userRole == 'admin') {
-      //this.router.navigate(['/adminHomePage']);
+      this.router.navigate(['admin/home-page']);
     }
     else if (userRole ==  "zaposleni") {
-      //this.router.navigate(['/zaposleniHomePage']);
+      this.router.navigate(['employee/home-page']);
     }
     else if (userRole == "gradjanin") {
-      //this.router.navigate(['/gradjaninHomePage']);
+      this.router.navigate(['citizen/home-page']);
     }
 
   }

@@ -1,8 +1,5 @@
 package ftn.euprava.mupvozila.util.jwt;
 import ftn.euprava.mupvozila.service.ITokenService;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
@@ -15,11 +12,6 @@ import java.util.*;
 @Component
 public class JwtTokenUtil {
 
-    private final ITokenService iTokenService;
-
-    public JwtTokenUtil(ITokenService iTokenService) {
-        this.iTokenService = iTokenService;
-    }
 
     public boolean tokenVerified(String token) {
         //final String uri = "http://auth-app:5101/auth/verify_token/"+token;
@@ -41,7 +33,7 @@ public class JwtTokenUtil {
         }
     }
 
-    public List<String> getRoles(String token) {
+    public String getRoles(String token) {
         //------------ Decode JWT ------------
         String[] split_string = token.split("\\.");
         String base64EncodedHeader = split_string[0];
@@ -57,14 +49,14 @@ public class JwtTokenUtil {
 
 
         body = body.substring(1, body.length()-1);                //remove curly brackets
-        List<String> myList = new ArrayList<String>(Arrays.asList(body.split(",")));
-        List<String> roles = new ArrayList<>();
+        LinkedList<String> myList = new LinkedList<>(Arrays.asList(body.split(",")));
+        String roles = "";
         for(String pair : myList)                          //iterate over the pairs
         {
             if (pair.contains("roles")){
                 String rolesString = pair.split(":")[1];
                 rolesString = rolesString.substring(1, rolesString.length()-1); //remove brackets
-                roles = Arrays.asList(rolesString);
+                roles = rolesString;
                 break;
             }
         }
@@ -73,4 +65,34 @@ public class JwtTokenUtil {
         return roles;
     }
 
+    public String getUserId(String token) {
+        //------------ Decode JWT ------------
+        String[] split_string = token.split("\\.");
+        String base64EncodedHeader = split_string[0];
+        String base64EncodedBody = split_string[1];
+        String base64EncodedSignature = split_string[2];
+
+        //~~~~~~~~~ JWT Header ~~~~~~~
+        Base64 base64Url = new Base64(true);
+
+        System.out.println("~~~~~~~~~ JWT Body ~~~~~~~");
+        String body = new String(base64Url.decode(base64EncodedBody));
+        System.out.println("JWT Body : "+body);
+
+
+        body = body.substring(1, body.length()-1);                //remove curly brackets
+        LinkedList<String> myList = new LinkedList<String>(Arrays.asList(body.split(",")));
+        String userId = null;
+        for(String pair : myList)                          //iterate over the pairs
+        {
+            if (pair.contains("sub")){
+                userId = pair.split(":")[1];
+                userId = userId.substring(1, userId.length()-1);
+                break;
+            }
+        }
+
+        System.out.println("Returned user id: "+userId);
+        return userId;
+    }
 }
