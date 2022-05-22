@@ -6,3 +6,7 @@ button {
   float: right;
   width: 20%;
 }
+
+#title{
+    text-align:center;
+}

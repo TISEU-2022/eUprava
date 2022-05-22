@@ -4,7 +4,7 @@ export class DrivingLicenceChangeRequest {
 
   id!: number;
   requestType!: string;
-  drivingLicence!: DrivingLicence;
+  drivingLicenceDTO!: DrivingLicence;
   employeeId!: string
   requestStatus!: string;
 

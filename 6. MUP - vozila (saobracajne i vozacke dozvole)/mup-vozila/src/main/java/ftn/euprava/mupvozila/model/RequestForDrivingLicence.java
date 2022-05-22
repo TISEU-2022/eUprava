@@ -26,7 +26,7 @@ public class RequestForDrivingLicence {
     @Column(nullable = false)
     private String citizenId;
 
-    @Column(nullable = false)
+    @Column
     private String employeeId;
 
     @OneToOne

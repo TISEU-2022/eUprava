@@ -1,5 +1,7 @@
 package ftn.euprava.mupvozila.util.jwt;
-import ftn.euprava.mupvozila.service.ITokenService;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.HttpClientErrorException;
