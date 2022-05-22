@@ -12,7 +12,7 @@ const httpOptions = {
 })
 export class RegistrationCertificateService {
 
-  private api = "http://localhost:6001/registration-certificate/"
+  private api = "http://localhost:6001/registration-certificate"
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +27,9 @@ export class RegistrationCertificateService {
   getRequest(id: number){
     const url = `${this.api}/${id}`
     return this.http.get(url)
+  }
+
+  getRequestForUser(userId: string){
+    const url = `${this.api}/user/${userId}`
   }
 }

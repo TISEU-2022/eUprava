@@ -15,6 +15,7 @@ import { ViewDrivingLicenceComponent } from './components/view-driving-licence/v
 import {NgxPaginationModule} from 'ngx-pagination';
 import { RegistrationCertificateRequestComponent } from './components/registration-certificate-request/registration-certificate-request.component';
 import {CreateDriverLicenseComponent} from "./components/create-driver-license/create-driver-license.component";
+import { ReviewRegistrationCertificateRequestComponent } from './components/review-registration-certificate-request/review-registration-certificate-request.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {CreateDriverLicenseComponent} from "./components/create-driver-license/c
     CitizenHomePageComponent,
     ViewDrivingLicenceComponent,
     RegistrationCertificateRequestComponent,
-    CreateDriverLicenseComponent
+    CreateDriverLicenseComponent,
+    ReviewRegistrationCertificateRequestComponent
   ],
   imports: [
     BrowserModule,

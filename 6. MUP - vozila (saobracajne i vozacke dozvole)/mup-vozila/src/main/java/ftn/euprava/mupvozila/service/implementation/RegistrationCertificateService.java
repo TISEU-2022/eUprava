@@ -47,6 +47,15 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
     }
 
     @Override
+    public RegistrationCertificateDTO getRequestForUser(String userId) {
+
+        RegistrationCertificate registrationCertificate = registrationCertificateRepository.findByUserId(userId).orElse(null);
+        if(registrationCertificate == null)
+            throw new EntityNotFoundException("Zahtev nije pronadjen.");
+        return registrationCertificateMapper.toDto(registrationCertificate);
+    }
+
+    @Override
     public RegistrationCertificateDTO save(RegistrationCertificateDTO registrationCertificate) {
         RegistrationCertificate certificate = registrationCertificateRepository.save(registrationCertificateMapper.toEntity(registrationCertificate));
         return registrationCertificateMapper.toDto(certificate);
@@ -71,7 +80,7 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
         RegistrationCertificate certificate = registrationCertificateRepository.findById(requestId).orElse(null);
 
         if(certificate == null)
-            throw new RuntimeException();
+            throw new EntityNotFoundException("Zahtev nije pronadjen");
 
         //TODO Custom exception
         if(certificate.getRequest())
