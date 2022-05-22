@@ -81,6 +81,7 @@ public class RequestForDrivingLicenceService implements IRequestForDrivingLicenc
 
     @Override
     public RequestForDrivingLicenceDTO save(RequestForDrivingLicenceDTO requestForDrivingLicenceDTO) {
+        requestForDrivingLicenceDTO.setRequestStatus(RequestStatus.PENDING);
         RequestForDrivingLicence requestForDrivingLicence = requestForDrivingLicenceMapper.toEntity(requestForDrivingLicenceDTO);
         return requestForDrivingLicenceMapper.toDto(requestForDrivingLicenceRepository.save(requestForDrivingLicence));
     }

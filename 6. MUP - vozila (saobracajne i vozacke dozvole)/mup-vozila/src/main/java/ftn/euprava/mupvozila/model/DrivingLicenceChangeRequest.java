@@ -27,7 +27,7 @@ public class DrivingLicenceChangeRequest {
     @JoinColumn(name = "driving_licence_id")
     private DrivingLicence drivingLicence;
 
-    @Column(nullable = false)
+    @Column
     private String employeeId;
 
     @Enumerated(EnumType.STRING)

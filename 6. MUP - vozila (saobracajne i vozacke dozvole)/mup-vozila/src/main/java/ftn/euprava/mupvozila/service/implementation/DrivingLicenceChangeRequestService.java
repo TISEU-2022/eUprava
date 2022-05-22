@@ -82,6 +82,7 @@ public class DrivingLicenceChangeRequestService implements IDrivingLicenceChange
 
     @Override
     public DrivingLicenceChangeRequestDTO save(DrivingLicenceChangeRequestDTO drivingLicenceChangeRequestDTO) {
+        drivingLicenceChangeRequestDTO.setRequestStatus(RequestStatus.PENDING);
         DrivingLicenceChangeRequest drivingLicenceChangeRequest = drivingLicenceChangeRequestMapper.toEntity(drivingLicenceChangeRequestDTO);
         return drivingLicenceChangeRequestMapper.toDto(drivingLicenceChangeRequestRepository.save(drivingLicenceChangeRequest));
     }

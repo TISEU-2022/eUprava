@@ -23,7 +23,7 @@ export class TokenService {
     localStorage.removeItem('TOKEN');
   }
 
-  getUserId(): number {
+  getUserId(): string {
     let token: string = localStorage.getItem('TOKEN') as string;
     let decoded_token = this.decodeToken(token);
     let userId = decoded_token.sub;

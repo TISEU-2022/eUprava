@@ -13,15 +13,15 @@ export class DrivingLicenceService {
   private baseURL = "http://localhost:8080/api/driving-licence";
   constructor(private httpClient: HttpClient) { }
 
-  getDrivingLicenceForUser(userId: number): Observable<DrivingLicence> {
+  getDrivingLicenceForUser(userId: string): Observable<DrivingLicence> {
     return this.httpClient.get <DrivingLicence>(`${this.baseURL}/user/${userId}`);
   }
 
-  getPendingRequestIfExist(userId: number): Observable<RequestForDrivingLicence> {
+  getPendingRequestIfExist(userId: string): Observable<RequestForDrivingLicence> {
     return this.httpClient.get<RequestForDrivingLicence>(`${this.baseURL}/get/pending-request/citizen/${userId}`);
   }
 
-  getPendingEditRequestIfExist(userId: number): Observable<DrivingLicenceChangeRequest> {
+  getPendingEditRequestIfExist(userId: string): Observable<DrivingLicenceChangeRequest> {
     return this.httpClient.get<DrivingLicenceChangeRequest>(`${this.baseURL}/get/pending-edit-request/citizen/${userId}`);
   }
 
