@@ -10,8 +10,7 @@ import { TokenService } from '../_services/token.service';
 export class JwtInterceptor implements HttpInterceptor {
   private baseURL = "http://localhost:6001/api";
 
-  constructor(private authService: AuthService,
-    private tokenService: TokenService) { }
+  constructor(private authService: AuthService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     // add auth header with jwt if user is logged in and request is to api url

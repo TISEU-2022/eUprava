@@ -10,7 +10,7 @@ import { RequestForDrivingLicence } from '../_models/request-for-driving-licence
 })
 export class DrivingLicenceService {
 
-  private baseURL = "http://localhost:8080/api/driving-licence";
+  private baseURL = "http://localhost:6001/api/driving-licence";
   constructor(private httpClient: HttpClient) { }
 
   // FETCHING REQUESTS

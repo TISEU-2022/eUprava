@@ -11,7 +11,7 @@ import { TokenService } from "./token.service";
       roleAs: any;
 
       constructor(private tokenService: TokenService) { }
-    
+
       login(token: string, role: string) {
         this.isLogin = true;
         this.roleAs = role;
@@ -20,7 +20,7 @@ import { TokenService } from "./token.service";
         localStorage.setItem('ROLE', this.roleAs);
         return of({ success: this.isLogin, role: this.roleAs });
       }
-    
+
       logout() {
         this.isLogin = false;
         this.roleAs = '';
@@ -29,7 +29,7 @@ import { TokenService } from "./token.service";
         localStorage.setItem('ROLE', '');
         return of({ success: this.isLogin, role: '' });
       }
-    
+
       isLoggedIn() {
         const loggedIn = localStorage.getItem('STATE');
         if (loggedIn == 'true')
@@ -38,10 +38,10 @@ import { TokenService } from "./token.service";
           this.isLogin = false;
         return this.isLogin;
       }
-    
+
       getRole() {
         this.roleAs = localStorage.getItem('ROLE');
         return this.roleAs;
       }
-    
+
     }

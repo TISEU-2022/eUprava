@@ -1,19 +1,12 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
-  private baseURL = "http://localhost:6001/api/auth";
 
-  constructor(private httpClient: HttpClient) { }
-
-  collectToken(): Observable<string> {
-    return this.httpClient.get<string>(`${this.baseURL}/collect_jwt`);
-  }
+  constructor() { }
 
   setToken(token: string) {
     localStorage.setItem('TOKEN', token);
