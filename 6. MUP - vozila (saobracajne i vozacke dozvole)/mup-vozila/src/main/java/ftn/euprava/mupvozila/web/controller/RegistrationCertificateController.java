@@ -33,6 +33,11 @@ public class RegistrationCertificateController {
         return new ResponseEntity<>(iRegistrationCertificateService.findOne(requestId), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/request/user/{userId}")
+    public ResponseEntity<RegistrationCertificateDTO> getRequestForUser(@PathVariable String userId){
+        return new ResponseEntity<>(iRegistrationCertificateService.getRequestForUser(userId), HttpStatus.OK);
+    }
+
     @PutMapping(value = "/request")
     public ResponseEntity<RegistrationCertificateDTO> changeRequestStatus(@RequestBody RegistrationCertificateDTO registrationCertificateDTO){
         return new ResponseEntity<>(iRegistrationCertificateService.save(registrationCertificateDTO), HttpStatus.OK);

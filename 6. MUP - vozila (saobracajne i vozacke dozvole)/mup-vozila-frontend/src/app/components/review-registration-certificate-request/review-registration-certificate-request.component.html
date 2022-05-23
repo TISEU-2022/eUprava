@@ -1,0 +1,9 @@
+<div class="container-fluid" style="margin-top: 50px">
+  <div class="row">
+    <div class="col-md-6 offset-md-3 offset-md-3">
+      <h3 class="text-center">Podaci o zahtevu za izdavanje saobracajne dozvole</h3>
+      <p class="text-lg-center" *ngIf="request.status">Vas zahtev se obradjuje.</p>
+      <ng-template #thenBlock>Vas zahtev je odbijen.</ng-template>
+    </div>
+  </div>
+</div>

@@ -13,6 +13,8 @@ public interface IRegistrationCertificateService {
 
     List<RegistrationCertificateDTO> getAllRequests();
 
+    RegistrationCertificateDTO getRequestForUser(String userId);
+
     RegistrationCertificateDTO createRequest(RegistrationCertificateDTO registrationCertificateDTO);
 
     RegistrationCertificateDTO createCertificationRequest(RegistrationCertificateDTO registrationCertificateDTO, Long requestId);
