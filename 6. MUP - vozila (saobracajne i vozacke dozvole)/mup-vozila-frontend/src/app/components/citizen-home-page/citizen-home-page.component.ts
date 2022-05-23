@@ -21,7 +21,8 @@ export class CitizenHomePageComponent implements OnInit {
   totalElements!: number;
   newDLrequests: RequestForDrivingLicence[] = [];
   changeDLrequests: DrivingLicenceChangeRequest[] = [];
-  resultMsg: string = "";
+  createRequestResultMsg: string = "";
+  changeRequestResultMsg: string = "";
 
   requestStatuses = ["PENDING", "ACCEPTED", "DECLINED"];
   requestStatus: string = "PENDING";
@@ -32,7 +33,7 @@ export class CitizenHomePageComponent implements OnInit {
   requestTypes = ["CHANGE_OF_INFORMATION", "EXPIRED", "LOST"]
   requestType: string = "CHANGE_OF_INFORMATION";
 
-  viewTypes = ["new","change of"];
+  viewTypes = ["new","update of"];
   viewType: string = "new";
 
   constructor(private router: Router,
@@ -56,6 +57,9 @@ export class CitizenHomePageComponent implements OnInit {
         if (data == null) {
           this.createDLrequestExist = false;
         }
+        else {
+          this.createRequestResultMsg = "*You have already sent a request for a new driving licence that is still pending"
+        }
       }
     )
 
@@ -63,6 +67,9 @@ export class CitizenHomePageComponent implements OnInit {
       data => {
         if (data == null) {
           this.changeDLrequestExist = false;
+        }
+        else {
+          this.changeRequestResultMsg = "*You have already sent a request for a new updated driving licence that is still pending"
         }
       }
     )
@@ -110,7 +117,7 @@ export class CitizenHomePageComponent implements OnInit {
         }
       )
     }
-    else if (this.viewType == "change of") {
+    else if (this.viewType == "update of") {
       this.drivingLicenceService.getEditRequests(this.page-1, this.requestStatus).subscribe(
         (response: any) => {
           if (response != null) {
@@ -134,6 +141,11 @@ export class CitizenHomePageComponent implements OnInit {
   }
 
   onCreateRequestClick() {
+    if (this.createDLrequestExist) {
+      this.createRequestResultMsg = "*You have already sent a request that is still pending"
+      return;
+    }
+
     const userId = this.tokenService.getUserId();
     const request = <RequestForDrivingLicence>({
       citizenId: userId,
@@ -144,11 +156,11 @@ export class CitizenHomePageComponent implements OnInit {
     this.drivingLicenceService.createDLrequest(request).subscribe(
       data => {
         this.createDLrequestExist = true;
-        this.resultMsg = "*Request for driving licence was sent successfully"
+        this.createRequestResultMsg = "*Request for a new driving licence was sent successfully"
         this.onViewTypeChange(this.viewType);
       },
       error => {
-        this.resultMsg = "*There was an error while sending the request"
+        this.createRequestResultMsg = "*There was an error while sending the request"
       } 
     )
 
@@ -156,10 +168,9 @@ export class CitizenHomePageComponent implements OnInit {
   }
 
   onCreateEditRequestClick() {
-    // only use selected drivingLicenceType if requestType is
-    // for change of info
-    if (this.requestType == "CHANGE_OF_INFORMATION") {
-      this.drivingLicence.drivingLicenceType = this.drivingLicenceType;
+    if (this.changeDLrequestExist) {
+      this.changeRequestResultMsg = "*You have already sent a request that is still pending"
+      return;
     }
 
     const request = <DrivingLicenceChangeRequest>({
@@ -170,11 +181,12 @@ export class CitizenHomePageComponent implements OnInit {
 
     this.drivingLicenceService.createDLchangeRequest(request).subscribe(
       data => {
-        this.resultMsg = "*Request for change of driving licence was sent successfully"
+        this.changeDLrequestExist = true;
+        this.changeRequestResultMsg = "*Request for a new updated driving licence was sent successfully"
         this.onViewTypeChange(this.viewType);
       },
       error => {
-        this.resultMsg = "*There was an error while sending the request"
+        this.changeRequestResultMsg = "*There was an error while sending the request"
       }
     );
   }

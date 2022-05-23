@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface DrivingLicenceRepository extends JpaRepository<DrivingLicence, Long> {
-    DrivingLicence findByUserId(String userId);
+    DrivingLicence findByUserIdAndActiveTrue(String userId);
 }

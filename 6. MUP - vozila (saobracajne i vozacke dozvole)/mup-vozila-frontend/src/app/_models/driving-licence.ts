@@ -7,5 +7,6 @@ export class DrivingLicence {
   placeOfIssue!: string;
   drivingLicenceType!: string;
   userId!: string;
+  active!: boolean;
 
 }

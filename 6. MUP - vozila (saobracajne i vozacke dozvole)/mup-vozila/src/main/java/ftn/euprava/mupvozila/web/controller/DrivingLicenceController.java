@@ -80,6 +80,11 @@ public class DrivingLicenceController {
         return new ResponseEntity<Page<DrivingLicenceChangeRequestDTO>>(iDrivingLicenceChangeRequestService.findAll(token, requestStatus, PageRequest.of(page, itemsPerPage)), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/get/requests/{id}")
+    public ResponseEntity<RequestForDrivingLicenceDTO> getRequestForDLbyId(@PathVariable Long id){
+        return new ResponseEntity<RequestForDrivingLicenceDTO>(iRequestForDrivingLicenceService.findOne(id), HttpStatus.OK);
+    }
+
     // used as a validation if user has already sent request for new driving licence
     // if so he won't be shown options for creating a new request
     @GetMapping(value = "/get/pending-request/citizen/{userId}")

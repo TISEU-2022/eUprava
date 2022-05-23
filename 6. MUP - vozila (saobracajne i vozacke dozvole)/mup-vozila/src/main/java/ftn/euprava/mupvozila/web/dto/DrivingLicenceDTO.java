@@ -22,4 +22,6 @@ public class DrivingLicenceDTO {
 
     private String userId;
 
+    private boolean active;
+
 }

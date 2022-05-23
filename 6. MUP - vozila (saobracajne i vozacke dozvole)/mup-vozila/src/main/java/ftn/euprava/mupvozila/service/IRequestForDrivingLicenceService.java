@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface IRequestForDrivingLicenceService {
 
-    RequestForDrivingLicence findOne(Long id);
+    RequestForDrivingLicenceDTO findOne(Long id);
 
     RequestForDrivingLicenceDTO findPendingRequest(String userId);
 

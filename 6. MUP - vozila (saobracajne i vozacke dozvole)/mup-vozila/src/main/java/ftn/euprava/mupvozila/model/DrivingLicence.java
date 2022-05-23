@@ -20,7 +20,7 @@ public class DrivingLicence {
     @Column(nullable = false)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String licenceNumber;
 
     @Column
@@ -38,5 +38,8 @@ public class DrivingLicence {
 
     @Column(nullable = false)
     private String userId;
+
+    @Column(nullable = false)
+    private boolean active;
 
 }

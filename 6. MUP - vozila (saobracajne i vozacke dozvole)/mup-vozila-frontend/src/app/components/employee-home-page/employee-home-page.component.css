@@ -1,0 +1,22 @@
+.button {
+  color: white;
+  width: 10%;
+}
+
+#requestStatus {
+  float: right;
+  width: 20%;
+}
+
+#title {
+  text-align: center;
+}
+
+td {
+  vertical-align: middle;
+}
+
+#createDL {
+  color: white;
+  width: 20%;
+}

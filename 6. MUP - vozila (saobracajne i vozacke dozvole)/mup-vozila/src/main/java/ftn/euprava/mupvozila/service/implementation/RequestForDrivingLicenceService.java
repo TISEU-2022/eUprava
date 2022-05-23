@@ -1,5 +1,6 @@
 package ftn.euprava.mupvozila.service.implementation;
 
+import ftn.euprava.mupvozila.model.DrivingLicence;
 import ftn.euprava.mupvozila.model.RequestForDrivingLicence;
 import ftn.euprava.mupvozila.model.enums.RequestStatus;
 import ftn.euprava.mupvozila.repository.RequestForDrivingLicenceRepository;
@@ -33,8 +34,14 @@ public class RequestForDrivingLicenceService implements IRequestForDrivingLicenc
 
 
     @Override
-    public RequestForDrivingLicence findOne(Long id) {
-        return requestForDrivingLicenceRepository.findById(id).orElse(null);
+    public RequestForDrivingLicenceDTO findOne(Long id) {
+
+        RequestForDrivingLicence requestForDrivingLicence = requestForDrivingLicenceRepository.findById(id).orElse(null);
+
+        if(requestForDrivingLicence == null)
+            throw new RuntimeException();
+
+        return requestForDrivingLicenceMapper.toDto(requestForDrivingLicence);
     }
 
     @Override
@@ -81,7 +88,6 @@ public class RequestForDrivingLicenceService implements IRequestForDrivingLicenc
 
     @Override
     public RequestForDrivingLicenceDTO save(RequestForDrivingLicenceDTO requestForDrivingLicenceDTO) {
-        requestForDrivingLicenceDTO.setRequestStatus(RequestStatus.PENDING);
         RequestForDrivingLicence requestForDrivingLicence = requestForDrivingLicenceMapper.toEntity(requestForDrivingLicenceDTO);
         return requestForDrivingLicenceMapper.toDto(requestForDrivingLicenceRepository.save(requestForDrivingLicence));
     }

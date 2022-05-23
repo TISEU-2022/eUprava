@@ -1,1 +1,36 @@
-<p>create-driver-license works!</p>
+<div class="container">
+  <br />
+  <h3>Create driving licence for user: {{requestForDL.citizenId}}</h3>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label> Licence number </label>
+      <input type="text" class="form-control"
+             [(ngModel)]="drivingLicence.licenceNumber" name="licenceNumber" />
+    </div>
+
+    <div class="form-group">
+      <label> Place of issue </label>
+      <input type="text" class="form-control"
+             [(ngModel)]="drivingLicence.placeOfIssue" name="placeOfIssue" />
+    </div>
+
+    <div class="form-group">
+      <label> Valid until </label>
+      <input type="date" class="form-control"
+             [(ngModel)]="drivingLicence.validUntil" name="validUntil" />
+    </div>
+
+    <div class="form-group">
+      <label> Driving licence type </label>
+      <input type="text" class="form-control" readonly
+             [(ngModel)]="requestForDL.drivingLicenceType" name="drivingLicenceType" />
+    </div>
+    <br />
+    <button class="btn btn-success" type="submit">Create driving licence</button>
+    
+    <div id="resultMsg" *ngIf="resultMsg">
+      <br />
+      {{resultMsg}}
+    </div>
+  </form>
+</div>

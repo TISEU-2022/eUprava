@@ -8,6 +8,7 @@ import { TokenHandlerComponent } from './components/token-handler/token-handler.
 import { ViewDrivingLicenceComponent } from './components/view-driving-licence/view-driving-licence.component';
 import { AuthGuard } from './_helpers/auth.guard';
 import {RegistrationCertificateRequestComponent} from "./components/registration-certificate-request/registration-certificate-request.component";
+import { CreateDriverLicenseComponent } from './components/create-driver-license/create-driver-license.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,13 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       role: ['admin','zaposleni','gradjanin']
+    }
+  },
+  {
+    path: "driving-licence/create/:requestId", component: CreateDriverLicenseComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['admin', 'zaposleni']
     }
   }
 ];
