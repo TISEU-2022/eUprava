@@ -6,10 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GradjaninRepository extends JpaRepository<Gradjanin, Integer> {
-<<<<<<< HEAD
-=======
 
     Gradjanin findByKorisnickoIme(String korisnickoIme);
-
->>>>>>> zaposljavanje-init
 }

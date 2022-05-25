@@ -15,8 +15,6 @@ public interface GradjaninService {
 
     Gradjanin save(Gradjanin gradjanin);
 
-<<<<<<< HEAD
-=======
     Gradjanin findByKorisnickoIme(String korisnickoIme);
->>>>>>> zaposljavanje-init
+
 }

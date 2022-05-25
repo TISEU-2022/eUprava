@@ -33,8 +33,6 @@ public class GradjaninServiceImpl implements GradjaninService {
     public Gradjanin save(Gradjanin gradjanin) {
         return gradjaninRepository.save(gradjanin);
     }
-<<<<<<< HEAD
-=======
 
     @Override
     public Gradjanin findByKorisnickoIme(String korisnickoIme) {
@@ -45,6 +43,4 @@ public class GradjaninServiceImpl implements GradjaninService {
         return gradjanin;
     }
 
-
->>>>>>> zaposljavanje-init
 }
