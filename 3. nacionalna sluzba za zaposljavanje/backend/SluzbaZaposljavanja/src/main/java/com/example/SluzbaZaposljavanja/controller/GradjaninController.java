@@ -1,9 +1,6 @@
 package com.example.SluzbaZaposljavanja.controller;
 
-<<<<<<< HEAD
-=======
 import com.example.SluzbaZaposljavanja.model.Firma;
->>>>>>> zaposljavanje-init
 import com.example.SluzbaZaposljavanja.model.Gradjanin;
 import com.example.SluzbaZaposljavanja.model.OglasZaPosao;
 import com.example.SluzbaZaposljavanja.service.GradjaninService;
@@ -17,10 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-<<<<<<< HEAD
-=======
 @CrossOrigin(origins="http://localhost:3000")
->>>>>>> zaposljavanje-init
 @RequestMapping(value = "api/gradjani")
 public class GradjaninController {
 
@@ -48,8 +42,6 @@ public class GradjaninController {
         return ResponseEntity.status(201).body(newGradjanin);
     }
 
-<<<<<<< HEAD
-=======
     @GetMapping(value = "zaposlenje/{korisnickoIme}")
     public ResponseEntity<Boolean> getStatusZaposlenjaGradjanina(@PathVariable("korisnickoIme") String korisnickoIme){
         Gradjanin gradjanin = gradjaninService.findByKorisnickoIme(korisnickoIme);
@@ -66,5 +58,4 @@ public class GradjaninController {
         return new ResponseEntity<Boolean>(zaposlenje, HttpStatus.OK);
     }
 
->>>>>>> zaposljavanje-init
 }

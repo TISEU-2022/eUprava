@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-<<<<<<< HEAD
-=======
 import org.springframework.web.bind.annotation.CrossOrigin;
->>>>>>> zaposljavanje-init
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,11 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "api/konkursi")
-<<<<<<< HEAD
-=======
 @CrossOrigin(origins="http://localhost:3000")
-
->>>>>>> zaposljavanje-init
 public class KonkursController {
 
     @Autowired

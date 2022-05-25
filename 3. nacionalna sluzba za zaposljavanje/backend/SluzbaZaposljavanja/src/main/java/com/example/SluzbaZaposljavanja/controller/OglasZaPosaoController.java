@@ -13,10 +13,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(value = "api/oglasi")
-<<<<<<< HEAD
-=======
 @CrossOrigin(origins="http://localhost:3000")
->>>>>>> zaposljavanje-init
 public class OglasZaPosaoController {
 
     @Autowired
