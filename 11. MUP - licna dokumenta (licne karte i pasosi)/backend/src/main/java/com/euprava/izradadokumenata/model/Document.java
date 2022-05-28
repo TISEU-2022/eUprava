@@ -16,7 +16,7 @@ import java.util.UUID;
 @ToString
 @Entity
 @Table
-public class Document {
+public class Document extends BaseEntity{
     @Id
     @Column(name = "id")
     @Type(type = "uuid-char")

@@ -15,4 +15,6 @@ public interface GradjaninService {
 
     Gradjanin save(Gradjanin gradjanin);
 
+    Gradjanin findByKorisnickoIme(String korisnickoIme);
+
 }

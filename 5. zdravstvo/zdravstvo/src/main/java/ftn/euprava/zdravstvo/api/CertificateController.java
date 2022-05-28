@@ -2,6 +2,7 @@ package ftn.euprava.zdravstvo.api;
 
 import ftn.euprava.zdravstvo.api.dto.CertificateRequest;
 import ftn.euprava.zdravstvo.api.dto.CertificateResponse;
+import ftn.euprava.zdravstvo.api.dto.CheckUserCertificateResponse;
 import ftn.euprava.zdravstvo.service.CertificateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,14 @@ public class CertificateController {
     private CertificateService certificateService;
 
     @PostMapping
-    public ResponseEntity<CertificateResponse> getCertificateForUser(
+    public ResponseEntity<CertificateResponse> generateCertificateForUser(
             @RequestBody CertificateRequest request
     ){
-        CertificateResponse result = certificateService.generateCertificate(request);
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(certificateService.generateCertificate(request));
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<CheckUserCertificateResponse> checkIfUserHasCertificate(@PathVariable Long userId) {
+        return ResponseEntity.ok(certificateService.checkIfUserHasCertificateNoted(userId));
     }
 }

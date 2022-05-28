@@ -14,6 +14,9 @@ import javax.validation.constraints.Size;
 public class CertificateRequest {
 
     @NotNull
+    private Long userId;
+
+    @NotNull
     @NotBlank
     private String name;
 
