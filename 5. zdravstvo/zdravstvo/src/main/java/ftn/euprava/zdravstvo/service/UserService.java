@@ -24,34 +24,7 @@ public class UserService {
     private static final String MATICAR_URI = "http://maticar:4002/api/user";
 
     public ResponseEntity<MaticarCertificateResponse> addBirthCertificate(final BirthCertificateRequest request) {
-        try {
-            ResponseEntity<MaticarCertificateResponse> birthCertificateResponse = sendBirthCertificateRequest(request);
-            if (birthCertificateResponse.getStatusCode().is2xxSuccessful()) {
-                log.info("uspesan je prvi");
-                if (request.getParent1Id() != null && request.getParent2Id() != null) {
-                    ResponseEntity<MaticarCertificateResponse> addParentsIdsResponse = addParentsIdsRequests((request));
-                    if (birthCertificateResponse.getStatusCode().is2xxSuccessful()) {
-                        return new ResponseEntity<>(new MaticarCertificateResponse("success"), HttpStatus.OK);
-                    }
-                }
-                else {
-                    return new ResponseEntity<>(new MaticarCertificateResponse("success"), HttpStatus.OK);
-                }
-            }
-            else {
-                log.info("nije uspeo prvi");
-                log.info(request.toString());
-                log.info(String.valueOf(birthCertificateResponse.getStatusCodeValue()));
-                log.info(birthCertificateResponse.getStatusCode().toString());
-            }
-        }
-        catch (Exception e) {
-            log.info("dosao u exception, exception: {}", e);
-            log.info(String.valueOf(e));
-            return new ResponseEntity<>(new MaticarCertificateResponse("failed"), BAD_REQUEST);
-        }
-        log.info("dosao skroz do poslenjeg failed");
-        return new ResponseEntity<>(new MaticarCertificateResponse("failed"), BAD_REQUEST);
+        return sendBirthCertificateRequest(request);
     }
 
     public ResponseEntity<MaticarCertificateResponse> recordDeceasedCitizen(final String jmbg) {
@@ -102,7 +75,7 @@ public class UserService {
 
     }
 
-    private ResponseEntity<MaticarCertificateResponse> addParentsIdsRequests(
+    public ResponseEntity<MaticarCertificateResponse> addParentsIdsRequests(
             final BirthCertificateRequest request
     ) {
         final ParentsMaticarRequest maticarRequest = ParentsMaticarRequest.of(request);

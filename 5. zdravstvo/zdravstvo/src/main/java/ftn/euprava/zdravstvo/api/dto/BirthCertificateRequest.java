@@ -36,13 +36,9 @@ public class BirthCertificateRequest {
     @NotNull
     @NotEmpty
     private String citizenship;
-    @NotNull
-    @NotEmpty
-    @Size(min=13, max=13)
+
     private String parent1Id;
-    @NotNull
-    @NotEmpty
-    @Size(min=13, max=13)
+
     private String parent2Id;
 
 

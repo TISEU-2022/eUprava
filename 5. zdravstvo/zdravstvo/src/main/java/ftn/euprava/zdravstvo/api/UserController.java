@@ -1,6 +1,7 @@
 package ftn.euprava.zdravstvo.api;
 
 import ftn.euprava.zdravstvo.api.dto.BirthCertificateRequest;
+import ftn.euprava.zdravstvo.api.dto.ParentsRequest;
 import ftn.euprava.zdravstvo.api.dto.ReportRequest;
 import ftn.euprava.zdravstvo.api.dto.ReportResponse;
 import ftn.euprava.zdravstvo.service.UserService;
@@ -21,6 +22,11 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @PostMapping
+    private ResponseEntity addParents(@RequestBody BirthCertificateRequest request) {
+        return userService.addParentsIdsRequests(request);
+    }
 
     @PostMapping
     private ResponseEntity addBirthCertificate(
