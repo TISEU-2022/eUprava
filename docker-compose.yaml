@@ -194,59 +194,59 @@ services:
   #     start_period: 30s
 
   # --- Zdravstvo ---
-  # zdravstvo-frontend:
-  #   environment:
-  #     - PORT=5000
-  #     - APP_URL=http://localhost:5000
-  #     - AUTH_SERVER_URL=http://localhost:5101
-  #     - BACKEND_URL=http://localhost:5001/api
-  #   build:
-  #     context: ./5. zdravstvo/zdravstvo-frontend
-  #   container_name: zdravstvo-frontend
-  #   networks:
-  #     tiseu:
-  #       aliases:
-  #         - frontend
-  #   ports:
-  #     - "5000:5000"
-  #   command: npm start
+  zdravstvo-frontend:
+    environment:
+      - PORT=5000
+      - APP_URL=http://localhost:5000
+      - AUTH_SERVER_URL=http://localhost:5101
+      - BACKEND_URL=http://localhost:5001/api
+    build:
+      context: ./5. zdravstvo/zdravstvo-frontend
+    container_name: zdravstvo-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "5000:5000"
+    command: npm start
 
-  # zdravstvo:
-  #   depends_on:
-  #     - zdravstvo-mysql
-  #   build:
-  #     context: ./5. zdravstvo/zdravstvo/
-  #     args:
-  #       - APP_VERSION
-  #   restart: on-failure
-  #   ports:
-  #     - 5001:5001
-  #   environment:
-  #     # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
-  #     - MYSQL_USER=root
-  #     - AUTH_SERVER_API=http://auth-app-proxy:5101
-  #     - MYSQL_PASSWORD=zdravstvo123
-  #     - MYSQL_DB=zdravstvo
-  #     - MYSQL_HOST=zdravstvoDB
-  #     - MYSQL_PORT=5002
+  zdravstvo:
+    depends_on:
+      - zdravstvo-mysql
+    build:
+      context: ./5. zdravstvo/zdravstvo/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 5001:5001
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - MYSQL_PASSWORD=zdravstvo123
+      - MYSQL_DB=zdravstvo
+      - MYSQL_HOST=zdravstvoDB
+      - MYSQL_PORT=5002
 
-  # zdravstvo-mysql:
-  #   image: mysql:8.0.23
-  #   container_name: zdravstvo-mysql
-  #   ports:
-  #     - "5002:3306"
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=zdravstvo123
-  #     - MYSQL_DATABASE=zdravstvo
-  #     - MYSQL_ROOT_HOST=%
-  #   volumes:
-  #     - zdravstvo-mysql:/var/lib/mysql
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-  #     interval: 15s
-  #     timeout: 5s
-  #     retries: 3
-  #     start_period: 20s
+  zdravstvo-mysql:
+    image: mysql:8.0.23
+    container_name: zdravstvo-mysql
+    ports:
+      - "5002:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=zdravstvo123
+      - MYSQL_DATABASE=zdravstvo
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - zdravstvo-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
   # --- ePortal ---
   eportal:
