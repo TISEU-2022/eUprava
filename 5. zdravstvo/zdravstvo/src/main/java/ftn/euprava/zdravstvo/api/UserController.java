@@ -16,14 +16,13 @@ import java.net.URISyntaxException;
 
 @CrossOrigin
 @RestController
-@Validated
 @RequestMapping("/api/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/parents")
     private ResponseEntity addParents(@RequestBody BirthCertificateRequest request) {
         return userService.addParentsIdsRequests(request);
     }
@@ -36,7 +35,7 @@ public class UserController {
     }
 
     @PutMapping("/{jmbg}")
-    private ResponseEntity recordDeceasedCitizen(@PathParam("jmbg") String jmbg) {
+    private ResponseEntity recordDeceasedCitizen(@PathVariable("jmbg") String jmbg) {
         return userService.recordDeceasedCitizen(jmbg);
     }
 

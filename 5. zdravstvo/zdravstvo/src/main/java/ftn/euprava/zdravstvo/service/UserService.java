@@ -24,6 +24,7 @@ public class UserService {
     private static final String MATICAR_URI = "http://maticar:4002/api/user";
 
     public ResponseEntity<MaticarCertificateResponse> addBirthCertificate(final BirthCertificateRequest request) {
+        log.info("REQUEST: ", request);
         return sendBirthCertificateRequest(request);
     }
 

@@ -16,6 +16,9 @@ const AddBirthCertificate = () => {
     parent2Id: "",
   });
 
+  const [birthResponse, setBirthResponse] = useState("");
+  const [parentsResponse, setParentsResponse] = useState("");
+
   const handleFormInputChange = (name) => (event) => {
     const val = event.target.value;
     setInfo({ ...info, [name]: val });
@@ -32,9 +35,28 @@ const AddBirthCertificate = () => {
   async function sendBirthCertificateRequest() {
     await UserService.addBirthCertificate(info)
       .then((response) => {
+        setBirthResponse(response.message);
         Swal.fire({
           icon: "success",
           title: "Uspešno sačuvane informacije!",
+        });
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title:
+            "Neispravno unete informacije! Proverite podatke i pokušajte opet",
+        });
+      });
+  }
+
+  async function sendParents() {
+    await UserService.addParents(info)
+      .then((response) => {
+        setParentsResponse(response.message);
+        Swal.fire({
+          icon: "success",
+          title: "Uspešno sačuvane informacije o roditelju!",
         });
         setInfo({
           identificationNumber: "",
@@ -51,8 +73,7 @@ const AddBirthCertificate = () => {
       .catch((error) => {
         Swal.fire({
           icon: "error",
-          title:
-            "Neispravno unete informacije! Proverite podatke i pokušajte opet",
+          title: "Neispravno uneti JMBG! Proverite podatke i pokušajte opet",
         });
       });
   }
@@ -136,6 +157,15 @@ const AddBirthCertificate = () => {
               as="input"
             />
           </Form.Group>
+          <br />
+          <Button
+            className="btn btn-primary"
+            onClick={() => sendBirthCertificateRequest()}
+          >
+            Dodaj novorođeno lice
+          </Button>
+          <br />
+          <br />
 
           <Form.Group>
             <Form.Label>JMBG majke</Form.Label>
@@ -158,13 +188,8 @@ const AddBirthCertificate = () => {
           </Form.Group>
 
           <br />
-          <br />
-
-          <Button
-            className="btn btn-primary"
-            onClick={() => sendBirthCertificateRequest()}
-          >
-            Dodaj
+          <Button className="btn btn-primary" onClick={() => sendParents()}>
+            Dodaj JMBG roditelja
           </Button>
         </Form>
       </div>

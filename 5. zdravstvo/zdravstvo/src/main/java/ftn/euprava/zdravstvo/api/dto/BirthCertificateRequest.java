@@ -15,32 +15,37 @@ import java.util.Date;
 public class BirthCertificateRequest {
 
     @NotNull
-    @NotEmpty
     @Size(min=13, max=13)
     private String identificationNumber;
     @NotNull
-    @NotEmpty
     private String firstName;
     @NotNull
-    @NotEmpty
     private String lastName;
     @NotNull
-    @NotEmpty
     private String gender;
     @NotNull
-    @NotEmpty
     private Date dateOfBirth;
     @NotNull
-    @NotEmpty
     private String countryOfBirth;
     @NotNull
-    @NotEmpty
     private String citizenship;
 
     private String parent1Id;
 
     private String parent2Id;
 
-
-
+    @Override
+    public String toString() {
+        return "BirthCertificateRequest{" +
+                "identificationNumber='" + identificationNumber + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", countryOfBirth='" + countryOfBirth + '\'' +
+                ", citizenship='" + citizenship + '\'' +
+                ", parent1Id='" + parent1Id + '\'' +
+                ", parent2Id='" + parent2Id + '\'' +
+                '}';
+    }
 }
