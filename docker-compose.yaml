@@ -248,6 +248,43 @@ services:
       retries: 3
       start_period: 20s
 
+  # --- eDnevnik --
+  edfeahs:
+    depends_on:
+      - edfeahs-mysql
+    build:
+      context: ./7. edfeahs/edfeahs/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 7001:7001
+    environment:
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:7101
+      - MYSQL_PASSWORD=edfeahs123
+      - MYSQL_DB=edfeahs
+      - MYSQL_HOST=edfeahsDB
+      - MYSQL_PORT=7002
+
+  edfeahs-mysql:
+    image: mysql:8.0.28
+    container_name: edfeahs-mysql
+    ports:
+      - "7002:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=edfeahs123
+      - MYSQL_DATABASE=edfeahs
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - edfeahs-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
   # --- ePortal ---
   eportal:
     environment:
@@ -272,6 +309,8 @@ volumes:
   zdravstvo-mysql:
     driver: local
   dokumenti-mysql:
+    driver: local
+  edfeahs-mysql:
     driver: local
 
   

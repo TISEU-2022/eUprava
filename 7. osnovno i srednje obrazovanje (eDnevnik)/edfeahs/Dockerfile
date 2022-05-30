@@ -1,27 +1,27 @@
-FROM openjdk:17-jdk-alpine as build
 
+FROM maven:3.8.5-openjdk-17 as build
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
 
-COPY mvnw .
-COPY .mvn .mvn
+RUN --mount=type=cache,target=/root/.m2 mvn install -DskipTests
+
+RUN cp target/*.jar application.jar
 
 COPY pom.xml .
 
-RUN dos2unix mvnw
-RUN ./mvnw dependency:go-offline -B
+FROM bellsoft/liberica-openjdk-alpine-musl:17 as second_stage
+WORKDIR /app
+COPY --from=build /app/application.jar application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
 
-COPY src src
+FROM bellsoft/liberica-openjdk-alpine-musl:17
+WORKDIR /app
 
-RUN ./mvnw package -Dskiptests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+COPY --from=second_stage /app/dependencies/ ./
+COPY --from=second_stage /app/snapshot-dependencies/ ./
+COPY --from=second_stage /app/spring-boot-loader/ ./
+COPY --from=second_stage /app/application/ ./
 
-
-FROM openjdk:17-alpine
-
-ARG DEPENDENCY=/app/target/dependency
-
-COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
-COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
-COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-
-ENTRYPOINT ["java", "-cp","app:app/lib/*", "ftn.euprava.edfeahs.EdfeahsApplication"]
+ENTRYPOINT ["java"]
+CMD ["org.springframework.boot.loader.JarLauncher"]
