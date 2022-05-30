@@ -1,21 +1,29 @@
 package yu.rs.co.edfeahs.web.controller;
 
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import yu.rs.co.edfeahs.model.Student;
+import yu.rs.co.edfeahs.web.dto.StudentSearchParam;
+import yu.rs.co.edfeahs.service.StudentService;
 
-import java.sql.Connection;
+import javax.validation.Valid;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
+@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/ucenik")
+@RequestMapping("/api/students")
 public class StudentController {
+
+    private final StudentService studentService;
 
     @GetMapping(path = "{jmbg}/diploma/{tip_ustanove}", produces = "application/json")
     public ResponseEntity<Map<String, Object>> getDiploma(
@@ -51,5 +59,22 @@ public class StudentController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+//    @GetMapping
+//    public ResponseEntity<List<Student>> findAll() {
+//        List<Student> result = studentService.findAll();
+//
+//        return new ResponseEntity<>(result, HttpStatus.OK);
+//    }
+
+    @GetMapping
+    public ResponseEntity<List<Student>> findStudents(@Valid StudentSearchParam searchParam) {
+        List<Student> result = studentService.findStudents(searchParam);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+
+
 
 }
