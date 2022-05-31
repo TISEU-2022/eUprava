@@ -70,7 +70,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<List<Student>> findStudents(@Valid StudentSearchParam searchParam) {
         List<Student> result = studentService.findStudents(searchParam);
-
+        System.out.println("Hello World!!");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

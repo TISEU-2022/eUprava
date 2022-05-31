@@ -253,7 +253,7 @@ services:
     depends_on:
       - edfeahs-mysql
     build:
-      context: ./7. edfeahs/edfeahs/
+      context: "./7. osnovno i srednje obrazovanje (eDnevnik)/edfeahs/"
       args:
         - APP_VERSION
     restart: on-failure
