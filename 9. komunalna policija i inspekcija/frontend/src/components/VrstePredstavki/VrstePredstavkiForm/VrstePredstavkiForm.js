@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
-import axios from "axios";
 import Input from "../../util/Input/Input";
 import {Button} from "react-bootstrap";
+import vrstePredstavkiService from "../../../services/api/vrste-predstavki-service";
 
 const VrstePredstavkiForm = () => {
 
@@ -15,9 +15,9 @@ const VrstePredstavkiForm = () => {
 
     useEffect(() => {
         if(id) {
-            axios.get(`/vrsta-predstavke/${id}`)
-                .then((response) => {
-                    setVrstaPredstavke(response.data);
+            vrstePredstavkiService.getById(id)
+                .then(data => {
+                    setVrstaPredstavke(data);
                 })
         }
     }, [id]);
@@ -32,14 +32,14 @@ const VrstePredstavkiForm = () => {
     const submitFormHandler = (event) => {
         event.preventDefault();
         if(id) {
-            axios.put(`/vrsta-predstavke/${id}`, vrstaPredstavke)
-                .then((response) => {
+            vrstePredstavkiService.update(id, vrstaPredstavke)
+                .then(() => {
                     history.push(`/vrste-predstavki/${id}`);
                 })
         } else {
-            axios.post(`/vrsta-predstavke`, vrstaPredstavke)
-                .then((response) => {
-                    history.push(`/vrste-predstavki/${response.data}`);
+            vrstePredstavkiService.create(vrstaPredstavke)
+                .then((data) => {
+                    history.push(`/vrste-predstavki/${data}`);
                 })
         }
     }

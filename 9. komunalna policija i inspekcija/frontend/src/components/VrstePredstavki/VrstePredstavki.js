@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Button, Table} from "react-bootstrap";
-import axios from "axios";
 import {useHistory} from "react-router-dom";
+import vrstePredstavkiService from "../../services/api/vrste-predstavki-service";
 
 const VrstePredstavki = () => {
 
@@ -9,9 +9,9 @@ const VrstePredstavki = () => {
     const [vrstePredstavki, setVrstePredstavki] = useState([]);
 
     useEffect(() => {
-        axios.get("/vrsta-predstavke")
-            .then((response) => {
-                setVrstePredstavki(response.data);
+        vrstePredstavkiService.getAll()
+            .then((data) => {
+                setVrstePredstavki(data);
             })
     }, [])
 

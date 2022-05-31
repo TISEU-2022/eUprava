@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useHistory, useParams} from 'react-router-dom';
 import {Button, Table} from "react-bootstrap";
-import axios from "axios";
+import vrstePredstavkiService from "../../../services/api/vrste-predstavki-service";
 
 
 const VrstePredstavkiDetails = () => {
@@ -11,17 +11,17 @@ const VrstePredstavkiDetails = () => {
     const [vrstaPredstavke, setVrstaPredstavke] = useState({});
 
     useEffect(() => {
-        axios.get(`/vrsta-predstavke/${id}`)
-            .then((response) => {
-                setVrstaPredstavke(response.data);
+        vrstePredstavkiService.getById(id)
+            .then(data => {
+                setVrstaPredstavke(data);
             })
     }, [id]);
 
     const deleteHandler = () => {
         const confirmed = window.confirm("Da li ste sigurni da želite da obrišete vrstu predstavke?");
         if(confirmed) {
-            axios.delete(`/vrsta-predstavke/${id}`)
-                .then((response) => {
+            vrstePredstavkiService.deleteById(id)
+                .then(() => {
                     history.push(`/vrste-predstavki/`);
                 })
         }
