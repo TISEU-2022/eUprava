@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -32,7 +33,9 @@ public class PredstavkaController {
 
     @PostMapping
     public ResponseEntity<Long> createPredstavka(@RequestBody PredstavkaDTO predstavkaDTO){
-        Predstavka predstavka = predstavkaService.save(PredstavkaMapper.mapModel(predstavkaDTO));
+        Predstavka predstavka = PredstavkaMapper.mapModel(predstavkaDTO);
+        predstavka.setVremePodnosenja(new Date());
+        predstavka = predstavkaService.save(predstavka);
         return new ResponseEntity<>(predstavka.getId(), HttpStatus.CREATED);
     }
 
