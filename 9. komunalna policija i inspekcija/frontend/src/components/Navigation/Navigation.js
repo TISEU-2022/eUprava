@@ -31,6 +31,9 @@ const Navigation = () => {
                         <Link to="/vrste-predstavki" className={styles.link}>
                             Vrste predstavki
                         </Link>
+                        <Link to="/vrste-komunalnih-problema" className={styles.link}>
+                            Vrste komunalnih problema
+                        </Link>
                     </Nav>
                     <Button size="sm" variant="light" className="ml-4" onClick={authService.logout}>
                         Logout
