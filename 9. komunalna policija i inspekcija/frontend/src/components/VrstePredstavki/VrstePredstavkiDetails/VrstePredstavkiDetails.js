@@ -15,7 +15,7 @@ const VrstePredstavkiDetails = () => {
             .then((response) => {
                 setVrstaPredstavke(response.data);
             })
-    }, []);
+    }, [id]);
 
     const deleteHandler = () => {
         const confirmed = window.confirm("Da li ste sigurni da želite da obrišete vrstu predstavke?");

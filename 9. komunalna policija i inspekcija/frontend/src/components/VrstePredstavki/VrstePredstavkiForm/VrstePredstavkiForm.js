@@ -14,11 +14,13 @@ const VrstePredstavkiForm = () => {
     });
 
     useEffect(() => {
-        axios.get(`/vrsta-predstavke/${id}`)
-            .then((response) => {
-                setVrstaPredstavke(response.data);
-            })
-    }, []);
+        if(id) {
+            axios.get(`/vrsta-predstavke/${id}`)
+                .then((response) => {
+                    setVrstaPredstavke(response.data);
+                })
+        }
+    }, [id]);
 
     const changeNazivHandler = (value) => {
         setVrstaPredstavke(prevVrstaPredstavke => ({

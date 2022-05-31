@@ -37,8 +37,8 @@ const VrstePredstavki = () => {
                 </thead>
                 <tbody>
                     {
-                        vrstePredstavki.map(vrstaPredstavke => (
-                            <tr className="pointer" onClick={() => goToDetailsHandler(vrstaPredstavke.id)}>
+                        vrstePredstavki.map((vrstaPredstavke) => (
+                            <tr key={vrstaPredstavke.id} className="pointer" onClick={() => goToDetailsHandler(vrstaPredstavke.id)}>
                                 <td>{vrstaPredstavke.id}</td>
                                 <td>{vrstaPredstavke.naziv}</td>
                             </tr>

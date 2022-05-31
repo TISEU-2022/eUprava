@@ -4,8 +4,6 @@ import VrstePredstavkiForm from "../components/VrstePredstavki/VrstePredstavkiFo
 
 const VrstePredstavkiFormPage = (props) => {
 
-    console.log(props.edit)
-
     return (
         <StandardLayout title={props.edit ? "Izmeni vrstu predstavke" : "Kreiraj vrstu predstavke"}>
             <VrstePredstavkiForm/>

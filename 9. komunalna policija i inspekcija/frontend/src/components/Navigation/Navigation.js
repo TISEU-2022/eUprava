@@ -1,5 +1,4 @@
 import React from 'react';
-import navbarService from "../../services/navbar-service";
 import authService from "../../services/auth-service";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
