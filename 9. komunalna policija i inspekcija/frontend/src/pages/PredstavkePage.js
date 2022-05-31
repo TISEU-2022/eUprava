@@ -1,10 +1,12 @@
-import React from 'react';
+import StandardLayout from "../layouts/StandardLayout";
+import Predstavke from "../components/Predstavke/Predstavke";
 
 const PredstavkePage = () => {
+
     return (
-        <div>
-            
-        </div>
+        <StandardLayout title="Predstavke" fluid>
+            <Predstavke/>
+        </StandardLayout>
     );
 };
 

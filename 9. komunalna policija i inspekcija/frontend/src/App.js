@@ -8,6 +8,9 @@ import VrstePredstavkiFormPage from "./pages/VrstePredstavkiFormPage";
 import VrsteKomunalnihProblemaPage from "./pages/VrsteKomunalnihProblemaPage";
 import VrsteKomunalnihProblemaDetailsPage from "./pages/VrsteKomunalnihProblemaDetailsPage";
 import VrsteKomunalnihProblemaFormPage from "./pages/VrsteKomunalnihProblemaFormPage";
+import PredstavkeFormPage from "./pages/PredstavkeFormPage";
+import PredstavkePage from "./pages/PredstavkePage";
+import PredstavkeDetailsPage from "./pages/PredstavkeDetailsPage";
 
 function App() {
 
@@ -23,6 +26,9 @@ function App() {
               <Route path="/vrste-komunalnih-problema/form" component={VrsteKomunalnihProblemaFormPage} exact/>
               <Route path="/vrste-komunalnih-problema/:id" component={VrsteKomunalnihProblemaDetailsPage} exact/>
               <Route path="/vrste-komunalnih-problema" component={VrsteKomunalnihProblemaPage} exact/>
+              <Route path="/predstavke/form" component={PredstavkeFormPage}/>
+              <Route path="/predstavke/:id" component={PredstavkeDetailsPage}/>
+              <Route path="/predstavke" component={PredstavkePage}/>
               <Route path="/page" component={Page}/>
               <Route path="/auth" component={Auth}/>
               <Redirect to='/dobro-dosli'/>
