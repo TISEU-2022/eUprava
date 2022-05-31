@@ -1,7 +1,6 @@
-import './App.css';
 import {BrowserRouter, Route, Switch} from "react-router-dom";
-import Page from "./component/Page";
-import Auth from "./component/Auth";
+import Page from "./components/Page";
+import Auth from "./components/Auth/Auth";
 
 function App() {
 

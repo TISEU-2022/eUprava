@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import logo from "../logo.svg";
+import StandardLayout from '../layouts/StandardLayout'
 import axios from "axios";
 
 const Page = () => {
 
     const [myVal, setMyVal] = useState("");
-
 
     useEffect(() => {
         sendRequest();
@@ -22,16 +21,17 @@ const Page = () => {
     }
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    {myVal}
-                </p>
-                <button onClick={getLogin}>Login</button>
-                <button onClick={sendRequest}>Send request again</button>
-            </header>
-        </div>
+        <StandardLayout>
+            <div className="d-flex justify-content-center align-items-center bg-info" style={{height: "95vh"}}>
+                <header className="App-header">
+                    <p>
+                        {myVal}
+                    </p>
+                    <button onClick={getLogin}>Login</button>
+                    <button onClick={sendRequest}>Send request again</button>
+                </header>
+            </div>
+        </StandardLayout>
     );
 };
 
