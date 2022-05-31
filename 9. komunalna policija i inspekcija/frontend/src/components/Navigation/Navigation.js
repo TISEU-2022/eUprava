@@ -4,11 +4,11 @@ import authService from "../../services/auth-service";
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import styles from './Navbar.module.css';
+import styles from './Navigation.module.css';
 import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 
-const navbar = () => {
+const Navigation = () => {
     
     // const navigationLinks = navbarService.getAllowedNavbarLinks().map((navLink, index) => (
     //     <Link key={index} to={navLink.url} className={styles.link}">
@@ -29,7 +29,7 @@ const navbar = () => {
                         <Link to="/predstavke" className={styles.link}>
                             Predstavke
                         </Link>
-                        <Link to="vrste-predstavki" className={styles.link}>
+                        <Link to="/vrste-predstavki" className={styles.link}>
                             Vrste predstavki
                         </Link>
                     </Nav>
@@ -42,4 +42,4 @@ const navbar = () => {
     );
 }
 
-export default navbar;
+export default Navigation;

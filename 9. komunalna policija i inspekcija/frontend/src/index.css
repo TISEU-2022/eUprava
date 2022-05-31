@@ -2,9 +2,14 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: serif;
 }
 
 body {
   min-height: 100vh;
   position: relative;
+}
+
+.pointer:hover {
+  cursor: pointer;
 }
