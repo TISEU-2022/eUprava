@@ -2,6 +2,7 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper;
 
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.VrstaKomunalnogProblema;
 
 public class KomunalniProblemMapper {
 
@@ -13,6 +14,7 @@ public class KomunalniProblemMapper {
                 .mestoDogadjaja(komunalniProblemDTO.getMestoDogadjaja())
                 .datumDogadjaja(komunalniProblemDTO.getDatumDogadjaja())
                 .datumPodnosenja(komunalniProblemDTO.getDatumPodnosenja())
+                .vrstaKomunalnogProblema(komunalniProblemDTO.getVrstaKomunalnogProblema())
                 .build();
     }
 
@@ -24,6 +26,7 @@ public class KomunalniProblemMapper {
                 .mestoDogadjaja(komunalniProblem.getMestoDogadjaja())
                 .datumDogadjaja(komunalniProblem.getDatumDogadjaja())
                 .datumPodnosenja(komunalniProblem.getDatumPodnosenja())
+                .vrstaKomunalnogProblema(komunalniProblem.getVrstaKomunalnogProblema())
                 .build();
     }
 }

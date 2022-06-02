@@ -11,6 +11,9 @@ import VrsteKomunalnihProblemaFormPage from "./pages/VrsteKomunalnihProblemaForm
 import PredstavkeFormPage from "./pages/PredstavkeFormPage";
 import PredstavkePage from "./pages/PredstavkePage";
 import PredstavkeDetailsPage from "./pages/PredstavkeDetailsPage";
+import KomunalniProblemiPage from "./pages/KomunalniProblemiPage";
+import KomunalniProblemiDetailsPage from "./pages/KomunalniProblemiDetailsPage";
+import KomunalniProblemiFormPage from "./pages/KomunalniProblemiFormPage";
 
 function App() {
 
@@ -29,6 +32,9 @@ function App() {
               <Route path="/predstavke/form" component={PredstavkeFormPage}/>
               <Route path="/predstavke/:id" component={PredstavkeDetailsPage}/>
               <Route path="/predstavke" component={PredstavkePage}/>
+              <Route path="/komunalni-problemi/form" component={KomunalniProblemiFormPage} />
+              <Route path="/komunalni-problemi/:id" component={KomunalniProblemiDetailsPage} />
+              <Route path="/komunalni-problemi" component={KomunalniProblemiPage} />
               <Route path="/page" component={Page}/>
               <Route path="/auth" component={Auth}/>
               <Redirect to='/dobro-dosli'/>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin
@@ -29,6 +30,7 @@ public class KomunalniProblemController {
         for(KomunalniProblem kp : komunalniProblemi){
             dtos.add(KomunalniProblemMapper.mapDTO(kp));
         }
+        System.out.println(dtos);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
@@ -41,6 +43,7 @@ public class KomunalniProblemController {
 
     @PostMapping()
     public ResponseEntity<Long> createKomunalniProblem(@RequestBody KomunalniProblemDTO komunalniProblemDTO){
+        komunalniProblemDTO.setDatumPodnosenja(new Date());
         Long id = komunalniProblemService.createKomunalniProblem(KomunalniProblemMapper.mapModel(komunalniProblemDTO));
 
         String location = ServletUriComponentsBuilder

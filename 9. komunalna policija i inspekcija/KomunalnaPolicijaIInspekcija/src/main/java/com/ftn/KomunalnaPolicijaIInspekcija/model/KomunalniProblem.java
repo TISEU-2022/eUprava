@@ -28,7 +28,7 @@ public class KomunalniProblem {
     private Date datumPodnosenja;
     private Date datumDogadjaja;
 
-    @OneToOne
+    @ManyToOne
     private VrstaKomunalnogProblema vrstaKomunalnogProblema;
 
     @ElementCollection
