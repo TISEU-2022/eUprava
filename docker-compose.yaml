@@ -153,9 +153,52 @@ services:
     ports:
       - "4011:4011"
 
+  # ---eGlasanje---
+  glasanje-frontend:
+    build:
+      context: ./10. biracki spisak i eGlasanje/frontend
+    container_name: glasanje-frontend
+    volumes:
+      - ./10. biracki spisak i eGlasanje/frontend:/app
+      - /app/node_modules
+    ports:
+      - "10001:10001"
+
+  glasanje-backend:
+    build:
+      context: ./10. biracki spisak i eGlasanje/glasanje-backend/
+    container_name: glasanje-backend
+    ports:
+      - "10002:10002"
+    networks:
+      tiseu:
+        aliases:
+          - "glasanje-backend"
+    depends_on:
+      - glasanje-mysql
+
+  glasanje-mysql:
+    image: mysql:8.0.23
+    container_name: glasanje-mysql
+    ports:
+      - "10003:10003"
+    environment:
+      - MYSQL_TCP_PORT=10003
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+    volumes:
+      - glasanje-mysql-data:/var/lib/mysql
+      - ./10. biracki spisak i eGlasanje/database:/tmp/database
+    command: mysqld --init-file="/tmp/database/init_db.sql"
+    networks:
+      tiseu:
+        aliases:
+          - "glasanje-mysql"
 
 volumes:
   auth-mongodb:
     driver: local
   maticar-mysql:
+    driver: local
+  glasanje-mysql-data:
     driver: local
