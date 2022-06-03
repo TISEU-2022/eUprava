@@ -156,7 +156,7 @@ services:
   # ---eGlasanje---
   glasanje-frontend:
     build:
-      context: ./10. biracki spisak i eGlasanje/frontend
+      context: ./10. biracki spisak i eGlasanje/glasanje-frontend
     container_name: glasanje-frontend
     volumes:
       - ./10. biracki spisak i eGlasanje/frontend:/app
