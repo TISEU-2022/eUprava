@@ -8,6 +8,8 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 
 
@@ -16,8 +18,8 @@ public class JwtTokenUtil {
 
 
     public boolean tokenVerified(String token) {
-        //final String uri = "http://auth-app:5101/auth/verify_token/"+token;
-        final String uri = "http://host.docker.internal:5101/auth/verify_token/"+token;
+        final String uri = "http://auth-app:3101/auth/verify_token/" + token;
+        //final String uri = "http://host.docker.internal:5101/auth/verify_token/"+token;
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

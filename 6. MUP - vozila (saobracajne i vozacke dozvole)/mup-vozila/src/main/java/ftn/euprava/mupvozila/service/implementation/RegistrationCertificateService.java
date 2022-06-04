@@ -3,6 +3,7 @@ package ftn.euprava.mupvozila.service.implementation;
 import ftn.euprava.mupvozila.model.RegistrationCertificate;
 import ftn.euprava.mupvozila.repository.RegistrationCertificateRepository;
 import ftn.euprava.mupvozila.service.IRegistrationCertificateService;
+import ftn.euprava.mupvozila.util.exception.RequestIsNotValidException;
 import ftn.euprava.mupvozila.util.exception.EntityNotFoundException;
 import ftn.euprava.mupvozila.util.mapper.CarMapper;
 import ftn.euprava.mupvozila.util.mapper.RegistrationCertificateMapper;
@@ -82,9 +83,8 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
         if(certificate == null)
             throw new EntityNotFoundException("Zahtev nije pronadjen");
 
-        //TODO Custom exception
         if(certificate.getRequest())
-            throw new RuntimeException();
+            throw new RequestIsNotValidException("Zahtev nije validan");
 
         certificate.setDayOfIssue(LocalDate.now());
         certificate.setRequest(false);

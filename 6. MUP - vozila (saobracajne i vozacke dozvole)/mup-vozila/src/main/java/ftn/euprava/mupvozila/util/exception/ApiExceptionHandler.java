@@ -23,4 +23,17 @@ public class ApiExceptionHandler {
 
         return new ResponseEntity<>(exceptionMessage, status);
     }
+
+    @ExceptionHandler(value = {RequestIsNotValidException.class})
+    public ResponseEntity<Object> handleRequestIsNotValidException(RequestIsNotValidException e){
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+
+        ExceptionMessage exceptionMessage = new ExceptionMessage(
+                e.getMessage(),
+                status,
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(exceptionMessage, status);
+    }
 }

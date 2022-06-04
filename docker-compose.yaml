@@ -194,6 +194,58 @@ services:
       retries: 3
       start_period: 20s
 
+  # --- MUP-vozila ---
+  mup-vozila-backend:
+    build: 
+      context: ./6. MUP - vozila (saobracajne i vozacke dozvole)/mup-vozila
+      dockerfile: Dockerfile
+    networks:
+      tiseu:
+        aliases:
+          - mup-vozila-backend
+    ports:
+      - "6001:8080"
+    restart: always
+    container_name: mup-vozila-backend
+    depends_on:
+      - mup-vozila-mysql
+    environment:
+      #SPRING_DATASOURCE_URL: jdbc:mysql://mup-vozila-mysql:3306/mup-vozila?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=NewUser123
+      - SPRING_DATASOURCE_DATABASE=mup-vozila  
+
+  mup-vozila-mysql:
+    image: mysql:8.0.29
+    networks:
+      tiseu:
+        aliases:
+          - mup-vozila-mysql
+    ports:
+      - "6002:3306"
+    restart: always
+    container_name: mup-vozila-mysql
+    volumes:
+      - mup-vozila-mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=NewUser123
+      - MYSQL_DATABASE=mup-vozila
+      - MYSQL_ROOT_HOST=%
+
+  mup-vozila-frontend:
+    build:
+      context: ./6. MUP - vozila (saobracajne i vozacke dozvole)/mup-vozila-frontend
+      dockerfile: Dockerfile
+    networks:
+      tiseu:
+        aliases:
+          - mup-vozila-frontend
+    ports:
+      - "6003:80"
+    restart: always
+    container_name: mup-vozila-frontend
+
+
   # --- ePortal ---
   eportal:
     environment:
@@ -216,4 +268,6 @@ volumes:
   maticar-mysql:
     driver: local
   zdravstvo-mysql:
+    driver: local
+  mup-vozila-mysql:
     driver: local
