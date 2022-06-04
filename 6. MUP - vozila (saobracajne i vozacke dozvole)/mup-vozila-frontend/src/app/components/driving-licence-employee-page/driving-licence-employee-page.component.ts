@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DrivingLicence } from '../../_models/driving-licence';
 import { DrivingLicenceChangeRequest } from '../../_models/driving-licence-change-request';
 import { RequestForDrivingLicence } from '../../_models/request-for-driving-licence';
 import { DrivingLicenceService } from '../../_services/driving-licence.service';
 import { TokenService } from '../../_services/token.service';
 
 @Component({
-  selector: 'app-employee-home-page',
-  templateUrl: './employee-home-page.component.html',
-  styleUrls: ['./employee-home-page.component.css']
+  selector: 'app-driving-licence-employee-page',
+  templateUrl: './driving-licence-employee-page.component.html',
+  styleUrls: ['./driving-licence-employee-page.component.css']
 })
-export class EmployeeHomePageComponent implements OnInit {
+export class DrivingLicenceEmployeePageComponent implements OnInit {
+
   drivingLicenceView: string = "Show";
   page: number = 1;
   totalElements!: number;

@@ -1,12 +1,21 @@
 package ftn.euprava.mupvozila.web.controller;
 
+import com.google.gson.Gson;
 import ftn.euprava.mupvozila.model.enums.RequestStatus;
 import ftn.euprava.mupvozila.service.IDrivingLicenceChangeRequestService;
 import ftn.euprava.mupvozila.service.IDrivingLicenceService;
 import ftn.euprava.mupvozila.service.IRequestForDrivingLicenceService;
+import ftn.euprava.mupvozila.util.jwt.JwtTokenUtil;
 import ftn.euprava.mupvozila.web.dto.DrivingLicenceChangeRequestDTO;
 import ftn.euprava.mupvozila.web.dto.DrivingLicenceDTO;
 import ftn.euprava.mupvozila.web.dto.RequestForDrivingLicenceDTO;
+import ftn.euprava.mupvozila.web.dto.UserDTO;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -25,19 +34,95 @@ public class DrivingLicenceController {
     private final IDrivingLicenceService iDrivingLicenceService;
     private final IDrivingLicenceChangeRequestService iDrivingLicenceChangeRequestService;
     private final IRequestForDrivingLicenceService iRequestForDrivingLicenceService;
+    private final JwtTokenUtil jwtTokenUtil;
     private final int itemsPerPage = 5;
 
     public DrivingLicenceController(IDrivingLicenceService iDrivingLicenceService, IDrivingLicenceChangeRequestService iDrivingLicenceChangeRequestService,
-                                    IRequestForDrivingLicenceService iRequestForDrivingLicenceService) {
+                                    IRequestForDrivingLicenceService iRequestForDrivingLicenceService, JwtTokenUtil jwtTokenUtil) {
         this.iDrivingLicenceService = iDrivingLicenceService;
         this.iDrivingLicenceChangeRequestService = iDrivingLicenceChangeRequestService;
         this.iRequestForDrivingLicenceService = iRequestForDrivingLicenceService;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
 //    @GetMapping(value = "/user/{identityNumber}")
 //    public ResponseEntity<DrivingLicenceDTO> getDrivingLicenceByIdentityNumber(@PathVariable String identityNumber){
 //        return new ResponseEntity<>(iDrivingLicenceService.findOneByIdentityNumber(identityNumber), HttpStatus.OK);
 //    }
+
+    // medical certificate
+    @GetMapping(value = "/create/medical-certificate")
+    public ResponseEntity<String> createDrivingLicence(HttpServletRequest request){
+
+        String header = request.getHeader("Authorization");
+        String token = header.substring(7);
+
+        String id = this.jwtTokenUtil.getUserId(token);
+        String uri = "http://auth-app:3101/user/find/id/"+id;
+
+        OkHttpClient client = new OkHttpClient();
+        Request authRequest = new Request.Builder()
+                .url(uri)
+                .addHeader("Authorization","Bearer " + token)
+                .build();
+
+        try {
+            Response authResponse = client.newCall(authRequest).execute();
+            System.out.println("Auth server response:"+authResponse.peekBody(2048).string());
+
+            Gson gson = new Gson();
+            UserDTO userData = gson.fromJson(authResponse.peekBody(2048).string(), UserDTO.class);
+
+
+
+            if (authResponse.code() == 200 || authResponse.code() == 201){
+
+                String requestDataString = "{ \"name\": \""+userData.getFirstName()+"\", \"lastName\": \""+userData.getLastName()+"\", " +
+                        "\"jmbg\": \""+userData.getIdentityNumber()+"\", \"purpose\": \"izdavanje vozacke dozvole\" }";
+
+                System.out.println("Request data for medical certificate: "+ requestDataString);
+
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                okhttp3.RequestBody body = okhttp3.RequestBody.create(JSON, requestDataString);
+
+                uri = "http://host.docker.internal:5001/api/medical-certificates";
+
+                Request zdravstvoRequest = new Request.Builder()
+                        .url(uri)
+                        .post(body)
+                        //.addHeader("Authorization","Bearer " + token)
+                        .build();
+
+                try{
+                    Response zdravstvoResponse = client.newCall(zdravstvoRequest).execute();
+                    System.out.println("Zdravstvo response: "+zdravstvoResponse.peekBody(2048).string());
+
+                    if (zdravstvoResponse.code() == 200 || zdravstvoResponse.code() == 201){
+                        // SUCCESSFUL
+                        return new ResponseEntity<String>(zdravstvoResponse.peekBody(2048).string(),HttpStatus.CREATED);
+                    }
+                    // else
+                    return new ResponseEntity<String>("There's been an error while creating medical certificate",
+                            HttpStatus.CREATED);
+
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    return new ResponseEntity<String>(e.toString(),HttpStatus.CREATED);
+                }
+
+
+            }
+            // else
+            return new ResponseEntity<String>("There's been an error while fetching user data",
+                    HttpStatus.BAD_REQUEST);
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<String>(e.toString(),HttpStatus.BAD_REQUEST);
+        }
+
+    }
 
     //--------  DRIVING LICENCES  --------/
     @GetMapping(value = "/{id}")

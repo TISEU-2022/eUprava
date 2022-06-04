@@ -1,1 +1,14 @@
-<p>home-page works!</p>
+<div class="container">
+
+  <br />
+
+  <button *ngIf="userRole == 'gradjanin'" class="btn btn-info" routerLink="/citizen/driving-licence" routerLinkActive="active">
+    Driving licence
+  </button>
+
+  <button *ngIf="userRole == 'zaposleni'" class="btn btn-info" routerLink="/employee/driving-licence" routerLinkActive="active">
+    Driving licence
+  </button>
+
+
+</div>

@@ -6,13 +6,13 @@ import { RequestForDrivingLicence } from '../../_models/request-for-driving-lice
 import { DrivingLicenceService } from '../../_services/driving-licence.service';
 import { TokenService } from '../../_services/token.service';
 
-
 @Component({
-  selector: 'app-citizen-home-page',
-  templateUrl: './citizen-home-page.component.html',
-  styleUrls: ['./citizen-home-page.component.css']
+  selector: 'app-driving-licence-citizen-page',
+  templateUrl: './driving-licence-citizen-page.component.html',
+  styleUrls: ['./driving-licence-citizen-page.component.css']
 })
-export class CitizenHomePageComponent implements OnInit {
+export class DrivingLicenceCitizenPageComponent implements OnInit {
+
   drivingLicence!: DrivingLicence;
   drivingLicenceView: string = "Show";
   createDLrequestExist: boolean = true;
@@ -33,7 +33,7 @@ export class CitizenHomePageComponent implements OnInit {
   requestTypes = ["CHANGE_OF_INFORMATION", "EXPIRED", "LOST"]
   requestType: string = "CHANGE_OF_INFORMATION";
 
-  viewTypes = ["new","update of"];
+  viewTypes = ["new", "update of"];
   viewType: string = "new";
 
   constructor(private router: Router,
@@ -74,8 +74,8 @@ export class CitizenHomePageComponent implements OnInit {
       }
     )
 
-    this.drivingLicenceService.getRequests(this.page-1, this.requestStatus).subscribe(
-      (response:any) => {
+    this.drivingLicenceService.getRequests(this.page - 1, this.requestStatus).subscribe(
+      (response: any) => {
         if (response != null) {
           this.newDLrequests = response.content;
           this.totalElements = response.totalElements;
@@ -108,7 +108,7 @@ export class CitizenHomePageComponent implements OnInit {
   onViewTypeChange(viewType: string) {
     this.viewType = viewType;
     if (this.viewType == "new") {
-      this.drivingLicenceService.getRequests(this.page-1, this.requestStatus).subscribe(
+      this.drivingLicenceService.getRequests(this.page - 1, this.requestStatus).subscribe(
         (response: any) => {
           if (response != null) {
             this.newDLrequests = response.content;
@@ -118,7 +118,7 @@ export class CitizenHomePageComponent implements OnInit {
       )
     }
     else if (this.viewType == "update of") {
-      this.drivingLicenceService.getEditRequests(this.page-1, this.requestStatus).subscribe(
+      this.drivingLicenceService.getEditRequests(this.page - 1, this.requestStatus).subscribe(
         (response: any) => {
           if (response != null) {
             this.changeDLrequests = response.content;
@@ -153,18 +153,27 @@ export class CitizenHomePageComponent implements OnInit {
       requestStatus: "PENDING"
     });
 
-    this.drivingLicenceService.createDLrequest(request).subscribe(
+
+    this.drivingLicenceService.createMedicalCertificate().subscribe(
       data => {
-        this.createDLrequestExist = true;
-        this.createRequestResultMsg = "*Request for a new driving licence was sent successfully"
-        this.onViewTypeChange(this.viewType);
+
+        this.drivingLicenceService.createDLrequest(request).subscribe(
+          data => {
+            this.createDLrequestExist = true;
+            this.createRequestResultMsg = "*Request for a new driving licence was sent successfully"
+            this.onViewTypeChange(this.viewType);
+          },
+          error => {
+            this.createRequestResultMsg = "*There was an error while sending the request"
+          }
+        )
+
       },
       error => {
-        this.createRequestResultMsg = "*There was an error while sending the request"
-      } 
+        console.log(error)
+      }
     )
 
-    
   }
 
   onCreateEditRequestClick() {
@@ -190,5 +199,4 @@ export class CitizenHomePageComponent implements OnInit {
       }
     );
   }
-
 }
