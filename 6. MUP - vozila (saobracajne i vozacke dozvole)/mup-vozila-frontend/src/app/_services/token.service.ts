@@ -1,12 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import jwt_decode from 'jwt-decode';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(private httpClient: HttpClient) { }
+
+  private validateTokenURL = "http://localhost:6001/api/auth/validate-token";
+
+
+  checkTokenValidity(): Observable<string> {
+    return this.httpClient.get<string>(this.validateTokenURL);
+  }
 
   setToken(token: string) {
     localStorage.setItem('TOKEN', token);

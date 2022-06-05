@@ -30,6 +30,10 @@ public class JwtTokenUtil {
         try {
             Response response = client.newCall(request).execute();
             System.out.println(response.body().string());
+            // invalid token
+            if (response.code() == 401){
+                return false;
+            }
             return true;
         }catch (Exception e){
             e.printStackTrace();
