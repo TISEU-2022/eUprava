@@ -36,6 +36,7 @@ public class Subject {
 
     @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "teacher_id")
+    @JsonIgnore
     private Teacher teacher;
 
 }

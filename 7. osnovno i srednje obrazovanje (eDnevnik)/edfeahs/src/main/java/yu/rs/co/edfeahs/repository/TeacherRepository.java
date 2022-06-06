@@ -6,4 +6,6 @@ import yu.rs.co.edfeahs.model.Teacher;
 
 @Repository
 public interface TeacherRepository extends JpaRepository<Teacher, Long> {
+
+    Teacher findTeacherByUCN(String teacherUCN);
 }

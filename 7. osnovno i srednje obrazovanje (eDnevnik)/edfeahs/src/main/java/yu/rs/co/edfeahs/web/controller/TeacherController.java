@@ -21,9 +21,9 @@ public class TeacherController {
     private final TeacherService teacherService;
     private final SubjectService subjectService;
 
-    @GetMapping("{teacherId}/subjects")
-    public ResponseEntity<List<Subject>> findTeachersSubjects(@PathVariable("teacherId") Long teacherId) {
-        List<Subject> result = subjectService.findSubjectsByTeacherId(teacherId);
+    @GetMapping("{teacherUCN}/subjects")
+    public ResponseEntity<List<Subject>> findTeachersSubjects(@PathVariable("teacherUCN") String teacherUCN) {
+        List<Subject> result = subjectService.findSubjectsByTeacherUCN(teacherUCN);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yu.rs.co.edfeahs.model.Student;
+import yu.rs.co.edfeahs.util.converter.StudentMapper;
+import yu.rs.co.edfeahs.web.dto.FoundStudentsDto;
 import yu.rs.co.edfeahs.web.dto.StudentSearchParam;
 import yu.rs.co.edfeahs.service.StudentService;
 
@@ -17,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -24,6 +27,7 @@ import java.util.regex.Pattern;
 public class StudentController {
 
     private final StudentService studentService;
+    private final StudentMapper studentMapper;
 
     @GetMapping(path = "{jmbg}/diploma/{tip_ustanove}", produces = "application/json")
     public ResponseEntity<Map<String, Object>> getDiploma(
@@ -68,8 +72,9 @@ public class StudentController {
 //    }
 
     @GetMapping
-    public ResponseEntity<List<Student>> findStudents(@Valid StudentSearchParam searchParam) {
-        List<Student> result = studentService.findStudents(searchParam);
+    public ResponseEntity<List<FoundStudentsDto>> findStudents(@Valid StudentSearchParam searchParam) {
+        List<Student> students = studentService.findStudents(searchParam);
+        List<FoundStudentsDto> result = students.stream().map(student -> studentMapper.toFoundStudentDto(student, searchParam.getSubjectId())).collect(Collectors.toList());
         System.out.println("Hello World!!");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
