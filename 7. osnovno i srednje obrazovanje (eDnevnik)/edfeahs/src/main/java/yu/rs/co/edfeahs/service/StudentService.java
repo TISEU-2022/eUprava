@@ -37,7 +37,7 @@ public class StudentService {
                         student.getId(), subject.getId()
                 );
 
-        double result = attendance.getMarks().stream().mapToDouble(value -> value.getValue()).sum();
+        double result = attendance.getMarks().stream().mapToDouble(value -> value.getValue()).sum() / attendance.getMarks().size();
 
         return result;
     }

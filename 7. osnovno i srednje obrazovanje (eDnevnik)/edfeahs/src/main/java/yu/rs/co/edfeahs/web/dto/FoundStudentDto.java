@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FoundStudentsDto {
+public class FoundStudentDto {
     private Long id;
     private String UCN;
     private String firstName;

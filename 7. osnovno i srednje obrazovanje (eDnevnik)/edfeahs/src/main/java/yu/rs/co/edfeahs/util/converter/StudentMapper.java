@@ -6,8 +6,7 @@ import yu.rs.co.edfeahs.model.Student;
 import yu.rs.co.edfeahs.model.Subject;
 import yu.rs.co.edfeahs.repository.SubjectRepository;
 import yu.rs.co.edfeahs.service.StudentService;
-import yu.rs.co.edfeahs.service.SubjectService;
-import yu.rs.co.edfeahs.web.dto.FoundStudentsDto;
+import yu.rs.co.edfeahs.web.dto.FoundStudentDto;
 
 @Component
 @RequiredArgsConstructor
@@ -16,20 +15,20 @@ public class StudentMapper {
     private final StudentService studentService;
     private final SubjectRepository subjectRepository;
 
-    public FoundStudentsDto toFoundStudentDto(Student student, Long subjectId) {
-        FoundStudentsDto foundStudentsDto = new FoundStudentsDto();
-        foundStudentsDto.setId(student.getId());
-        foundStudentsDto.setUCN(student.getUCN());
-        foundStudentsDto.setFirstName(student.getFirstName());
-        foundStudentsDto.setLastName(student.getLastName());
+    public FoundStudentDto toFoundStudentDto(Student student, Long subjectId) {
+        FoundStudentDto foundStudentDto = new FoundStudentDto();
+        foundStudentDto.setId(student.getId());
+        foundStudentDto.setUCN(student.getUCN());
+        foundStudentDto.setFirstName(student.getFirstName());
+        foundStudentDto.setLastName(student.getLastName());
 
         if(subjectId == null || subjectId == 0) {
-            foundStudentsDto.setAverageSubjectMark(0.0);
+            foundStudentDto.setAverageSubjectMark(0.0);
         } else {
             Subject subject = subjectRepository.findById(subjectId).get();
-            foundStudentsDto.setAverageSubjectMark(studentService.averageStudentsSubjectMark(student, subject));
+            foundStudentDto.setAverageSubjectMark(studentService.averageStudentsSubjectMark(student, subject));
         }
 
-        return foundStudentsDto;
+        return foundStudentDto;
     }
 }

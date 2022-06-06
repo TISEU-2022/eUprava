@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yu.rs.co.edfeahs.model.Student;
 import yu.rs.co.edfeahs.util.converter.StudentMapper;
-import yu.rs.co.edfeahs.web.dto.FoundStudentsDto;
+import yu.rs.co.edfeahs.web.dto.FoundStudentDto;
 import yu.rs.co.edfeahs.web.dto.StudentSearchParam;
 import yu.rs.co.edfeahs.service.StudentService;
 
@@ -72,9 +72,10 @@ public class StudentController {
 //    }
 
     @GetMapping
-    public ResponseEntity<List<FoundStudentsDto>> findStudents(@Valid StudentSearchParam searchParam) {
+    public ResponseEntity<List<FoundStudentDto>> findStudents(@Valid StudentSearchParam searchParam) {
         List<Student> students = studentService.findStudents(searchParam);
-        List<FoundStudentsDto> result = students.stream().map(student -> studentMapper.toFoundStudentDto(student, searchParam.getSubjectId())).collect(Collectors.toList());
+        System.out.println(students);
+        List<FoundStudentDto> result = students.stream().map(student -> studentMapper.toFoundStudentDto(student, searchParam.getSubjectId())).collect(Collectors.toList());
         System.out.println("Hello World!!");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

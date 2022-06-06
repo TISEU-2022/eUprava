@@ -17,7 +17,7 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     //:#{#methodParamAlias.objectField} - Used to acces the param from the method signature
     // Query finds the students with firstName + lastName that is LIKE studentSarchParam.studentName,
     // and student grade = studentSearchParam.grade but only for the certain subjectId
-    @Query("SELECT s FROM Attendance a LEFT OUTER JOIN Student s ON a.student = s WHERE " +
+    @Query("SELECT DISTINCT s FROM Attendance a LEFT OUTER JOIN Student s ON a.student = s WHERE " +
             "(:#{#params.studentName} IS NULL OR CONCAT(s.firstName, ' ', s.lastName) LIKE %:#{#params.studentName}%) AND " +
             "(:#{#params.grade} IS NULL OR s.grade = :#{#params.grade}) AND " +
             "(:#{#params.subjectId} IS NULL OR a.subject.id = :#{#params.subjectId})")
