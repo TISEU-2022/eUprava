@@ -1,7 +1,7 @@
-FROM node:alpine
+FROM node:16.15.0
 WORKDIR /app
-COPY package.json ./
-COPY package-lock.json ./
-COPY ./ ./
-RUN npm i
-CMD ["npm", "run", "start"]
+COPY package.json /app
+RUN npm install
+COPY . /app
+EXPOSE 11000
+CMD npm start
