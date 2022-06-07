@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface DocumentService {
 
-    Document getDocumentById(String id);
+    Document getDocumentById(Long id);
 
     List<Document> getAll();
 
     Document createDocument(DocumentCreateDto documentDto);
 
-    Document updateDocument(String id, DocumentUpdateDto documentUpdateDto);
+    Document updateDocument(Long id, DocumentUpdateDto documentUpdateDto);
 
-    void removeDocument(String documentId);
+    void removeDocument(Long documentId);
 
 }
