@@ -7,7 +7,7 @@ import KomunalniProblemiDetails
 const KomunalniProblemiDetailsPage = () =>{
 
     return(
-        <StandardLayout title="Detalji predstavke">
+        <StandardLayout title="Detalji komunalnog problema">
             <KomunalniProblemiDetails />
         </StandardLayout>
     );

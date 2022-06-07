@@ -32,7 +32,9 @@ public class KomunalniProblem {
     private VrstaKomunalnogProblema vrstaKomunalnogProblema;
 
     @ElementCollection
-    private List<String> putanjeDoDatoteka;
+    @CollectionTable(name = "komunalni_problem_datoteke", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "datoteka", columnDefinition = "MEDIUMBLOB")
+    private List<String> datoteke;
 
     @OneToOne
     private Izvestaj izvestaj;
@@ -48,7 +50,8 @@ public class KomunalniProblem {
                 ", datumPodnosenja=" + datumPodnosenja +
                 ", datumDogadjaja=" + datumDogadjaja +
                 ", vrstaKomunalnogProblema=" + vrstaKomunalnogProblema +
-                ", putanjeDoDatoteka=" + putanjeDoDatoteka +
+                ", datoteke=" + datoteke +
+                ", izvestaj=" + izvestaj +
                 '}';
     }
 }

@@ -22,5 +22,5 @@ public class KomunalniProblemDTO {
     private Date datumDogadjaja;
     private IzvestajDTO izvestajDTO;
     private VrstaKomunalnogProblema vrstaKomunalnogProblema;
-    private List<String> putanjeDoDatoteka;
+    private List<String> datoteke;
 }

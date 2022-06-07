@@ -1,6 +1,7 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.controller;
 
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemRequestDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.KomunalniProblemMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.KomunalniProblemService;
@@ -41,10 +42,12 @@ public class KomunalniProblemController {
         return new ResponseEntity<>(KomunalniProblemMapper.mapDTO(komunalniProblem), HttpStatus.OK);
     }
 
-    @PostMapping()
-    public ResponseEntity<Long> createKomunalniProblem(@RequestBody KomunalniProblemDTO komunalniProblemDTO){
-        komunalniProblemDTO.setDatumPodnosenja(new Date());
-        Long id = komunalniProblemService.createKomunalniProblem(KomunalniProblemMapper.mapModel(komunalniProblemDTO));
+    @PostMapping(consumes = { "multipart/form-data" })
+    public ResponseEntity<Long> createKomunalniProblem(@ModelAttribute KomunalniProblemRequestDTO komunalniProblemRequestDTO){
+
+        KomunalniProblem komunalniProblem = KomunalniProblemMapper.mapModel(komunalniProblemRequestDTO);
+        komunalniProblem.setDatumPodnosenja(new Date());
+        Long id = komunalniProblemService.createKomunalniProblem(komunalniProblem);
 
         String location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

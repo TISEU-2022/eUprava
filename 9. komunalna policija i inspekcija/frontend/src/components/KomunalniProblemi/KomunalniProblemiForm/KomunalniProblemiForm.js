@@ -1,5 +1,5 @@
 import {useHistory} from "react-router-dom";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import vrsteKomunalnihProblemaService from "../../../services/api/vrste-komunalnih-problema-service";
 import komunalniProblemiService from "../../../services/api/komunalni-problemi-service";
 import Input from "../../util/Input/Input";
@@ -20,7 +20,8 @@ const KomunalniProblemiForm = () =>{
         vrstaKomunalnogProblema: {
             id: 0
         },
-        opis: ""
+        opis: "",
+        datoteke: []
     });
 
     useEffect(() => {
@@ -70,6 +71,20 @@ const KomunalniProblemiForm = () =>{
         }))
     }
 
+    const addDatotekaHandler = (value) => {
+        console.log(value)
+        console.log(komunalniProblem.datoteke)
+        let image = value.split(",")[1];
+        console.log(image);
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            datoteke: [
+                ...prevVrstaKomunalnogProblema.datoteke,
+                image
+            ]
+        }))
+    }
+
     const submitFormHandler = (event) => {
         event.preventDefault();
         console.log(komunalniProblem)
@@ -91,6 +106,12 @@ const KomunalniProblemiForm = () =>{
             <Input type="date" title="Datum događaja" value={komunalniProblem.datumDogadjaja} setValue={changeDatumDogadjajaHandler}/>
             <Select title="Vrsta predstavke" value={komunalniProblem.vrstaKomunalnogProblema.id} setValue={changeVrstaKomunalnogProblemaHandler} options={options}/>
             <TextArea title="Opis" value={komunalniProblem.opis} setValue={changeOpisHandler}/>
+            <Input type="file" title="Unesite datoteke" setValue={addDatotekaHandler}/>
+            {
+                komunalniProblem.datoteke.map((datoteka, index) => (
+                    <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt="Slika komunalnog problema"/>
+                ))
+            }
             <div className="w-100 d-flex justify-content-end my-3">
                 <Button type="submit" variant="dark" onClick={submitFormHandler}>Kreiraj</Button>
             </div>

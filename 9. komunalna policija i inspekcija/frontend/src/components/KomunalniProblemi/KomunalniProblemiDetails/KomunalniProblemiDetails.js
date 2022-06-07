@@ -68,6 +68,17 @@ const KomunalniProblemiDetails = () =>{
                 </tr>
                 </tbody>
             </Table>
+            {
+                komunalniProblem.datoteke && komunalniProblem.datoteke.length > 0 && (
+                    <div className="mt-5">
+                        <h3>Dokazi</h3>
+                        {
+                            komunalniProblem.datoteke.map((datoteka, index) => (
+                                <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt="Dokaz komunalnog problema"/>
+                            ))
+                        }
+                    </div>)
+            }
         </div>
     );
 
