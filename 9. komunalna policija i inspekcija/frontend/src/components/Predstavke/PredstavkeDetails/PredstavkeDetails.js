@@ -19,7 +19,8 @@ const PredstavkeDetails = (props) => {
         vrstaPredstavke: {
             id: 0
         },
-        opis: ""
+        opis: "",
+        podnosilac: {}
     });
 
     useEffect(() => {
@@ -63,6 +64,10 @@ const PredstavkeDetails = (props) => {
                 <tr>
                     <th>Datum događaja</th>
                     <td>{datumDogadjaja.toLocaleDateString("de-DE", dateAndTimeOptions)}</td>
+                </tr>
+                <tr>
+                    <th>Podnosilac</th>
+                    <td>{`${predstavka.podnosilac.ime} ${predstavka.podnosilac.prezime}`}</td>
                 </tr>
                 <tr>
                     <th>Vrsta predstavke</th>

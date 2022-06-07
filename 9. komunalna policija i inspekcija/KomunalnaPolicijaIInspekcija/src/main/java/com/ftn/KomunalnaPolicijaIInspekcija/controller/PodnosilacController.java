@@ -1,10 +1,7 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.controller;
 
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PodnosilacDTO;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.KomunalniProblemMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.PodnosilacMapper;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Podnosilac;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.PodnosilacService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +41,8 @@ public class PodnosilacController {
     }
 
     @PostMapping()
-    public ResponseEntity<Long> createKomunalniProblem(@RequestBody PodnosilacDTO podnosilacDTO){
-        Long id = podnosilacService.createPodnosilac(PodnosilacMapper.mapModel(podnosilacDTO));
+    public ResponseEntity<Long> create(@RequestBody PodnosilacDTO podnosilacDTO){
+        Long id = podnosilacService.create(PodnosilacMapper.mapModel(podnosilacDTO));
 
         String location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

@@ -2,6 +2,7 @@ package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper;
 
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaRequestDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaResponseDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Podnosilac;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Predstavka;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.VrstaPredstavke;
 
@@ -12,6 +13,17 @@ public class PredstavkaMapper {
         VrstaPredstavke vrstaPredstavke = new VrstaPredstavke();
         vrstaPredstavke.setId(predstavkaRequestDTO.getVrstaPredstavkeId());
 
+        Podnosilac podnosilac = new Podnosilac();
+        podnosilac.setIme(predstavkaRequestDTO.getIme());
+        podnosilac.setPrezime(predstavkaRequestDTO.getPrezime());
+        podnosilac.setJmbg(predstavkaRequestDTO.getJmbg());
+        podnosilac.setEmail(predstavkaRequestDTO.getEmail());
+        podnosilac.setBrojTelefona(predstavkaRequestDTO.getTelefon());
+        podnosilac.setAdresa(predstavkaRequestDTO.getAdresa());
+        podnosilac.setMesto(predstavkaRequestDTO.getMesto());
+        podnosilac.setPttBroj(predstavkaRequestDTO.getPttBroj());
+
+
         return Predstavka.builder()
                 .naslov(predstavkaRequestDTO.getNaslov())
                 .opis(predstavkaRequestDTO.getOpis())
@@ -20,6 +32,7 @@ public class PredstavkaMapper {
                 .datumDogadjaja(predstavkaRequestDTO.getDatumDogadjaja())
                 .datoteke(predstavkaRequestDTO.getDatoteke())
                 .vrstaPredstavke(vrstaPredstavke)
+                .podnosilac(podnosilac)
                 .build();
     }
 
@@ -36,6 +49,7 @@ public class PredstavkaMapper {
                 .datoteke(predstavka.getDatoteke())
                 .vrstaPredstavke(VrstaPredstavkeMapper.mapDTO(predstavka.getVrstaPredstavke()))
                 .izvestaj(predstavka.getIzvestaj() != null ? IzvestajMapper.mapDTO(predstavka.getIzvestaj())  : null)
+                .podnosilac(PodnosilacMapper.mapDTO(predstavka.getPodnosilac()))
                 .build();
     }
 }

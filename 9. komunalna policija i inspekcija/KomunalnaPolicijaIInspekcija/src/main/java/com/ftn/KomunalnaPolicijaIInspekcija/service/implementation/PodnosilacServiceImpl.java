@@ -25,17 +25,17 @@ public class PodnosilacServiceImpl implements PodnosilacService {
     }
 
     @Override
-    public Long createPodnosilac(Podnosilac podnosilac) {
+    public Podnosilac getOneByJmbg(String jmbg) {
+        return podnosilacRepository.findPodnosilacByJmbg(jmbg);
+    }
+
+    @Override
+    public Long create(Podnosilac podnosilac) {
+        Podnosilac pronadjen = getOneByJmbg(podnosilac.getJmbg());
+        if(pronadjen != null) {
+            podnosilac.setId(pronadjen.getId());
+        }
+
         return podnosilacRepository.save(podnosilac).getId();
-    }
-
-    @Override
-    public Podnosilac updatePodnosilac(Podnosilac podnosilac) {
-        return podnosilacRepository.save(podnosilac);
-    }
-
-    @Override
-    public void deletePodnosilac(Long id) {
-        podnosilacRepository.deletePodnosilacById(id);
     }
 }

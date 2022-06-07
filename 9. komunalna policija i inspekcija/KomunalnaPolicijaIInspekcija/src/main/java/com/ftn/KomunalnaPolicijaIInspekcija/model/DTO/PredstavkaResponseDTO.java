@@ -23,4 +23,5 @@ public class PredstavkaResponseDTO {
     private List<String> datoteke;
     private VrstaPredstavkeDTO vrstaPredstavke;
     private IzvestajDTO izvestaj;
+    private PodnosilacDTO podnosilac;
 }

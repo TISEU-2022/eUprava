@@ -14,6 +14,16 @@ import java.util.List;
 @Builder
 public class PredstavkaRequestDTO {
 
+
+    private String ime;
+    private String prezime;
+    private String jmbg;
+    private String adresa;
+    private String mesto;
+    private String email;
+    private String telefon;
+    private int pttBroj;
+
     private String naslov;
     private String opis;
     private String adresaDogadjaja;

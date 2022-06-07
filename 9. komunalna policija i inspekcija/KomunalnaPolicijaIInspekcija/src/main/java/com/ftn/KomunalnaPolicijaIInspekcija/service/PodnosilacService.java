@@ -8,8 +8,6 @@ public interface PodnosilacService {
 
     List<Podnosilac> getAll();
     Podnosilac getOne(Long id);
-    Long createPodnosilac(Podnosilac podnosilac);
-    Podnosilac updatePodnosilac(Podnosilac odnosilac);
-    void deletePodnosilac(Long id);
-
+    Podnosilac getOneByJmbg(String jmbg);
+    Long create(Podnosilac podnosilac);
 }

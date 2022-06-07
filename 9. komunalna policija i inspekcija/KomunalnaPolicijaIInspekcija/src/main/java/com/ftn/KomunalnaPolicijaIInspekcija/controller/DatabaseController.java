@@ -155,6 +155,7 @@ public class DatabaseController {
         predstavka1.setMestoDogadjaja("Novi Sad");
         predstavka1.setIzvestaj(izvestaj1);
         predstavka1.setVrstaPredstavke(vrstaPredstavke1);
+        predstavka1.setPodnosilac(podnosilac1);
         predstavka1 = predstavkaRepository.save(predstavka1);
 
         Predstavka predstavka2 = new Predstavka();
@@ -166,6 +167,7 @@ public class DatabaseController {
         predstavka2.setMestoDogadjaja("Novi Sad");
         predstavka2.setIzvestaj(null);
         predstavka2.setVrstaPredstavke(vrstaPredstavke2);
+        predstavka2.setPodnosilac(podnosilac2);
         predstavka2 = predstavkaRepository.save(predstavka2);
 
 

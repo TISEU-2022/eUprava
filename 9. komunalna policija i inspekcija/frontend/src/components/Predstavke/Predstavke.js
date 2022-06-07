@@ -41,6 +41,7 @@ const Predstavke = () => {
                     <th>Adresa događaja</th>
                     <th>Mesto događaja</th>
                     <th>Datum događaja</th>
+                    <th>Podnosilac</th>
                     <th>Vrsta predstavke</th>
                 </tr>
                 </thead>
@@ -58,6 +59,7 @@ const Predstavke = () => {
                                 <td>{predstavka.adresaDogadjaja}</td>
                                 <td>{predstavka.mestoDogadjaja}</td>
                                 <td>{datumDogadjaja.toLocaleDateString("de-DE", dateAndTimeOptions)}</td>
+                                <td>{`${predstavka.podnosilac.ime} ${predstavka.podnosilac.prezime}`}</td>
                                 <td>{predstavka.vrstaPredstavke.naziv}</td>
                             </tr>
                         )

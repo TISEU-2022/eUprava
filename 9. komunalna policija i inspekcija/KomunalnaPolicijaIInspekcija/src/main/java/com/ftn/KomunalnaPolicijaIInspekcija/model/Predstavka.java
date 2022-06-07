@@ -49,4 +49,6 @@ public class Predstavka {
     @OneToOne
     private Izvestaj izvestaj;
 
+    @ManyToOne
+    private Podnosilac podnosilac;
 }

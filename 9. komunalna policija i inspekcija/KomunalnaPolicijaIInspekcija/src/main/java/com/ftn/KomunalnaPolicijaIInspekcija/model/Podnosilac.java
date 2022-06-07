@@ -17,18 +17,14 @@ public class Podnosilac {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    private String jmbg;
+
     private String ime;
     private String prezime;
-
-    @Column(name = "jmbg", unique = true)
-    private String jmbg;
     private String adresa;
     private String mesto;
-
-    @Column(name = "email", unique = true)
     private String email;
-
-    @Column(name = "brojTelefona", unique = true)
     private String brojTelefona;
     private int pttBroj;
 
