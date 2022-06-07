@@ -39,6 +39,7 @@ const KomunalniProblemi = () =>{
                     <th>Datum događaja</th>
                     <th>Adresa događaja</th>
                     <th>Mesto događaja</th>
+                    <th>Podnosilac</th>
                     <th>Vrsta problema</th>
                 </tr>
                 </thead>
@@ -55,6 +56,7 @@ const KomunalniProblemi = () =>{
                                 <td>{datumDogadjaja.toLocaleDateString("de-DE", dateOptions)}</td>
                                 <td>{komunalniProblem.adresaDogadjaja}</td>
                                 <td>{komunalniProblem.mestoDogadjaja}</td>
+                                <td>{`${komunalniProblem.podnosilac.ime} ${komunalniProblem.podnosilac.prezime}`}</td>
                                 <td>{komunalniProblem.vrstaKomunalnogProblema.naziv}</td>
                             </tr>
                         )

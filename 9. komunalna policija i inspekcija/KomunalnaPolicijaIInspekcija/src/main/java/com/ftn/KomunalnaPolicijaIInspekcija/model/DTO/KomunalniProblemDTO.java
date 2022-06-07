@@ -23,4 +23,6 @@ public class KomunalniProblemDTO {
     private IzvestajDTO izvestajDTO;
     private VrstaKomunalnogProblema vrstaKomunalnogProblema;
     private List<String> datoteke;
+    private PodnosilacDTO podnosilac;
+    private IzvestajDTO izvestaj;
 }

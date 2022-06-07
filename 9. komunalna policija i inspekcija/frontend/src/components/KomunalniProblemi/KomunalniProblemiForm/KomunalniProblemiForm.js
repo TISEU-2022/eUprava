@@ -21,7 +21,17 @@ const KomunalniProblemiForm = () =>{
             id: 0
         },
         opis: "",
-        datoteke: []
+        datoteke: [],
+        podnosilac: {
+            ime: "",
+            prezime: "",
+            jmbg: "",
+            adresa: "",
+            mesto: "",
+            email: "",
+            telefon: "",
+            pttBroj: 21000
+        }
     });
 
     useEffect(() => {
@@ -32,6 +42,86 @@ const KomunalniProblemiForm = () =>{
                 setVrsteKomunalnihProblema(data);
             })
     }, [])
+
+    const changeImeHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                ime: value
+            }
+        }))
+    }
+
+    const changePrezimeHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                prezime: value
+            }
+        }))
+    }
+
+    const changeJmbgHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                jmbg: value
+            }
+        }))
+    }
+
+    const changeAdresaHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                adresa: value
+            }
+        }))
+    }
+
+    const changeMestoHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                mesto: value
+            }
+        }))
+    }
+
+    const changeEmailHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                email: value
+            }
+        }))
+    }
+
+    const changeTelefonHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                telefon: value
+            }
+        }))
+    }
+
+    const changePttBrojHandler = (value) => {
+        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
+            ...prevVrstaKomunalnogProblema,
+            podnosilac: {
+                ...prevVrstaKomunalnogProblema.podnosilac,
+                pttBroj: value
+            }
+        }))
+    }
 
     const changeAdresaDogadjajaHandler = (value) => {
         setKomunalniProblem(prevVrstaKomunalnogProblema => ({
@@ -101,17 +191,32 @@ const KomunalniProblemiForm = () =>{
 
     return (
         <form className="w-50 mx-auto">
-            <Input type="text" title="Adresa događaja" value={komunalniProblem.adresaDogadjaja} setValue={changeAdresaDogadjajaHandler}/>
-            <Input type="text" title="Mesto događaja" value={komunalniProblem.mestoDogadjaja} setValue={changeMestoDogadjajaHandler}/>
-            <Input type="date" title="Datum događaja" value={komunalniProblem.datumDogadjaja} setValue={changeDatumDogadjajaHandler}/>
-            <Select title="Vrsta predstavke" value={komunalniProblem.vrstaKomunalnogProblema.id} setValue={changeVrstaKomunalnogProblemaHandler} options={options}/>
-            <TextArea title="Opis" value={komunalniProblem.opis} setValue={changeOpisHandler}/>
-            <Input type="file" title="Unesite datoteke" setValue={addDatotekaHandler}/>
-            {
-                komunalniProblem.datoteke.map((datoteka, index) => (
-                    <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt="Slika komunalnog problema"/>
-                ))
-            }
+            <div>
+                <h3>Podnosilac</h3>
+                <Input type="text" title="Ime" value={komunalniProblem.podnosilac.ime} setValue={changeImeHandler}/>
+                <Input type="text" title="Prezime" value={komunalniProblem.podnosilac.prezime} setValue={changePrezimeHandler}/>
+                <Input type="text" title="JMBG" value={komunalniProblem.podnosilac.jmbg} setValue={changeJmbgHandler}/>
+                <Input type="text" title="Email" value={komunalniProblem.podnosilac.email} setValue={changeEmailHandler}/>
+                <Input type="text" title="Broj telefona" value={komunalniProblem.podnosilac.telefon} setValue={changeTelefonHandler}/>
+                <Input type="text" title="Adresa" value={komunalniProblem.podnosilac.adresa} setValue={changeAdresaHandler}/>
+                <Input type="text" title="Mesto" value={komunalniProblem.podnosilac.mesto} setValue={changeMestoHandler}/>
+                <Input type="text" title="PTT broj" value={komunalniProblem.podnosilac.pttBroj} setValue={changePttBrojHandler}/>
+            </div>
+            <div>
+                <h3>Komunalni problem</h3>
+                <Input type="text" title="Adresa događaja" value={komunalniProblem.adresaDogadjaja} setValue={changeAdresaDogadjajaHandler}/>
+                <Input type="text" title="Mesto događaja" value={komunalniProblem.mestoDogadjaja} setValue={changeMestoDogadjajaHandler}/>
+                <Input type="date" title="Datum događaja" value={komunalniProblem.datumDogadjaja} setValue={changeDatumDogadjajaHandler}/>
+                <Select title="Vrsta predstavke" value={komunalniProblem.vrstaKomunalnogProblema.id} setValue={changeVrstaKomunalnogProblemaHandler} options={options}/>
+                <TextArea title="Opis" value={komunalniProblem.opis} setValue={changeOpisHandler}/>
+                <Input type="file" title="Unesite datoteke" setValue={addDatotekaHandler}/>
+                {
+                    komunalniProblem.datoteke.map((datoteka, index) => (
+                        <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt="Slika komunalnog problema"/>
+                    ))
+                }
+            </div>
+
             <div className="w-100 d-flex justify-content-end my-3">
                 <Button type="submit" variant="dark" onClick={submitFormHandler}>Kreiraj</Button>
             </div>

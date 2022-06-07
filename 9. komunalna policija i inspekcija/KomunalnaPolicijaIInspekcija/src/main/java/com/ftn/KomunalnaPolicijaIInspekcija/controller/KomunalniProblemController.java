@@ -5,6 +5,7 @@ import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemRequestDTO
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.KomunalniProblemMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.KomunalniProblemService;
+import com.ftn.KomunalnaPolicijaIInspekcija.service.PodnosilacService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class KomunalniProblemController {
 
     @Autowired
     private KomunalniProblemService komunalniProblemService;
+
+    @Autowired
+    private PodnosilacService podnosilacService;
 
     @GetMapping
     public ResponseEntity<List<KomunalniProblemDTO>> getAll(){
@@ -47,6 +51,8 @@ public class KomunalniProblemController {
 
         KomunalniProblem komunalniProblem = KomunalniProblemMapper.mapModel(komunalniProblemRequestDTO);
         komunalniProblem.setDatumPodnosenja(new Date());
+
+        podnosilacService.create(komunalniProblem.getPodnosilac());
         Long id = komunalniProblemService.createKomunalniProblem(komunalniProblem);
 
         String location = ServletUriComponentsBuilder

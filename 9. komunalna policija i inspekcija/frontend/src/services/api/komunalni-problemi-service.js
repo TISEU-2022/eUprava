@@ -15,6 +15,14 @@ const getById = (id) => {
 const create = (data) => {
 
     let formData = new FormData();
+    formData.append('ime', data.podnosilac.ime);
+    formData.append('prezime', data.podnosilac.prezime);
+    formData.append('jmbg', data.podnosilac.jmbg);
+    formData.append('adresa', data.podnosilac.adresa);
+    formData.append('mesto', data.podnosilac.mesto);
+    formData.append('email', data.podnosilac.email);
+    formData.append('telefon', data.podnosilac.telefon);
+    formData.append('pttBroj', data.podnosilac.pttBroj);
     formData.append('adresaDogadjaja', data.adresaDogadjaja);
     formData.append('datumDogadjaja', data.datumDogadjaja);
     formData.append('mestoDogadjaja', data.mestoDogadjaja);

@@ -17,7 +17,8 @@ const KomunalniProblemiDetails = () =>{
         vrstaKomunalnogProblema: {
             id: 0
         },
-        opis: ""
+        opis: "",
+        podnosilac: {}
     });
 
     useEffect(() => {
@@ -57,6 +58,10 @@ const KomunalniProblemiDetails = () =>{
                 <tr>
                     <th>Datum događaja</th>
                     <td>{datumDogadjaja.toLocaleDateString("de-DE", dateOptions)}</td>
+                </tr>
+                <tr>
+                    <th>Podnosilac</th>
+                    <td>{`${komunalniProblem.podnosilac.ime} ${komunalniProblem.podnosilac.prezime}`}</td>
                 </tr>
                 <tr>
                     <th>Vrsta komunalnog problema</th>
