@@ -1,10 +1,26 @@
 package com.ftn.glasanjebackend.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Glas {
 
-    long id;
-    Izbori izbori;
-    Kandidat kandidat;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    @OneToOne
+    private Izbori izbori;
+    @OneToOne
+    private Kandidat kandidat;
     //Korisnik korisnik;
 
 }
