@@ -74,6 +74,17 @@ const PredstavkeDetails = (props) => {
                 </tr>
                 </tbody>
             </Table>
+            {
+                predstavka.datoteke && predstavka.datoteke.length > 0 && (
+                <div className="mt-5">
+                    <h3>Dokazi</h3>
+                    {
+                        predstavka.datoteke.map((datoteka, index) => (
+                            <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt={`${predstavka.naslov} - ${index}`}/>
+                        ))
+                    }
+                </div>)
+            }
         </div>
     );
 };

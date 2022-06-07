@@ -1,7 +1,7 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.controller;
 
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaDTO;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.VrstaPredstavkeDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaRequestDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaResponseDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.PredstavkaMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Predstavka;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.PredstavkaService;
@@ -22,21 +22,21 @@ public class PredstavkaController {
     private PredstavkaService predstavkaService;
 
     @GetMapping
-    public ResponseEntity<List<PredstavkaDTO>> getAll(){
+    public ResponseEntity<List<PredstavkaResponseDTO>> getAll(){
         return new ResponseEntity<>(predstavkaService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PredstavkaDTO> findOne(@PathVariable("id") Long id){
+    public ResponseEntity<PredstavkaResponseDTO> findOne(@PathVariable("id") Long id){
         return new ResponseEntity<>(PredstavkaMapper.mapDTO(predstavkaService.findOne(id)), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Long> createPredstavka(@RequestBody PredstavkaDTO predstavkaDTO){
-        Predstavka predstavka = PredstavkaMapper.mapModel(predstavkaDTO);
+    @PostMapping(consumes = { "multipart/form-data" })
+    public ResponseEntity<Long> createPredstavka(@ModelAttribute PredstavkaRequestDTO predstavkaRequestDTO){
+
+        Predstavka predstavka = PredstavkaMapper.mapModel(predstavkaRequestDTO);
         predstavka.setVremePodnosenja(new Date());
         predstavka = predstavkaService.save(predstavka);
         return new ResponseEntity<>(predstavka.getId(), HttpStatus.CREATED);
     }
-
 }

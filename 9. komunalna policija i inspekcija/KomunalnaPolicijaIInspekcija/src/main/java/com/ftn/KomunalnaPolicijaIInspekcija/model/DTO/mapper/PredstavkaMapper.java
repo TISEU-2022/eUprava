@@ -1,28 +1,31 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper;
 
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaRequestDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaResponseDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Predstavka;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.VrstaPredstavke;
 
 public class PredstavkaMapper {
 
-    public static Predstavka mapModel(PredstavkaDTO predstavkaDTO){
+    public static Predstavka mapModel(PredstavkaRequestDTO predstavkaRequestDTO){
+
+        VrstaPredstavke vrstaPredstavke = new VrstaPredstavke();
+        vrstaPredstavke.setId(predstavkaRequestDTO.getVrstaPredstavkeId());
+
         return Predstavka.builder()
-                .id(predstavkaDTO.getId())
-                .naslov(predstavkaDTO.getNaslov())
-                .opis(predstavkaDTO.getOpis())
-                .vremePodnosenja(predstavkaDTO.getVremePodnosenja())
-                .adresaDogadjaja(predstavkaDTO.getAdresaDogadjaja())
-                .mestoDogadjaja(predstavkaDTO.getMestoDogadjaja())
-                .datumDogadjaja(predstavkaDTO.getDatumDogadjaja())
-                .putanjeDoDatoteka(predstavkaDTO.getPutanjeDoDatoteka())
-                .vrstaPredstavke(VrstaPredstavkeMapper.mapModel(predstavkaDTO.getVrstaPredstavke()))
-                .izvestaj(predstavkaDTO.getIzvestaj() != null ? IzvestajMapper.mapModel(predstavkaDTO.getIzvestaj()) : null)
+                .naslov(predstavkaRequestDTO.getNaslov())
+                .opis(predstavkaRequestDTO.getOpis())
+                .adresaDogadjaja(predstavkaRequestDTO.getAdresaDogadjaja())
+                .mestoDogadjaja(predstavkaRequestDTO.getMestoDogadjaja())
+                .datumDogadjaja(predstavkaRequestDTO.getDatumDogadjaja())
+                .datoteke(predstavkaRequestDTO.getDatoteke())
+                .vrstaPredstavke(vrstaPredstavke)
                 .build();
     }
 
-    public static PredstavkaDTO mapDTO(Predstavka predstavka){
+    public static PredstavkaResponseDTO mapDTO(Predstavka predstavka){
 
-        return PredstavkaDTO.builder()
+        return PredstavkaResponseDTO.builder()
                 .id(predstavka.getId())
                 .naslov(predstavka.getNaslov())
                 .opis(predstavka.getOpis())
@@ -30,7 +33,7 @@ public class PredstavkaMapper {
                 .adresaDogadjaja(predstavka.getAdresaDogadjaja())
                 .mestoDogadjaja(predstavka.getMestoDogadjaja())
                 .datumDogadjaja(predstavka.getDatumDogadjaja())
-                .putanjeDoDatoteka(predstavka.getPutanjeDoDatoteka())
+                .datoteke(predstavka.getDatoteke())
                 .vrstaPredstavke(VrstaPredstavkeMapper.mapDTO(predstavka.getVrstaPredstavke()))
                 .izvestaj(predstavka.getIzvestaj() != null ? IzvestajMapper.mapDTO(predstavka.getIzvestaj())  : null)
                 .build();

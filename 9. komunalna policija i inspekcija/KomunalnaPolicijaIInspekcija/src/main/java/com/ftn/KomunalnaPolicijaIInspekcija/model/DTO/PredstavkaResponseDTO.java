@@ -1,10 +1,7 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO;
 
-import com.ftn.KomunalnaPolicijaIInspekcija.model.Izvestaj;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.VrstaPredstavke;
 import lombok.*;
 
-import javax.persistence.OneToOne;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Builder
-public class PredstavkaDTO {
+public class PredstavkaResponseDTO {
 
     private Long id;
     private String naslov;
@@ -23,7 +20,7 @@ public class PredstavkaDTO {
     private String adresaDogadjaja;
     private String mestoDogadjaja;
     private Date datumDogadjaja;
-    private List<String> putanjeDoDatoteka;
+    private List<String> datoteke;
     private VrstaPredstavkeDTO vrstaPredstavke;
     private IzvestajDTO izvestaj;
 }

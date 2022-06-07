@@ -83,12 +83,12 @@ create table if not exists eupravakomunalna.komunalni_problem
         foreign key (podnosilac_id) references eupravakomunalna.podnosilac (id)
 );
 
-create table if not exists eupravakomunalna.komunalni_problem_putanje_do_datoteka
+create table if not exists eupravakomunalna.komunalni_problem_datoteke
 (
-    komunalni_problem_id bigint       not null,
-    putanje_do_datoteka  varchar(255) null,
-    constraint FKgyyooabekvmrqurepr69b6cjw
-        foreign key (komunalni_problem_id) references eupravakomunalna.komunalni_problem (id)
+    id       bigint     not null,
+    datoteka mediumblob null,
+    constraint FKh662t5e9liqxfjeanot3pb20r
+        foreign key (id) references predstavka (id)
 );
 
 create table if not exists eupravakomunalna.predstavka
@@ -109,12 +109,12 @@ create table if not exists eupravakomunalna.predstavka
         foreign key (vrsta_predstavke_id) references eupravakomunalna.vrsta_predstavke (id)
 );
 
-create table if not exists eupravakomunalna.predstavka_putanje_do_datoteka
+create table if not exists eupravakomunalna.predstavka_datoteke
 (
-    predstavka_id       bigint       not null,
-    putanje_do_datoteka varchar(255) null,
-    constraint FKr9lmlmuajxrd04vfbq5xl6moe
-        foreign key (predstavka_id) references eupravakomunalna.predstavka (id)
+    id       bigint     not null,
+    datoteka mediumblob null,
+    constraint FKh662t5e9liqxfjeanot3pb20r
+        foreign key (id) references predstavka (id)
 );
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;

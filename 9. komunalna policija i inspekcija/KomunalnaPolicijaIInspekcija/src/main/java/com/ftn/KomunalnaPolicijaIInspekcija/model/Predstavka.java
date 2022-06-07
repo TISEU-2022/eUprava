@@ -39,7 +39,9 @@ public class Predstavka {
     private Date datumDogadjaja;
 
     @ElementCollection
-    private List<String> putanjeDoDatoteka;
+    @CollectionTable(name = "predstavka_datoteke", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "datoteka", columnDefinition = "MEDIUMBLOB")
+    private List<String> datoteke;
 
     @ManyToOne
     private VrstaPredstavke vrstaPredstavke;

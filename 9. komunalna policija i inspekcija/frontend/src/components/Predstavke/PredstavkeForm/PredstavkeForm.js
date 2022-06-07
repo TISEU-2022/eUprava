@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import Input from "../../util/Input/Input";
 import {Button} from "react-bootstrap";
@@ -21,7 +21,8 @@ const PredstavkeForm = () => {
         vrstaPredstavke: {
             id: 0
         },
-        opis: ""
+        opis: "",
+        datoteke: []
     });
 
     useEffect(() => {
@@ -78,6 +79,21 @@ const PredstavkeForm = () => {
         }))
     }
 
+    const addDatotekaHandler = (value) => {
+        console.log(value)
+        console.log(predstavka.datoteke)
+        let image = value.split(",")[1];
+        console.log(image);
+        setPredstavka(prevVrstaPredstavke => ({
+            ...prevVrstaPredstavke,
+            datoteke: [
+                ...prevVrstaPredstavke.datoteke,
+                image
+            ]
+        }))
+    }
+        console.log(predstavka.datoteke)
+
     const submitFormHandler = (event) => {
         event.preventDefault();
         console.log(predstavka)
@@ -100,6 +116,12 @@ const PredstavkeForm = () => {
             <Input type="date" title="Datum događaja" value={predstavka.datumDogadjaja} setValue={changeDatumDogadjajaHandler}/>
             <Select title="Vrsta predstavke" value={predstavka.vrstaPredstavke.id} setValue={changeVrstaPredstavkeHandler} options={options}/>
             <TextArea title="Opis" value={predstavka.opis} setValue={changeOpisHandler}/>
+            <Input type="file" title="Unesite datoteke" setValue={addDatotekaHandler}/>
+            {
+                predstavka.datoteke.map((datoteka, index) => (
+                    <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt={`${predstavka.naslov} - ${index}`}/>
+                ))
+            }
             <div className="w-100 d-flex justify-content-end my-3">
                 <Button type="submit" variant="dark" onClick={submitFormHandler}>Kreiraj</Button>
             </div>
