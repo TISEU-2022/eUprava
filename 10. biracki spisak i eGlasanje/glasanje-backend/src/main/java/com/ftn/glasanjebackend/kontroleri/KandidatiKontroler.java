@@ -26,8 +26,11 @@ public class KandidatiKontroler {
     @Autowired
     private KandidatiService kandidatiService;
 
+    @Autowired
+    private  IzboriService izboriService;
 
-    @GetMapping(value = "/kandidati")
+
+    @GetMapping
     public ResponseEntity<List<KandidatDTO>> getAllKandidati(){
         List<Kandidat> kandidati = kandidatiService.findAll();
 
@@ -46,4 +49,17 @@ public class KandidatiKontroler {
         }
         return new ResponseEntity<>(new KandidatDTO(kandidat),HttpStatus.OK);
     }
+
+    @GetMapping(value = "/kandidati-izbora/{id}")
+    public ResponseEntity<List<KandidatDTO>> getKandidatiByIzbor(@PathVariable Long id){
+        Izbori izbori = izboriService.findOne(id);
+        List<Kandidat> kandidati = izbori.getKandidati();
+
+        List<KandidatDTO> kandidatDTO = new ArrayList<>();
+        for (Kandidat k: kandidati){
+            kandidatDTO.add(new KandidatDTO(k));
+        }
+        return new ResponseEntity<>(kandidatDTO, HttpStatus.OK);
+    }
+
 }

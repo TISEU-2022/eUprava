@@ -19,4 +19,5 @@ public class KandidatiService {
     public Kandidat findOne(Long id) {
         return kandidatiRepository.findById(id).orElse(null);
     }
+
 }

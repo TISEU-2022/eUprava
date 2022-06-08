@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -23,14 +25,17 @@ public class IzboriKontroler {
     @Autowired
     private IzboriService izboriService;
 
-
-    @GetMapping(value = "/izbori")
+    @GetMapping
     public ResponseEntity<List<IzboriDTO>> getAllIzbori(){
         List<Izbori> izbori = izboriService.findAll();
 
         List<IzboriDTO> izboriDTO = new ArrayList<>();
+        Date datum = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for(Izbori i : izbori){
-            izboriDTO.add(new IzboriDTO(i));
+            if(sdf.format(i.getDatum()).equals(sdf.format(datum))) {
+                izboriDTO.add(new IzboriDTO(i));
+            }
         }
         return new ResponseEntity<>(izboriDTO, HttpStatus.OK);
     }
@@ -43,5 +48,7 @@ public class IzboriKontroler {
         }
         return new ResponseEntity<>(new IzboriDTO(izbori),HttpStatus.OK);
     }
+
+
 
 }
