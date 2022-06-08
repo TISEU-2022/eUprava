@@ -19,6 +19,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "api/konkursi")
 @CrossOrigin(origins="http://localhost:3000")
+
 public class KonkursController {
 
     @Autowired

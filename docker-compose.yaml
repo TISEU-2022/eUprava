@@ -133,7 +133,7 @@ services:
         aliases:
           - "mysqlDB"
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -187,7 +187,7 @@ services:
     volumes:
       - dokumenti-mysql:/var/lib/mysql
     healthcheck:
-      test: ["CMD","mysqladmin","ping","-h" ,"localhost"]
+      test: [ "CMD","mysqladmin","ping","-h" ,"localhost" ]
       interval: 15s
       timeout: 5s
       retries: 3
@@ -247,6 +247,47 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
+      
+  # --- Zaposljavanje --- 
+
+  zaposljavanje-mysql:
+    image: mysql:8.0.27
+    container_name: zaposljavanje-mysql
+    ports:
+      - "3002:3306"
+    environment:    
+      - MYSQL_ROOT_PASSWORD=RootRoot22
+      - MYSQL_DATABASE=biro
+      - MYSQL_ROOT_USER=root
+      - MYSQL_PASSWORD=RootRoot22
+    volumes:
+      - zaposljavanje-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+  
+  biro-zaposljavanje:
+    depends_on:
+      - zaposljavanje-mysql
+    build:
+      context: ./3. nacionalna sluzba za zaposljavanje/backend/SluzbaZaposljavanja/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 3001:3001
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zaposljavanje-mysql:3002/database?autoReconnect=true&useSSL=false
+      - DATABASE_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - DATABASE_PASSWORD=RootRoot22
+      - DATABASE_NAME=biro
+      - DATABASE_HOST=zaposljavanje-mysql
+      # - MYSQL_PORT=3002
+
 
   # --- ePortal ---
   eportal:
@@ -272,6 +313,8 @@ volumes:
   zdravstvo-mysql:
     driver: local
   dokumenti-mysql:
+    driver: local
+  zaposljavanje-mysql:
     driver: local
 
   

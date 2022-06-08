@@ -1,5 +1,4 @@
 package com.example.SluzbaZaposljavanja.controller;
-
 import com.example.SluzbaZaposljavanja.model.Firma;
 import com.example.SluzbaZaposljavanja.model.Gradjanin;
 import com.example.SluzbaZaposljavanja.model.OglasZaPosao;

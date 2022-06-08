@@ -14,6 +14,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "api/oglasi")
 @CrossOrigin(origins="http://localhost:3000")
+
 public class OglasZaPosaoController {
 
     @Autowired
