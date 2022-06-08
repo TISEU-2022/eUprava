@@ -27,4 +27,6 @@ public class Korisnik {
     private Date datumRodjenja;
     private EOpstina opstina;
     private Boolean sluzbenik;
+    private String jmbg;
+    private String lozinka;
 }
