@@ -2,6 +2,9 @@ package com.ftn.glasanjebackend.kontroleri;
 
 import com.ftn.glasanjebackend.model.Izbori;
 import com.ftn.glasanjebackend.model.dto.IzboriDTO;
+import com.ftn.glasanjebackend.model.dto.KorisnikDTO;
+import com.ftn.glasanjebackend.model.enumeration.EOpstina;
+import com.ftn.glasanjebackend.model.enumeration.ETipIzbora;
 import com.ftn.glasanjebackend.service.IzboriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,16 +28,26 @@ public class IzboriKontroler {
     @Autowired
     private IzboriService izboriService;
 
+
     @GetMapping
-    public ResponseEntity<List<IzboriDTO>> getAllIzbori(){
+    public ResponseEntity<List<IzboriDTO>> getAllIzbori(KorisnikDTO prijavljeniKorisnik){
         List<Izbori> izbori = izboriService.findAll();
 
         List<IzboriDTO> izboriDTO = new ArrayList<>();
         Date datum = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for(Izbori i : izbori){
-            if(sdf.format(i.getDatum()).equals(sdf.format(datum))) {
-                izboriDTO.add(new IzboriDTO(i));
+            if(i.getTipIzbora().equals(ETipIzbora.REPUBLICKI)) {
+                if (sdf.format(i.getDatum()).equals(sdf.format(datum))) {
+                    izboriDTO.add(new IzboriDTO(i));
+                }
+            }
+            else{
+                if(prijavljeniKorisnik.getOpstina().equals(i.getEOpstina().toString())) {
+                    if (sdf.format(i.getDatum()).equals(sdf.format(datum))) {
+                        izboriDTO.add(new IzboriDTO(i));
+                    }
+                }
             }
         }
         return new ResponseEntity<>(izboriDTO, HttpStatus.OK);

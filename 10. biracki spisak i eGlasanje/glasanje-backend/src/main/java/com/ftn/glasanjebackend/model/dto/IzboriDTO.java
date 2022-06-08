@@ -17,16 +17,16 @@ public class IzboriDTO {
     private String naziv;
     private Date datum;
     private KandidatDTO kandidatDTO;
-    private ETipIzbora eTipIzbora;
-    private EOpstina eOpstina;
+    private String eTipIzbora;
+    private String eOpstina;
 
     public IzboriDTO(Izbori izbori){
         this.id = izbori.getId();
         this.naziv = izbori.getNaziv();
         this.datum = izbori.getDatum();
         this.kandidatDTO = new KandidatDTO((Kandidat) izbori.getKandidati());
-        this.eTipIzbora = izbori.getTipIzbora();
-        this.eOpstina = izbori.getEOpstina();
+        this.eTipIzbora = izbori.getTipIzbora().toString();
+        this.eOpstina = izbori.getEOpstina().toString();
     }
 
 
