@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Table
+@Builder
 public class User extends BaseEntity{
 
     @Id
@@ -45,6 +46,8 @@ public class User extends BaseEntity{
     @Column
     private Municipality municipality;
 
+    private String username;
 
+    private String password;
 
 }

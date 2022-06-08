@@ -2,6 +2,7 @@ package com.euprava.izradadokumenata.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -31,6 +32,12 @@ public class DocumentAppointment extends BaseEntity{
 
     @Column
     private boolean available;
+
+    private boolean appointmentForMinor;
+
+    @Nullable
+    @ManyToOne
+    private User additionalUser;
 
 
 }
