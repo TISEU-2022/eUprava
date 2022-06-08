@@ -1,10 +1,19 @@
 package com.eUprava.eUprava.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "oruzije")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Oruzije implements Serializable {
 
     @Id

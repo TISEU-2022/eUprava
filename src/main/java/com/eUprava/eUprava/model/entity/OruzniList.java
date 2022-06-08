@@ -1,8 +1,17 @@
 package com.eUprava.eUprava.model.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 @Table(name = "orzniList")
 public class OruzniList {
@@ -30,7 +39,7 @@ public class OruzniList {
     @Column(name = "serijskiBrojOruzija", unique = true, nullable = false)
     private Long serijskiBrojOruzija;
 
-    @OneToOne(mappedBy = "list")
+    @OneToOne(mappedBy = "list_id")
     private Oruzije oruzije;
 
     @OneToOne(mappedBy = "list")
