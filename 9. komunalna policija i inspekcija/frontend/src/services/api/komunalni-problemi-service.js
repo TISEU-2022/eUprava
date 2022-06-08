@@ -40,10 +40,28 @@ const create = (data) => {
         .catch(error => console.log(error))
 }
 
+const writeIzvestaj = (id, izvestajRequestDTO) =>{
+    return axios
+        .post(`/komunalni-problem/izvestaj/${id}`, izvestajRequestDTO)
+        .then(response=>{
+            return response;
+        })
+}
+
+const rejectIzvestaj = (id) =>{
+    return axios
+        .post(`/komunalni-problem/odbaci-izvestaj/${id}`)
+        .then(response =>{
+            return response;
+        })
+}
+
 const komunalniProblemiService = {
     getAll,
     getById,
-    create
+    create,
+    writeIzvestaj,
+    rejectIzvestaj
 }
 
 export default komunalniProblemiService;

@@ -1,11 +1,19 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.controller;
 
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.IzvestajDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.IzvestajRequestDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemRequestDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.IzvestajMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.KomunalniProblemMapper;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.SluzbenikMapper;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Izvestaj;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Sluzbenik;
+import com.ftn.KomunalnaPolicijaIInspekcija.service.IzvestajService;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.KomunalniProblemService;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.PodnosilacService;
+import com.ftn.KomunalnaPolicijaIInspekcija.service.SluzbenikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +36,12 @@ public class KomunalniProblemController {
 
     @Autowired
     private PodnosilacService podnosilacService;
+
+    @Autowired
+    private SluzbenikService sluzbenikService;
+
+    @Autowired
+    private IzvestajService izvestajService;
 
     @GetMapping
     public ResponseEntity<List<KomunalniProblemDTO>> getAll(){
@@ -62,6 +77,37 @@ public class KomunalniProblemController {
                 .toUriString();
 
         return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, location).body(id);
+    }
+
+    @PostMapping(value="/izvestaj/{id}")
+    public ResponseEntity<?> writeIzvestaj(@PathVariable("id") Long id, @RequestBody IzvestajRequestDTO izvestajDTO){
+        System.out.println(izvestajDTO);
+        KomunalniProblem komunalniProblem = komunalniProblemService.getOne(id);
+        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getOne(1L));
+        Izvestaj novIzvestaj = new Izvestaj();
+        novIzvestaj.setIzvestaj(izvestajDTO.getReport());
+        novIzvestaj.setPrihvaceno(true);
+        novIzvestaj.setVremePodnosenja(new Date());
+        novIzvestaj.setSluzbenik(sluzbenik);
+        Izvestaj vracen = izvestajService.save(novIzvestaj);
+        komunalniProblem.setIzvestaj(vracen);
+        komunalniProblemService.createKomunalniProblem(komunalniProblem);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value="/odbaci-izvestaj/{id}")
+    public ResponseEntity<?> rejectIzvestaj(@PathVariable("id") Long id){
+        KomunalniProblem komunalniProblem = komunalniProblemService.getOne(id);
+        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getOne(1L));
+        Izvestaj novIzvestaj = new Izvestaj();
+        novIzvestaj.setIzvestaj("Vaš izveštaj je odbijen.");
+        novIzvestaj.setPrihvaceno(false);
+        novIzvestaj.setVremePodnosenja(new Date());
+        novIzvestaj.setSluzbenik(sluzbenik);
+        Izvestaj vracen = izvestajService.save(novIzvestaj);
+        komunalniProblem.setIzvestaj(vracen);
+        komunalniProblemService.createKomunalniProblem(komunalniProblem);
+        return ResponseEntity.ok().build();
     }
 
 }

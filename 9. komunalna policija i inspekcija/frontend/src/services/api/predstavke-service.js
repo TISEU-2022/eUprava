@@ -42,10 +42,28 @@ const create = (data) => {
         .catch(error => console.log(error))
 }
 
+const writeIzvestaj = (id, izvestajRequestDTO) =>{
+    return axios
+        .post(`/predstavka/izvestaj/${id}`, izvestajRequestDTO)
+        .then(response=>{
+            return response;
+        })
+}
+
+const rejectIzvestaj = (id) =>{
+    return axios
+        .post(`/predstavka/odbaci-izvestaj/${id}`)
+        .then(response =>{
+            return response;
+        })
+}
+
 const predstavkeService = {
     getAll,
     getById,
-    create
+    create,
+    writeIzvestaj,
+    rejectIzvestaj
 }
 
 export default predstavkeService;

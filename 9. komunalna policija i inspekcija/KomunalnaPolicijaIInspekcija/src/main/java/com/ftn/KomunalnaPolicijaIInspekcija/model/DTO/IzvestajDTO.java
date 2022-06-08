@@ -1,5 +1,6 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.model.DTO;
 
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Izvestaj;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Sluzbenik;
 import lombok.Builder;
 import lombok.Data;

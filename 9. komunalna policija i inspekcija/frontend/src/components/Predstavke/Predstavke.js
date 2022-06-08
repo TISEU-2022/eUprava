@@ -15,6 +15,7 @@ const Predstavke = () => {
         predstavkeService.getAll()
             .then((data) => {
                 setPredstavke(data);
+                console.log(data);
             })
     }, []);
 
@@ -52,6 +53,7 @@ const Predstavke = () => {
                         const datumDogadjaja = new Date(predstavka.datumDogadjaja);
                         return (
                             <tr key={predstavka.id} className="pointer"
+                                style={!predstavka.izvestaj ? {background: "rgb(249,66,58)"} : {background: "#90EE90"}}
                                 onClick={() => goToDetailsHandler(predstavka.id)}>
                                 <td>{predstavka.id}</td>
                                 <td>{predstavka.naslov}</td>

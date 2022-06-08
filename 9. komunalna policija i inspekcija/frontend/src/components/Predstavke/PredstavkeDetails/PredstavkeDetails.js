@@ -1,11 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import {useHistory, useParams} from "react-router-dom";
 import predstavkeService from "../../../services/api/predstavke-service";
-import {Table} from "react-bootstrap";
+import {Button, Table} from "react-bootstrap";
+import Modal from 'react-modal';
 
 const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: "numeric", minute: "numeric" };
 const dateAndTimeOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
 const today = new Date();
+const customStyles = {
+    overlay: {
+        backgroundColor: 'rgba(119,119,119,0.7)'
+    },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+
+      boxShadow: '0 0 10px rgba(0,0,0,0.6)',
+      MozBoxShadow: "0 0 10px rgba(0,0,0,0.6)",
+      WebkitBoxShadow: "0 0 10px rgba(0,0,0,0.6)",
+      OBoxShadow: "0 0 10px rgba(0,0,0,0.6)",
+    },
+
+  };
 
 const PredstavkeDetails = (props) => {
 
@@ -20,22 +40,57 @@ const PredstavkeDetails = (props) => {
             id: 0
         },
         opis: "",
-        podnosilac: {}
+        podnosilac: {},
+        izvestaj: {
+            id: 0,
+            izvestaj: "",
+            prihvaceno: false,
+            vremePodnosenja: today.toISOString().slice(0, 10),
+            sluzbenikDTO: {
+                ime: "",
+                prezime: ""
+            }
+        }
     });
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [izvestajRequestDTO, setReport] = useState({report:""});
 
     useEffect(() => {
         predstavkeService.getById(id)
             .then(data => {
                 setPredstavka(data);
+                console.log(data);
             })
     }, [id]);
+
+    function modalStateHandler(){
+        modalIsOpen ? setModalIsOpen(false) : setModalIsOpen(true)
+    }
 
     const goToFormHandler = () => {
         history.push(`/vrste-predstavki/form/${predstavka.id}`);
     }
 
+    const submitFormHandler = (event) =>{
+        event.preventDefault();
+        console.log(izvestajRequestDTO);
+        predstavkeService.writeIzvestaj(id, izvestajRequestDTO)
+            .then(()=>{
+                history.push(`/predstavke`)
+            });
+    }
+
+    const rejectIzvestajHandler = (event) =>{
+        event.preventDefault();
+        predstavkeService.rejectIzvestaj(id)
+            .then(() =>{
+                history.push(`/predstavke`)
+            })
+    }
+
     const vremePodnosenja = new Date(predstavka.vremePodnosenja);
     const datumDogadjaja = new Date(predstavka.datumDogadjaja);
+    const datumPodnosenjaIzvestaja = predstavka.izvestaj ? new Date(predstavka.izvestaj.vremePodnosenja) : null ;
 
     return (
         <div className="w-50 mx-auto">
@@ -90,6 +145,51 @@ const PredstavkeDetails = (props) => {
                     }
                 </div>)
             }
+            {predstavka.izvestaj ? 
+            (
+            <>
+            <h3 style={{textAlign: "center"}}>Izveštaj {predstavka.izvestaj.prihvaceno ? "(PRIHVAĆENO)"  : "(ODBIJENO)"}</h3>
+            <Table striped bordered hover>
+                <tbody>
+                <tr>
+                    <th>#</th>
+                    <td>{predstavka.izvestaj.id}</td>
+                </tr>
+                <tr>
+                    <th>Datum podnošenja</th>
+                    <td>{datumPodnosenjaIzvestaja.toLocaleDateString("de-DE", dateOptions)}</td>
+                </tr>
+                <tr>
+                    <th>Izveštaj napisao</th>
+                    <td>{`${predstavka.izvestaj.sluzbenikDTO.ime} ${predstavka.izvestaj.sluzbenikDTO.prezime}`}</td>
+                </tr>
+                <tr>
+                    <th>Izveštaj</th>
+                    <td>{predstavka.izvestaj.izvestaj}</td>
+                </tr>
+                </tbody>
+            </Table>
+            </>
+            ) : null}
+            {!predstavka.izvestaj ? (<>
+            <Button style={{marginRight: "5px", marginBottom: "3rem"}} onClick={modalStateHandler}>Napiši izveštaj</Button>
+            <Button style={{marginBottom: "3rem"}} variant="danger" onClick={rejectIzvestajHandler}>Odbij izveštaj</Button>
+            </>) : null}
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={modalStateHandler}
+                style={customStyles}
+            >
+                <h2>Izveštaj</h2>
+                <div>
+                    <textarea value={izvestajRequestDTO.report} rows="5" cols="50"  onChange={(event) => setReport(izvestajRequestDTO =>({...izvestajRequestDTO, report: event.target.value}))}/>
+                    <div>
+                        <Button style={{marginRight: "5px"}} onClick={submitFormHandler}>Pošalji</Button>
+                        <Button variant="danger" onClick={modalStateHandler}>Odustani</Button>
+                    </div>
+                </div>
+
+            </Modal>
         </div>
     );
 };

@@ -49,4 +49,9 @@ public class IzvestajServiceImpl implements IzvestajService {
         izvestajRepository.delete(izvestaj);
         return true;
     }
+
+    @Override
+    public Izvestaj save(Izvestaj izvestaj) {
+        return izvestajRepository.save(izvestaj);
+    }
 }

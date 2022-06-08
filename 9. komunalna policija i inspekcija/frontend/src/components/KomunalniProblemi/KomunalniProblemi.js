@@ -43,6 +43,7 @@ const KomunalniProblemi = () =>{
                     <th>Vrsta problema</th>
                 </tr>
                 </thead>
+
                 <tbody>
                 {
                     komunalniProblemi.map((komunalniProblem) => {
@@ -50,7 +51,9 @@ const KomunalniProblemi = () =>{
                         const datumDogadjaja = new Date(komunalniProblem.datumDogadjaja);
                         return (
                             <tr key={komunalniProblem.id} className="pointer"
-                                onClick={() => goToDetailsHandler(komunalniProblem.id)}>
+                                style={!komunalniProblem.izvestaj ? {background: "rgb(249,66,58)"} : {background: "#90EE90"}}
+                                onClick={() => goToDetailsHandler(komunalniProblem.id)}
+                                >
                                 <td>{komunalniProblem.id}</td>
                                 <td>{datumPodnosenja.toLocaleDateString("de-DE", dateOptions)}</td>
                                 <td>{datumDogadjaja.toLocaleDateString("de-DE", dateOptions)}</td>
