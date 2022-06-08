@@ -20,7 +20,7 @@ public class Kandidat {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String imeStranke;
     private String imePredstavnika;
     private String slogan;

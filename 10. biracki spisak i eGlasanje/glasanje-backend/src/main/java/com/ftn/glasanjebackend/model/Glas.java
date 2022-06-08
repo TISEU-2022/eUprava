@@ -16,11 +16,12 @@ public class Glas {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @OneToOne
     private Izbori izbori;
     @OneToOne
     private Kandidat kandidat;
-    //Korisnik korisnik;
+    @OneToOne
+    private Korisnik korisnik;
 
 }

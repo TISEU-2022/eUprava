@@ -21,7 +21,7 @@ public class Korisnik {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String ime;
     private String prezime;
     private Date datumRodjenja;
