@@ -6,6 +6,8 @@ import ftn.euprava.zdravstvo.api.dto.BirthCertificateMaticarRequest;
 import ftn.euprava.zdravstvo.api.dto.BirthCertificateRequest;
 import ftn.euprava.zdravstvo.api.dto.MaticarCertificateResponse;
 import ftn.euprava.zdravstvo.api.dto.ParentsMaticarRequest;
+import ftn.euprava.zdravstvo.model.User;
+import ftn.euprava.zdravstvo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -21,7 +23,13 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @Slf4j
 public class UserService {
 
+    final private UserRepository userRepository;
+
     private static final String MATICAR_URI = "http://maticar:4002/api/user";
+
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public ResponseEntity<MaticarCertificateResponse> addBirthCertificate(final BirthCertificateRequest request) {
         log.info("REQUEST: ", request);
@@ -113,5 +121,16 @@ public class UserService {
         } catch (JsonProcessingException e) {
             return Optional.empty();
         }
+    }
+
+    public User findByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+
+    public void createUser(){
+        User user = new User();
+        user.setUsername("administrator");
+        user.setRole("PATIENT");
+        userRepository.save(user);
     }
 }

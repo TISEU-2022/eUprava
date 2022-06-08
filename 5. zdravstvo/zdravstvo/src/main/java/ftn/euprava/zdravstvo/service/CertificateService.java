@@ -33,19 +33,19 @@ public class CertificateService {
     }
 
     private void noteUserRequestedCertificate(final CertificateRequest request, final String message) {
-        User user = new User(request.getUserId());
-        userRepository.save(user);
-
-        Certificate certificate = new Certificate(user, message);
-        certificateRepository.save(certificate);
+//        User user = new User(request.getUserId());
+//        userRepository.save(user);
+//
+//        Certificate certificate = new Certificate(user, message);
+//        certificateRepository.save(certificate);
     }
 
     public CheckUserCertificateResponse checkIfUserHasCertificateNoted(final Long userId) {
-        User user = new User(userId);
-        List<Certificate> certificatesOfUser = certificateRepository.findByUser(user);
-        if(certificatesOfUser.isEmpty()) {
-            return  new CheckUserCertificateResponse(false);
-        }
+//        User user = new User(userId);
+//        List<Certificate> certificatesOfUser = certificateRepository.findByUser(user);
+//        if(certificatesOfUser.isEmpty()) {
+//            return  new CheckUserCertificateResponse(false);
+//        }
         return new CheckUserCertificateResponse(true);
     }
 }

@@ -18,8 +18,8 @@ public class MedicalRecord {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @OneToMany(mappedBy="record-reports")
-    private List<AppointmentReport> reports = new ArrayList<>();
+//    @OneToMany(mappedBy="record-reports")
+//    private List<AppointmentReport> reports = new ArrayList<>();
 
     @ManyToOne
     private User citizen;

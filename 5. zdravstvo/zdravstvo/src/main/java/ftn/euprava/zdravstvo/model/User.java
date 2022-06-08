@@ -31,4 +31,5 @@ public class User {
     private LocalDate dateOfBirth;
     private String countryOfBirth;
     private String email;
+    private String role;
 }
