@@ -25,6 +25,8 @@ services:
       tiseu:
         aliases:
           - "glasanje-backend"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://glasanje-mysql:10003/eupravaglasanje?allowPublicKeyRetrieval=true&useSSL=false
     depends_on:
       - glasanje-mysql
 
