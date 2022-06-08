@@ -30,20 +30,7 @@ async def add_birth_certificate(
         if result:
             return {"status": "Added"}
         else:
-            error.append(
-                {
-                    "detail": [
-                        {
-                            "loc": [
-                                "body",
-                                "identification_number"
-                            ],
-                            "msg": "Birth certificate already exists!",
-                            "type": "value_error.identification_number"
-                        }
-                    ]
-                }
-            )
+            error.append("Birth certificate already exists!")
     except Exception as e:
         logger.error(f"Error occured getting creating marriage. Error {str(e)}")
     raise HTTPException(status_code=422, detail=error)

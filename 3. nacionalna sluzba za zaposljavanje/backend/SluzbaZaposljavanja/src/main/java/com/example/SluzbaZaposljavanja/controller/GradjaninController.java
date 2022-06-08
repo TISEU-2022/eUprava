@@ -1,9 +1,13 @@
 package com.example.SluzbaZaposljavanja.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import com.example.SluzbaZaposljavanja.model.Firma;
 >>>>>>> zaposljavanje-init
+=======
+import com.example.SluzbaZaposljavanja.model.Firma;
+>>>>>>> 9aa1fa015c0a422bba3229b3ff6d5876c08f41ad
 import com.example.SluzbaZaposljavanja.model.Gradjanin;
 import com.example.SluzbaZaposljavanja.model.OglasZaPosao;
 import com.example.SluzbaZaposljavanja.service.GradjaninService;
@@ -18,9 +22,13 @@ import java.util.List;
 
 @Controller
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 @CrossOrigin(origins="http://localhost:3000")
 >>>>>>> zaposljavanje-init
+=======
+@CrossOrigin(origins="http://localhost:3000")
+>>>>>>> 9aa1fa015c0a422bba3229b3ff6d5876c08f41ad
 @RequestMapping(value = "api/gradjani")
 public class GradjaninController {
 
@@ -49,7 +57,10 @@ public class GradjaninController {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 9aa1fa015c0a422bba3229b3ff6d5876c08f41ad
     @GetMapping(value = "zaposlenje/{korisnickoIme}")
     public ResponseEntity<Boolean> getStatusZaposlenjaGradjanina(@PathVariable("korisnickoIme") String korisnickoIme){
         Gradjanin gradjanin = gradjaninService.findByKorisnickoIme(korisnickoIme);
@@ -66,5 +77,8 @@ public class GradjaninController {
         return new ResponseEntity<Boolean>(zaposlenje, HttpStatus.OK);
     }
 
+<<<<<<< HEAD
 >>>>>>> zaposljavanje-init
+=======
+>>>>>>> 9aa1fa015c0a422bba3229b3ff6d5876c08f41ad
 }
