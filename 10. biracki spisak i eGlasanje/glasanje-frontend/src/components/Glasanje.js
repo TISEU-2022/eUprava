@@ -51,13 +51,13 @@ export default class Glasanje extends React.Component {
 
     onValueChange(event) {
         this.setState({
-            selectedOption: event.target.value
+            selectedOption: event.target.key
         });
     }
 
     formSubmit(event) {
         event.preventDefault();
-        console.log(this.state.selectedOption)
+        axios.post("http://localhost:10002/glasanje", this.state.selectedOption).then(() => console.log("USPEH"));
     }
 
     render() {
@@ -80,8 +80,9 @@ export default class Glasanje extends React.Component {
                                             key={kandidat.id}>
                                             <input
                                                 type="radio"
+                                                key={kandidat.id}
                                                 value= {kandidat.imePredstavnika}
-                                                checked={this.state.selectedOption === kandidat.imePredstavnika}
+                                                checked={this.state.selectedOption === kandidat.id}
                                                 onChange={this.onValueChange}
                                             />
                                             {kandidat.imePredstavnika}

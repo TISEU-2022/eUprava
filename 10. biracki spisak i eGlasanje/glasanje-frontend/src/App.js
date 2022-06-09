@@ -37,6 +37,12 @@ function App() {
                 element={<Glasanje/>}>
             </Route>
 
+            <Route
+                exact
+                path="/raspisivanje"
+                element={<RaspisivanjeIzbora/>}>
+            </Route>
+
 
 
 
