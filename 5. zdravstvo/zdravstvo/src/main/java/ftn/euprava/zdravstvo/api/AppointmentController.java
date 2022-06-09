@@ -1,5 +1,6 @@
 package ftn.euprava.zdravstvo.api;
 
+import ftn.euprava.zdravstvo.api.dto.AppoinmentReportResponse;
 import ftn.euprava.zdravstvo.api.dto.AppointmentRequest;
 import ftn.euprava.zdravstvo.api.dto.AppointmentResponse;
 import ftn.euprava.zdravstvo.service.AppointmentService;
@@ -22,16 +23,26 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @GetMapping
-    public ResponseEntity<List<AppointmentResponse>> getAppointmentHistory(
-            @RequestParam(defaultValue = "false") boolean history,
-            @RequestParam(defaultValue = "false") boolean free
-    ) {
-        return ResponseEntity.ok().body(appointmentService.getAppointments());
+    public ResponseEntity<List<AppointmentResponse>> getAppointmentHistory() {
+        return ResponseEntity.ok().body(appointmentService.getAppointmentsByUser());
     }
 
-    @PutMapping("/{appointmentId}")
-    public ResponseEntity<AppointmentResponse> bookAppointment(@PathVariable Long appointmentId) {
-        return ResponseEntity.ok().body(appointmentService.bookAppointment(appointmentId));
+    @GetMapping("/free")
+    public ResponseEntity<List<AppointmentResponse>> getFreeAppointments() {
+        return ResponseEntity.ok().body(appointmentService.getFreeAppointments());
+    }
+
+    @GetMapping("/{appointment-id}/reports")
+    public ResponseEntity<AppoinmentReportResponse> getAppointmentReport(@PathVariable("appointment-id") Long appointmentId){
+        return ResponseEntity.ok().body(appointmentService.getAppointmentReport(appointmentId));
+
+    }
+
+
+
+    @PutMapping("/{appointment-id}")
+    public void bookAppointment(@PathVariable("appointment-id") Long appointment_id) {
+        appointmentService.bookAppointment(appointment_id);
     }
 
     @PostMapping

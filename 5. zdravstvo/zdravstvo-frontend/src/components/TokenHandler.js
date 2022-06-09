@@ -15,7 +15,7 @@ const TokenHandler = () => {
       navigate('/');
     }, []);
   
-    return <>Majmun</>;
+    return <>a</>;
   };
   
   export default TokenHandler;

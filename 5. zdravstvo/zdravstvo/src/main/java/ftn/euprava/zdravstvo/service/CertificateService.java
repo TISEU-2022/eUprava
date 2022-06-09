@@ -33,7 +33,6 @@ public class CertificateService {
     }
 
     private void noteUserRequestedCertificate(final CertificateRequest request, final String message) {
-
         Certificate certificate = new Certificate(request.getJmbg(), message);
         certificateRepository.save(certificate);
     }
@@ -41,7 +40,7 @@ public class CertificateService {
     public CheckUserCertificateResponse checkIfUserHasCertificateNoted(final String jmbg) {
         List<Certificate> certificatesOfUser = certificateRepository.findByUserJmbg(jmbg);
         if(certificatesOfUser.isEmpty()) {
-            return  new CheckUserCertificateResponse(false);
+            return new CheckUserCertificateResponse(false);
         }
         return new CheckUserCertificateResponse(true);
     }
