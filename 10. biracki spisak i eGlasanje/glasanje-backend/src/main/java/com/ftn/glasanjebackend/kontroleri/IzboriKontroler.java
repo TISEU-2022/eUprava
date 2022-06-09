@@ -55,6 +55,7 @@ public class IzboriKontroler {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<IzboriDTO> getIzbor(@PathVariable Long id) {
+        System.out.println("kontroler");
         Izbori izbori = izboriService.findOne(id);
         if(izbori == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
