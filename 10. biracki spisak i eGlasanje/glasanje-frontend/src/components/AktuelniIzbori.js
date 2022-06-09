@@ -1,6 +1,7 @@
 import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Card, Col, Container, Row} from "react-bootstrap";
+import axios from "axios";
 
 export default class AktuelniIzbori extends React.Component {
 
@@ -18,7 +19,7 @@ export default class AktuelniIzbori extends React.Component {
     findAktuelniIzbori() {
         let url = "http://localhost:10002/izbori/aktuelni/"+"1";
 
-        GlasanjeAxiosClient.get(url)
+        axios.get(url)
             .then(response => response.data)
             .then((data) => {
                 this.setState({
