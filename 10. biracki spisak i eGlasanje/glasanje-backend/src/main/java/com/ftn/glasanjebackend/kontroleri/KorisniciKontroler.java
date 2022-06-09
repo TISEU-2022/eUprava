@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -23,15 +24,12 @@ public class KorisniciKontroler {
 
 
     @PostMapping(value = "/prijava")
-    public ResponseEntity<KorisnikDTO> prijava(KorisnikPrijavaDTO korisnikPrijavaDTO){
+    public ResponseEntity<KorisnikDTO> prijava(@RequestBody KorisnikPrijavaDTO korisnikPrijavaDTO){
         Korisnik korisnik = korisniciService.findKorisnikByJmbgAndLozinka(korisnikPrijavaDTO.getJmbg(), korisnikPrijavaDTO.getLozinka());
-        System.out.println(korisnikPrijavaDTO.getJmbg() + ", " + korisnikPrijavaDTO.getLozinka());
         if(korisnik != null){
             KorisnikDTO korisnikDTO = new KorisnikDTO(korisnik);
-            System.out.println("!=null");
             return new ResponseEntity<>(korisnikDTO, HttpStatus.OK);
         }else{
-            System.out.println("==null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
