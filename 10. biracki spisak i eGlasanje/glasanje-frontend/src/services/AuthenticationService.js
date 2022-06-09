@@ -14,14 +14,25 @@ async function login(userCredentials) {
             "http://localhost:10002/korisnici/prijava",
             userCredentials
         );
-        const decoded_token = TokenService.decodeToken(response.data);
+
+        if (response.status === 200) {
+            window.location.assign("/AktuelniIzbori");
+        } else {
+            await Swal.fire({
+                icon: 'error',
+                title: 'Ох не 😩',
+                text: 'Негде сте погрешили 😕',
+            })
+        }
+
+        /*const decoded_token = TokenService.decodeToken(response.data);
         if (decoded_token) {
             TokenService.setToken(response.data);
 
             window.location.assign("/AktuelniIzbori");
         } else {
             console.error("Invalid token");
-        }
+        }*/
     } catch (error) {
         await Swal.fire({
             icon: 'error',
