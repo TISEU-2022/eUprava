@@ -18,7 +18,7 @@ async function login(userCredentials) {
         if (decoded_token) {
             TokenService.setToken(response.data);
 
-            window.location.assign("/");
+            window.location.assign("/AktuelniIzbori");
         } else {
             console.error("Invalid token");
         }

@@ -35,19 +35,17 @@ export default class AktuelniIzbori extends React.Component {
                 <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><h3>Листа актуелних избора</h3></Card.Header>
                     <Card.Body>
-                        <Row>
-                            {
-                                izboriLista.length === 0
-                                    ?
-                                    <div>Нема актуелних избора</div>
-                                    :
-                                    izboriLista.map((izbori)=>(
-                                        <Col key={izbori.id} xs={6} md={4} style={{marginBottom:"45px"}}>
-                                            <h3>{izbori.naziv}</h3>
-                                        </Col>
-                                    ))
-                            }
-                        </Row>
+                        {
+                            izboriLista.length === 0
+                                ?
+                                <div>Нема актуелних избора</div>
+                                :
+                                izboriLista.map((izbori)=>(
+                                    <Row key={izbori.id} xs={6} md={4} style={{marginBottom:"45px"}}>
+                                        <h3>{izbori.naziv}</h3>
+                                    </Row>
+                                ))
+                        }
                     </Card.Body>
                 </Card>
             </Container>

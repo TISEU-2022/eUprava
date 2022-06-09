@@ -36,7 +36,7 @@ function App() {
             <Route
                 exact
                 path="/"
-                element={<Login/>}>
+                element={<AktuelniIzbori/>}>
             </Route>
 
         </Routes>
