@@ -11,7 +11,7 @@ export const AuthenticationService = {
 async function login(userCredentials) {
     try {
         const response = await GlasanjeAxiosClient.post(
-            "http://localhost:10001/korisnici/prijava",
+            "http://localhost:10002/korisnici/prijava",
             userCredentials
         );
         const decoded_token = TokenService.decodeToken(response.data);

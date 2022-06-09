@@ -6,14 +6,12 @@ import com.ftn.glasanjebackend.model.dto.KorisnikDTO;
 import com.ftn.glasanjebackend.model.enumeration.EOpstina;
 import com.ftn.glasanjebackend.model.enumeration.ETipIzbora;
 import com.ftn.glasanjebackend.service.IzboriService;
+import com.ftn.glasanjebackend.service.KorisniciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,10 +25,12 @@ public class IzboriKontroler {
 
     @Autowired
     private IzboriService izboriService;
+    @Autowired
+    private KorisniciService korisniciService;
 
 
-    @GetMapping
-    public ResponseEntity<List<IzboriDTO>> getAllIzbori(KorisnikDTO prijavljeniKorisnik){
+    @PostMapping
+    public ResponseEntity<List<IzboriDTO>> getAllIzbori(@RequestBody Long id){
         List<Izbori> izbori = izboriService.findAll();
 
         List<IzboriDTO> izboriDTO = new ArrayList<>();
@@ -43,6 +43,7 @@ public class IzboriKontroler {
                 }
             }
             else{
+                KorisnikDTO prijavljeniKorisnik = new KorisnikDTO(korisniciService.findById(id));
                 if(prijavljeniKorisnik.getOpstina().equals(i.getEOpstina().toString())) {
                     if (sdf.format(i.getDatum()).equals(sdf.format(datum))) {
                         izboriDTO.add(new IzboriDTO(i));
@@ -55,7 +56,6 @@ public class IzboriKontroler {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<IzboriDTO> getIzbor(@PathVariable Long id) {
-        System.out.println("kontroler");
         Izbori izbori = izboriService.findOne(id);
         if(izbori == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

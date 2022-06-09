@@ -16,4 +16,7 @@ public class KorisniciService {
         return korisniciRepository.findKorisnikByJmbgAndLozinka(jmbg, lozinka);
     }
 
+    public Korisnik findById(Long id){
+        return korisniciRepository.findById(id).get();
+    }
 }

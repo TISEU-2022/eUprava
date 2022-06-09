@@ -16,7 +16,7 @@ export default class AktuelniIzbori extends React.Component {
     }
 
     findAktuelniIzbori() {
-        let url = "http://localhost:10001/izbori/";
+        let url = "http://localhost:10002/izbori/";
 
         GlasanjeAxiosClient.get(url, 1)
             .then(response => response.data)
