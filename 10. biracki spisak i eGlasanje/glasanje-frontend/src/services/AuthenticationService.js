@@ -1,16 +1,17 @@
 import {TokenService} from "./TokenService";
 import GlasanjeAxiosClient from "./clients/GlasanjeAxiosClient";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export const AuthenticationService = {
     login,
-    logout,
-    getRole
+    //logout,
+    //getRole
 };
 
 async function login(userCredentials) {
     try {
-        const response = await GlasanjeAxiosClient.post(
+        const response = await axios.post(
             "http://localhost:10002/korisnici/prijava",
             userCredentials
         );
@@ -42,7 +43,7 @@ async function login(userCredentials) {
     }
 }
 
-function logout() {
+/*function logout() {
     TokenService.removeToken();
     window.location.assign("/");
 }
@@ -55,4 +56,4 @@ function getRole() {
     } else {
         return null;
     }
-}
+}*/
