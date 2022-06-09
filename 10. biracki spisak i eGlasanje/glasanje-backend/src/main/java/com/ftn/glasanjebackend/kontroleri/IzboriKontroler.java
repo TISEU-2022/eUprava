@@ -1,11 +1,14 @@
 package com.ftn.glasanjebackend.kontroleri;
 
 import com.ftn.glasanjebackend.model.Izbori;
+import com.ftn.glasanjebackend.model.Kandidat;
 import com.ftn.glasanjebackend.model.dto.IzboriDTO;
+import com.ftn.glasanjebackend.model.dto.KandidatDTO;
 import com.ftn.glasanjebackend.model.dto.KorisnikDTO;
 import com.ftn.glasanjebackend.model.enumeration.EOpstina;
 import com.ftn.glasanjebackend.model.enumeration.ETipIzbora;
 import com.ftn.glasanjebackend.service.IzboriService;
+import com.ftn.glasanjebackend.service.KandidatiService;
 import com.ftn.glasanjebackend.service.KorisniciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +30,8 @@ public class IzboriKontroler {
     private IzboriService izboriService;
     @Autowired
     private KorisniciService korisniciService;
+    @Autowired
+    private KandidatiService kandidatiService;
 
 
     @GetMapping(value = "/aktuelni/{id}")
@@ -63,6 +68,15 @@ public class IzboriKontroler {
         return new ResponseEntity<>(new IzboriDTO(izbori),HttpStatus.OK);
     }
 
-
+    @PostMapping(value="/raspisivanje")
+    public ResponseEntity<IzboriDTO> raspisivanje(@RequestBody IzboriDTO izboriDTO){
+        List<Kandidat> kandidati = new ArrayList<>();
+        for (KandidatDTO kandidatDTO: izboriDTO.getKandidatiDTO()) {
+            kandidati.add(kandidatiService.save(new Kandidat(kandidatDTO.getId(), kandidatDTO.getImeStranke(), kandidatDTO.getImePredstavnika(), kandidatDTO.getSlogan())));
+        }
+        Izbori izbori = new Izbori(izboriDTO.getId(), izboriDTO.getNaziv(), izboriDTO.getDatum(), kandidati, ETipIzbora.valueOf(izboriDTO.getETipIzbora()), EOpstina.valueOf(izboriDTO.getEOpstina()));
+        izboriService.save(izbori);
+        return new ResponseEntity<>(izboriDTO, HttpStatus.OK);
+    }
 
 }

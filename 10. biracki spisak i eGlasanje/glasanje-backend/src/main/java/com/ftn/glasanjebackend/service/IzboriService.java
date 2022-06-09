@@ -19,4 +19,8 @@ public class IzboriService {
     public Izbori findOne(Long id) {
         return izboriRepository.findById(id).orElse(null);
     }
+
+    public Izbori save(Izbori izbori){
+        return  izboriRepository.save(izbori);
+    }
 }

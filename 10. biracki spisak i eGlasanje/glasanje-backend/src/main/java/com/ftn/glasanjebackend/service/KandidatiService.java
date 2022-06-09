@@ -20,4 +20,7 @@ public class KandidatiService {
         return kandidatiRepository.findById(id).orElse(null);
     }
 
+    public Kandidat save(Kandidat kandidat){
+        return kandidatiRepository.save(kandidat);
+    }
 }
