@@ -35,7 +35,10 @@ export default class Glasanje extends React.Component {
             kandidatiLista: kandidati
         });*/
 
-        let url = "http://localhost:10002/kandidati/kandidati-izbora/" + this.props.match.params.id;
+        let url = "http://localhost:10002/kandidati/kandidati-izbora/";
+        let lokacija = window.location.href;
+        lokacija = lokacija.replace("http://localhost:3000/glasanje/", "");
+        url += lokacija;
 
         axios.get(url)
             .then(response => response.data)

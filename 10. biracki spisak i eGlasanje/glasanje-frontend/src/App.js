@@ -33,7 +33,7 @@ function App() {
 
             <Route
                 exact
-                path="/glasanje"
+                path="/glasanje/:id"
                 element={<Glasanje/>}>
             </Route>
 
