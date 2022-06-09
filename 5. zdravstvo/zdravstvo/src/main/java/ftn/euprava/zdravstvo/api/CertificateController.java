@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @CrossOrigin
 @RestController
@@ -21,13 +23,13 @@ public class CertificateController {
 
     @PostMapping
     public ResponseEntity<CertificateResponse> generateCertificateForUser(
-            @RequestBody CertificateRequest request
+            @RequestBody @Valid CertificateRequest request
     ){
         return ResponseEntity.ok(certificateService.generateCertificate(request));
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<CheckUserCertificateResponse> checkIfUserHasCertificate(@PathVariable Long userId) {
-        return ResponseEntity.ok(certificateService.checkIfUserHasCertificateNoted(userId));
+    @GetMapping("/{jmbg}")
+    public ResponseEntity<CheckUserCertificateResponse> checkIfUserHasCertificate(@PathVariable String jmbg) {
+        return ResponseEntity.ok(certificateService.checkIfUserHasCertificateNoted(jmbg));
     }
 }

@@ -16,4 +16,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    private String jmbg;
+
+    public User(String jmbg) {
+        this.jmbg = jmbg;
+    }
 }
