@@ -21,7 +21,7 @@ export default class Glasanje extends React.Component {
 
     findKandidati() {
 
-        var kandidati = [
+        /*var kandidati = [
             {
                 id: 0,
                 imePredstavnika: "kolega"
@@ -33,9 +33,9 @@ export default class Glasanje extends React.Component {
         ];
         this.setState({
             kandidatiLista: kandidati
-        });
+        });*/
 
-        /*let url = "http://localhost:10002/kandidati/kandidati-izbora/";
+        let url = "http://localhost:10002/kandidati/kandidati-izbora/";
         let lokacija = window.location.href;
         lokacija = lokacija.replace("http://localhost:10001/glasanje/", "");
         url += lokacija;
@@ -46,7 +46,7 @@ export default class Glasanje extends React.Component {
                 this.setState({
                     kandidatiLista: data
                 });
-            });*/
+            });
     };
 
     onValueChange(event) {
@@ -58,7 +58,21 @@ export default class Glasanje extends React.Component {
 
     formSubmit(event) {
         event.preventDefault();
-        axios.post("http://localhost:10002/glasanje", this.state.selectedOption).then(() => console.log("USPEH"));
+
+        var izboriId = window.location.href;
+        izboriId = izboriId.replace("http://localhost:3000/glasanje/", "");
+        izboriId = izboriId.replace("http://localhost:10001/glasanje/", "");
+
+        var korisnikId = localStorage.getItem("id");
+
+        var glas = {
+            izbori: izboriId,
+            kandidat: this.state.selectedOption,
+            korisnik: korisnikId
+        };
+        console.log(glas);
+
+        axios.post("http://localhost:10002/glasanje", glas).then(() => console.log("USPEH"));
     }
 
     render() {
