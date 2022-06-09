@@ -37,7 +37,7 @@ export default class Glasanje extends React.Component {
 
         let url = "http://localhost:10002/kandidati/kandidati-izbora/";
         let lokacija = window.location.href;
-        lokacija = lokacija.replace("http://localhost:3000/glasanje/", "");
+        lokacija = lokacija.replace("http://localhost:10001/glasanje/", "");
         url += lokacija;
 
         axios.get(url)
