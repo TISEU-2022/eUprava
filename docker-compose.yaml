@@ -210,10 +210,50 @@ services:
     ports:
       - "4011:4011"
 
+  # --- Predskolsko ---
+
+  predskolsko-mysql:
+    image: mysql:8.0.27
+    container_name: predskolsko-mysql
+    ports:
+      - "13002:3306"
+    environment:    
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=predskolsko
+      - MYSQL_ROOT_USER=root
+      - MYSQL_PASSWORD=root
+    volumes:
+      - predskolsko-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+  
+  predskolsko:
+    depends_on:
+      - predskolsko-mysql
+    build:
+      context: ./13. predskolske ustanove/predskolsko/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 13001:13001
+    environment:
+      - DATABASE_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - DATABASE_PASSWORD=root
+      - DATABASE_NAME=predskolsko
+      - DATABASE_HOST=predskolsko-mysql
+
 volumes:
   auth-mongodb:
     driver: local
   maticar-mysql:
     driver: local
   zdravstvo-mysql:
+    driver: local
+  predskolsko-mysql:
     driver: local
