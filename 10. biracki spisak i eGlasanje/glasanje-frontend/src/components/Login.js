@@ -35,7 +35,7 @@ const Login =() => {
                         <Form.Group>
                             <Form.Label>JМБГ</Form.Label>
                             <Form.Control
-                                type="number"
+                                type="text"
                                 name="jmbg"
                                 value={credentials.jmbg}
                                 onChange={handleFormInputChange("jmbg")}

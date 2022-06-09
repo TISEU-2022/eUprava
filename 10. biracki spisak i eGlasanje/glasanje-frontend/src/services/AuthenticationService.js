@@ -1,5 +1,5 @@
 import {TokenService} from "./TokenService";
-import NezdravaHranaAxiosClient from "./clients/NezdravaHranaAxiosClient";
+import GlasanjeAxiosClient from "./clients/GlasanjeAxiosClient";
 import Swal from "sweetalert2";
 
 export const AuthenticationService = {
@@ -10,8 +10,8 @@ export const AuthenticationService = {
 
 async function login(userCredentials) {
     try {
-        const response = await NezdravaHranaAxiosClient.post(
-            "http://localhost:8080/korisnici/prijava",
+        const response = await GlasanjeAxiosClient.post(
+            "http://localhost:10001/korisnici/prijava",
             userCredentials
         );
         const decoded_token = TokenService.decodeToken(response.data);

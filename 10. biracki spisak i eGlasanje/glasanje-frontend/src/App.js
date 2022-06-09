@@ -24,6 +24,12 @@ function App() {
               element={<Login/>}>
           </Route>
 
+            <Route
+                exact
+                path="/aktuelniIzbori"
+                element={<AktuelniIzbori/>}>
+            </Route>
+
 
 
 

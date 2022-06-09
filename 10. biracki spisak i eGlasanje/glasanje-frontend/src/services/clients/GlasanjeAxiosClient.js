@@ -3,7 +3,7 @@ import { TokenService } from "../TokenService";
 import { AuthenticationService } from "../AuthenticationService";
 
 // API klijent se kreira ka specifičnom endpoint-u, uz sve ono što je uvek neophodno slati
-const NezdravaHranaAxiosClient = axios.create({
+const GlasanjeAxiosClient = axios.create({
     baseURL: `${process.env.REACT_APP_SPRINTS_BACKEND_SERVER}`,
 
 });
@@ -11,7 +11,7 @@ const NezdravaHranaAxiosClient = axios.create({
 //AXIOS KLIJENT samo preko njega pristupamo API-ju i kontrolerima, u suprotnom error 403 FORBIDDEN
 
 // Dodaj token na svaki zahtev ka Sprints backendu, ako je korisnik ulogovan
-NezdravaHranaAxiosClient.interceptors.request.use(function success(config) {
+GlasanjeAxiosClient.interceptors.request.use(function success(config) {
     const token = TokenService.getToken();
     if (token) {
         if (TokenService.didTokenExpire()) {
@@ -26,7 +26,7 @@ NezdravaHranaAxiosClient.interceptors.request.use(function success(config) {
 });
 
 // U slučaju da se sa Sprints backenda vrati forbidden, token je istekao te izloguj korisnika
-NezdravaHranaAxiosClient.interceptors.response.use(
+GlasanjeAxiosClient.interceptors.response.use(
     function success(response) {
         return response;
     },
@@ -41,4 +41,4 @@ NezdravaHranaAxiosClient.interceptors.response.use(
     }
 );
 
-export default NezdravaHranaAxiosClient;
+export default GlasanjeAxiosClient;
