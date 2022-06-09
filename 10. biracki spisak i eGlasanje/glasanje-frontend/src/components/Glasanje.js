@@ -21,7 +21,7 @@ export default class Glasanje extends React.Component {
 
     findKandidati() {
 
-        /*var kandidati = [
+        var kandidati = [
             {
                 id: 0,
                 imePredstavnika: "kolega"
@@ -33,9 +33,9 @@ export default class Glasanje extends React.Component {
         ];
         this.setState({
             kandidatiLista: kandidati
-        });*/
+        });
 
-        let url = "http://localhost:10002/kandidati/kandidati-izbora/";
+        /*let url = "http://localhost:10002/kandidati/kandidati-izbora/";
         let lokacija = window.location.href;
         lokacija = lokacija.replace("http://localhost:10001/glasanje/", "");
         url += lokacija;
@@ -46,12 +46,13 @@ export default class Glasanje extends React.Component {
                 this.setState({
                     kandidatiLista: data
                 });
-            });
+            });*/
     };
 
     onValueChange(event) {
+        console.log(event.target.value);
         this.setState({
-            selectedOption: event.target.key
+            selectedOption: event.target.value
         });
     }
 
@@ -80,9 +81,8 @@ export default class Glasanje extends React.Component {
                                             key={kandidat.id}>
                                             <input
                                                 type="radio"
-                                                key={kandidat.id}
-                                                value= {kandidat.imePredstavnika}
-                                                checked={this.state.selectedOption === kandidat.id}
+                                                value= {kandidat.id}
+                                                checked={this.state.selectedOption == kandidat.id}
                                                 onChange={this.onValueChange}
                                             />
                                             {kandidat.imePredstavnika}
