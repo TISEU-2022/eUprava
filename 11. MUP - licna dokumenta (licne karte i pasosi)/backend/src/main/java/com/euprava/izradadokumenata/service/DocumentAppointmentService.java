@@ -2,12 +2,14 @@ package com.euprava.izradadokumenata.service;
 
 import com.euprava.izradadokumenata.model.DocumentAppointment;
 import com.euprava.izradadokumenata.model.dto.documentAppointment.DocumentAppointmentDto;
-import com.euprava.izradadokumenata.model.dto.user.AdditionalUserDto;
-import com.euprava.izradadokumenata.model.dto.user.LoggedUserDto;
+
+import java.util.List;
 
 public interface DocumentAppointmentService {
 
-    DocumentAppointment appointmentForSelf(LoggedUserDto user, DocumentAppointmentDto appointmentDto);
+    DocumentAppointment appointmentForSelf(String username, DocumentAppointmentDto appointmentDto);
 
-    DocumentAppointment appointmentForMinor(LoggedUserDto requestingUser, DocumentAppointmentDto appointmentDto, AdditionalUserDto additionalUserDto);
+    DocumentAppointment appointmentForMinor(String username, DocumentAppointmentDto appointmentDto);
+
+    List<DocumentAppointment> getAll();
 }

@@ -58,4 +58,9 @@ public class DocumentServiceImpl implements DocumentService {
         }
         document.setRemoved(true);
     }
+
+    @Override
+    public Document saveDocument(Document document) {
+        return documentRepo.save(document);
+    }
 }

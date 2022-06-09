@@ -30,6 +30,7 @@ public class DocumentController {
         documentService.getAll().forEach(document -> {
             documentList.add(DocumentMapper.INSTANCE.toDocumentSimpleDto(document));
         });
+        log.info("Controller radi");
         return new ResponseEntity<>(documentList, HttpStatus.OK);
     }
 
@@ -40,7 +41,7 @@ public class DocumentController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<DocumentCreateDto> addDocument(@RequestParam DocumentCreateDto documentCreateDto) {
+    public ResponseEntity<DocumentCreateDto> addDocument(@RequestBody DocumentCreateDto documentCreateDto) {
         Document document = new Document();
         try {
             document = documentService.createDocument(documentCreateDto);
@@ -51,7 +52,7 @@ public class DocumentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<DocumentUpdateDto> updateDocument(@PathVariable Long id, @RequestParam DocumentUpdateDto documentUpdateDto) {
+    public ResponseEntity<DocumentUpdateDto> updateDocument(@PathVariable Long id, DocumentUpdateDto documentUpdateDto) {
         Document doc = new Document();
         try {
             doc = documentService.updateDocument(id, documentUpdateDto);
