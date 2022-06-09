@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import GradjaninService from '../services/GradjaninService';
 import axios from 'axios';
+import './components.css';
+
 
 const GradjaniComponent = () => {
 
@@ -8,16 +10,14 @@ const GradjaniComponent = () => {
 
     useEffect(() => {
         const fetchGradjane = async () => {
-            //setLoading(true);
             const res = await axios.get('http://localhost:8080/api/gradjani');
             setGradjani(res.data);
-            //setLoading(false);
         };
         fetchGradjane();
     }, []);
 
   return (
-    <div>
+    <div style={{marginTop: "20px"}}>
         <h3>Svi gradjani</h3>
         <table className="table table-striped" border="1">
             <thead>
@@ -27,6 +27,7 @@ const GradjaniComponent = () => {
                     <th>Email</th>
                     <th>Korisnicko Ime</th>
                     <th>Datum Rodjenja</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +41,7 @@ const GradjaniComponent = () => {
                             <td>{gradjanin.korisnickoIme}</td>
                             <td>{gradjanin.datumRodjenja}</td>
                             
-                            <td><button></button></td>
+                            <td><button className="btn-primary">Button</button></td>
                         </tr>
                     )
                 }
