@@ -23,14 +23,15 @@ public class KorisniciKontroler {
 
 
     @PostMapping(value = "/prijava")
-    public ResponseEntity<KorisnikDTO> prijava(String jmbg, String lozinka){
-        Korisnik korisnik = korisniciService.findKorisnikByJmbgAndLozinka(jmbg, lozinka);
-
+    public ResponseEntity<KorisnikDTO> prijava(KorisnikPrijavaDTO korisnikPrijavaDTO){
+        Korisnik korisnik = korisniciService.findKorisnikByJmbgAndLozinka(korisnikPrijavaDTO.getJmbg(), korisnikPrijavaDTO.getLozinka());
+        System.out.println(korisnikPrijavaDTO.getJmbg() + ", " + korisnikPrijavaDTO.getLozinka());
         if(korisnik != null){
             KorisnikDTO korisnikDTO = new KorisnikDTO(korisnik);
-
+            System.out.println("!=null");
             return new ResponseEntity<>(korisnikDTO, HttpStatus.OK);
-      }else{
+        }else{
+            System.out.println("==null");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
