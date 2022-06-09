@@ -17,15 +17,8 @@ export default class AktuelniIzbori extends React.Component {
 
     findAktuelniIzbori() {
         let url = "http://localhost:10001/izbori/";
-        /*if (AuthenticationService.getRole() === "ROLE_PRODAVAC") {
-            url += "1";
-        } else {
-            let lokacija = window.location.href;
-            lokacija = lokacija.replace("http://localhost:3000/artikli-prodavca/", "");
-            url += lokacija;
-        }*/
 
-        GlasanjeAxiosClient.get(url)
+        GlasanjeAxiosClient.get(url, 1)
             .then(response => response.data)
             .then((data) => {
                 this.setState({
