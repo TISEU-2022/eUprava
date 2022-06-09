@@ -29,8 +29,8 @@ public class IzboriKontroler {
     private KorisniciService korisniciService;
 
 
-    @PostMapping
-    public ResponseEntity<List<IzboriDTO>> getAllIzbori(@RequestBody Long id){
+    @GetMapping(value = "/aktuelni/{id}")
+    public ResponseEntity<List<IzboriDTO>> getAllIzbori(@PathVariable Long id){
         List<Izbori> izbori = izboriService.findAll();
 
         List<IzboriDTO> izboriDTO = new ArrayList<>();
