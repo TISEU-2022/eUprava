@@ -17,7 +17,23 @@ export default class AktuelniIzbori extends React.Component {
     }
 
     findAktuelniIzbori() {
-        let url = "http://localhost:10002/izbori/aktuelni/"+"1";
+       /* var izbori = [
+            {
+                id: 0,
+                naziv: "republicki"
+            },
+            {
+                id: 1,
+                naziv: "opstinski"
+            },
+        ];
+        this.setState({
+            izboriLista: izbori
+        });*/
+
+        var id = localStorage.getItem("id");
+        let url = "http://localhost:10002/izbori/aktuelni/" + id;
+        console.log("url");
 
         axios.get(url)
             .then(response => response.data)
@@ -43,7 +59,7 @@ export default class AktuelniIzbori extends React.Component {
                                 :
                                 izboriLista.map((izbori)=>(
                                     <Row key={izbori.id} xs={6} md={4} style={{marginBottom:"45px"}}>
-                                        <h3>{izbori.naziv}</h3>
+                                        <h3><a href={"glasanje/" + izbori.id}>{izbori.naziv}</a></h3>
                                     </Row>
                                 ))
                         }

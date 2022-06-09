@@ -9,6 +9,7 @@ import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
 import RaspisivanjeIzbora from "./components/RaspisivanjeIzbora";
 import AktuelniIzbori from "./components/AktuelniIzbori";
+import Glasanje from "./components/Glasanje";
 import Login from "./components/Login";
 import {PrivateRoute} from "./PrivateRoute";
 
@@ -28,6 +29,12 @@ function App() {
                 exact
                 path="/aktuelniIzbori"
                 element={<AktuelniIzbori/>}>
+            </Route>
+
+            <Route
+                exact
+                path="/glasanje"
+                element={<Glasanje/>}>
             </Route>
 
 

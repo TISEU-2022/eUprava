@@ -17,6 +17,7 @@ async function login(userCredentials) {
         );
 
         if (response.status === 200) {
+            localStorage.setItem("id", response.data.id);
             window.location.assign("/AktuelniIzbori");
         } else {
             await Swal.fire({
