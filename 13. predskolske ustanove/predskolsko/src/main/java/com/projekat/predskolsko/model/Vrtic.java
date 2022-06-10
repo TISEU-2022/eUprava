@@ -20,7 +20,7 @@ public class Vrtic {
 	private String name;
 	
 	@Column(name = "address", unique = false, nullable = false)
-	private String address;
+	private String adress;
 	
 	@Column(name = "numberOfEmployees", unique = false, nullable = false)
 	private Integer numberOfEmployees;
@@ -40,12 +40,12 @@ public class Vrtic {
 	}
 
 
-	public Vrtic(Integer vrtic_id, String name, String address, Integer numberOfEmployees, String phoneNumber,
+	public Vrtic(Integer vrtic_id, String name, String adress, Integer numberOfEmployees, String phoneNumber,
 			Integer numberOfChildren, boolean deleted) {
 		super();
 		this.vrtic_id = vrtic_id;
 		this.name = name;
-		this.address = address;
+		this.adress = adress;
 		this.numberOfEmployees = numberOfEmployees;
 		this.phoneNumber = phoneNumber;
 		this.numberOfChildren = numberOfChildren;
@@ -73,13 +73,13 @@ public class Vrtic {
 	}
 
 
-	public String getAddress() {
-		return address;
+	public String getAdress() {
+		return adress;
 	}
 
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setAdress(String address) {
+		this.adress = address;
 	}
 
 
@@ -125,7 +125,7 @@ public class Vrtic {
 
 	@Override
 	public String toString() {
-		return "Vrtic [vrtic_id=" + vrtic_id + ", name=" + name + ", address=" + address + ", numberOfEmployees="
+		return "Vrtic [vrtic_id=" + vrtic_id + ", name=" + name + ", address=" + adress + ", numberOfEmployees="
 				+ numberOfEmployees + ", phoneNumber=" + phoneNumber + ", numberOfChildren=" + numberOfChildren
 				+ ", deleted=" + deleted + "]";
 	}

@@ -1,0 +1,20 @@
+<table id="konkurs-table">
+    <tr>
+      <th>Ime Vrtica</th>
+      <th>Broj Dece</th>
+      <th>Datum</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let k of konkursi">
+      <td>{{ k.vrtic }}</td>
+      <td>{{ k.brojDece }}</td>
+      <td>{{ k.datum }}</td>
+      <td>  
+        <button style="margin-left: 5px;" class="btn btn-info" (click)="updateKonkurs(k.id)">Update</button>
+        <button style="margin-left: 5px;" class="btn btn-danger" (click)="blockKonkurs(k.id)">Block</button>
+      </td>
+    </tr>
+  </table>
+  <div style="margin: 10px auto; width: 1%">
+  <button class="btn btn-primary" (click)="createKonkurs()">Add</button>
+  </div>
