@@ -1,28 +1,30 @@
 package com.euprava.izradadokumenata.model;
 
 import lombok.*;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.util.UUID;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 @Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@ToString
-@Entity
-@Table
-public class Document {
+
+@Table(name = "document")
+@Entity(name = "document")
+public class Document extends BaseEntity {
     @Id
     @Column(name = "id")
-    @Type(type = "uuid-char")
-    private UUID uuid = UUID.randomUUID();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column
+    private LocalDate issuedOn;
+
+    @Column
+    private LocalDate expirationDate;
+
     private String issuingAuthority;
 
     @Column
