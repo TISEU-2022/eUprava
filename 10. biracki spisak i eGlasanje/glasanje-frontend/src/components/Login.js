@@ -4,6 +4,10 @@ import { AuthenticationService } from "../services/AuthenticationService";
 
 const Login =() => {
 
+    if (localStorage.getItem("id") != null) {
+        window.location.assign("/AktuelniIzbori");
+    }
+
     const [credentials, setCredentials] = useState({
         jmbg: "",
         lozinka: "",

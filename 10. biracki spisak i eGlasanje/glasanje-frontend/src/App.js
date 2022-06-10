@@ -49,7 +49,7 @@ function App() {
             <Route
                 exact
                 path="/"
-                element={<AktuelniIzbori/>}>
+                element={<Login/>}>
             </Route>
 
         </Routes>
