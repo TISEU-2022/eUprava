@@ -30,7 +30,7 @@ public class GlasanjeKontroler {
     @PostMapping
     public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
         if (glasService.findGlasByKorisnikIdAndIzboriId(glasDTO.getKorisnik(), glasDTO.getIzbori()) != null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }else{
             Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()), korisniciService.findById(glasDTO.getKorisnik()));
             glasService.save(glas);

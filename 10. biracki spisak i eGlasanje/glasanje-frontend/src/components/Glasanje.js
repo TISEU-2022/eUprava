@@ -82,7 +82,7 @@ export default class Glasanje extends React.Component {
                     title: 'Успех',
                     text: 'Ваш глас је забележен',
                 })
-            } else if (response.status === 400) {
+            } else if (response.status === 204) {
                 console.log("VEC STE GLASALI");
                 Swal.fire({
                     icon: 'error',
