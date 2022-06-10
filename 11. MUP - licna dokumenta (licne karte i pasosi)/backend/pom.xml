@@ -11,7 +11,8 @@
 	<groupId>com.euprava</groupId>
 	<artifactId>izrada-dokumenata</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>izrada-dokumenata</name>
+
+    <name>izrada-dokumenata</name>
 	<description>Grupni projekat iz predmeta Tehnologije eUprave</description>
 	<properties>
 		<java.version>17</java.version>

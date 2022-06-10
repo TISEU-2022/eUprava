@@ -20,9 +20,6 @@ public class Document extends BaseEntity {
     private Long id;
 
     @Column
-    private LocalDate issuedOn;
-
-    @Column
     private LocalDate expirationDate;
 
     private String issuingAuthority;
