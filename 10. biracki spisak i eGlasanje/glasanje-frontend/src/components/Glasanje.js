@@ -22,7 +22,7 @@ export default class Glasanje extends React.Component {
 
     findKandidati() {
 
-        var kandidati = [
+        /*var kandidati = [
             {
                 id: 0,
                 imePredstavnika: "kolega"
@@ -34,9 +34,9 @@ export default class Glasanje extends React.Component {
         ];
         this.setState({
             kandidatiLista: kandidati
-        });
+        });*/
 
-        /*let url = "http://localhost:10002/kandidati/kandidati-izbora/";
+        let url = "http://localhost:10002/kandidati/kandidati-izbora/";
         let lokacija = window.location.href;
         lokacija = lokacija.replace("http://localhost:10001/glasanje/", "");
         url += lokacija;
@@ -47,7 +47,7 @@ export default class Glasanje extends React.Component {
                 this.setState({
                     kandidatiLista: data
                 });
-            });*/
+            });
     };
 
     onValueChange(event) {
