@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.card{
+  margin-top: 5rem;
+}
+
+#headerText {
+  margin-top: 6.25rem;
+  margin-bottom: 1rem;
+  font-size: .875em;
+  color: #1cc708;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+#registerLink {
+  margin-top: 1.25rem;
+  margin-bottom: 1rem;
+  font-size: .875em;
+  color: #1cc708;
+  font-weight: 600;
+  font-size: 15px;
+}

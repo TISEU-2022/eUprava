@@ -28,6 +28,8 @@ const tokenAtom = atom({
   effects: [localStorageEffect('token')],
 });
 
+
+
 const authVerifyResponseSelector = selector({
   key: 'authVerifyResponseSelector',
   get: async ({ get }) => {
@@ -39,6 +41,18 @@ const authVerifyResponseSelector = selector({
       return response;
     } catch (e) {
       return null;
+    }
+  },
+});
+
+const userSelector = selector({
+  key: "userToken",
+  get: ({ get }) => {
+    const token = get(authVerifyResponseSelector);
+    try {
+      return token?.data?.user;
+    } catch {
+      return "";
     }
   },
 });
@@ -88,4 +102,4 @@ const hasRoleSelector = selectorFamily<boolean, Role>({
     },
 });
 
-export { tokenAtom, isLoggedInSelector, hasRoleSelector };
+export { tokenAtom, isLoggedInSelector, hasRoleSelector, userSelector };

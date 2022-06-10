@@ -28,23 +28,13 @@ export class User {
 
   @Prop({ required: true })
   roles: string[];
+
+  @Prop({ required: false })
+  tokens?: string[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
 UserSchema.plugin(uniqueValidator, {
   message: 'User with {PATH} already exists!',
-});
-
-UserSchema.pre('save', async function (next, opts) {
-  if (!this.isModified('password')) {
-    return next();
-  }
-  try {
-    const hashedPassword = await bcrypt.hash(this.get('password'), 12);
-    this.set('password', hashedPassword);
-    return next();
-  } catch (e) {
-    return next(e);
-  }
 });

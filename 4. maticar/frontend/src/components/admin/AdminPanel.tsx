@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
-import { getWorkers } from '../../api/api';
+import React from 'react';
+import { Tab, TabList, TabPanels, Tabs } from '@chakra-ui/react';
+import AdminViewWorkers from './AdminViewWorkers';
 
 const AdminPanel = () => {
-  useEffect(() => {
-    getWorkers().then((res) => {
-      console.log(res?.data);
-    });
-  }, []);
-  return <div>AdminPanel</div>;
+  return <Tabs width="95%" isFitted variant="line">
+    <TabList>
+      <Tab>Workers</Tab>
+    </TabList>
+    <TabPanels>
+      <AdminViewWorkers />
+    </TabPanels>
+  </Tabs>
 };
 
 export default AdminPanel;

@@ -14,7 +14,7 @@ export class UserCommand {
   async seedAdmin() {
     const res = await this.userService.createUser({
       username: 'administrator',
-      password: await bcrypt.hash('Password123', 12),
+      password: 'Password123',
       identityNumber: '12345678',
       roles: ['admin'],
       firstName: 'Admin',
