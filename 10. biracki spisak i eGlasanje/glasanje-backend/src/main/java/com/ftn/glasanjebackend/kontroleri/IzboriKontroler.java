@@ -70,9 +70,6 @@ public class IzboriKontroler {
 
     @PostMapping(value="/raspisivanje")
     public ResponseEntity<IzboriDTO> raspisivanje(@RequestBody IzboriDTO izboriDTO){
-        System.out.println("naziv: "+izboriDTO.getNaziv());
-        System.out.println("opstina: "+izboriDTO.getEOpstina());
-        System.out.println("tip: "+izboriDTO.getETipIzbora());
         List<Kandidat> kandidati = new ArrayList<>();
         for (KandidatDTO kandidatDTO: izboriDTO.getKandidatiDTO()) {
             kandidati.add(kandidatiService.save(new Kandidat(kandidatDTO.getId(), kandidatDTO.getImeStranke(), kandidatDTO.getImePredstavnika(), kandidatDTO.getSlogan())));

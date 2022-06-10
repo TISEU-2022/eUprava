@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/glasanje")
@@ -32,8 +29,12 @@ public class GlasanjeKontroler {
 
     @PostMapping
     public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
-        Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()), korisniciService.findById(glasDTO.getKorisnik()));
-        glasService.save(glas);
-        return new ResponseEntity<>(glasDTO, HttpStatus.OK);
+        if (glasService.findGlasByKorisnikIdAndIzboriId(glasDTO.getKorisnik(), glasDTO.getIzbori()) != null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }else{
+            Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()), korisniciService.findById(glasDTO.getKorisnik()));
+            glasService.save(glas);
+            return new ResponseEntity<>(glasDTO, HttpStatus.OK);
+        }
     }
 }
