@@ -156,6 +156,8 @@ services:
 
   # --- KOMUNALNA POLICIJA I INSPEKCIJA ---
   komunalna-frontend:
+    environment:
+      - PORT=9001
     build:
       context: ./9. komunalna policija i inspekcija/frontend
     container_name: komunalna-frontend
