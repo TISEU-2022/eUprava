@@ -67,6 +67,7 @@ const AppointmentHistory = () => {
                         <th>Opis</th>
                         <th>Datum</th>
                         <th>Vreme</th>
+                        <th>Status</th>
                         <th>Izveštaj</th>
                     </tr>
                 </thead>
@@ -82,10 +83,12 @@ const AppointmentHistory = () => {
                                     <td>{a.description}</td>
                                     <td>{a.date}</td>
                                     <td>{a.time}</td>
+                                    <td>{a.status}</td>
                                     <td>
-                                        <Button variant="primary" onClick={handleShow(a.id)}>
-                                            Launch demo modal
-                                        </Button>                  </td>
+                                        {a.status == "ZAVRSEN" && <Button variant="primary" onClick={() => handleShow(a.id)}>
+                                            Izveštaj
+                                        </Button>}
+                                    </td>
                                     <td></td>
 
                                 </tr>

@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Container, Table } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import { AppointmentService } from '../../services/AppointmentService';
@@ -13,17 +13,6 @@ const BookAppointment = () => {
 
   }, [])
 
-  let appointment = [
-    {
-        'id':1,
-        'description':"Stomatolog",
-        'doctorName':'Miloš Stefanović',
-        'date':'2022-06-05',
-        'time':'19:00',
-    }
-]
-
-
 
   async function fetchAppointments() {
     try {
@@ -36,11 +25,11 @@ const BookAppointment = () => {
     }
   }
 
-  async function bookAppointment(id){
+  async function bookAppointment(id) {
     try {
       await AppointmentService.bookAppointment(id);
       setAppointments((a) => appointments.filter((a) => a.id !== id));
-      Swal.fire('Obaveštenje','Pregled uspešno zakazan!', 'success')
+      Swal.fire('Obaveštenje', 'Pregled uspešno zakazan!', 'success')
 
     } catch (e) {
       console.error("Error while getting api")
@@ -49,8 +38,8 @@ const BookAppointment = () => {
 
 
   return (
-    <Container style={{backgroundColor:"white", height:"500px", padding:"20px", marginTop:"40px"}}>
-      <h2 style={{textAlign:"center"}}>Slobodni pregledi</h2>
+    <Container style={{ backgroundColor: "white", height: "500px", padding: "20px", marginTop: "40px" }}>
+      <h2 style={{ textAlign: "center" }}>Slobodni pregledi</h2>
       <Table bordered striped>
         <thead className='thead-dark'>
           <tr>
@@ -74,7 +63,7 @@ const BookAppointment = () => {
                   <td>{a.date}</td>
                   <td>{a.time}</td>
                   <td>
-                    <Button onClick={bookAppointment(a.id)}>Zakaži</Button>
+                    <Button onClick={() => bookAppointment(a.id)}>Zakaži</Button>
                   </td>
 
                 </tr>

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @NoArgsConstructor
@@ -14,17 +15,18 @@ public class BirthCertificateMaticarRequest {
     private String first_name;
     private String last_name;
     private String gender;
-    private Date date_of_birth;
+    private String date_of_birth;
     private String country_of_birth;
     private String citizenship;
 
     public static BirthCertificateMaticarRequest of(BirthCertificateRequest request) {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         return new BirthCertificateMaticarRequest(
                 request.getIdentificationNumber(),
                 request.getFirstName(),
                 request.getLastName(),
                 request.getGender(),
-                request.getDateOfBirth(),
+                formatter.format(request.getDateOfBirth()),
                 request.getCountryOfBirth(),
                 request.getCitizenship()
                 );

@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class MaticarCertificateResponse {
-    private String message;
+    private String status;
 }

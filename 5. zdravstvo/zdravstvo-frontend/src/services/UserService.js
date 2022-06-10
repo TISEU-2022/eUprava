@@ -9,8 +9,7 @@ async function addBirthCertificate(birthCertificateRequest) {
 }
 
 async function recordDeceasedCitizen(jmbg) {
-  const response = await AxiosClient.put(baseURL + "/" + jmbg);
-  return response.data;
+  return await AxiosClient.put(baseURL + "/" + jmbg);
 }
 
 async function addParents(req) {

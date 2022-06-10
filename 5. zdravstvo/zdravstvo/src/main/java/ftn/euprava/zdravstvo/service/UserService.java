@@ -2,6 +2,7 @@ package ftn.euprava.zdravstvo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import ftn.euprava.zdravstvo.api.dto.BirthCertificateMaticarRequest;
 import ftn.euprava.zdravstvo.api.dto.BirthCertificateRequest;
 import ftn.euprava.zdravstvo.api.dto.MaticarCertificateResponse;
@@ -13,7 +14,6 @@ import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class UserService {
 
     final private UserRepository userRepository;
 
-    private static final String MATICAR_URI = "http://maticar:4002/api/user";
+    private static final String MATICAR_URI = "http://localhost:4002/api/user";
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -67,7 +67,7 @@ public class UserService {
 
         try {
             final HttpHeaders headers = new HttpHeaders();
-            headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+            headers.setAccept(Collections.singletonList(MediaType.ALL));
 
             final RestTemplate restTemplate = new RestTemplate();
             final HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody.get(), headers);

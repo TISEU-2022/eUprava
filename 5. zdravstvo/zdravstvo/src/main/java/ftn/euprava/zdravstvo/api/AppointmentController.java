@@ -27,8 +27,8 @@ public class AppointmentController {
     private AppointmentService appointmentService;
 
     @GetMapping
-    public ResponseEntity<List<AppointmentResponse>> getAppointmentHistory() {
-        return ResponseEntity.ok().body(appointmentService.getAppointmentsByUser());
+    public ResponseEntity<List<AppointmentResponse>> getAppointmentHistory(Authentication authentication) {
+        return ResponseEntity.ok().body(appointmentService.getAppointmentsByUser(authentication));
     }
 
     @GetMapping("/doctor")
@@ -52,8 +52,8 @@ public class AppointmentController {
 
 
     @PutMapping("/{appointment-id}")
-    public void bookAppointment(@PathVariable("appointment-id") Long appointment_id) {
-        appointmentService.bookAppointment(appointment_id);
+    public void bookAppointment(@PathVariable("appointment-id") Long appointment_id, Authentication authentication) {
+        appointmentService.bookAppointment(appointment_id, authentication);
     }
 
     @PostMapping

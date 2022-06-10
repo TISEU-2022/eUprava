@@ -27,20 +27,17 @@ const RecordDeceasedCitizen = () => {
       });
       return;
     }
-    await UserService.recordDeceasedCitizen(jmbg)
-      .then((response) => {
-        setJmbg("");
+    await UserService.recordDeceasedCitizen(jmbg).then((response) => {
+      console.log(response);
+      if (response.status == 201) {
         Swal.fire({
           icon: "success",
-          title: "Uspešno sačuvane informacije!",
+          title: "Uspesno sacuvani podaci!",
+        }).then((result) => {
+          window.location.reload();
         });
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "success",
-          title: "Neispravan JMBG! Pokušajte ponovo",
-        });
-      });
+      }
+    });
   }
 
   return (

@@ -34,6 +34,8 @@ const AddBirthCertificate = () => {
   };
 
   async function sendBirthCertificateRequest() {
+    console.log(info);
+    info.gender = "musko";
     if (infoValid()) {
       await UserService.addBirthCertificate(info)
         .then((response) => {

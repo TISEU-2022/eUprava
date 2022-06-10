@@ -31,10 +31,9 @@ public class AppointmentService {
     @Autowired
     private AppointmentReportRepository appointmentReportRepository;
 
-    public List<AppointmentResponse> getAppointmentsByUser() {
+    public List<AppointmentResponse> getAppointmentsByUser(Authentication authentication) {
         List<AppointmentResponse> appointments = new ArrayList<>();
-        //find user by login
-        User user=null;
+        User user= userService.findByUsername(authentication.getName());
 
         for(Appointment app: appointmentRepository.findAllByCitizen(user)){
             appointments.add(new AppointmentResponse(app));
@@ -75,9 +74,9 @@ public class AppointmentService {
         return appointments;
     }
 
-    public void bookAppointment(Long appointmentId) {
-        //find user by login
-        User user=null;
+    public void bookAppointment(Long appointmentId, Authentication authentication) {
+        User user= userService.findByUsername(authentication.getName());
+
 
         Appointment appointment = appointmentRepository.findById(appointmentId).orElse(null);
         assert appointment != null;

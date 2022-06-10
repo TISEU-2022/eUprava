@@ -18,6 +18,7 @@ public class AppointmentResponse {
     private LocalTime time;
     private String doctorName;
     private String description;
+    private String status;
 
 
     public AppointmentResponse(Appointment appointment){
@@ -26,6 +27,7 @@ public class AppointmentResponse {
         this.time = appointment.getVreme();
         this.doctorName = appointment.getDoctor().getName() + " " + appointment.getDoctor().getLastname();
         this.description = appointment.getDescription();
+        this.status = appointment.getStatusTermina().toString();
     }
 
 }
