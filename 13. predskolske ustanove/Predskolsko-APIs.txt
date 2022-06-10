@@ -2,6 +2,13 @@
 
 API ---> /api/zavodZaZaposlene/provera
 
-#Nakon sto korisnik podnese zahtev za prijavu deteta u predskolsko, zdravstvo treba da vrsi proveru da li dete ima nekih zdravstvenih problema koji bi ga spercaali da pohadjaju predskolsko
+#Nakon sto korisnik podnese zahtev za prijavu deteta u predskolsko, zdravstvo treba da vrsi proveru da li dete ima nekih zdravstvenih problema koji bi ga spercali da pohadjaju predskolsko
 
 API ---> /api/zdravstvo/provera
+
+
+#Maticar
+
+
+
+samo da maticar putem roditeljevog jmbg proveri da li je dete ili ne
