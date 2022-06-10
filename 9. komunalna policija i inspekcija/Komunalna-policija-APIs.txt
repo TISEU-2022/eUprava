@@ -1,0 +1,10 @@
+#Nakon sto podnosilac podnese komunalni problem ili predstavku, sluzbenik treba da isupni izvestaj i ukoliko je potrebno posalje sudu.
+Izvestaj od podataka sadrzi: JMBG podnosioca, opis izvestaja, vreme podnošenja izveštaja, opis problema, adresu dogadjaja i mesto i datum dogadjaja.
+API ---> /api/sud/primanje-izvestaja
+
+#Nakon sto podnosilac podnese komunalni problem ili predstavku, sistem treba da proveri da li je državljanin Republike Srbije ili nije. 
+U zahtevu ka matičaru se šalje JMBG podnosioca.
+API ---> /api/maticar/jmbg-provera
+
+
+
