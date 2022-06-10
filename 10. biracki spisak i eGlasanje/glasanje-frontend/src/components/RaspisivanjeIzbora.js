@@ -53,8 +53,8 @@ export default class RaspisivanjeIzbora extends React.Component {
         var izbori = {
             naziv: this.state.naziv,
             datum: this.state.datum,
-            eTipIzbora: this.state.eTipIzbora,
-            eOpstina: this.state.eOpstina,
+            etipIzbora: this.state.eTipIzbora,
+            eopstina: this.state.eOpstina,
             kandidatiDTO: kandidati
         };
         console.log(izbori);
