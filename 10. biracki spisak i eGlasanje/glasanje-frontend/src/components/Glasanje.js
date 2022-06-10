@@ -2,6 +2,7 @@ import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Card, Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default class Glasanje extends React.Component {
 
@@ -21,7 +22,7 @@ export default class Glasanje extends React.Component {
 
     findKandidati() {
 
-        /*var kandidati = [
+        var kandidati = [
             {
                 id: 0,
                 imePredstavnika: "kolega"
@@ -33,9 +34,9 @@ export default class Glasanje extends React.Component {
         ];
         this.setState({
             kandidatiLista: kandidati
-        });*/
+        });
 
-        let url = "http://localhost:10002/kandidati/kandidati-izbora/";
+        /*let url = "http://localhost:10002/kandidati/kandidati-izbora/";
         let lokacija = window.location.href;
         lokacija = lokacija.replace("http://localhost:10001/glasanje/", "");
         url += lokacija;
@@ -46,7 +47,7 @@ export default class Glasanje extends React.Component {
                 this.setState({
                     kandidatiLista: data
                 });
-            });
+            });*/
     };
 
     onValueChange(event) {
@@ -72,7 +73,30 @@ export default class Glasanje extends React.Component {
         };
         console.log(glas);
 
-        axios.post("http://localhost:10002/glasanje", glas).then(() => console.log("USPEH"));
+        axios.post("http://localhost:10002/glasanje", glas).then((response) => {
+            console.log("aaaaaaaaaaa");
+            if (response.status === 200) {
+                console.log("USPEH");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Успех',
+                    text: 'Ваш глас је забележен',
+                })
+            } else if (response.status === 400) {
+                console.log("VEC STE GLASALI");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Грешка',
+                    text: 'Већ сте гласали',
+                })
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Грешка',
+                    text: 'Покушајте поново касније',
+                })
+            }
+        });
     }
 
     render() {
