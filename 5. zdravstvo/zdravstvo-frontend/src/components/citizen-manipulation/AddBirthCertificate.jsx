@@ -34,49 +34,92 @@ const AddBirthCertificate = () => {
   };
 
   async function sendBirthCertificateRequest() {
-    await UserService.addBirthCertificate(info)
-      .then((response) => {
-        setBirthResponse(response.message);
-        Swal.fire({
-          icon: "success",
-          title: "Uspešno sačuvane informacije!",
+    if (infoValid()) {
+      await UserService.addBirthCertificate(info)
+        .then((response) => {
+          setBirthResponse(response.message);
+          Swal.fire({
+            icon: "success",
+            title: "Uspešno sačuvane informacije!",
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title:
+              "Neispravno unete informacije! Proverite podatke i pokušajte opet",
+          });
         });
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title:
-            "Neispravno unete informacije! Proverite podatke i pokušajte opet",
-        });
-      });
+    }
   }
 
-  async function sendParents() {
-    await UserService.addParents(info)
-      .then((response) => {
-        setParentsResponse(response.message);
-        Swal.fire({
-          icon: "success",
-          title: "Uspešno sačuvane informacije o roditelju!",
-        });
-        setInfo({
-          identificationNumber: "",
-          firstName: "",
-          lastName: "",
-          gender: "",
-          dateOfBirth: new Date(),
-          countryOfBirth: "",
-          citizenship: "",
-          parent1Id: "",
-          parent2Id: "",
-        });
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Neispravno uneti JMBG! Proverite podatke i pokušajte opet",
-        });
+  const infoValid = () => {
+    if (
+      info.identificationNumber === "" ||
+      info.firstName === "" ||
+      info.lastName === "" ||
+      info.gender === "" ||
+      info.countryOfBirth === "" ||
+      info.citizenship === ""
+    ) {
+      console.log(info.identificationNumber);
+      Swal.fire({
+        icon: "error",
+        title: "Sva polja sa informacijama o detetu su obavezna!",
       });
+      return false;
+    } else if (info.identificationNumber.length !== 13) {
+      Swal.fire({
+        icon: "error",
+        title: "JMBG se mora sastojati od 13 cifara!",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const parentJmbgValid = () => {
+    if (
+      (info.parent1Id !== "" && info.parent1Id.length !== 13) ||
+      (info.parent2Id !== "" && info.parent2Id.length !== 13)
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "JMBG se mora sastojati od 13 cifara!",
+      });
+      return false;
+    }
+    return true;
+  };
+
+  async function sendParents() {
+    if (parentJmbgValid()) {
+      await UserService.addParents(info)
+        .then((response) => {
+          setParentsResponse(response.message);
+          Swal.fire({
+            icon: "success",
+            title: "Uspešno sačuvane informacije o roditelju!",
+          });
+          setInfo({
+            identificationNumber: "",
+            firstName: "",
+            lastName: "",
+            gender: "",
+            dateOfBirth: new Date(),
+            countryOfBirth: "",
+            citizenship: "",
+            parent1Id: "",
+            parent2Id: "",
+          });
+        })
+        .catch((error) => {
+          Swal.fire({
+            icon: "error",
+            title: "Neispravno uneti JMBG! Proverite podatke i pokušajte opet",
+          });
+        });
+    }
   }
 
   return (

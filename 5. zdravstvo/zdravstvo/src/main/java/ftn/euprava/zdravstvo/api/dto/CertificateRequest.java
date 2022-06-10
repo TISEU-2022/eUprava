@@ -14,7 +14,9 @@ import javax.validation.constraints.Size;
 public class CertificateRequest {
 
     @NotNull
-    private Long userId;
+    @NotBlank
+    @Size(min=13, max=13)
+    private String jmbg;
 
     @NotNull
     @NotBlank
@@ -23,11 +25,6 @@ public class CertificateRequest {
     @NotNull
     @NotBlank
     private String lastName;
-
-    @NotNull
-    @NotBlank
-    @Size(min=13, max=13)
-    private String jmbg;
 
     @NotNull
     @NotBlank

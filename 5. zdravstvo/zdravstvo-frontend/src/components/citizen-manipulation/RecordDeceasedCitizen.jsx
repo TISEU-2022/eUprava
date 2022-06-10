@@ -12,6 +12,21 @@ const RecordDeceasedCitizen = () => {
   };
 
   async function sendDeceasedCitizenRequest() {
+    if (jmbg === "") {
+      Swal.fire({
+        icon: "error",
+        title: "Pogrešno unete informacije - JMBG je obavezno polje",
+      });
+      return;
+    }
+    if (jmbg.length !== 13) {
+      Swal.fire({
+        icon: "error",
+        title:
+          "Pogrešno unete informacije - JMBG se mora sastojati od 13 cifara",
+      });
+      return;
+    }
     await UserService.recordDeceasedCitizen(jmbg)
       .then((response) => {
         setJmbg("");
