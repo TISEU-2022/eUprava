@@ -3,6 +3,7 @@ package ftn.euprava.zdravstvo.service;
 import ftn.euprava.zdravstvo.api.dto.AppoinmentReportResponse;
 import ftn.euprava.zdravstvo.api.dto.AppointmentRequest;
 import ftn.euprava.zdravstvo.api.dto.AppointmentResponse;
+import ftn.euprava.zdravstvo.api.dto.AppointmentResponseDoctor;
 import ftn.euprava.zdravstvo.model.Appointment;
 import ftn.euprava.zdravstvo.model.AppointmentReport;
 import ftn.euprava.zdravstvo.model.StatusTermina;
@@ -10,8 +11,11 @@ import ftn.euprava.zdravstvo.model.User;
 import ftn.euprava.zdravstvo.repository.AppointmentReportRepository;
 import ftn.euprava.zdravstvo.repository.AppointmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +24,9 @@ public class AppointmentService {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private AppointmentReportRepository appointmentReportRepository;
@@ -35,6 +42,26 @@ public class AppointmentService {
 
         return appointments;
     }
+
+    public List<AppointmentResponseDoctor> getAppointmentsByDoctor(Authentication authentication, String datum) {
+        List<AppointmentResponseDoctor> appointments = new ArrayList<>();
+        User user= userService.findByUsername(authentication.getName());
+
+        if(datum.equals("")){
+            for(Appointment app: appointmentRepository.findAllByDoctor(user)){
+                appointments.add(new AppointmentResponseDoctor(app));
+            }
+        }else{
+            LocalDate datums =  LocalDate.parse(datum);
+            for(Appointment app: appointmentRepository.findAllByDoctorAndDatum(user, datums)){
+                appointments.add(new AppointmentResponseDoctor(app));
+            }
+        }
+
+
+        return appointments;
+    }
+
 
     public List<AppointmentResponse> getFreeAppointments() {
         List<AppointmentResponse> appointments = new ArrayList<>();
@@ -75,7 +102,17 @@ public class AppointmentService {
         return response;
     }
 
-    public AppointmentResponse create(AppointmentRequest request) {
-        return null;
+    public AppointmentResponse create(AppointmentRequest request, Authentication authentication) {
+        Appointment appointment = new Appointment();
+        appointment.setDatum(request.getDate().toLocalDate());
+        appointment.setVreme(request.getDate().toLocalTime().plusHours(2));
+        appointment.setDoctor(userService.getLogged(authentication));
+        appointment.setStatusTermina(StatusTermina.SLOBODAN);
+        appointmentRepository.save(appointment);
+        return new AppointmentResponse(appointment);
+    }
+
+    public void save(Appointment appointment){
+        appointmentRepository.save(appointment);
     }
 }

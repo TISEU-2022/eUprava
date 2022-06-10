@@ -25,8 +25,12 @@ public class Appointment {
     private LocalTime vreme;
     private StatusTermina statusTermina;
 
-
-
-
-
+    public Appointment(User citizen, User doctor, String description, LocalDate datum, LocalTime vreme, StatusTermina statusTermina) {
+        this.citizen = citizen;
+        this.doctor = doctor;
+        this.description = description;
+        this.datum = datum;
+        this.vreme = vreme;
+        this.statusTermina = statusTermina;
+    }
 }

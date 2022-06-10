@@ -35,3 +35,10 @@ code {
 .citizen-manipulation-div {
   background-color: cadetblue;
 }
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+  display: block;
+  width: 100%;
+}

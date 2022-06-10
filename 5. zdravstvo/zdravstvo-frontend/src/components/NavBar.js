@@ -10,6 +10,7 @@ const NavBar = () => {
                     <Nav.Link href="/citizen-manipulation">Uverenja</Nav.Link>
                     <Nav.Link href="/book-appointment">Pregledi</Nav.Link>
                     <Nav.Link href="/medical-record">Medicinski karton</Nav.Link>
+                    <Nav.Link href="/doctor-appointments">Termini</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

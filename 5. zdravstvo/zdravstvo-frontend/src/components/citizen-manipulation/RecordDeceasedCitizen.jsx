@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import Swal from "sweetalert2";
+import React from "react";
 import { UserService } from "../../services/UserService";
 
 const RecordDeceasedCitizen = () => {

@@ -1,5 +1,6 @@
 import AddBirthCertificate from "./AddBirthCertificate";
 import RecordDeceasedCitizen from "./RecordDeceasedCitizen";
+import React from "react";
 
 const CitizenManipulation = () => {
   return (

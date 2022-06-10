@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Container, Modal, Table } from 'react-bootstrap';
 import { AppointmentService } from '../../services/AppointmentService';
 
@@ -12,11 +12,11 @@ const AppointmentHistory = () => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
-    const handleShow = (id) =>{
+    const handleShow = (id) => {
         getReport(id);
         setShow(true);
 
-    } 
+    }
 
 
     useEffect(() => {
@@ -49,8 +49,8 @@ const AppointmentHistory = () => {
 
 
     return (
-        
-        <Container style={{backgroundColor:"white", height:"500px", padding:"20px", marginTop:"40px"}}>
+
+        <Container style={{ backgroundColor: "white", height: "500px", padding: "20px", marginTop: "40px" }}>
             <h3>Informacije o građaninu</h3>
             <ul>
                 <li>Petar Janković</li>

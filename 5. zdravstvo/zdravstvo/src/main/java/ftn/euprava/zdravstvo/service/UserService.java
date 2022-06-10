@@ -10,9 +10,11 @@ import ftn.euprava.zdravstvo.model.User;
 import ftn.euprava.zdravstvo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -127,10 +129,11 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void createUser(){
-        User user = new User();
-        user.setUsername("administrator");
-        user.setRole("PATIENT");
+    public void save(User user){
         userRepository.save(user);
+    }
+
+    public User getLogged(Authentication authentication){
+        return userRepository.findByUsername(authentication.getName());
     }
 }
