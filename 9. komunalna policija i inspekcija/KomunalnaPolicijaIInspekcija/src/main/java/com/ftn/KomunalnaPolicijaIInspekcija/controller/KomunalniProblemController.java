@@ -19,6 +19,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
@@ -62,22 +64,32 @@ public class KomunalniProblemController {
     }
 
     @PostMapping(consumes = { "multipart/form-data" })
-    public ResponseEntity<Long> createKomunalniProblem(@ModelAttribute KomunalniProblemRequestDTO komunalniProblemRequestDTO){
+    public ResponseEntity<?> createKomunalniProblem(@ModelAttribute KomunalniProblemRequestDTO komunalniProblemRequestDTO){
+        try {
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<Object> maticarResponse = restTemplate.getForEntity("http://maticar-app:4002/api/user/" + komunalniProblemRequestDTO.getJmbg().toString(), Object.class );
+            KomunalniProblem komunalniProblem = KomunalniProblemMapper.mapModel(komunalniProblemRequestDTO);
+            komunalniProblem.setDatumPodnosenja(new Date());
 
-        KomunalniProblem komunalniProblem = KomunalniProblemMapper.mapModel(komunalniProblemRequestDTO);
-        komunalniProblem.setDatumPodnosenja(new Date());
+            podnosilacService.create(komunalniProblem.getPodnosilac());
+            Long id = komunalniProblemService.createKomunalniProblem(komunalniProblem);
 
-        podnosilacService.create(komunalniProblem.getPodnosilac());
-        Long id = komunalniProblemService.createKomunalniProblem(komunalniProblem);
+            String location = ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/{id}")
+                    .buildAndExpand(id)
+                    .toUriString();
 
-        String location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(id)
-                .toUriString();
+            return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, location).body(id);
 
-        return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, location).body(id);
-    }
+        }catch (HttpClientErrorException.NotFound httpClientErrorExceptionNotFound){
+            System.out.println("Ivke greska 404.");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (HttpClientErrorException.MethodNotAllowed httpClientErrorExceptionMethodNotAllowed){
+            System.out.println("Ivke greska 405.");
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
+}
 
     @PostMapping(value="/izvestaj/{id}")
     public ResponseEntity<?> writeIzvestaj(@PathVariable("id") Long id, @RequestBody IzvestajRequestDTO izvestajDTO){

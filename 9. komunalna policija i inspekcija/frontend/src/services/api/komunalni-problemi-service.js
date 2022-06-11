@@ -35,9 +35,16 @@ const create = (data) => {
     return axios
         .post("/komunalni-problem", formData,{ headers: { "Content-type": "multipart/form-data" }})
         .then((response) => {
-            return response.data;
+            return response;
+        }).catch(error =>{
+            if(error.response.status === 404){
+                alert("Maticar: Uneli ste netacan JMBG.");
+            }else if(error.response.status === 405){
+                alert("Maticar: Unesite JMBG.");
+            }else{
+                alert("Greska nije poznata.");
+            }
         })
-        .catch(error => console.log(error))
 }
 
 const writeIzvestaj = (id, izvestajRequestDTO) =>{

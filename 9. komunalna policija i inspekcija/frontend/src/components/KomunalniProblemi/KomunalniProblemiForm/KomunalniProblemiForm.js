@@ -177,11 +177,12 @@ const KomunalniProblemiForm = () =>{
 
     const submitFormHandler = (event) => {
         event.preventDefault();
-        console.log(komunalniProblem)
         komunalniProblemiService.create(komunalniProblem)
-            .then((data) => {
-                history.push(`/komunalni-problemi/${data}`);
-            })
+            .then((response) => {
+                    history.push(`/komunalni-problemi/${response.data}`);
+            }).catch(err=>{
+                console.log(err);
+        })
     }
 
     const options = vrsteKomunalnihProblema.map(vrstaKomunalnogProblema => ({

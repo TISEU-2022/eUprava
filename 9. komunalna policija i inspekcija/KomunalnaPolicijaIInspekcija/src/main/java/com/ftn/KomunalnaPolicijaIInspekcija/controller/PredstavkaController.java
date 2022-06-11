@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -46,15 +48,26 @@ public class PredstavkaController {
     }
 
     @PostMapping(consumes = { "multipart/form-data" })
-    public ResponseEntity<Long> createPredstavka(@ModelAttribute PredstavkaRequestDTO predstavkaRequestDTO){
+    public ResponseEntity<?> createPredstavka(@ModelAttribute PredstavkaRequestDTO predstavkaRequestDTO){
+        try{
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<Object> maticarResponse = restTemplate.getForEntity("http://maticar-app:4002/api/user/" + predstavkaRequestDTO.getJmbg(), Object.class );
+            System.out.println(maticarResponse);
+            Predstavka predstavka = PredstavkaMapper.mapModel(predstavkaRequestDTO);
+            predstavka.setVremePodnosenja(new Date());
 
-        Predstavka predstavka = PredstavkaMapper.mapModel(predstavkaRequestDTO);
-        predstavka.setVremePodnosenja(new Date());
+            podnosilacService.create(predstavka.getPodnosilac());
+            predstavka = predstavkaService.save(predstavka);
 
-        podnosilacService.create(predstavka.getPodnosilac());
-        predstavka = predstavkaService.save(predstavka);
+            return new ResponseEntity<>(predstavka.getId(), HttpStatus.CREATED);
+        }catch (HttpClientErrorException.NotFound httpClientErrorExceptionNotFound){
+            System.out.println("Ivke greska 404.");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }catch (HttpClientErrorException.MethodNotAllowed httpClientErrorExceptionMethodNotAllowed){
+            System.out.println("Ivke greska 405.");
+            return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
+        }
 
-        return new ResponseEntity<>(predstavka.getId(), HttpStatus.CREATED);
     }
 
     @PostMapping(value="/izvestaj/{id}")

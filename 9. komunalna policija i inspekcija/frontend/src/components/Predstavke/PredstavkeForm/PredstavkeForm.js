@@ -185,11 +185,12 @@ const PredstavkeForm = () => {
 
     const submitFormHandler = (event) => {
         event.preventDefault();
-        console.log(predstavka)
         predstavkeService.create(predstavka)
-            .then((data) => {
-                history.push(`/predstavke/${data}`);
-            })
+            .then((response) => {
+                    history.push(`/predstavke/${response.data}`);
+            }).catch(err=>{
+                console.log(err);
+        })
     }
 
     const options = vrstePredstavki.map(vrstaPredstavke => ({
