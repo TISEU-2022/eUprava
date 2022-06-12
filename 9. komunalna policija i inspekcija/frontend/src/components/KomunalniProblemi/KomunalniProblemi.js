@@ -13,7 +13,6 @@ const KomunalniProblemi = () =>{
     useEffect(() => {
         komunalniProblemiService.getAll()
             .then((data) => {
-                console.log(data);
                 setKomunalniProblemi(data);
             })
     }, []);
@@ -41,17 +40,27 @@ const KomunalniProblemi = () =>{
                     <th>Mesto događaja</th>
                     <th>Podnosilac</th>
                     <th>Vrsta problema</th>
+                    <th>Izveštaj</th>
                 </tr>
                 </thead>
 
                 <tbody>
                 {
-                    komunalniProblemi.map((komunalniProblem) => {
+                    komunalniProblemi.map(komunalniProblem => {
                         const datumPodnosenja = new Date(komunalniProblem.datumPodnosenja);
                         const datumDogadjaja = new Date(komunalniProblem.datumDogadjaja);
+
+                        let izvestaj = "Poslat";
+                        if(komunalniProblem.izvestaj) {
+                            if(komunalniProblem.izvestaj.prihvaceno) {
+                                izvestaj = "Prihvaćen";
+                            } else {
+                                izvestaj = "Odbijen";
+                            }
+                        }
+
                         return (
                             <tr key={komunalniProblem.id} className="pointer"
-                                style={!komunalniProblem.izvestaj ? {background: "rgb(249,66,58)"} : {background: "#90EE90"}}
                                 onClick={() => goToDetailsHandler(komunalniProblem.id)}
                                 >
                                 <td>{komunalniProblem.id}</td>
@@ -61,6 +70,7 @@ const KomunalniProblemi = () =>{
                                 <td>{komunalniProblem.mestoDogadjaja}</td>
                                 <td>{`${komunalniProblem.podnosilac.ime} ${komunalniProblem.podnosilac.prezime}`}</td>
                                 <td>{komunalniProblem.vrstaKomunalnogProblema.naziv}</td>
+                                <td>{izvestaj}</td>
                             </tr>
                         )
                     })

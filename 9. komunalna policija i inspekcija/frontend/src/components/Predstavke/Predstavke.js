@@ -15,7 +15,6 @@ const Predstavke = () => {
         predstavkeService.getAll()
             .then((data) => {
                 setPredstavke(data);
-                console.log(data);
             })
     }, []);
 
@@ -26,7 +25,6 @@ const Predstavke = () => {
     const goToFormHandler = () => {
         history.push(`/predstavke/form`);
     }
-
 
     return (
         <>
@@ -44,6 +42,7 @@ const Predstavke = () => {
                     <th>Datum događaja</th>
                     <th>Podnosilac</th>
                     <th>Vrsta predstavke</th>
+                    <th>Izveštaj</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -51,9 +50,18 @@ const Predstavke = () => {
                     predstavke.map((predstavka) => {
                         const vremePodnosenja = new Date(predstavka.vremePodnosenja);
                         const datumDogadjaja = new Date(predstavka.datumDogadjaja);
+
+                        let izvestaj = "Poslat";
+                        if(predstavka.izvestaj) {
+                            if(predstavka.izvestaj.prihvaceno) {
+                                izvestaj = "Prihvaćen";
+                            } else {
+                                izvestaj = "Odbijen";
+                            }
+                        }
+
                         return (
                             <tr key={predstavka.id} className="pointer"
-                                style={!predstavka.izvestaj ? {background: "rgb(249,66,58)"} : {background: "#90EE90"}}
                                 onClick={() => goToDetailsHandler(predstavka.id)}>
                                 <td>{predstavka.id}</td>
                                 <td>{predstavka.naslov}</td>
@@ -63,6 +71,7 @@ const Predstavke = () => {
                                 <td>{datumDogadjaja.toLocaleDateString("de-DE", dateAndTimeOptions)}</td>
                                 <td>{`${predstavka.podnosilac.ime} ${predstavka.podnosilac.prezime}`}</td>
                                 <td>{predstavka.vrstaPredstavke.naziv}</td>
+                                <td>{izvestaj}</td>
                             </tr>
                         )
                     })
