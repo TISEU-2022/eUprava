@@ -1,16 +1,19 @@
-import axios from "axios";
+import httpClient from "../auth/JwtInterceptors";
 
-const OGLASI_REST_API_URL = "http://localhost:8080/api/oglasi";
 
-class OglasService{
+const ADVERTISEMENTS_REST_API_URL = `${process.env.REACT_APP_APP_BACKEND_URL}/oglasi`;
 
-    getOglase(){
-        return axios.get(OGLASI_REST_API_URL);
+
+export const getAllAdvertisements = async () => {
+    try {
+        const response = await httpClient.get(ADVERTISEMENTS_REST_API_URL);
+        return response.data;
+    } catch (error) {
+        console.log(error);
     }
-
-    getOglaseById(oglasId){
-        return axios.getOglase(OGLASI_REST_API_URL + '/' + oglasId);
-    }
+    
 }
 
-export default new OglasService();
+export const getAdvertisementById = async (id) => {
+    await httpClient.get(`ADVERTISEMENTS_REST_API_URL/${id}`)
+}

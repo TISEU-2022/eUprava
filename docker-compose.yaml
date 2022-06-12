@@ -262,6 +262,10 @@ services:
       - MYSQL_PASSWORD=RootRoot22
     volumes:
       - zaposljavanje-mysql:/var/lib/mysql
+    networks:
+      tiseu:
+        aliases:
+          - "zaposljavanje-mysql"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
@@ -280,13 +284,16 @@ services:
     ports:
       - 3001:3001
     environment:
-      # - SPRING_DATASOURCE_URL=jdbc:mysql://zaposljavanje-mysql:3002/database?autoReconnect=true&useSSL=false
       - DATABASE_USER=root
-      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - AUTH_SERVER_API=http://auth-app:3101
       - DATABASE_PASSWORD=RootRoot22
       - DATABASE_NAME=biro
       - DATABASE_HOST=zaposljavanje-mysql
       # - MYSQL_PORT=3002
+    networks:
+      tiseu:
+        aliases:
+          - biro-zaposljavanje
 
 
   # --- ePortal ---

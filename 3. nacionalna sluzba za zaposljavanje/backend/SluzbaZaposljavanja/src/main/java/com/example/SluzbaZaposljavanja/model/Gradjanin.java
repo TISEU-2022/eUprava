@@ -39,6 +39,9 @@ public class Gradjanin {
     @Column(name = "jmbg", unique = false, nullable = false)
     private String jmbg;
 
+    @Column(name = "role", unique = false, nullable = false)
+    private String role;
+    
     @ManyToOne
     @JoinColumn(name = "firma_id", referencedColumnName = "firma_id")
     private Firma firma;
@@ -126,10 +129,15 @@ public class Gradjanin {
         this.firma = firma;
     }
 
+    public String getRole() {
+		return role;
+	}
 
+	public void setRole(String role) {
+		this.role = role;
+	}
 
-
-    public Gradjanin(String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, String jmbg, Firma firma) {
+	public Gradjanin(String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, String jmbg, String role, Firma firma) {
         this.ime = ime;
         this.prezime = prezime;
         this.email = email;
@@ -137,10 +145,11 @@ public class Gradjanin {
         this.lozinka = lozinka;
         this.datumRodjenja = datumRodjenja;
         this.jmbg = jmbg;
+        this.role = role;
         this.firma = firma;
     }
 
-    public Gradjanin(Integer id, String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, String jmbg, Firma firma) {
+    public Gradjanin(Integer id, String ime, String prezime, String email, String korisnickoIme, String lozinka, LocalDate datumRodjenja, String jmbg, String role, Firma firma) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
@@ -149,6 +158,7 @@ public class Gradjanin {
         this.lozinka = lozinka;
         this.datumRodjenja = datumRodjenja;
         this.jmbg = jmbg;
+        this.role = role;
         this.firma = firma;
     }
 
@@ -163,6 +173,7 @@ public class Gradjanin {
                 ", lozinka='" + lozinka + '\'' +
                 ", datumRodjenja=" + datumRodjenja +
                 ", jmbg=" + jmbg +
+                ", role=" + role +
                 ", firma=" + firma +
                 '}';
     }

@@ -9,6 +9,20 @@ import {
     NavBtnLink,
 } from "./NavbarElements";
 
+const performLogin = () => {
+  window.open(
+    `${process.env.REACT_APP_AUTH_SERVER_URL}/auth/login?successUrl=${process.env.REACT_APP_ROOT_URL}/auth/token_handler`,
+    '_self',
+  );
+};
+
+const performLogout = () => {
+  window.open(
+    `${process.env.AUTH_SERVER_URL}/auth/logout?successUrl=${process.env.ROOT_APP_URL}/auth/logout_handler`,
+    '_self',
+  );
+};
+
 const Navbar = () => {
   return (
     <>
@@ -21,25 +35,27 @@ const Navbar = () => {
             <NavMenu>
                 <NavLink 
                   to="/home" 
-                  activeStyle={{ color:'black' }}
+                  activestyle={{ color:'black' }}
                 >
                     Home
                 </NavLink>
                 <NavLink 
                   to="/gradjani" 
-                  activeStyle={{ color: 'black' }}
+                  activestyle={{ color: 'black' }}
                 >
                     Gradjani
                 </NavLink>
                 <NavLink 
                   to="/oglasi" 
-                  activeStyle={{ color: 'black' }}
+                  activestyle={{ color: 'black' }}
                 >
                     Oglasi
                 </NavLink>
                 <NavLink 
-                  to="/login" 
-                  activeStyle={{ color: 'black' }}
+                  to=""
+                  activestyle={{ color: 'black' }}
+                  id="loginNavbar"
+                  onClick={performLogin}
                 >
                     Login
                 </NavLink>
@@ -51,5 +67,6 @@ const Navbar = () => {
         </>
   )
 }
+
 
 export default Navbar

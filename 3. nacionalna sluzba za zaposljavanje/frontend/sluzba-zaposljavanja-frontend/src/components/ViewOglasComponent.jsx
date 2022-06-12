@@ -1,24 +1,14 @@
-import OglasService from "../services/OglasService";
-import React from "react";
+import {getAdvertisementById} from "../services/OglasService";
+import React, { useEffect, useState } from "react";
 
-class ViewOglasComponent extends React.Component {
-    
-    constructor(props){
-        super(props)
+const ViewOglasComponent = (id) => {
+    const [oglas, setOglas] = useState();
 
-        this.state = {  
-            id:this.props.match.params.id,
-            oglasi: {}
-        }
-    }
+    useEffect(() => {
+        const oglas = getAdvertisementById(id);
+        setOglas(oglas);
+    }, []);
 
-    componentDidMount(){
-        OglasService.getOglaseById(this.state.id).then(res => {
-            this.setState({oglasi: res.data});
-        });
-    }
-     
-    render() { 
         return (
             <div>
                 <div className="card col md-6 offset-md-3">
@@ -27,6 +17,6 @@ class ViewOglasComponent extends React.Component {
             </div>
         );
     }
-}
+
  
 export default ViewOglasComponent;

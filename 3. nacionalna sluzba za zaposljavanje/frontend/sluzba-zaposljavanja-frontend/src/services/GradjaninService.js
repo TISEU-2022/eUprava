@@ -1,11 +1,16 @@
-import axios from 'axios'
+import httpClient from "../auth/JwtInterceptors";
 
-const GRADJANI_REST_API_URL = "http://localhost:8080/api/gradjani";
 
-class GradjaninService{
-    getGradjanine(){
-        return axios.getGradjanine(GRADJANI_REST_API_URL);
+const CITIZEN_REST_API_URL = `${process.env.REACT_APP_APP_BACKEND_URL}/gradjani`;
+
+export async function getAllCitizen() {
+    try{
+        const response = await httpClient.get(CITIZEN_REST_API_URL);
+        return response.data
+    }catch(err){
+        console.log(err);
     }
+    
 }
 
-export default new GradjaninService();
+
