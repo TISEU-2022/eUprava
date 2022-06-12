@@ -4,7 +4,7 @@ import StandardLayout from "../layouts/StandardLayout";
 const PredstavkeFormPage = (props) => {
 
     return (
-        <StandardLayout title="Kreiraj predstavku">
+        <StandardLayout title="Podnesi predstavku">
             <PredstavkeForm/>
         </StandardLayout>
     );

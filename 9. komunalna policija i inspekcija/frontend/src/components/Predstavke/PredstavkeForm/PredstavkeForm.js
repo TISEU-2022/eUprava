@@ -169,10 +169,7 @@ const PredstavkeForm = () => {
     }
 
     const addDatotekaHandler = (value) => {
-        console.log(value)
-        console.log(predstavka.datoteke)
         let image = value.split(",")[1];
-        console.log(image);
         setPredstavka(prevVrstaPredstavke => ({
             ...prevVrstaPredstavke,
             datoteke: [
@@ -181,16 +178,86 @@ const PredstavkeForm = () => {
             ]
         }))
     }
-        console.log(predstavka.datoteke)
 
     const submitFormHandler = (event) => {
         event.preventDefault();
+
+        if(!predstavka.podnosilac.ime) {
+            alert("Unesite ime!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.prezime) {
+            alert("Unesite prezime!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.jmbg) {
+            alert("Unesite JMBG!");
+            return;
+        }
+
+        if(predstavka.podnosilac.jmbg && predstavka.podnosilac.jmbg.length !== 13) {
+            alert("JMBG mora imati tačno 13 brojeva!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.email) {
+            alert("Unesite email adresu!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.telefon) {
+            alert("Unesite broj telefona!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.adresa) {
+            alert("Unesite adresu prebivališta!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.mesto) {
+            alert("Unesite mesto prebivališta!");
+            return;
+        }
+
+        if(!predstavka.podnosilac.pttBroj) {
+            alert("Unesite poštanski broj prebivališta!");
+            return;
+        }
+
+        if(!predstavka.naslov) {
+            alert("Unesite naslov predstavke!");
+            return;
+        }
+
+        if(!predstavka.adresaDogadjaja) {
+            alert("Unesite adresu događaja!");
+            return;
+        }
+
+        if(!predstavka.mestoDogadjaja) {
+            alert("Unesite mesto događaja!");
+            return;
+        }
+
+        if(!predstavka.datumDogadjaja) {
+            alert("Unesite datum događaja!");
+            return;
+        }
+
+        if(!predstavka.opis) {
+            alert("Unesite opis predstavke!");
+            return;
+        }
+
         predstavkeService.create(predstavka)
             .then((response) => {
                     history.push(`/predstavke/${response.data}`);
             }).catch(err=>{
                 console.log(err);
-        })
+            })
     }
 
     const options = vrstePredstavki.map(vrstaPredstavke => ({
@@ -207,18 +274,18 @@ const PredstavkeForm = () => {
                 <Input type="text" title="JMBG" value={predstavka.podnosilac.jmbg} setValue={changeJmbgHandler}/>
                 <Input type="text" title="Email" value={predstavka.podnosilac.email} setValue={changeEmailHandler}/>
                 <Input type="text" title="Broj telefona" value={predstavka.podnosilac.telefon} setValue={changeTelefonHandler}/>
-                <Input type="text" title="Adresa" value={predstavka.podnosilac.adresa} setValue={changeAdresaHandler}/>
-                <Input type="text" title="Mesto" value={predstavka.podnosilac.mesto} setValue={changeMestoHandler}/>
-                <Input type="text" title="PTT broj" value={predstavka.podnosilac.pttBroj} setValue={changePttBrojHandler}/>
+                <Input type="text" title="Adresa prebivališta" value={predstavka.podnosilac.adresa} setValue={changeAdresaHandler}/>
+                <Input type="text" title="Mesto prebivališta" value={predstavka.podnosilac.mesto} setValue={changeMestoHandler}/>
+                <Input type="text" title="Poštanski broj prebivališta" value={predstavka.podnosilac.pttBroj} setValue={changePttBrojHandler}/>
             </div>
             <div className="mt-5">
                 <h3>Predstavka</h3>
-                <Input type="text" title="Naslov" value={predstavka.naslov} setValue={changeNaslovHandler}/>
+                <Input type="text" title="Naslov predstavke" value={predstavka.naslov} setValue={changeNaslovHandler}/>
                 <Input type="text" title="Adresa događaja" value={predstavka.adresaDogadjaja} setValue={changeAdresaDogadjajaHandler}/>
                 <Input type="text" title="Mesto događaja" value={predstavka.mestoDogadjaja} setValue={changeMestoDogadjajaHandler}/>
                 <Input type="date" title="Datum događaja" value={predstavka.datumDogadjaja} setValue={changeDatumDogadjajaHandler}/>
                 <Select title="Vrsta predstavke" value={predstavka.vrstaPredstavke.id} setValue={changeVrstaPredstavkeHandler} options={options}/>
-                <TextArea title="Opis" value={predstavka.opis} setValue={changeOpisHandler}/>
+                <TextArea title="Opis predstavke" value={predstavka.opis} setValue={changeOpisHandler}/>
                 <Input type="file" title="Unesite datoteke" setValue={addDatotekaHandler}/>
                 {
                     predstavka.datoteke.map((datoteka, index) => (
@@ -227,7 +294,7 @@ const PredstavkeForm = () => {
                 }
             </div>
             <div className="w-100 d-flex justify-content-end my-3">
-                <Button type="submit" variant="dark" onClick={submitFormHandler}>Kreiraj</Button>
+                <Button type="submit" variant="dark" onClick={submitFormHandler}>Podnesi</Button>
             </div>
         </form>
     );

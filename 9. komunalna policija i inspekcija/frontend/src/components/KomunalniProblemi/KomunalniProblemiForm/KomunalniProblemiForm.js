@@ -162,10 +162,7 @@ const KomunalniProblemiForm = () =>{
     }
 
     const addDatotekaHandler = (value) => {
-        console.log(value)
-        console.log(komunalniProblem.datoteke)
         let image = value.split(",")[1];
-        console.log(image);
         setKomunalniProblem(prevVrstaKomunalnogProblema => ({
             ...prevVrstaKomunalnogProblema,
             datoteke: [
@@ -177,12 +174,78 @@ const KomunalniProblemiForm = () =>{
 
     const submitFormHandler = (event) => {
         event.preventDefault();
+
+        if(!komunalniProblem.podnosilac.ime) {
+            alert("Unesite ime!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.prezime) {
+            alert("Unesite prezime!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.jmbg) {
+            alert("Unesite JMBG!");
+            return;
+        }
+
+        if(komunalniProblem.podnosilac.jmbg && komunalniProblem.podnosilac.jmbg.length !== 13) {
+            alert("JMBG mora imati tačno 13 brojeva!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.email) {
+            alert("Unesite email adresu!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.telefon) {
+            alert("Unesite broj telefona!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.adresa) {
+            alert("Unesite adresu prebivališta!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.mesto) {
+            alert("Unesite mesto prebivališta!");
+            return;
+        }
+
+        if(!komunalniProblem.podnosilac.pttBroj) {
+            alert("Unesite poštanski broj prebivališta!");
+            return;
+        }
+
+        if(!komunalniProblem.adresaDogadjaja) {
+            alert("Unesite adresu događaja!");
+            return;
+        }
+
+        if(!komunalniProblem.mestoDogadjaja) {
+            alert("Unesite mesto događaja!");
+            return;
+        }
+
+        if(!komunalniProblem.datumDogadjaja) {
+            alert("Unesite datum događaja!");
+            return;
+        }
+
+        if(!komunalniProblem.opis) {
+            alert("Unesite opis komunalnog problema!");
+            return;
+        }
+
         komunalniProblemiService.create(komunalniProblem)
             .then((response) => {
                     history.push(`/komunalni-problemi/${response.data}`);
             }).catch(err=>{
                 console.log(err);
-        })
+            })
     }
 
     const options = vrsteKomunalnihProblema.map(vrstaKomunalnogProblema => ({
@@ -199,16 +262,16 @@ const KomunalniProblemiForm = () =>{
                 <Input type="text" title="JMBG" value={komunalniProblem.podnosilac.jmbg} setValue={changeJmbgHandler}/>
                 <Input type="text" title="Email" value={komunalniProblem.podnosilac.email} setValue={changeEmailHandler}/>
                 <Input type="text" title="Broj telefona" value={komunalniProblem.podnosilac.telefon} setValue={changeTelefonHandler}/>
-                <Input type="text" title="Adresa" value={komunalniProblem.podnosilac.adresa} setValue={changeAdresaHandler}/>
-                <Input type="text" title="Mesto" value={komunalniProblem.podnosilac.mesto} setValue={changeMestoHandler}/>
-                <Input type="text" title="PTT broj" value={komunalniProblem.podnosilac.pttBroj} setValue={changePttBrojHandler}/>
+                <Input type="text" title="Adresa prebivališta" value={komunalniProblem.podnosilac.adresa} setValue={changeAdresaHandler}/>
+                <Input type="text" title="Mesto prebivališta" value={komunalniProblem.podnosilac.mesto} setValue={changeMestoHandler}/>
+                <Input type="text" title="Poštanski broj prebivališta" value={komunalniProblem.podnosilac.pttBroj} setValue={changePttBrojHandler}/>
             </div>
-            <div>
+            <div className="mt-5">
                 <h3>Komunalni problem</h3>
                 <Input type="text" title="Adresa događaja" value={komunalniProblem.adresaDogadjaja} setValue={changeAdresaDogadjajaHandler}/>
                 <Input type="text" title="Mesto događaja" value={komunalniProblem.mestoDogadjaja} setValue={changeMestoDogadjajaHandler}/>
                 <Input type="date" title="Datum događaja" value={komunalniProblem.datumDogadjaja} setValue={changeDatumDogadjajaHandler}/>
-                <Select title="Vrsta predstavke" value={komunalniProblem.vrstaKomunalnogProblema.id} setValue={changeVrstaKomunalnogProblemaHandler} options={options}/>
+                <Select title="Vrsta komunalnog problema" value={komunalniProblem.vrstaKomunalnogProblema.id} setValue={changeVrstaKomunalnogProblemaHandler} options={options}/>
                 <TextArea title="Opis" value={komunalniProblem.opis} setValue={changeOpisHandler}/>
                 <Input type="file" title="Unesite datoteke" setValue={addDatotekaHandler}/>
                 {
@@ -217,9 +280,8 @@ const KomunalniProblemiForm = () =>{
                     ))
                 }
             </div>
-
             <div className="w-100 d-flex justify-content-end my-3">
-                <Button type="submit" variant="dark" onClick={submitFormHandler}>Kreiraj</Button>
+                <Button type="submit" variant="dark" onClick={submitFormHandler}>Podnesi</Button>
             </div>
         </form>
     );

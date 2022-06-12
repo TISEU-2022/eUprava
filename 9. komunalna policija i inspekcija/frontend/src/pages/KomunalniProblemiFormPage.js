@@ -4,7 +4,7 @@ import KomunalniProblemiForm from "../components/KomunalniProblemi/KomunalniProb
 
 const KomunalniProblemiFormPage = () =>{
     return(
-        <StandardLayout>
+        <StandardLayout title="Podnesi komunalni problem">
             <KomunalniProblemiForm />
         </StandardLayout>
     );
