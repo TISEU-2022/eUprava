@@ -147,11 +147,11 @@ public class DatabaseController {
 
 
         Predstavka predstavka1 = new Predstavka();
-        predstavka1.setNaslov("Predstavka 1");
-        predstavka1.setOpis("Opis predstavke 1");
+        predstavka1.setNaslov("Smeće na keju");
+        predstavka1.setOpis("Studenti su nakon sinoćne žurke na keju za sobom ostavili smeće.");
         predstavka1.setVremePodnosenja(new Date());
         predstavka1.setDatumDogadjaja(new Date());
-        predstavka1.setAdresaDogadjaja("Kisacka 32");
+        predstavka1.setAdresaDogadjaja("Beogradski kej 11");
         predstavka1.setMestoDogadjaja("Novi Sad");
         predstavka1.setIzvestaj(izvestaj1);
         predstavka1.setVrstaPredstavke(vrstaPredstavke1);
@@ -159,17 +159,40 @@ public class DatabaseController {
         predstavka1 = predstavkaRepository.save(predstavka1);
 
         Predstavka predstavka2 = new Predstavka();
-        predstavka2.setNaslov("Naslov predstavke 2");
-        predstavka2.setOpis("Opis predstavke 2");
+        predstavka2.setNaslov("Ne radi semafor");
+        predstavka2.setOpis("Semafor na uglu ulice Vuka Karađića i Branka Radičevića je prestao sa radom. Nastala je velika gužva u saobraćaju.");
         predstavka2.setVremePodnosenja(new Date());
         predstavka2.setDatumDogadjaja(new Date());
-        predstavka2.setAdresaDogadjaja("Vuka Karadžića 32");
+        predstavka2.setAdresaDogadjaja("Vuka Karadžića 1");
         predstavka2.setMestoDogadjaja("Novi Sad");
         predstavka2.setIzvestaj(null);
         predstavka2.setVrstaPredstavke(vrstaPredstavke2);
         predstavka2.setPodnosilac(podnosilac2);
         predstavka2 = predstavkaRepository.save(predstavka2);
 
+        Predstavka predstavka3 = new Predstavka();
+        predstavka3.setNaslov("Voda iz česme nije zadovoljavajuća");
+        predstavka3.setOpis("Voda iz česme na Bulevaru Oslobođenja jutros je imala jako čudan miris, ali i blago zelenkastu boju. Verujem da takva voda ne zadovoljava standarde vode za piće.");
+        predstavka3.setVremePodnosenja(new Date());
+        predstavka3.setDatumDogadjaja(new Date());
+        predstavka3.setAdresaDogadjaja("Bulevar Oslobodjenja 55a");
+        predstavka3.setMestoDogadjaja("Novi Sad");
+        predstavka3.setIzvestaj(null);
+        predstavka3.setVrstaPredstavke(vrstaPredstavke3);
+        predstavka3.setPodnosilac(podnosilac3);
+        predstavka3 = predstavkaRepository.save(predstavka3);
+
+        Predstavka predstavka4 = new Predstavka();
+        predstavka4.setNaslov("Rasveta u ulici ne radi");
+        predstavka4.setOpis("Tokom dana prestala je sa radom rasveta u Sarajevskoj ulici.");
+        predstavka4.setVremePodnosenja(new Date());
+        predstavka4.setDatumDogadjaja(new Date());
+        predstavka4.setAdresaDogadjaja("Sarajevska 89");
+        predstavka4.setMestoDogadjaja("Novi Sad");
+        predstavka4.setIzvestaj(null);
+        predstavka4.setVrstaPredstavke(vrstaPredstavke1);
+        predstavka4.setPodnosilac(podnosilac1);
+        predstavka4 = predstavkaRepository.save(predstavka4);
 
 
         KomunalniProblem komunalniProblem1 = new KomunalniProblem();
