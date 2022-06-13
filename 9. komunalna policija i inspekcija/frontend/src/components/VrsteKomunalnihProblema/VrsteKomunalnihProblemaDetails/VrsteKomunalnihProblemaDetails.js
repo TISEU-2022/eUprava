@@ -9,7 +9,6 @@ const VrsteKomunalnihProblemaDetails = () =>{
     const [vrstaKomunalnogProblema, setVrstaKomunalnogProblema] = useState({});
 
     useEffect(() => {
-        console.log(id);
         vrsteKomunalnihProblemaService.getById(id)
             .then(data => {
                 setVrstaKomunalnogProblema(data);

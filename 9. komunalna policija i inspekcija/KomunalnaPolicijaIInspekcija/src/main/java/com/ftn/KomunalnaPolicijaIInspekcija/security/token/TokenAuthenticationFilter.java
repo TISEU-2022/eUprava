@@ -44,10 +44,10 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
                 if(claimsData != null) {
                     List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
                     for(String role: claimsData.getRoles()) {
-                        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+                        grantedAuthorities.add(new SimpleGrantedAuthority(role));
                     }
 
-                    UserDetails userDetails = new User(claimsData.getUsername(), claimsData.getIdentityNumber(), grantedAuthorities);
+                    UserDetails userDetails = new User(claimsData.getIdentityNumber(), claimsData.getIdentityNumber(), grantedAuthorities);
                     TokenBasedAuthentication authentication = new TokenBasedAuthentication(userDetails);
                     authentication.setToken(token);
                     SecurityContextHolder.getContext().setAuthentication(authentication);

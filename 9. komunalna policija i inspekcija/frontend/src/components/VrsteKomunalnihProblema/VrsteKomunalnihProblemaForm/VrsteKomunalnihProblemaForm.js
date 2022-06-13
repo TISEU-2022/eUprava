@@ -15,7 +15,6 @@ const VrsteKomunalnihProblemaForm = () =>{
     });
 
     useEffect(() => {
-        console.log(id);
         if(id) {
             vrsteKomunalnihProblemaService.getById(id)
                 .then(data => {

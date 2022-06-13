@@ -1,6 +1,7 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.service.implementation;
 
 import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Podnosilac;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.KomunalniProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.ftn.KomunalnaPolicijaIInspekcija.repository.KomunalniProblemRepository;
@@ -18,6 +19,11 @@ public class KomunalniProblemServiceImpl implements KomunalniProblemService {
     @Override
     public List<KomunalniProblem> getAll() {
         return komunalniProblemRepository.findAll();
+    }
+
+    @Override
+    public List<KomunalniProblem> getByPodnosilac(Podnosilac podnosilac) {
+        return komunalniProblemRepository.findKomunalniProblemsByPodnosilac(podnosilac);
     }
 
     @Override

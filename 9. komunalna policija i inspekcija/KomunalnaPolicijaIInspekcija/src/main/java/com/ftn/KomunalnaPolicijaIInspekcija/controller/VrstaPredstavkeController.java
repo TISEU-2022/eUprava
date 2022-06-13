@@ -7,6 +7,7 @@ import com.ftn.KomunalnaPolicijaIInspekcija.service.VrstaPredstavkeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,6 +27,7 @@ public class VrstaPredstavkeController {
         return new ResponseEntity<>(vrstaPredstavkeService.findAll(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<VrstaPredstavkeDTO> findOne(@PathVariable("id") Long id){
         try {
@@ -35,6 +37,7 @@ public class VrstaPredstavkeController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<VrstaPredstavkeDTO> updateVrstuPredstavke(@PathVariable("id") Long id, @RequestBody VrstaPredstavkeDTO vrstaPredstavkeDTO){
         try {
@@ -45,6 +48,7 @@ public class VrstaPredstavkeController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PostMapping
     public ResponseEntity<Long> createVrstuPredstavke(@RequestBody VrstaPredstavkeDTO vrstaPredstavkeDTO){
         Long id = vrstaPredstavkeService.save(vrstaPredstavkeDTO);
@@ -52,6 +56,7 @@ public class VrstaPredstavkeController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteVrstaPredstavke(@PathVariable("id") Long id){
         boolean deleted = vrstaPredstavkeService.delete(id);

@@ -1,14 +1,12 @@
 package com.ftn.KomunalnaPolicijaIInspekcija.controller;
 
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.IzvestajDTO;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.IzvestajRequestDTO;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemDTO;
-import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.KomunalniProblemRequestDTO;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.*;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.IzvestajMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.KomunalniProblemMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.SluzbenikMapper;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Izvestaj;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.KomunalniProblem;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Podnosilac;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Sluzbenik;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.IzvestajService;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.KomunalniProblemService;
@@ -18,6 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -25,6 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -47,12 +50,25 @@ public class KomunalniProblemController {
 
     @GetMapping
     public ResponseEntity<List<KomunalniProblemDTO>> getAll(){
-        List<KomunalniProblem> komunalniProblemi = komunalniProblemService.getAll();
+
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        List<KomunalniProblem> komunalniProblemi = new ArrayList<>();
+        boolean isSluzbenik = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_SLUZBENIK"));
+        if(isSluzbenik) {
+            komunalniProblemi = komunalniProblemService.getAll();
+        } else {
+            String jmbg = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+            Podnosilac podnosilac = podnosilacService.getOneByJmbg(jmbg);
+            if(podnosilac != null) {
+                komunalniProblemi = komunalniProblemService.getByPodnosilac(podnosilac);
+            }
+        }
+
         List<KomunalniProblemDTO> dtos = new ArrayList<>();
         for(KomunalniProblem kp : komunalniProblemi){
             dtos.add(KomunalniProblemMapper.mapDTO(kp));
         }
-        System.out.println(dtos);
         return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
 
@@ -63,6 +79,7 @@ public class KomunalniProblemController {
         return new ResponseEntity<>(KomunalniProblemMapper.mapDTO(komunalniProblem), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_PODNOSILAC')")
     @PostMapping(consumes = { "multipart/form-data" })
     public ResponseEntity<?> createKomunalniProblem(@ModelAttribute KomunalniProblemRequestDTO komunalniProblemRequestDTO){
         try {
@@ -89,8 +106,9 @@ public class KomunalniProblemController {
             System.out.println("Ivke greska 405.");
             return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         }
-}
+    }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PostMapping(value="/izvestaj/{id}")
     public ResponseEntity<?> writeIzvestaj(@PathVariable("id") Long id, @RequestBody IzvestajRequestDTO izvestajDTO){
         System.out.println(izvestajDTO);
@@ -107,6 +125,7 @@ public class KomunalniProblemController {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PostMapping(value="/odbaci-izvestaj/{id}")
     public ResponseEntity<?> rejectIzvestaj(@PathVariable("id") Long id){
         KomunalniProblem komunalniProblem = komunalniProblemService.getOne(id);

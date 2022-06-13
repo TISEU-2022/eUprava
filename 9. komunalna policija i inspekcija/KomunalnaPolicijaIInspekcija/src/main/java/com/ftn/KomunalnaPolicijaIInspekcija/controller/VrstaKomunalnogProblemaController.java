@@ -7,6 +7,7 @@ import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -29,6 +30,7 @@ public class VrstaKomunalnogProblemaController {
         return new ResponseEntity<>(vrstaKomunalnogProblemaService.findAll(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<VrstaKomunalnogProblema> findOne(@PathVariable Long id) {
         try {
@@ -39,6 +41,7 @@ public class VrstaKomunalnogProblemaController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PostMapping
     public ResponseEntity<Long> createVrstaKomunalnogProblema(@RequestBody VrstaKomunalnogProblema vrstaKomunalnogProblema){
         Long id = vrstaKomunalnogProblemaService.save(vrstaKomunalnogProblema);
@@ -46,6 +49,7 @@ public class VrstaKomunalnogProblemaController {
         return ResponseEntity.created(uri).build();
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<VrstaKomunalnogProblema> updateVrstaKomunalnogProblema(@PathVariable long id, @RequestBody VrstaKomunalnogProblema vrstaKomunalnogProblema){
         try {
@@ -56,6 +60,7 @@ public class VrstaKomunalnogProblemaController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<?> deleteVrstaKomunalnogProblema(@PathVariable("id") Long id){
         boolean deleted = vrstaKomunalnogProblemaService.delete(id);

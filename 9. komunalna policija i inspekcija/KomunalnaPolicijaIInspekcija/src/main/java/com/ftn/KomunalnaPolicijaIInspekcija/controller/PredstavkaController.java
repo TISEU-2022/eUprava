@@ -13,10 +13,18 @@ import com.ftn.KomunalnaPolicijaIInspekcija.service.SluzbenikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +47,22 @@ public class PredstavkaController {
 
     @GetMapping
     public ResponseEntity<List<PredstavkaResponseDTO>> getAll(){
-        return new ResponseEntity<>(predstavkaService.findAll(), HttpStatus.OK);
+
+        Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        List<PredstavkaResponseDTO> predstavkaResponseDTOs = new ArrayList<>();
+        boolean isSluzbenik = SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream().anyMatch(role -> role.getAuthority().equals("ROLE_SLUZBENIK"));
+        if(isSluzbenik) {
+            predstavkaResponseDTOs = predstavkaService.findAll();
+        } else {
+            String jmbg = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+            Podnosilac podnosilac = podnosilacService.getOneByJmbg(jmbg);
+            if(podnosilac != null) {
+                predstavkaResponseDTOs = predstavkaService.findByPodnosilac(podnosilac);
+            }
+        }
+
+        return new ResponseEntity<>(predstavkaResponseDTOs, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
@@ -47,6 +70,7 @@ public class PredstavkaController {
         return new ResponseEntity<>(PredstavkaMapper.mapDTO(predstavkaService.findOne(id)), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ROLE_PODNOSILAC')")
     @PostMapping(consumes = { "multipart/form-data" })
     public ResponseEntity<?> createPredstavka(@ModelAttribute PredstavkaRequestDTO predstavkaRequestDTO){
         try{
@@ -70,6 +94,7 @@ public class PredstavkaController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PostMapping(value="/izvestaj/{id}")
     public ResponseEntity<?> writeIzvestaj(@PathVariable("id") Long id, @RequestBody IzvestajRequestDTO izvestajDTO){
         System.out.println(izvestajDTO);
@@ -86,6 +111,7 @@ public class PredstavkaController {
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasRole('ROLE_SLUZBENIK')")
     @PostMapping(value="/odbaci-izvestaj/{id}")
     public ResponseEntity<?> rejectIzvestaj(@PathVariable("id") Long id){
         Predstavka predstavka = predstavkaService.findOne(id);

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import predstavkeService from "../../services/api/predstavke-service";
 import {Button, Table} from "react-bootstrap";
+import authService from "../../services/auth-service";
 
 const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: "numeric", minute: "numeric" };
 const dateAndTimeOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -28,9 +29,12 @@ const Predstavke = () => {
 
     return (
         <>
-            <div className="w-100 d-flex justify-content-end my-3">
-                <Button variant="dark" onClick={goToFormHandler}>Kreiraj predstavku</Button>
-            </div>
+            {
+                authService.isPodnosilac() &&
+                <div className="w-100 d-flex justify-content-end my-3">
+                    <Button variant="dark" onClick={goToFormHandler}>Podnesi predstavku</Button>
+                </div>
+            }
             <Table striped bordered hover>
                 <thead>
                 <tr>

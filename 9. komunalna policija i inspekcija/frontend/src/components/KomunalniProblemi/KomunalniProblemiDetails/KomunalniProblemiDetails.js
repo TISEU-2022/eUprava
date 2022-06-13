@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import komunalniProblemiService from "../../../services/api/komunalni-problemi-service";
 import {Button, Table} from "react-bootstrap";
 import Modal from 'react-modal';
+import authService from "../../../services/auth-service";
 
 const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: "numeric", minute: "numeric" };
 const today = new Date();
@@ -57,7 +58,6 @@ const KomunalniProblemiDetails = () =>{
         komunalniProblemiService.getById(id)
             .then(data => {
                 setKomunalniProblem(data);
-                console.log(data);
             })
     }, [id]);
 
@@ -65,22 +65,8 @@ const KomunalniProblemiDetails = () =>{
         modalIsOpen ? setModalIsOpen(false) : setModalIsOpen(true)
     }
 
-    const goToFormHandler = () => {
-        history.push(`/komunalni-problemi/form/${komunalniProblem.id}`);
-    }
-
-    const changeVrstaKomunalnogProblemaHandler = (event) => {
-        setKomunalniProblem(prevVrstaKomunalnogProblema => ({
-            ...prevVrstaKomunalnogProblema,
-            vrstaKomunalnogProblema: {
-                id: event.target.value
-            }
-        }))
-    }
-
     const submitFormHandler = (event) =>{
         event.preventDefault();
-        console.log(izvestajRequestDTO);
         komunalniProblemiService.writeIzvestaj(id, izvestajRequestDTO)
             .then(()=>{
                 history.push(`/komunalni-problemi`)
@@ -137,6 +123,17 @@ const KomunalniProblemiDetails = () =>{
                 </tr>
                 </tbody>
             </Table>
+            {
+                komunalniProblem.datoteke && komunalniProblem.datoteke.length > 0 && (
+                    <div className="my-5">
+                        <h3>Dokazi</h3>
+                        {
+                            komunalniProblem.datoteke.map((datoteka, index) => (
+                                <img key={index} style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt={`Dokaz - ${index}`}/>
+                            ))
+                        }
+                    </div>)
+            }
             {komunalniProblem.izvestaj ? 
             (
             <>
@@ -163,18 +160,7 @@ const KomunalniProblemiDetails = () =>{
             </Table>
             </>
             ) : null}
-            {
-                komunalniProblem.datoteke && komunalniProblem.datoteke.length > 0 && (
-                    <div className="mt-5">
-                        <h3>Dokazi</h3>
-                        {
-                            komunalniProblem.datoteke.map((datoteka, index) => (
-                                <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt="Dokaz komunalnog problema"/>
-                            ))
-                        }
-                    </div>)
-            }
-            {!komunalniProblem.izvestaj ? (<>
+            {!komunalniProblem.izvestaj && authService.isSluzbenik() ? (<>
             <Button style={{marginRight: "5px"}} onClick={modalStateHandler}>Napiši izveštaj</Button>
             <Button variant="danger" onClick={rejectIzvestajHandler}>Odbij izveštaj</Button>
             </>) : null}

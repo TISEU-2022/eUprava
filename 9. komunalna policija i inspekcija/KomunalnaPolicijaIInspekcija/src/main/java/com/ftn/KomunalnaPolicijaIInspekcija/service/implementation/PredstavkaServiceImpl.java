@@ -2,6 +2,7 @@ package com.ftn.KomunalnaPolicijaIInspekcija.service.implementation;
 
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.PredstavkaResponseDTO;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.DTO.mapper.PredstavkaMapper;
+import com.ftn.KomunalnaPolicijaIInspekcija.model.Podnosilac;
 import com.ftn.KomunalnaPolicijaIInspekcija.model.Predstavka;
 import com.ftn.KomunalnaPolicijaIInspekcija.repository.PredstavkaRepository;
 import com.ftn.KomunalnaPolicijaIInspekcija.service.PredstavkaService;
@@ -20,6 +21,16 @@ public class PredstavkaServiceImpl implements PredstavkaService {
     @Override
     public List<PredstavkaResponseDTO> findAll() {
         List<Predstavka> predstavke = predstavkaRepository.findAll();
+        List<PredstavkaResponseDTO> dtos = new ArrayList<>();
+        for(Predstavka p : predstavke){
+            dtos.add(PredstavkaMapper.mapDTO(p));
+        }
+        return dtos;
+    }
+
+    @Override
+    public List<PredstavkaResponseDTO> findByPodnosilac(Podnosilac podnosilac) {
+        List<Predstavka> predstavke = predstavkaRepository.findPredstavkasByPodnosilac(podnosilac);
         List<PredstavkaResponseDTO> dtos = new ArrayList<>();
         for(Predstavka p : predstavke){
             dtos.add(PredstavkaMapper.mapDTO(p));

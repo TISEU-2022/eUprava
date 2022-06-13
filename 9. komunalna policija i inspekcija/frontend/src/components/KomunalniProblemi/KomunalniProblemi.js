@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useHistory} from "react-router-dom";
 import {Button, Table} from "react-bootstrap"
 import komunalniProblemiService from "../../services/api/komunalni-problemi-service";
+import authService from "../../services/auth-service";
 
 const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: "numeric", minute: "numeric" };
 
@@ -27,9 +28,12 @@ const KomunalniProblemi = () =>{
 
     return (
         <>
-            <div className="w-100 d-flex justify-content-end my-3">
-                <Button variant="dark" onClick={goToFormHandler}>Kreiraj komunalni problem</Button>
-            </div>
+            {
+                authService.isPodnosilac() &&
+                <div className="w-100 d-flex justify-content-end my-3">
+                    <Button variant="dark" onClick={goToFormHandler}>Podnesi komunalni problem</Button>
+                </div>
+            }
             <Table striped bordered hover>
                 <thead>
                 <tr>

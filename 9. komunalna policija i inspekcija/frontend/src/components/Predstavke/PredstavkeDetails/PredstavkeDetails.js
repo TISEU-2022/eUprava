@@ -3,6 +3,7 @@ import {useHistory, useParams} from "react-router-dom";
 import predstavkeService from "../../../services/api/predstavke-service";
 import {Button, Table} from "react-bootstrap";
 import Modal from 'react-modal';
+import authService from "../../../services/auth-service";
 
 const dateOptions = { year: 'numeric', month: 'numeric', day: 'numeric', hour: "numeric", minute: "numeric" };
 const dateAndTimeOptions = { year: 'numeric', month: 'numeric', day: 'numeric' };
@@ -59,7 +60,6 @@ const PredstavkeDetails = (props) => {
         predstavkeService.getById(id)
             .then(data => {
                 setPredstavka(data);
-                console.log(data);
             })
     }, [id]);
 
@@ -73,7 +73,6 @@ const PredstavkeDetails = (props) => {
 
     const submitFormHandler = (event) =>{
         event.preventDefault();
-        console.log(izvestajRequestDTO);
         predstavkeService.writeIzvestaj(id, izvestajRequestDTO)
             .then(()=>{
                 history.push(`/predstavke`)
@@ -136,11 +135,11 @@ const PredstavkeDetails = (props) => {
             </Table>
             {
                 predstavka.datoteke && predstavka.datoteke.length > 0 && (
-                <div className="mt-5">
+                <div className="my-5">
                     <h3>Dokazi</h3>
                     {
                         predstavka.datoteke.map((datoteka, index) => (
-                            <img style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt={`${predstavka.naslov} - ${index}`}/>
+                            <img key={index} style={{maxWidth: "100%", objectFit: "cover"}} src={"data:image/png;base64, " + datoteka} alt={`${predstavka.naslov} - ${index}`}/>
                         ))
                     }
                 </div>)
@@ -171,7 +170,7 @@ const PredstavkeDetails = (props) => {
             </Table>
             </>
             ) : null}
-            {!predstavka.izvestaj ? (<>
+            {!predstavka.izvestaj && authService.isSluzbenik() ? (<>
             <Button style={{marginRight: "5px", marginBottom: "3rem"}} onClick={modalStateHandler}>Napiši izveštaj</Button>
             <Button style={{marginBottom: "3rem"}} variant="danger" onClick={rejectIzvestajHandler}>Odbij izveštaj</Button>
             </>) : null}

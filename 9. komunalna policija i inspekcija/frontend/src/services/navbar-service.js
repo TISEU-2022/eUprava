@@ -4,14 +4,14 @@ class NavbarService {
 
     sluzbenkLinks = [
         { url: "/predstavke", text: "Predstavke"},
-        { url: "/komunalni-problemi", text: "Komunalni problemi"},
         { url: "/vrste-predstavki", text: "Vrste predstavki"},
+        { url: "/komunalni-problemi", text: "Komunalni problemi"},
         { url: "/vrste-komunalnih-problema", text: "Vrste komunalnih problema"}
     ]
 
     podnosilacLinks = [
-        { url: "/podnesi-predstavku", text: "Podnesi predstavku"},
-        { url: "/podnesi-komunalni-problem", text: "Podnesi komunalni problem"}
+        { url: "/predstavke", text: "Predstavke"},
+        { url: "/komunalni-problemi", text: "Komunalni problemi"},
     ]
 
     getAllowedNavbarLinks = () => {
