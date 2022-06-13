@@ -167,42 +167,43 @@ services:
       - PORT=10001
 
   glasanje-backend:
+    depends_on:
+      - glasanje-mysql
     build:
       context: ./10. biracki spisak i eGlasanje/glasanje-backend/
     container_name: glasanje-backend
     ports:
       - "10002:10002"
-    networks:
-      tiseu:
-        aliases:
-          - "glasanje-backend"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://glasanje-mysql:10003/eupravaglasanje?allowPublicKeyRetrieval=true&useSSL=false
-    depends_on:
-      - glasanje-mysql
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:10101
+      - MYSQL_PASSWORD=glasanje123
+      - MYSQL_DB=glasanje
+      - MYSQL_HOST=glasanjeDB
+      - MYSQL_PORT=10003
 
   glasanje-mysql:
     image: mysql:8.0.23
     container_name: glasanje-mysql
     ports:
-      - "10003:10003"
+      - "10003:3306"
     environment:
-      - MYSQL_TCP_PORT=10003
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=root
+      - MYSQL_ROOT_PASSWORD=glasanje123
+      - MYSQL_DATABASE=glasanje
+      - MYSQL_ROOT_HOST=%
     volumes:
-      - glasanje-mysql-data:/var/lib/mysql
-      - ./10. biracki spisak i eGlasanje/database:/tmp/database
-    command: mysqld --init-file="/tmp/database/init_db.sql"
-    networks:
-      tiseu:
-        aliases:
-          - "glasanje-mysql"
+      - glasanje-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
 volumes:
   auth-mongodb:
     driver: local
   maticar-mysql:
     driver: local
-  glasanje-mysql-data:
+  glasanje-mysql:
     driver: local
