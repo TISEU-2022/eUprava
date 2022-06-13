@@ -1,17 +1,9 @@
 package com.eUprava.eUprava.controller;
 
-import com.eUprava.eUprava.exeptions.NabavkaNotFoundExeption;
-import com.eUprava.eUprava.exeptions.OruzijeNotFoundExeption;
 import com.eUprava.eUprava.model.dto.NabavkaDTO;
-import com.eUprava.eUprava.model.dto.OruzijeDTO;
-import com.eUprava.eUprava.model.entity.Oruzije;
 import com.eUprava.eUprava.model.entity.ZahtevZaNabavku;
 import com.eUprava.eUprava.payload.NabavkaPostRequest;
-import com.eUprava.eUprava.payload.OruzijePostRequest;
-import com.eUprava.eUprava.repository.NabavkaRepository;
-import com.eUprava.eUprava.repository.OruzijeRepository;
 import com.eUprava.eUprava.service.NabavkaService;
-import com.eUprava.eUprava.service.OruzijeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,21 +13,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/nabavke")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8080")
 public class NabavkaController {
 
-    private final NabavkaRepository nabavkaRepository;
+
     private final NabavkaService nabavkaService;
 
-    NabavkaController(NabavkaRepository nabavkaRepository,NabavkaService nabavkaService) {
-        this.nabavkaRepository = nabavkaRepository;
+    NabavkaController(NabavkaService nabavkaService) {
         this.nabavkaService = nabavkaService;
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ZahtevZaNabavku> findOne(@PathVariable Long id) {
-        ZahtevZaNabavku zahtevZaNabavku = (ZahtevZaNabavku) nabavkaRepository.findById(id)
-                .orElseThrow(() -> new NabavkaNotFoundExeption("Artikal sa datim id ne postoji"));
+        ZahtevZaNabavku zahtevZaNabavku =  nabavkaService.findById(id);
 
         return new ResponseEntity<>(zahtevZaNabavku, HttpStatus.FOUND);
     }
@@ -64,7 +54,7 @@ public class NabavkaController {
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteNabavku(@PathVariable Long id) {
 
-        nabavkaRepository.deleteById(id);
+        nabavkaService.remove(id);
 
         return ResponseEntity.noContent().build();
     }

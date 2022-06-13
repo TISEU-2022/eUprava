@@ -1,5 +1,6 @@
 package com.eUprava.eUprava.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "orzniList")
+@Table(name = "oruzni_list")
 public class OruzniList {
 
     @Id
@@ -39,9 +40,11 @@ public class OruzniList {
     @Column(name = "serijskiBrojOruzija", unique = true, nullable = false)
     private Long serijskiBrojOruzija;
 
-    @OneToOne(mappedBy = "list_id")
+    @JsonIgnore
+    @OneToOne(mappedBy = "list")
     private Oruzije oruzije;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "list")
     private ZahtevZaNosenje zahtev;
 

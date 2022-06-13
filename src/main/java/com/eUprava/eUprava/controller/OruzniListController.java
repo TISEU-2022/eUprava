@@ -1,9 +1,7 @@
 package com.eUprava.eUprava.controller;
-import com.eUprava.eUprava.exeptions.OruzniListNotFoundExeption;
 import com.eUprava.eUprava.model.dto.OruzniListDTO;
 import com.eUprava.eUprava.model.entity.OruzniList;
 import com.eUprava.eUprava.payload.OruzniListPostRequest;
-import com.eUprava.eUprava.repository.OruzniListRepository;
 import com.eUprava.eUprava.service.OruzniListService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +12,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/oruzniList")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8080")
 
 public class OruzniListController {
 
-    private final OruzniListRepository oruzniListRepository;
+
     private final OruzniListService oruzniListService;
 
-    OruzniListController(OruzniListRepository oruzniListRepository,OruzniListService oruzniListService) {
-        this.oruzniListRepository = oruzniListRepository;
+    OruzniListController(OruzniListService oruzniListService) {
         this.oruzniListService = oruzniListService;
     }
     @GetMapping("/{id}")
     public ResponseEntity<OruzniList> findOne(@PathVariable Long id) {
-        OruzniList oruzniList = (OruzniList) oruzniListRepository.findById(id)
-                .orElseThrow(() -> new OruzniListNotFoundExeption("OruzniList sa datim id ne postoji"));
+        OruzniList oruzniList = oruzniListService.findById(id)
+                ;
 
         return new ResponseEntity<>(oruzniList, HttpStatus.FOUND);
     }
@@ -56,7 +53,7 @@ public class OruzniListController {
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteOruzniList(@PathVariable Long id) {
 
-        oruzniListRepository.deleteById(id);
+        oruzniListService.remove(id);
 
         return ResponseEntity.noContent().build();
     }

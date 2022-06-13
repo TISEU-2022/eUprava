@@ -21,14 +21,19 @@ public class NabavkaServiceImpl implements NabavkaService {
         this.nabavkaRepository = nabavkaRepository;
     }
 
+   // @Override
+   // public ZahtevZaNabavku findOne(Long nabavkaId) {
+   //     return nabavkaRepository.findOne(nabavkaId).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));
+   // }
+
     @Override
-    public ZahtevZaNabavku findOne(Long nabavkaId) {
-        return (ZahtevZaNabavku) nabavkaRepository.findOne(nabavkaId).orElse(null);
+    public ZahtevZaNabavku findById(Long nabavkaId) {
+        return nabavkaRepository.findById(nabavkaId).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));
     }
 
     @Override
     public List<ZahtevZaNabavku> findAll() {
-        return nabavkaRepository.findAll();
+         return nabavkaRepository.findAll();
     }
 
     @Override
@@ -50,7 +55,7 @@ public class NabavkaServiceImpl implements NabavkaService {
 
     @Override
     public ZahtevZaNabavku update(Long id, NabavkaPostRequest nabavkaPostRequest) {
-        ZahtevZaNabavku zahtevZaNabavku = (ZahtevZaNabavku) nabavkaRepository.findById(id)
+        ZahtevZaNabavku zahtevZaNabavku = nabavkaRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Gun with id " + id + " not found"));
 

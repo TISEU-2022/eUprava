@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OruzijeService {
 
-    Oruzije findOne(Long oruzijeId);
+    Oruzije findById(Long oruzijeId);
     List<Oruzije> findAll();
     Oruzije save(OruzijeDTO oruzijeDTO);
     void remove (Long id);

@@ -1,5 +1,6 @@
 package com.eUprava.eUprava.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,11 +34,11 @@ public class Oruzije implements Serializable {
     @Column(name = "serijskiBroj", unique = true, nullable = false)
     private Long serijskiBroj;
 
-
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "list_id", referencedColumnName = "id")
     private OruzniList list;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "oruzije")
     private ZahtevZaNabavku zahtev;
 

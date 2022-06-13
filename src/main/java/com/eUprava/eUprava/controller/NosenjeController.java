@@ -1,9 +1,8 @@
 package com.eUprava.eUprava.controller;
-import com.eUprava.eUprava.exeptions.NosenjeNotFoundExeption;
+
 import com.eUprava.eUprava.model.dto.NosenjeDTO;
 import com.eUprava.eUprava.model.entity.ZahtevZaNosenje;
 import com.eUprava.eUprava.payload.NosenjePostRequest;
-import com.eUprava.eUprava.repository.NosenjeRepository;
 import com.eUprava.eUprava.service.NosenjeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,20 +13,19 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/nosenje")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8080")
 public class NosenjeController {
 
-    private final NosenjeRepository nosenjeRepository;
+
     private final NosenjeService nosenjeService;
 
-    NosenjeController(NosenjeRepository nosenjeRepository,NosenjeService nosenjeService) {
-        this.nosenjeRepository = nosenjeRepository;
+    NosenjeController(NosenjeService nosenjeService) {
         this.nosenjeService = nosenjeService;
     }
     @GetMapping("/{id}")
     public ResponseEntity<ZahtevZaNosenje> findOne(@PathVariable Long nosenje_id) {
-        ZahtevZaNosenje zahtevZaNosenje = (ZahtevZaNosenje) nosenjeRepository.findById(nosenje_id)
-                .orElseThrow(() -> new NosenjeNotFoundExeption("Artikal sa datim id ne postoji"));
+        ZahtevZaNosenje zahtevZaNosenje = (ZahtevZaNosenje) nosenjeService.findById(nosenje_id)
+                ;
 
         return new ResponseEntity<>(zahtevZaNosenje, HttpStatus.FOUND);
     }
@@ -51,8 +49,9 @@ public class NosenjeController {
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteNosenje(@PathVariable Long id) {
 
-        nosenjeRepository.deleteById(id);
+        nosenjeService.remove(id);
 
         return ResponseEntity.noContent().build();
     }
+
 }

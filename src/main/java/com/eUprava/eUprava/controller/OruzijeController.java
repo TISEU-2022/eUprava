@@ -1,10 +1,8 @@
 package com.eUprava.eUprava.controller;
 
-import com.eUprava.eUprava.exeptions.OruzijeNotFoundExeption;
 import com.eUprava.eUprava.model.dto.OruzijeDTO;
 import com.eUprava.eUprava.model.entity.Oruzije;
 import com.eUprava.eUprava.payload.OruzijePostRequest;
-import com.eUprava.eUprava.repository.OruzijeRepository;
 import com.eUprava.eUprava.service.OruzijeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,22 +13,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/oruzije")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:8080")
 public class OruzijeController {
 
-    private final OruzijeRepository oruzijeRepository;
+
     private final OruzijeService oruzijeService;
 
-    OruzijeController(OruzijeRepository oruzijeRepository,OruzijeService oruzijeService) {
-        this.oruzijeRepository = oruzijeRepository;
+    OruzijeController(OruzijeService oruzijeService) {
         this.oruzijeService = oruzijeService;
     }
 
 
     @GetMapping("/{id}")
     public ResponseEntity<Oruzije> findOne(@PathVariable Long id) {
-        Oruzije oruzije = (Oruzije) oruzijeRepository.findById(id)
-                .orElseThrow(() -> new OruzijeNotFoundExeption("Artikal sa datim id ne postoji"));
+        Oruzije oruzije = oruzijeService.findById(id)
+                ;
 
         return new ResponseEntity<>(oruzije, HttpStatus.FOUND);
     }
@@ -59,7 +56,7 @@ public class OruzijeController {
     @DeleteMapping("/delete/{id}")
     ResponseEntity<?> deleteOruzije(@PathVariable Long id) {
 
-        oruzijeRepository.deleteById(id);
+        oruzijeService.remove(id);
 
         return ResponseEntity.noContent().build();
     }

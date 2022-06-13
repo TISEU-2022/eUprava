@@ -1,5 +1,6 @@
 package com.eUprava.eUprava.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -32,7 +33,7 @@ public class ZahtevZaNabavku {
     @Column(name = "lekarskoUverenje", unique = false, nullable = false)
     private Boolean lekarskoUverenje;
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "oruzije_id", referencedColumnName = "id")
     private Oruzije oruzije;
 }

@@ -7,7 +7,7 @@ import com.eUprava.eUprava.payload.OruzniListPostRequest;
 
 import java.util.List;
 public interface OruzniListService {
-    OruzniList findOne(Long oruzniListId);
+    OruzniList findById(Long oruzniListId);
     List<OruzniList> findAll();
     OruzniList save(OruzniListDTO oruzniListDTO);
     void remove (Long id);

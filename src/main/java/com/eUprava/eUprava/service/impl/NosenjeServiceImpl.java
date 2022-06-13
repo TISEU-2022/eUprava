@@ -21,8 +21,8 @@ public class NosenjeServiceImpl implements NosenjeService {
     }
 
     @Override
-    public ZahtevZaNosenje findOne(Long nosenje_id) {
-        return (ZahtevZaNosenje) nosenjeRepository.findOne(nosenje_id).orElse(null);
+    public ZahtevZaNosenje findById(Long nosenje_id) {
+        return  nosenjeRepository.findById(nosenje_id).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));
     }
 
     @Override

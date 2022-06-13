@@ -19,7 +19,7 @@ public class OruzniListServiceImpl implements OruzniListService {
     public OruzniListServiceImpl(OruzniListRepository oruzniListRepository) {this.oruzniListRepository = oruzniListRepository;}
 
     @Override
-    public OruzniList findOne(Long oruzniListId) {return (OruzniList) oruzniListRepository.findOne(oruzniListId).orElse(null);}
+    public OruzniList findById(Long oruzniListId) {return  oruzniListRepository.findById(oruzniListId).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));}
 
     @Override
     public List<OruzniList> findAll() {

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface NabavkaService {
 
-    ZahtevZaNabavku findOne(Long nabavkaId);
+    ZahtevZaNabavku findById(Long nabavkaId);
     List<ZahtevZaNabavku> findAll();
     ZahtevZaNabavku save(NabavkaDTO nabavkaDTO);
     void remove (Long id);

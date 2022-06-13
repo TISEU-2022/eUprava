@@ -22,8 +22,8 @@ public class OruzijeServiceImpl implements OruzijeService {
     }
 
     @Override
-    public Oruzije findOne(Long oruzijeId) {
-        return (Oruzije) oruzijeRepository.findOne(oruzijeId).orElse(null);
+    public Oruzije findById(Long oruzijeId) {
+        return  oruzijeRepository.findById(oruzijeId).orElseThrow(() -> new RuntimeException("Nije pronadjen zahtev"));
     }
 
     @Override
