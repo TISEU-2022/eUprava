@@ -35,11 +35,19 @@ export class CreateDriverLicenseComponent implements OnInit {
       return;
     }
 
+    const dateInput = new Date(this.drivingLicence.validUntil);
+    const today = new Date();
+
+    if (today > dateInput || today == dateInput) {
+      this.resultMsg = "You have to enter valid date";
+      return;
+    }
+
     this.requestForDL.drivingLicenceDTO = this.drivingLicence;
 
     this.drivingLicenceService.createDL(this.requestForDL).subscribe(
       data => {
-        this.router.navigate(['/employee/home-page']);
+        this.router.navigate(['/employee/driving-licence']);
       }
     )
   }

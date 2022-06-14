@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CitizenHomePageComponent } from './components/citizen-home-page/citizen-home-page.component';
-import { EmployeeHomePageComponent } from './components/employee-home-page/employee-home-page.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { LoginComponent } from './components/login/login.component';
 import { TokenHandlerComponent } from './components/token-handler/token-handler.component';
@@ -9,6 +7,8 @@ import { ViewDrivingLicenceComponent } from './components/view-driving-licence/v
 import { AuthGuard } from './_helpers/auth.guard';
 import {RegistrationCertificateRequestComponent} from "./components/registration-certificate-request/registration-certificate-request.component";
 import { CreateDriverLicenseComponent } from './components/create-driver-license/create-driver-license.component';
+import { DrivingLicenceCitizenPageComponent } from './components/driving-licence-citizen-page/driving-licence-citizen-page.component';
+import { DrivingLicenceEmployeePageComponent } from './components/driving-licence-employee-page/driving-licence-employee-page.component';
 import {ViewRegistrationCertificateComponent} from "./components/view-registration-certificate/view-registration-certificate.component";
 import {RegistrationCertificateRequestsComponent} from "./components/registration-certificate-requests/registration-certificate-requests.component";
 import {ReviewRegistrationCertificateRequestComponent} from "./components/review-registration-certificate-request/review-registration-certificate-request.component";
@@ -56,24 +56,17 @@ const routes: Routes = [
     }
   },
   {
-    path: "citizen/home-page", component: CitizenHomePageComponent,
+    path: "citizen/driving-licence", component: DrivingLicenceCitizenPageComponent,
     canActivate: [AuthGuard],
     data: {
       role: ['gradjanin']
     }
   },
   {
-    path: "employee/home-page", component: EmployeeHomePageComponent,
+    path: "employee/driving-licence", component: DrivingLicenceEmployeePageComponent,
     canActivate: [AuthGuard],
     data: {
       role: ['zaposleni']
-    }
-  },
-  {
-    path: "admin/home-page", component: CitizenHomePageComponent,
-    canActivate: [AuthGuard],
-    data: {
-      role: ['admin']
     }
   },
   {

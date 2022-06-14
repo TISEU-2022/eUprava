@@ -13,6 +13,11 @@ export class DrivingLicenceService {
   private baseURL = "http://localhost:6001/api/driving-licence";
   constructor(private httpClient: HttpClient) { }
 
+  // medical certificate
+  createMedicalCertificate(): Observable<string> {
+    return this.httpClient.get<string>(this.baseURL + "/create/medical-certificate");
+  }
+
   // FETCHING REQUESTS
   getDrivingLicenceById(id: number): Observable<DrivingLicence> {
     return this.httpClient.get<DrivingLicence>(`${this.baseURL}/${id}`);
@@ -65,6 +70,6 @@ export class DrivingLicenceService {
     return this.httpClient.put<DrivingLicenceChangeRequest>(`${this.baseURL}/edit`, drivingLicenceChangeRequest);
   }
 
-  
+
 
 }
