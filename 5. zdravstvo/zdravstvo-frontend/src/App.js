@@ -9,6 +9,7 @@ import BookAppointment from "./components/appointments/BookAppointment";
 import NavBar from "./components/NavBar";
 import AppointmentHistory from "./components/appointments/AppointmentHistory";
 import DoctorAppointmentsPage from "./pages/DoctorAppointmentsPage";
+import AppointmentReport from "./components/doctorAppointments/appointmentReport";
 
 function App() {
   return (
@@ -44,6 +45,11 @@ function App() {
           exact
           path="/doctor-appointments"
           element={<DoctorAppointmentsPage />}
+        />
+        <Route
+          exact
+          path="/doctor-appointments/appointment/:id/report"
+          element={<AppointmentReport />}
         />
       </Routes>
     </BrowserRouter>

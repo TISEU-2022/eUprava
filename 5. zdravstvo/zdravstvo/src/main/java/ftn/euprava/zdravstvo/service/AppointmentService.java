@@ -4,6 +4,7 @@ import ftn.euprava.zdravstvo.api.dto.AppoinmentReportResponse;
 import ftn.euprava.zdravstvo.api.dto.AppointmentRequest;
 import ftn.euprava.zdravstvo.api.dto.AppointmentResponse;
 import ftn.euprava.zdravstvo.api.dto.AppointmentResponseDoctor;
+import ftn.euprava.zdravstvo.exception.BadRequestException;
 import ftn.euprava.zdravstvo.model.Appointment;
 import ftn.euprava.zdravstvo.model.AppointmentReport;
 import ftn.euprava.zdravstvo.model.StatusTermina;
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,21 +44,14 @@ public class AppointmentService {
         return appointments;
     }
 
-    public List<AppointmentResponseDoctor> getAppointmentsByDoctor(Authentication authentication, String datum) {
+    public List<AppointmentResponseDoctor> getAppointmentsByDoctor(Authentication authentication) {
+
         List<AppointmentResponseDoctor> appointments = new ArrayList<>();
-        User user= userService.findByUsername(authentication.getName());
+        User doctor = userService.findByUsername(authentication.getName());
 
-        if(datum.equals("")){
-            for(Appointment app: appointmentRepository.findAllByDoctor(user)){
-                appointments.add(new AppointmentResponseDoctor(app));
-            }
-        }else{
-            LocalDate datums =  LocalDate.parse(datum);
-            for(Appointment app: appointmentRepository.findAllByDoctorAndDatum(user, datums)){
-                appointments.add(new AppointmentResponseDoctor(app));
-            }
+        for(Appointment app: appointmentRepository.findAllByDoctor(doctor)){
+            appointments.add(new AppointmentResponseDoctor(app));
         }
-
 
         return appointments;
     }
@@ -101,17 +96,40 @@ public class AppointmentService {
         return response;
     }
 
-    public AppointmentResponse create(AppointmentRequest request, Authentication authentication) {
-        Appointment appointment = new Appointment();
-        appointment.setDatum(request.getDate().toLocalDate());
-        appointment.setVreme(request.getDate().toLocalTime().plusHours(2));
-        appointment.setDoctor(userService.getLogged(authentication));
-        appointment.setStatusTermina(StatusTermina.SLOBODAN);
-        appointmentRepository.save(appointment);
-        return new AppointmentResponse(appointment);
+    public AppointmentResponse create(AppointmentRequest request, Authentication authentication)
+            throws BadRequestException {
+        if(validateDateAndTime(request)) {
+
+            Appointment appointment = new Appointment();
+            appointment.setDatum(request.getDate().toLocalDate());
+            appointment.setVreme(request.getDate().toLocalTime().plusHours(2));
+            appointment.setDoctor(userService.getLogged(authentication));
+            appointment.setStatusTermina(StatusTermina.SLOBODAN);
+
+            appointmentRepository.save(appointment);
+
+            return new AppointmentResponse(appointment);
+        }
+        throw new BadRequestException("There is already an appointment at a given date and time");
     }
 
     public void save(Appointment appointment){
         appointmentRepository.save(appointment);
+    }
+
+    public Appointment findById(Long id){
+        return appointmentRepository.findById(id).orElse(null);
+    }
+
+    public boolean validateDateAndTime(AppointmentRequest request){
+        LocalDate date = request.getDate().toLocalDate();
+        LocalTime time = request.getDate().toLocalTime().plusHours(2);
+        List<Appointment> appointments = appointmentRepository.findAll();
+        for(Appointment appointment : appointments){
+            if(appointment.getDatum().equals(date) && appointment.getVreme().equals(time)){
+                return false;
+            }
+        }
+        return true;
     }
 }

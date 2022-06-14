@@ -53,7 +53,7 @@ public class UtilService {
         Appointment appointment = new Appointment(user,user2,"Kardiolog",LocalDate.of(2022,Month.JUNE,10),
                 LocalTime.of(10,0,0), StatusTermina.ZAKAZAN);
 
-        Appointment appointment2 = new Appointment(user,user2,"Kardiolog",LocalDate.of(2022, Month.JUNE,11),
+        Appointment appointment2 = new Appointment(user,user2,"Kardiolog",LocalDate.of(2022, Month.JUNE,14),
                 LocalTime.of(14,30,0), StatusTermina.ZAKAZAN);
 
         Appointment appointment3 = new Appointment(null,user2,"Kardiolog",LocalDate.of(2022,Month.JUNE,10),

@@ -4,8 +4,10 @@ import ftn.euprava.zdravstvo.api.dto.AppoinmentReportResponse;
 import ftn.euprava.zdravstvo.api.dto.AppointmentRequest;
 import ftn.euprava.zdravstvo.api.dto.AppointmentResponse;
 import ftn.euprava.zdravstvo.api.dto.AppointmentResponseDoctor;
+import ftn.euprava.zdravstvo.exception.BadRequestException;
 import ftn.euprava.zdravstvo.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -33,9 +35,8 @@ public class AppointmentController {
 
     @GetMapping("/doctor")
     @PreAuthorize("hasRole('DOCTOR')")
-    public ResponseEntity<List<AppointmentResponseDoctor>> getAppointmentByLoggedDoctor(Authentication authentication,
-                                                                                        @RequestParam(name = "datum", required = false, defaultValue = "") String datum) {
-        return ResponseEntity.ok().body(appointmentService.getAppointmentsByDoctor(authentication, datum));
+    public ResponseEntity<List<AppointmentResponseDoctor>> getAppointmentByLoggedDoctor(Authentication authentication) {
+        return ResponseEntity.ok().body(appointmentService.getAppointmentsByDoctor(authentication));
     }
 
     @GetMapping("/free")
@@ -59,7 +60,11 @@ public class AppointmentController {
     @PostMapping
     public ResponseEntity<AppointmentResponse> create(@RequestBody AppointmentRequest request, Authentication authentication)
             throws URISyntaxException {
-        AppointmentResponse result = appointmentService.create(request, authentication);
-        return ResponseEntity.created(new URI("/api/appointments/" + result.getId())).body(result);
+        try {
+            AppointmentResponse result = appointmentService.create(request, authentication);
+            return ResponseEntity.created(new URI("/api/appointments/" + result.getId())).body(result);
+        }catch (BadRequestException e){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

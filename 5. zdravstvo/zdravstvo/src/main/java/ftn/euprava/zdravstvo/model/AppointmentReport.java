@@ -16,6 +16,6 @@ public class AppointmentReport {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String report;
-    @ManyToOne
+    @OneToOne
     private Appointment appointment;
 }
