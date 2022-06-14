@@ -16,7 +16,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { RegistrationCertificateRequestComponent } from './components/registration-certificate-request/registration-certificate-request.component';
 import {CreateDriverLicenseComponent} from "./components/create-driver-license/create-driver-license.component";
 import { ReviewRegistrationCertificateRequestComponent } from './components/review-registration-certificate-request/review-registration-certificate-request.component';
-
+import { RegistrationCertificateRequestsComponent } from './components/registration-certificate-requests/registration-certificate-requests.component';
+import { ViewRegistrationCertificateComponent } from './components/view-registration-certificate/view-registration-certificate.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,9 @@ import { ReviewRegistrationCertificateRequestComponent } from './components/revi
     ViewDrivingLicenceComponent,
     RegistrationCertificateRequestComponent,
     CreateDriverLicenseComponent,
-    ReviewRegistrationCertificateRequestComponent
+    ReviewRegistrationCertificateRequestComponent,
+    RegistrationCertificateRequestsComponent,
+    ViewRegistrationCertificateComponent
   ],
   imports: [
     BrowserModule,

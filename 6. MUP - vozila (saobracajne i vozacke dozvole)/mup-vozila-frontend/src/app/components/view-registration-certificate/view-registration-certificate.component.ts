@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {RegistrationCertificate} from "../../_models/registration-certificate.model";
 import {RegistrationCertificateService} from "../../_services/registration-certificate.service";
 import {TokenService} from "../../_services/token.service";
-import {RegistrationCertificate} from "../../_models/registration-certificate.model";
 
 @Component({
-  selector: 'app-review-registration-certificate-request',
-  templateUrl: './review-registration-certificate-request.component.html',
-  styleUrls: ['./review-registration-certificate-request.component.css']
+  selector: 'app-view-registration-certificate',
+  templateUrl: './view-registration-certificate.component.html',
+  styleUrls: ['./view-registration-certificate.component.css']
 })
-export class ReviewRegistrationCertificateRequestComponent implements OnInit {
+export class ViewRegistrationCertificateComponent implements OnInit {
 
   request: RegistrationCertificate = new RegistrationCertificate()
 
@@ -16,7 +16,7 @@ export class ReviewRegistrationCertificateRequestComponent implements OnInit {
               private tokenService: TokenService) { }
 
   ngOnInit(): void {
-    this.service.getRequestForUser(this.tokenService.getUserId().toString()).subscribe(req => {
+    this.service.getRequestForUser(this.tokenService.getUserId().toString()).subscribe((req)=> {
       this.request = req
     })
   }

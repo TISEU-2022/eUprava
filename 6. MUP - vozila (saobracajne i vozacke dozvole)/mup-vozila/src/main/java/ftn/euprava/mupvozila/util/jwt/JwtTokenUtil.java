@@ -18,12 +18,12 @@ public class JwtTokenUtil {
 
 
     public boolean tokenVerified(String token) {
-        final String uri = "http://auth-app:3101/auth/verify_token/" + token;
-        //final String uri = "http://host.docker.internal:5101/auth/verify_token/"+token;
+        final String url = "http://auth-app:3101/auth/verify_token/" + token;
+        //final String url = "http://host.docker.internal:5101/auth/verify_token/"+token;
 
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(uri)
+                .url(url)
                 .addHeader("Authorization","Bearer " + token)
                 .build();
 

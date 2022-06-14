@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="card text-center">
+    <h3>Saobracajna dozvola</h3>
+    <div class="card-body">
+      <h5>Registracija</h5>
+      <p>{{request.licencePlate}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Datum izdavanja</h5>
+      <p>{{request.dayOfIssue}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Mesto izdavanja</h5>
+      <p>{{request.placeOfIssue}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Marka</h5>
+      <p>{{request.carDTO.make}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Model</h5>
+      <p>{{request.carDTO.model}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Broj sasije</h5>
+      <p>{{request.carDTO.chassisNumber}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Zapremina motora</h5>
+      <p>{{request.carDTO.engine}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Snaga motora</h5>
+      <p>{{request.carDTO.horsePower}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Tezina</h5>
+      <p>{{request.carDTO.weight}}</p>
+    </div>
+    <div class="card-body">
+      <h5>Tip goriva</h5>
+      <p>{{request.carDTO.fuelType}}</p>
+    </div>
+  </div>
+</div>

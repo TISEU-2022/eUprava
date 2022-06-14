@@ -1,0 +1,32 @@
+<div class="container-fluid">
+  <h3 class="text-center text-dark" style="margin-bottom: 30px">Zahtevi za saobracajnu dozvolu</h3>
+
+  <table class="table table-striped">
+    <thead>
+      <th>JMBG</th>
+      <th>Marka</th>
+      <th>Model</th>
+      <th></th>
+      <th></th>
+    </thead>
+    <tbody>
+       <tr *ngFor="let request of requests">
+         <td>{{request.userId}}</td>
+         <td>{{request.carDTO.make}}</td>
+         <td>{{request.carDTO.model}}</td>
+         <td>
+           <button class="btn btn-success"
+                   (click)="onAcceptRequest(request)">
+             Prihvati
+           </button>
+         </td>
+         <td>
+           <button class="btn btn-danger"
+                   (click)="onDeclineReq(request)" )>
+             Odbij
+           </button>
+         </td>
+       </tr>
+    </tbody>
+  </table>
+</div>

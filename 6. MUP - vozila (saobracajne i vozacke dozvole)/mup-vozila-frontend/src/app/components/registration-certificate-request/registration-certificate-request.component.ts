@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenService} from '../../_services/token.service';
 import {RegistrationCertificateService} from "../../_services/registration-certificate.service";
+import {RegistrationCertificate} from "../../_models/registration-certificate.model";
+import {Car} from "../../_models/car.model";
 
 @Component({
   selector: 'app-registration-certificate-request',
@@ -30,20 +32,20 @@ export class RegistrationCertificateRequestComponent implements OnInit {
       return
     }
 
-    const carDTO = {
-      chassisNumber: this.chassisNumber,
-      make: this.make,
-      model: this.model,
-      engine: this.engine,
-      horsePower: this.horsePower,
-      weight: this.weight,
-      fuelType: this.fuelType
-    }
+    const carDTO = new Car()
+    carDTO.chassisNumber = this.chassisNumber
+    carDTO.make= this.make
+    carDTO.model= this.model
+    carDTO.engine= this.engine
+    carDTO.horsePower= this.horsePower
+    carDTO.weight= this.weight
+    carDTO.fuelType= this.fuelType
 
-    const registrationCertificateDTO = {
-      userId: this.tokenService.getUserId(),
-      carDTO: carDTO
-    }
+    const registrationCertificateDTO = new RegistrationCertificate()
+    registrationCertificateDTO.userId = this.tokenService.getUserId()
+    registrationCertificateDTO.carDTO = carDTO
+
+    console.log("Ovo su podaci ", registrationCertificateDTO)
 
     this.service.createRequest(registrationCertificateDTO)
 

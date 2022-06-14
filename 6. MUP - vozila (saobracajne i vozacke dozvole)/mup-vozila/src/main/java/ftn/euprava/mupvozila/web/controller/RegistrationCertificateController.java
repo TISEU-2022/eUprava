@@ -7,9 +7,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping(value = "/registration-certificate")
+@RequestMapping(value = "/registration-certificates")
 public class RegistrationCertificateController {
 
     private final IRegistrationCertificateService iRegistrationCertificateService;
@@ -18,27 +20,31 @@ public class RegistrationCertificateController {
         this.iRegistrationCertificateService = iRegistrationCertificateService;
     }
 
-    @PostMapping(value = "/request")
+    @PostMapping(value = "/requests")
     public ResponseEntity<RegistrationCertificateDTO> createRequestForRegistrationCertificate(@RequestBody RegistrationCertificateDTO registrationCertificateDTO){
+        Logger.getAnonymousLogger().info("Kreiranje requesta " + registrationCertificateDTO);
         return new ResponseEntity<>(iRegistrationCertificateService.createRequest(registrationCertificateDTO), HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/request")
+    @GetMapping(value = "/requests")
     public ResponseEntity<List<RegistrationCertificateDTO>> getAllRequestsForCreating(){
+        Logger.getAnonymousLogger().info("Requestovi za kreiranje ");
         return new ResponseEntity<>(iRegistrationCertificateService.getAllRequests(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/request/{requestId}")
+    @GetMapping(value = "/requests/{requestId}")
     public ResponseEntity<RegistrationCertificateDTO> getRequestStatus(@PathVariable Long requestId){
         return new ResponseEntity<>(iRegistrationCertificateService.findOne(requestId), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/request/user/{userId}")
+    @GetMapping(value = "/requests/user/{userId}")
     public ResponseEntity<RegistrationCertificateDTO> getRequestForUser(@PathVariable String userId){
+        Logger.getAnonymousLogger().info("Request status za korisnika " + userId);
+
         return new ResponseEntity<>(iRegistrationCertificateService.getRequestForUser(userId), HttpStatus.OK);
     }
 
-    @PutMapping(value = "/request")
+    @PutMapping(value = "/requests")
     public ResponseEntity<RegistrationCertificateDTO> changeRequestStatus(@RequestBody RegistrationCertificateDTO registrationCertificateDTO){
         return new ResponseEntity<>(iRegistrationCertificateService.save(registrationCertificateDTO), HttpStatus.OK);
     }
@@ -48,6 +54,13 @@ public class RegistrationCertificateController {
                                                                                      @PathVariable Long requestId){
         return new ResponseEntity<>(iRegistrationCertificateService.createCertificationRequest(registrationCertificateDTO, requestId),
                                     HttpStatus.CREATED);
+    }
+
+    @DeleteMapping(value = "/requests/{requestId}")
+    public ResponseEntity<Void> declineRequest(@PathVariable Long requestId){
+
+        iRegistrationCertificateService.delete(requestId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

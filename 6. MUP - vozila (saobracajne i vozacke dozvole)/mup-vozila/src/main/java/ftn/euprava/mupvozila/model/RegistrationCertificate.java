@@ -31,6 +31,7 @@ public class RegistrationCertificate {
     @Column
     private Boolean request;
 
+    @Column
     private Boolean status = null;
 
     @Column(nullable = false)

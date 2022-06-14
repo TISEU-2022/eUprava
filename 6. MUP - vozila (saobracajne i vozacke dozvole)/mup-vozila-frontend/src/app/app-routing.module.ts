@@ -9,6 +9,9 @@ import { ViewDrivingLicenceComponent } from './components/view-driving-licence/v
 import { AuthGuard } from './_helpers/auth.guard';
 import {RegistrationCertificateRequestComponent} from "./components/registration-certificate-request/registration-certificate-request.component";
 import { CreateDriverLicenseComponent } from './components/create-driver-license/create-driver-license.component';
+import {ViewRegistrationCertificateComponent} from "./components/view-registration-certificate/view-registration-certificate.component";
+import {RegistrationCertificateRequestsComponent} from "./components/registration-certificate-requests/registration-certificate-requests.component";
+import {ReviewRegistrationCertificateRequestComponent} from "./components/review-registration-certificate-request/review-registration-certificate-request.component";
 
 const routes: Routes = [
   {
@@ -25,7 +28,32 @@ const routes: Routes = [
     path: "auth/token_handler", component: TokenHandlerComponent,
   },
   {
-    path: "registration-certificate/create-request", component: RegistrationCertificateRequestComponent
+    path: "registration-certificate/create-request", component: RegistrationCertificateRequestComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['gradjanin']
+    }
+  },
+  {
+    path: "registration-certificate/status", component: ReviewRegistrationCertificateRequestComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['gradjanin']
+    }
+  },
+  {
+    path: "registration-certificate", component: ViewRegistrationCertificateComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['gradjanin']
+    }
+  },
+  {
+    path: "registration-certificate/requests", component: RegistrationCertificateRequestsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['zaposleni']
+    }
   },
   {
     path: "citizen/home-page", component: CitizenHomePageComponent,

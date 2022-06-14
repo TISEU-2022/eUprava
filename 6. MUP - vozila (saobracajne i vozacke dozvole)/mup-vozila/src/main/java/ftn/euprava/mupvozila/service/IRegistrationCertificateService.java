@@ -22,4 +22,5 @@ public interface IRegistrationCertificateService {
     RegistrationCertificateDTO save(RegistrationCertificateDTO registrationCertificate);
 
     void delete(Long id);
+
 }
