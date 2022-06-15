@@ -3,10 +3,10 @@ import Header from "../navbar/Header"
 import axios from 'axios';
 import { useJwt } from "react-jwt";
 import { useNavigate } from 'react-router-dom';
-import RegistrationBackend from "../auth/RegistrationBackend";
+import RegistrationBackend from "../auth/RegistrationBackend"; 
 import ZakazivanjeForma from "../forms/ZakazivanjeForma";
 
-export const ZakazivanjePasos = () => {
+export const ZakazivanjePasosDete = () => {
 
     const navigate = useNavigate();
     const usertoken = localStorage.getItem("token")
@@ -14,8 +14,7 @@ export const ZakazivanjePasos = () => {
 
     const [show, setShow] = useState(false);
     const [docType, setDocumentType] = useState("DOCUMENT_PASSPORT")
-    const [minor, setMinor] = useState(false)
-
+    const [minor, setMinor] = useState(true)
 
     useEffect(() => {
 
@@ -49,4 +48,4 @@ export const ZakazivanjePasos = () => {
     )
 }
 
-export default ZakazivanjePasos
+export default ZakazivanjePasosDete
