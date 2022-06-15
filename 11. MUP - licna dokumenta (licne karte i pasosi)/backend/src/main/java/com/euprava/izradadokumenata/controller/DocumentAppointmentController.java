@@ -9,6 +9,7 @@ import com.euprava.izradadokumenata.model.dto.user.UserMapper;
 import com.euprava.izradadokumenata.model.dto.user.UserSetupDto;
 import com.euprava.izradadokumenata.service.DocumentAppointmentService;
 import com.euprava.izradadokumenata.service.UserService;
+import com.euprava.izradadokumenata.util.exceptions.AppointmentTimeNotAvailableException;
 import com.euprava.izradadokumenata.util.exceptions.UserMissingException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,19 +49,25 @@ public class DocumentAppointmentController {
 
     @PostMapping("/newAppointment")
     public ResponseEntity<SimpleDocumentAppointmentDto> requestAppointment(@RequestBody DocumentAppointmentDto documentAppointmentDto, @RequestParam String loggedUsername) {
-
-        if (documentAppointmentDto.isAppointmentForMinor()) {
-            DocumentAppointment doc = documentAppointmentService.appointmentForMinor(loggedUsername, documentAppointmentDto);
-            SimpleDocumentAppointmentDto dtoEntity = SimpleDocumentAppointmentDto.builder()
-                    .user(UserMapper.INSTANCE.toSimpleDto(userService.getUserByUsername(loggedUsername)))
-                    .appointmentTime(doc.getRequestedAppointmentTime()).appointmentForMinor(doc.isAppointmentForMinor()).build();
-            return new ResponseEntity<>(dtoEntity, HttpStatus.OK);
-        } else {
-            DocumentAppointment doc = documentAppointmentService.appointmentForSelf(loggedUsername, documentAppointmentDto);
-            SimpleDocumentAppointmentDto dtoEntity = SimpleDocumentAppointmentDto.builder()
-                    .user(UserMapper.INSTANCE.toSimpleDto(userService.getUserByUsername(loggedUsername)))
-                    .appointmentTime(doc.getRequestedAppointmentTime()).appointmentForMinor(doc.isAppointmentForMinor()).build();
-            return new ResponseEntity<>(dtoEntity, HttpStatus.OK);
+        try {
+            if (documentAppointmentService.isAppointmentAvailable(documentAppointmentDto.getRequestedAppointmentTime(), documentAppointmentDto.getDocumentType())) {
+                if (documentAppointmentDto.isAppointmentForMinor()) {
+                    DocumentAppointment doc = documentAppointmentService.appointmentForMinor(loggedUsername, documentAppointmentDto);
+                    SimpleDocumentAppointmentDto dtoEntity = SimpleDocumentAppointmentDto.builder()
+                            .user(UserMapper.INSTANCE.toSimpleDto(userService.getUserByUsername(loggedUsername)))
+                            .appointmentTime(doc.getRequestedAppointmentTime()).appointmentForMinor(doc.isAppointmentForMinor()).build();
+                    return new ResponseEntity<>(dtoEntity, HttpStatus.OK);
+                } else {
+                    DocumentAppointment doc = documentAppointmentService.appointmentForSelf(loggedUsername, documentAppointmentDto);
+                    SimpleDocumentAppointmentDto dtoEntity = SimpleDocumentAppointmentDto.builder()
+                            .user(UserMapper.INSTANCE.toSimpleDto(userService.getUserByUsername(loggedUsername)))
+                            .appointmentTime(doc.getRequestedAppointmentTime()).appointmentForMinor(doc.isAppointmentForMinor()).build();
+                    return new ResponseEntity<>(dtoEntity, HttpStatus.OK);
+                }
+            } else throw new AppointmentTimeNotAvailableException();
+        } catch (AppointmentTimeNotAvailableException e) {
+            log.info(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

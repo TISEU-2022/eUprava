@@ -41,9 +41,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User saveUser(User user) {
+        return userRepo.save(user);
+    }
+
+    @Override
     public boolean initialSetup(LoggedUserDto loggedUserDto) {
         if (userRepo.getUserByUsername(loggedUserDto.getUsername()) == null) {
-            userRepo.save(User.builder().username(loggedUserDto.getUsername()).password(loggedUserDto.getPassword()).initialRequest(true).build());
+            userRepo.save(User.builder().username(loggedUserDto.getUsername()).initialRequest(true).build());
             return true;
         } else return userRepo.getUserByUsername(loggedUserDto.getUsername()).isInitialRequest();
     }
