@@ -14,7 +14,7 @@ public class GlasService {
     public Glas save(Glas glas){
         return glasRepository.save(glas);
     }
-    public Glas findGlasByKorisnikIdAndIzboriId(Long korisnikId, Long izboriId){
-        return  glasRepository.findGlasByKorisnikIdAndIzboriId(korisnikId, izboriId);
-    }
+//    public Glas findGlasByKorisnikIdAndIzboriId(Long korisnikId, Long izboriId){
+//        return  glasRepository.findGlasByKorisnikIdAndIzboriId(korisnikId, izboriId);
+//    }
 }

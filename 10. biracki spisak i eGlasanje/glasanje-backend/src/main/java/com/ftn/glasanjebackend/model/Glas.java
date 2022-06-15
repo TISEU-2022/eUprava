@@ -21,7 +21,5 @@ public class Glas {
     private Izbori izbori;
     @OneToOne
     private Kandidat kandidat;
-    @OneToOne
-    private Korisnik korisnik;
 
 }

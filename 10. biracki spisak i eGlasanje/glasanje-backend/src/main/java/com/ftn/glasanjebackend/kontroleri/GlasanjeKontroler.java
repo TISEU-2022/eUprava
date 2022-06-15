@@ -27,14 +27,14 @@ public class GlasanjeKontroler {
     @Autowired
     IzboriService izboriService;
 
-    @PostMapping
-    public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
-        if (glasService.findGlasByKorisnikIdAndIzboriId(glasDTO.getKorisnik(), glasDTO.getIzbori()) != null){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }else{
-            Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()), korisniciService.findById(glasDTO.getKorisnik()));
-            glasService.save(glas);
-            return new ResponseEntity<>(glasDTO, HttpStatus.OK);
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
+//        if (glasService.findGlasByKorisnikIdAndIzboriId(glasDTO.getKorisnik(), glasDTO.getIzbori()) != null){
+//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//        }else{
+//            Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()), korisniciService.findById(glasDTO.getKorisnik()));
+//            glasService.save(glas);
+//            return new ResponseEntity<>(glasDTO, HttpStatus.OK);
+//        }
+//    }
 }
