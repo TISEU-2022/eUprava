@@ -14,6 +14,8 @@ public interface UserService {
 
     User getUserById(String id);
 
+    User saveUser(User user);
+
     boolean initialSetup(LoggedUserDto loggedUserDto);
 
     void userDataSetup(UserSetupDto userSetupDto);

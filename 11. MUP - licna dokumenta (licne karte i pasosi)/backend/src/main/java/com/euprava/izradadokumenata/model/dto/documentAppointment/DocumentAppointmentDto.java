@@ -1,5 +1,6 @@
 package com.euprava.izradadokumenata.model.dto.documentAppointment;
 
+import com.euprava.izradadokumenata.model.DocumentType;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -7,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class DocumentAppointmentDto {
 
-    private String documentType;
+    private DocumentType documentType;
 
     private String requestedAppointmentTime;
 
@@ -26,5 +27,7 @@ public class DocumentAppointmentDto {
     private String minorCitizenship;
 
     private String minorGender;
+
+    private String minorJmbg;
 
 }
