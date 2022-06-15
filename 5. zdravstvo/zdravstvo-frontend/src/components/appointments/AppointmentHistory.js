@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Container, Modal, Table } from 'react-bootstrap';
 import { AppointmentService } from '../../services/AppointmentService';
+import { UserService } from '../../services/UserService';
 
 const AppointmentHistory = () => {
 
     const [appointments, setAppointments] = useState([]);
     const [report, setReport] = useState({});
+    const [citizen, setCitizen] = useState({})
 
 
 
@@ -21,6 +23,7 @@ const AppointmentHistory = () => {
 
     useEffect(() => {
         fetchAppointments();
+        getCitizen();
 
     }, [])
 
@@ -31,6 +34,15 @@ const AppointmentHistory = () => {
             const response = await AppointmentService.getAppoitmentByUser();
             console.log(response.data);
             setAppointments(response.data);
+        } catch (e) {
+            console.error("Error while getting api")
+        }
+    }
+
+    async function getCitizen() {
+        try {
+            const response = await UserService.getUser();
+            setCitizen(response.data);
         } catch (e) {
             console.error("Error while getting api")
         }
@@ -47,16 +59,15 @@ const AppointmentHistory = () => {
     }
 
 
-
     return (
 
         <Container style={{ backgroundColor: "white", height: "500px", padding: "20px", marginTop: "40px" }}>
             <h3>Informacije o građaninu</h3>
             <ul>
-                <li>Petar Janković</li>
-                <li>Temišvarski Drum 21</li>
-                <li>jankovic@gmail.com</li>
-                <li>Muški</li>
+                <li>{citizen.firstname} {citizen.lastname}</li>
+                <li>{citizen.address}</li>
+                <li>{citizen.dateOfBirth}</li>
+                <li>{citizen.jmbg}</li>
 
             </ul>
             <h3>Istorija pregleda</h3>
@@ -85,9 +96,12 @@ const AppointmentHistory = () => {
                                     <td>{a.time}</td>
                                     <td>{a.status}</td>
                                     <td>
-                                        {a.status == "ZAVRSEN" && <Button variant="primary" onClick={() => handleShow(a.id)}>
-                                            Izveštaj
-                                        </Button>}
+                                        {a.status == "ZAVRSEN" ?
+                                            <Button variant="primary" onClick={() => handleShow(a.id)}>
+                                                Izveštaj
+                                            </Button> :
+                                            <p>Pregled još nije završen!</p>
+                                        }
                                     </td>
                                     <td></td>
 

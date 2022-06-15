@@ -2,11 +2,7 @@ package ftn.euprava.zdravstvo.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import ftn.euprava.zdravstvo.api.dto.BirthCertificateMaticarRequest;
-import ftn.euprava.zdravstvo.api.dto.BirthCertificateRequest;
-import ftn.euprava.zdravstvo.api.dto.MaticarCertificateResponse;
-import ftn.euprava.zdravstvo.api.dto.ParentsMaticarRequest;
+import ftn.euprava.zdravstvo.api.dto.*;
 import ftn.euprava.zdravstvo.model.User;
 import ftn.euprava.zdravstvo.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +10,7 @@ import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import java.time.LocalDate;
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
@@ -135,5 +131,10 @@ public class UserService {
 
     public User getLogged(Authentication authentication){
         return userRepository.findByUsername(authentication.getName());
+    }
+
+
+    public UserInfo getCitizenInfo(Authentication authentication){
+        return new UserInfo(userRepository.findByUsername(authentication.getName()));
     }
 }

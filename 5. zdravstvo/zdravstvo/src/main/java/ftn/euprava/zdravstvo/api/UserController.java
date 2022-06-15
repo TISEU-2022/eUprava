@@ -1,15 +1,13 @@
 package ftn.euprava.zdravstvo.api;
 
-import ftn.euprava.zdravstvo.api.dto.BirthCertificateRequest;
-import ftn.euprava.zdravstvo.api.dto.ParentsRequest;
-import ftn.euprava.zdravstvo.api.dto.ReportRequest;
-import ftn.euprava.zdravstvo.api.dto.ReportResponse;
+import ftn.euprava.zdravstvo.api.dto.*;
 import ftn.euprava.zdravstvo.model.User;
 import ftn.euprava.zdravstvo.service.AuthTokenService;
 import ftn.euprava.zdravstvo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +38,12 @@ public class UserController {
     @PutMapping("/{jmbg}")
     private ResponseEntity recordDeceasedCitizen(@PathVariable("jmbg") String jmbg) {
         return userService.recordDeceasedCitizen(jmbg);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<UserInfo> getCitizenInfo(Authentication authentication){
+        return ResponseEntity.ok().body(userService.getCitizenInfo(authentication));
+
     }
 
 }

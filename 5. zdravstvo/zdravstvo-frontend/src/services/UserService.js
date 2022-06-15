@@ -12,6 +12,10 @@ async function recordDeceasedCitizen(jmbg) {
   return await AxiosClient.put(baseURL + "/" + jmbg);
 }
 
+async function getUser(){
+  return await AxiosClient.get(baseURL + "/info");
+}
+
 async function addParents(req) {
   const response = await AxiosClient.post(baseURL, {
     parent1Id: req.parent1Id,
@@ -23,4 +27,5 @@ export const UserService = {
   addBirthCertificate,
   recordDeceasedCitizen,
   addParents,
+  getUser
 };

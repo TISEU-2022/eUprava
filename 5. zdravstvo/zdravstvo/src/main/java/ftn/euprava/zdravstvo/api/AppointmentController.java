@@ -1,11 +1,9 @@
 package ftn.euprava.zdravstvo.api;
 
-import ftn.euprava.zdravstvo.api.dto.AppoinmentReportResponse;
-import ftn.euprava.zdravstvo.api.dto.AppointmentRequest;
-import ftn.euprava.zdravstvo.api.dto.AppointmentResponse;
-import ftn.euprava.zdravstvo.api.dto.AppointmentResponseDoctor;
+import ftn.euprava.zdravstvo.api.dto.*;
 import ftn.euprava.zdravstvo.exception.BadRequestException;
 import ftn.euprava.zdravstvo.service.AppointmentService;
+import ftn.euprava.zdravstvo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin
@@ -27,6 +24,9 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public ResponseEntity<List<AppointmentResponse>> getAppointmentHistory(Authentication authentication) {
@@ -67,4 +67,6 @@ public class AppointmentController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
+
+
 }
