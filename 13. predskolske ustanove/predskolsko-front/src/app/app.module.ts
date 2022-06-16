@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { KonkursComponent } from './components/konkurs/konkurs.component';
 import { DeteComponent } from './components/dete/dete.component';
 import { VrticComponent } from './components/vrtic/vrtic.component';
+import { SluzbenikComponent } from './components/sluzbenik/sluzbenik.component';
 
 @NgModule({
   declarations: [
     KonkursComponent,
     AppComponent,
     DeteComponent,
-    VrticComponent
+    VrticComponent,
+    SluzbenikComponent
   ],
   imports: [
     BrowserModule,

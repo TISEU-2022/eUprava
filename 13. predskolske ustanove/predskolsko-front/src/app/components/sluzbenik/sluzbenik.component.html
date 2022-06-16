@@ -1,0 +1,22 @@
+<table id="konkurs-table">
+    <tr>
+      <th>JMBG</th>
+      <th>Ime</th>
+      <th>Prezime</th>
+      <th>Adresa</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let s of sluzbenici">
+      <td>{{ s.jmbg }}</td>
+      <td>{{ s.name }}</td>
+      <td>{{ s.lastname }}</td>
+      <td>{{ s.address }}</td>
+      <td>  
+        <button style="margin-left: 5px;" class="btn btn-info" (click)="updateSluzbenik(s.id)">Update</button>
+        <button style="margin-left: 5px;" class="btn btn-danger" (click)="blockSluzbenik(s.id)">Block</button>
+      </td>
+    </tr>
+  </table>
+  <div style="margin: 10px auto; width: 1%">
+  <button class="btn btn-primary" (click)="createSluzbenik()">Add</button>
+  </div>
