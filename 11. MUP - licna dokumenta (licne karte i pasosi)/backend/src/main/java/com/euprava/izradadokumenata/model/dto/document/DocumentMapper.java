@@ -11,8 +11,14 @@ public interface DocumentMapper {
     DocumentMapper INSTANCE = Mappers.getMapper(DocumentMapper.class);
 
 
+    Document from(DocumentCreateDto documentCreateDto);
 
-    Document from (DocumentCreateDto documentCreateDto);
+    Document from(DocumentUpdateDto documentUpdateDto);
 
-    Document from (DocumentUpdateDto documentUpdateDto);
+    DocumentCreateDto toCreateDto(Document document);
+
+    DocumentUpdateDto toUpdateDto(Document document);
+
+    DocumentSimpleDto toDocumentSimpleDto(Document document);
+
 }

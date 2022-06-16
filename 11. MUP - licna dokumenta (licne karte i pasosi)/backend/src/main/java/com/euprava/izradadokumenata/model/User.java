@@ -13,7 +13,8 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Table
-public class User extends BaseEntity{
+@Builder
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -22,6 +23,8 @@ public class User extends BaseEntity{
             strategy = "org.hibernate.id.UUIDGenerator"
     )
     @Column(name = "id", updatable = false, nullable = false)
+    private String id;
+
     private String jmbg;
 
     @Column
@@ -39,12 +42,17 @@ public class User extends BaseEntity{
     @Column
     private String citizenship;
 
+    @Column(columnDefinition = "boolean default true")
+    private boolean initialRequest = true;
+
     @Column
     private String gender;
 
     @Column
     private Municipality municipality;
 
+    private String username;
 
+    private String password;
 
 }

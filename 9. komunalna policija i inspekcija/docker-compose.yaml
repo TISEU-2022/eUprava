@@ -1,0 +1,51 @@
+version: "3.1"
+
+networks:
+  tiseu:
+    name: tiseu
+
+services:
+  komunalna-frontend:
+    build:
+      context: ./frontend
+    container_name: komunalna-frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "9001:9001"
+
+  komunalna-backend:
+    build:
+      context: ./KomunalnaPolicijaIInspekcija/
+    container_name: komunalna-backend
+    ports:
+      - "9002:9002"
+    networks:
+      tiseu:
+        aliases:
+          - "komunalna-backend"
+    depends_on:
+      - komunalna-mysql
+
+  komunalna-mysql:
+    image: mysql:8.0.23
+    container_name: komunalna-mysql
+    ports:
+      - "9003:9003"
+    environment:
+      - MYSQL_TCP_PORT=9003
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+    volumes:
+      - komunalna-mysql-data:/var/lib/mysql
+      - ./database:/tmp/database
+    command: mysqld --init-file="/tmp/database/init_db.sql"
+    networks:
+      tiseu:
+        aliases:
+          - "komunalna-mysql"
+
+volumes:
+  komunalna-mysql-data:
+    driver: local
