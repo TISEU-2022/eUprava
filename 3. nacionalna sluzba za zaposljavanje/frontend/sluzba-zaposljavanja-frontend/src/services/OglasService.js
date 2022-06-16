@@ -15,5 +15,11 @@ export const getAllAdvertisements = async () => {
 }
 
 export const getAdvertisementById = async (id) => {
-    await httpClient.get(`ADVERTISEMENTS_REST_API_URL/${id}`)
+    try{
+    const response = await httpClient.get(`http://localhost:3001/api/oglasi/${id}`)
+    return response.data;
+
+    } catch(error){
+        console.log(error);
+    }
 }

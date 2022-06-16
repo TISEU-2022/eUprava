@@ -1,13 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { getAllAdvertisements } from "../services/OglasService";
+import { getAdvertisementById } from "../services/OglasService";
+import { useNavigate } from "react-router-dom";
 
-const OglasiComponent = () => {
+
+const OglasiComponent = (props) => {
   const [oglasi, setOglasi] = useState([]);
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     getAllAdvertisements().then((response)=> setOglasi(response))
     
   }, []);
+
+  function ViewOglas(id){
+    getAdvertisementById(id).then((response) => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+    })
+    toViewOglas(id);
+  }
+
+  const toViewOglas = (id) => {
+    navigate(`/viewOglas/${id}`, JSON.stringify(id))
+  }
 
   return (
     <div style={{ marginTop: "20px" }}>
@@ -36,7 +53,7 @@ const OglasiComponent = () => {
               <td></td>
               <td>
                 <button
-                  onClick={() => this.viewOglas(oglas.id)}
+                  onClick={() => ViewOglas(oglas.id)}
                   className="btn-primary"
                 >
                   View

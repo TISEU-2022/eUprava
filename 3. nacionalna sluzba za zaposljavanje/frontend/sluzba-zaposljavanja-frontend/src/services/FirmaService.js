@@ -12,6 +12,16 @@ const getAllFirms = async () => {
   }
 }
 
+export const getFirmById = async (id) => {
+  try{
+  const response = await httpClient.get(`http://localhost:3001/api/firme/${id}`)
+  return response.data;
+
+  } catch(error){
+      console.log(error);
+  }
+}
+
 export const FirmaService = {
   getAllFirms
 };
