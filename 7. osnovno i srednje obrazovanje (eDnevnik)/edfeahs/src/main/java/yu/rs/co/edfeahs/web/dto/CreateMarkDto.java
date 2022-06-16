@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import yu.rs.co.edfeahs.model.enums.Semester;
 
 import javax.validation.constraints.NotBlank;
 
@@ -13,8 +14,9 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class CreateMarkDto {
 
-    private Long attendanceId;
+    private Long subjectId;
+    private Long studentId;
     private Integer value;
-    private String semester;
+    private Semester semester;
 
 }

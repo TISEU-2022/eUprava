@@ -75,7 +75,9 @@ public class StudentController {
     public ResponseEntity<List<FoundStudentDto>> findStudents(@Valid StudentSearchParam searchParam) {
         List<Student> students = studentService.findStudents(searchParam);
         System.out.println(students);
-        List<FoundStudentDto> result = students.stream().map(student -> studentMapper.toFoundStudentDto(student, searchParam.getSubjectId())).collect(Collectors.toList());
+        List<FoundStudentDto> result = students.stream()
+                .map(student -> studentMapper.toFoundStudentDto(student, searchParam.getSubjectId()))
+                .collect(Collectors.toList());
         System.out.println("Hello World!!");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

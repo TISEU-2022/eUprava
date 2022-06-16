@@ -16,9 +16,10 @@ public class MarkMapper {
 
     public Mark toEntity(CreateMarkDto createMarkDto) {
         Mark mark = new Mark();
-        mark.setAttendance(attendanceRepository.getById(createMarkDto.getAttendanceId()));
+
+        mark.setAttendance(attendanceRepository.findAttendanceByStudentIdAndSubjectId(createMarkDto.getStudentId(), createMarkDto.getSubjectId()));
         mark.setValue(createMarkDto.getValue());
-        mark.setSemester(Semester.valueOf(createMarkDto.getSemester()));
+        mark.setSemester(createMarkDto.getSemester());
 
         return mark;
     }

@@ -7,4 +7,7 @@ import yu.rs.co.edfeahs.model.Attendance;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Attendance findAttendanceByStudentIdAndSubjectId(Long studentId, Long subjectId);
+
+
+
 }
