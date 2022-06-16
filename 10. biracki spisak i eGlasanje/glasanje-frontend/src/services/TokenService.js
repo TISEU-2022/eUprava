@@ -1,4 +1,4 @@
-/*import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 export const TokenService = {
     getToken,
@@ -33,4 +33,3 @@ function didTokenExpire() {
     const decodedToken = token ? decodeToken(token) : null;
     return decodedToken ? decodedToken.exp_date < Date.now() : null;
 }
-*/

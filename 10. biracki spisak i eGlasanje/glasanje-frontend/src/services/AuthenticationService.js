@@ -5,13 +5,13 @@ import axios from "axios";
 
 export const AuthenticationService = {
     login,
-    //logout,
-    //getRole
+    logout,
+    getRole
 };
 
 async function login(userCredentials) {
     try {
-        const response = await axios.post(
+        const response = await GlasanjeAxiosClient.post(
             "http://localhost:10002/korisnici/prijava",
             userCredentials
         );
@@ -27,14 +27,14 @@ async function login(userCredentials) {
             })
         }
 
-        /*const decoded_token = TokenService.decodeToken(response.data);
+        const decoded_token = TokenService.decodeToken(response.data);
         if (decoded_token) {
             TokenService.setToken(response.data);
 
             window.location.assign("/AktuelniIzbori");
         } else {
             console.error("Invalid token");
-        }*/
+        }
     } catch (error) {
         await Swal.fire({
             icon: 'error',
@@ -44,9 +44,9 @@ async function login(userCredentials) {
     }
 }
 
-/*function logout() {
+function logout() {
     TokenService.removeToken();
-    window.location.assign("/");
+    window.location.assign("/prijava");
 }
 
 function getRole() {
@@ -57,4 +57,4 @@ function getRole() {
     } else {
         return null;
     }
-}*/
+}

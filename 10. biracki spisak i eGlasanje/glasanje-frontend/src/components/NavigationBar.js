@@ -1,5 +1,6 @@
 import React from 'react';
 import {Navbar} from "react-bootstrap";
+import {AuthenticationService} from "../services/AuthenticationService";
 
 export default class NavigationBar extends React.Component {
     render() {
@@ -8,7 +9,7 @@ export default class NavigationBar extends React.Component {
                 <a className="btn btn-primary"
                    href={
                        localStorage.getItem("id") == null
-                       ?
+                           ?
                            "/prijava"
                            :
                            "/"
@@ -16,6 +17,17 @@ export default class NavigationBar extends React.Component {
                    role="button">
                     Почетна
                 </a>
+                {
+                localStorage.getItem("id") == null
+                    ?
+                    <b/>
+                    :
+                    <a className="btn btn-primary"
+                       onClick={AuthenticationService.logout}
+                       role="button">
+                        Одјава
+                    </a>
+                }
             </Navbar>
         );
     }

@@ -31,11 +31,10 @@ export default class AktuelniIzbori extends React.Component {
             izboriLista: izbori
         });*/
 
-        var id = localStorage.getItem("id");
+        const id = localStorage.getItem("id");
         let url = "http://localhost:10002/izbori/aktuelni/" + id;
-        console.log("url");
 
-        axios.get(url)
+        GlasanjeAxiosClient.get(url)
             .then(response => response.data)
             .then((data) => {
                 this.setState({

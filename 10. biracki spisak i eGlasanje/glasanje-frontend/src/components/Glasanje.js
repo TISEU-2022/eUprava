@@ -41,7 +41,7 @@ export default class Glasanje extends React.Component {
         lokacija = lokacija.replace("http://localhost:10001/glasanje/", "");
         url += lokacija;
 
-        axios.get(url)
+        GlasanjeAxiosClient.get(url)
             .then(response => response.data)
             .then((data) => {
                 this.setState({
@@ -73,7 +73,7 @@ export default class Glasanje extends React.Component {
         };
         console.log(glas);
 
-        axios.post("http://localhost:10002/glasanje", glas).then((response) => {
+        GlasanjeAxiosClient.post("http://localhost:10002/glasanje", glas).then((response) => {
             console.log("aaaaaaaaaaa");
             if (response.status === 200) {
                 console.log("USPEH");

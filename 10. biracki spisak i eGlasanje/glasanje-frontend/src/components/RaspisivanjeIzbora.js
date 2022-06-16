@@ -1,4 +1,5 @@
 import React from 'react';
+import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Button, Card, Col, Container, Form} from "react-bootstrap";
 import axios from "axios";
 
@@ -59,7 +60,7 @@ export default class RaspisivanjeIzbora extends React.Component {
         };
         console.log(izbori);
 
-        axios.post("http://localhost:10002/izbori/raspisivanje", izbori).then(() => console.log("USPEH"));
+        GlasanjeAxiosClient.post("http://localhost:10002/izbori/raspisivanje", izbori).then(() => console.log("USPEH"));
     }
 
     render() {
