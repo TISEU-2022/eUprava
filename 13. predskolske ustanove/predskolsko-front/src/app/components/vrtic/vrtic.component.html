@@ -1,0 +1,24 @@
+<table id="konkurs-table">
+    <tr>
+      <th>Ime Vrtica</th>
+      <th>Adresa</th>
+      <th>Broj Zaposlenih</th>
+      <th>Broj telefona</th>
+      <th>Broj Dece</th>
+      <th>Actions</th>
+    </tr>
+    <tr *ngFor="let v of vrtici">
+      <td>{{ v.name }}</td>
+      <td>{{ v.adress }}</td>
+      <td>{{ v.numberOfEmployees }}</td>
+      <td>{{ v.phoneNumber }}</td>
+      <td>{{ v.numberOfChildren }}</td>
+      <td>  
+        <button style="margin-left: 5px;" class="btn btn-info" (click)="updateVrtic(v.id)">Update</button>
+        <button style="margin-left: 5px;" class="btn btn-danger" (click)="blockVrtic(v.id)">Block</button>
+      </td>
+    </tr>
+  </table>
+  <div style="margin: 10px auto; width: 1%">
+  <button class="btn btn-primary" (click)="createVrtic()">Add</button>
+  </div>

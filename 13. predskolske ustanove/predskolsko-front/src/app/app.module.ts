@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KonkursComponent } from './components/konkurs/konkurs.component';
 import { DeteComponent } from './components/dete/dete.component';
+import { VrticComponent } from './components/vrtic/vrtic.component';
 
 @NgModule({
   declarations: [
     KonkursComponent,
     AppComponent,
-    DeteComponent
+    DeteComponent,
+    VrticComponent
   ],
   imports: [
     BrowserModule,
