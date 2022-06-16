@@ -1,8 +1,10 @@
 package com.ftn.glasanjebackend.security;
 
+import com.ftn.glasanjebackend.service.KorisniciService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -13,6 +15,8 @@ import java.util.Map;
 
 @Component
 public class TokenUtils {
+    @Autowired
+    KorisniciService korisniciService;
 
     @Value("biloKojiString")
     private String secret;
@@ -76,6 +80,7 @@ public class TokenUtils {
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<String, Object>();
         claims.put("sub", userDetails.getUsername());
+        claims.put("id", korisniciService.findByJmbg(userDetails.getUsername()).getId());
         claims.put("role", userDetails.getAuthorities().toArray()[0]);
         claims.put("created", new Date(System.currentTimeMillis()));
         return Jwts.builder().setClaims(claims)

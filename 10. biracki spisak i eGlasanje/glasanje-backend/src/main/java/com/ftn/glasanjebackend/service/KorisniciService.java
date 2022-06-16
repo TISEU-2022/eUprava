@@ -5,6 +5,8 @@ import com.ftn.glasanjebackend.repository.KorisniciRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class KorisniciService {
 
@@ -27,5 +29,9 @@ public class KorisniciService {
 
     public Korisnik save(Korisnik korisnik){
         return  korisniciRepository.save(korisnik);
+    }
+
+    public List<Korisnik> findAll(){
+        return korisniciRepository.findAll();
     }
 }

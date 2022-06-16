@@ -38,6 +38,7 @@ public class IzboriKontroler {
     @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/aktuelni/{id}")
     public ResponseEntity<List<IzboriDTO>> getAllIzbori(@PathVariable Long id){
+        System.out.println("izbori");
         List<Izbori> izbori = izboriService.findAll();
 
         List<IzboriDTO> izboriDTO = new ArrayList<>();
