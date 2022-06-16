@@ -23,7 +23,7 @@ export default class NavigationBar extends React.Component {
                     <b/>
                     :
                     <a className="btn btn-primary"
-                       onClick={AuthenticationService.logout}
+                       onClick={() => AuthenticationService.logout()}
                        role="button">
                         Одјава
                     </a>
