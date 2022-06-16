@@ -21,7 +21,7 @@ public class FirmaServiceImpl implements FirmaService {
 
     @Override
     public Firma findOne(Integer id) {
-        return null;
+        return firmaRepository.findById(id).orElse(null);
     }
 
     @Override

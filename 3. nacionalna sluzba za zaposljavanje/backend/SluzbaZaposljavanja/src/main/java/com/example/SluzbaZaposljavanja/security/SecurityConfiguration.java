@@ -47,6 +47,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .authorizeRequests()
 //                .antMatchers(HttpMethod.POST, "/api/oglasi").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/gradjani*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/oglasi*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/oglasi/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/firme/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/konkursi/").permitAll()
+
                 .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
