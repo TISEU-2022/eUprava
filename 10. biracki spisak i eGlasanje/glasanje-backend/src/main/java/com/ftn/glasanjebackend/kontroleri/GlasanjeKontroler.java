@@ -1,6 +1,7 @@
 package com.ftn.glasanjebackend.kontroleri;
 
 import com.ftn.glasanjebackend.model.Glas;
+import com.ftn.glasanjebackend.model.Izbori;
 import com.ftn.glasanjebackend.model.Korisnik;
 import com.ftn.glasanjebackend.model.dto.GlasDTO;
 import com.ftn.glasanjebackend.service.GlasService;
@@ -27,14 +28,24 @@ public class GlasanjeKontroler {
     @Autowired
     IzboriService izboriService;
 
-//    @PostMapping
-//    public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
-//        if (glasService.findGlasByKorisnikIdAndIzboriId(glasDTO.getKorisnik(), glasDTO.getIzbori()) != null){
-//            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//        }else{
-//            Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()), korisniciService.findById(glasDTO.getKorisnik()));
-//            glasService.save(glas);
-//            return new ResponseEntity<>(glasDTO, HttpStatus.OK);
-//        }
-//    }
+    @PostMapping
+    public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
+        boolean glasao = false;
+        Korisnik korisnik = korisniciService.findById(glasDTO.getKorisnik());
+        for (Izbori izbori: korisnik.getIzbori()) {
+            if (glasDTO.getIzbori() == izbori.getId()) {
+                glasao = true;
+                break;
+            }
+        }
+        if (glasao){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }else{
+            Glas glas = new Glas(glasDTO.getId(), izboriService.findOne(glasDTO.getIzbori()), kandidatiService.findOne(glasDTO.getKandidat()));
+            korisnik.getIzbori().add(izboriService.findOne(glasDTO.getIzbori()));
+            korisniciService.save(korisnik);
+            glasService.save(glas);
+            return new ResponseEntity<>(glasDTO, HttpStatus.OK);
+        }
+    }
 }

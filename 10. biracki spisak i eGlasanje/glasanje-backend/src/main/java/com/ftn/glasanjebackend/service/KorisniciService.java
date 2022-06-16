@@ -24,4 +24,8 @@ public class KorisniciService {
 
         return korisniciRepository.findKorisnikByJmbg(jmbg);
     }
+
+    public Korisnik save(Korisnik korisnik){
+        return  korisniciRepository.save(korisnik);
+    }
 }

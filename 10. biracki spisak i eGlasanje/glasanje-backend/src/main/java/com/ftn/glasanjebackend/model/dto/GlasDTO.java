@@ -10,6 +10,7 @@ public class GlasDTO {
     private Long id;
     private Long izbori;
     private Long kandidat;
+    private Long korisnik;
 
     public GlasDTO(Glas glas){
         this.id = glas.getId();
