@@ -1,0 +1,20 @@
+<table id="dete-table">
+    <tr>
+      <th>Ime</th>
+      <th>Prezime</th>
+      <th>Adresa</th>
+      <th>Meso rodjenja</th>
+      <th>Pol</th>
+      <th>Akcija</th>
+    </tr>
+    <tr *ngFor="let d of deca">
+      <td>{{ d.name }}</td>
+      <td>{{ d.lastname }}</td>
+      <td>{{ d.address }}</td>
+      <td>{{ d.placeOfBirth }}</td>
+      <td>{{ d.gender }}</td>
+      <td>  
+        <button style="margin-left: 5px;" class="btn btn-danger" (click)="blockDete(d.id)">Remove dete</button>
+      </td>
+    </tr>
+  </table>
