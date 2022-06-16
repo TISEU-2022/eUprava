@@ -28,7 +28,7 @@ export const Home = () => {
             <Container>
                 <Row>
                     <Col>
-                        <Card text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
+                        <Card border="primary" text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>Zakazivanje - Licna karta</Card.Title>
                                 <Card.Text>
@@ -39,9 +39,9 @@ export const Home = () => {
                         </Card>
                     </Col>
                     <Col>
-                        <Card text={'white'} bg={"secondary"} style={{ width: '18rem' }} >
+                        <Card border="primary" text={'white'} bg={"secondary"} style={{ width: '18rem' }} >
                             <Card.Body>
-                                <Card.Title text={'white'}>Zakazivanje dete - Licna karta</Card.Title>
+                                <Card.Title text={'white'}>Zakazivanje za dete - Licna karta</Card.Title>
                                 <Card.Text>
                                     Zakazivanje termina za izradu licne karte u svojstvu staratelja maloletnog deteta
                                 </Card.Text>
@@ -50,13 +50,24 @@ export const Home = () => {
                         </Card>
                     </Col>
                     <Col>
-                        <Card text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
+                        <Card border="warning" text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>Zakazivanje - Pasos</Card.Title>
                                 <Card.Text>
                                     Zakazivanje termina za izradu pasosa
                                 </Card.Text>
                                 <Button variant="primary" onClick={() => startWorkflow("pasos")}>Start</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card border="warning" text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
+                            <Card.Body>
+                                <Card.Title>Zakazivanje za dete - Pasos </Card.Title>
+                                <Card.Text>
+                                    Zakazivanje termina za izradu pasosa za dete
+                                </Card.Text>
+                                <Button variant="primary" onClick={() => startWorkflow("pasos-dete")}>Start</Button>
                             </Card.Body>
                         </Card>
                     </Col>

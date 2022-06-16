@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.formaDiv{
+  padding: 100px;
+}
+
 .card{
   margin-top: 5rem;
 }
