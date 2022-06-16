@@ -54,7 +54,7 @@ const Login =() => {
                                 onChange={handleFormInputChange("lozinka")}
                             />
                         </Form.Group>
-                        <Button variant="success" onClick={login}>
+                        <Button variant="success" href="http://localhost:4101/auth/login?successUrl=http://localhost:10001/auth">
                             Пријави се
                         </Button>
                     </Form>

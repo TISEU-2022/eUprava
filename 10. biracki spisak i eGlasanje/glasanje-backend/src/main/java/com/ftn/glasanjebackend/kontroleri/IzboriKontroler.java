@@ -40,7 +40,7 @@ public class IzboriKontroler {
     private GlasService glasService;
 
 
-    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/aktuelni/{id}")
     public ResponseEntity<List<IzboriDTO>> getAllIzbori(@PathVariable Long id){
         System.out.println("izbori");
