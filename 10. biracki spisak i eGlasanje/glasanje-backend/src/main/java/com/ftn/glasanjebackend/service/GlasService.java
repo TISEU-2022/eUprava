@@ -1,9 +1,12 @@
 package com.ftn.glasanjebackend.service;
 
 import com.ftn.glasanjebackend.model.Glas;
+import com.ftn.glasanjebackend.model.Izbori;
 import com.ftn.glasanjebackend.repository.GlasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class GlasService {
@@ -13,6 +16,10 @@ public class GlasService {
 
     public Glas save(Glas glas){
         return glasRepository.save(glas);
+    }
+
+    public List<Glas> findAll(){
+        return glasRepository.findAll();
     }
 //    public Glas findGlasByKorisnikIdAndIzboriId(Long korisnikId, Long izboriId){
 //        return  glasRepository.findGlasByKorisnikIdAndIzboriId(korisnikId, izboriId);

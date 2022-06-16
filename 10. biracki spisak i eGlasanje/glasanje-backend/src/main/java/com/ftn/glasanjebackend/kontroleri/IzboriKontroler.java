@@ -1,12 +1,15 @@
 package com.ftn.glasanjebackend.kontroleri;
 
+import com.ftn.glasanjebackend.model.Glas;
 import com.ftn.glasanjebackend.model.Izbori;
 import com.ftn.glasanjebackend.model.Kandidat;
 import com.ftn.glasanjebackend.model.dto.IzboriDTO;
 import com.ftn.glasanjebackend.model.dto.KandidatDTO;
 import com.ftn.glasanjebackend.model.dto.KorisnikDTO;
+import com.ftn.glasanjebackend.model.dto.RezultatiDTO;
 import com.ftn.glasanjebackend.model.enumeration.EOpstina;
 import com.ftn.glasanjebackend.model.enumeration.ETipIzbora;
+import com.ftn.glasanjebackend.service.GlasService;
 import com.ftn.glasanjebackend.service.IzboriService;
 import com.ftn.glasanjebackend.service.KandidatiService;
 import com.ftn.glasanjebackend.service.KorisniciService;
@@ -33,6 +36,8 @@ public class IzboriKontroler {
     private KorisniciService korisniciService;
     @Autowired
     private KandidatiService kandidatiService;
+    @Autowired
+    private GlasService glasService;
 
 
     @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
@@ -98,6 +103,28 @@ public class IzboriKontroler {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(new IzboriDTO(izbori),HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+    @GetMapping(value = "rezultati/{id}")
+    public ResponseEntity<List<RezultatiDTO>> getRezultatiIzbora(@PathVariable Long id) {
+        Izbori izbori = izboriService.findOne(id);
+        List<Glas> glasovi = glasService.findAll();
+        List<Kandidat> kandidati = kandidatiService.findAll();
+        List<RezultatiDTO> rezultati = new ArrayList<>();
+        int zbir = 0;
+        for (Glas g: glasovi){
+            for (Kandidat k: kandidati ){
+                if (g.getKandidat().getId().equals(k.getId())){
+                    zbir += 1;
+                }
+                rezultati.add(new RezultatiDTO(k.getImePredstavnika(),zbir));
+            }
+        }
+        if(izbori == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(rezultati,HttpStatus.OK);
     }
 
     @PreAuthorize("hasAnyRole('SLUZBENIK')")
