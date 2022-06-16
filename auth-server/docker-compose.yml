@@ -1,0 +1,57 @@
+version: "3"
+
+x-base-service: &base-service
+  build:
+    context: ./
+    dockerfile: Dockerfile.dev
+  volumes:
+    - nodemodules:/usr/src/app/node_modules
+    - .:/usr/src/app
+  working_dir: /usr/src/app
+
+x-direct-run-service: &direct-run-service
+  <<: *base-service
+  profiles: [ "direct-run" ]
+
+services:
+  app:
+    <<: *base-service
+    environment:
+      - NODE_ENV=docker-development
+    command: npm run start:dev
+    ports:
+      - "3101:3101"
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb:/data/db
+
+  install:
+    <<: *direct-run-service
+    command: npm i
+  build:
+    <<: *direct-run-service
+    command: npm run build
+  format:
+    <<: *direct-run-service
+    command: npm run format
+  npm:
+    <<: *direct-run-service
+    entrypoint: npm
+  seed-admin:
+    <<: *direct-run-service
+    environment:
+      - NODE_ENV=docker-development
+    entrypoint: npx nestjs-command seed:admin
+  seed-user:
+    <<: *direct-run-service
+    environment:
+      - NODE_ENV=docker-development
+    entrypoint: npx nestjs-command seed:user
+
+volumes:
+  nodemodules:
+  mongodb:

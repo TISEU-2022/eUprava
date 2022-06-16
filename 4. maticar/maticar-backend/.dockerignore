@@ -1,0 +1,11 @@
+.dockerignore
+Makefile
+.env
+.venv
+*.sql
+*.yaml
+env.sh
+.coverage
+Dockerfile
+.pytest_cache
+htmlcov

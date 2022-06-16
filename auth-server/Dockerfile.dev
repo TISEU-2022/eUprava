@@ -1,0 +1,7 @@
+FROM node:lts
+RUN npm i -g @nestjs/cli
+WORKDIR /usr/src/app
+COPY package.json .
+COPY package-lock.json .
+COPY . .
+RUN npm i

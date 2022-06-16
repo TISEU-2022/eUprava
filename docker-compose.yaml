@@ -1,0 +1,458 @@
+version: "3.1"
+
+networks:
+  tiseu:
+    name: tiseu
+
+x-auth-base-service: &auth-base-service
+  build:
+    context: ./auth-server/
+    dockerfile: Dockerfile.prod
+  working_dir: /usr/src/app
+  environment:
+    - NODE_ENV=docker-development
+    - DB_NAME=auth-server
+    - DB_URI=mongodb://auth-mongo:27017
+    - JWT_SECRET=secret
+    - JWT_DURATION=120m
+
+x-auth-direct-run-service: &auth-direct-run-service
+  <<: *auth-base-service
+  profiles: ["direct-run"]
+  build:
+    context: ./auth-server/
+    dockerfile: Dockerfile.dev
+
+services:
+  # --- AUTH SERVER ---
+  auth-app:
+    <<: *auth-base-service
+    command: node dist/main.js
+    container_name: auth-app
+    networks:
+      tiseu:
+        aliases:
+          - auth-app
+    depends_on:
+      auth-mongo:
+        condition: service_healthy
+    ports:
+      - "4101:3101"
+      - "5101:3101"
+
+  auth-mongo:
+    image: mongo
+    container_name: auth-mongo
+    ports:
+      - "4117:27017"
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo localhost:27017/db --quiet
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    volumes:
+      - auth-mongodb:/data/db
+    networks:
+      tiseu:
+        aliases:
+          - auth-mongo
+
+  auth-seed-admin:
+    <<: *auth-direct-run-service
+    entrypoint: npx nestjs-command seed:admin
+    networks:
+      tiseu:
+        aliases:
+          - auth-command-seed-admin
+  auth-seed-user:
+    <<: *auth-direct-run-service
+    entrypoint: npx nestjs-command seed:user
+    networks:
+      tiseu:
+        aliases:
+          - auth-command-seed-user
+
+  # --- MATICAR ---
+  maticar-frontend:
+    environment:
+      - VITE_PORT=4001
+      - VITE_APP_URL=http://localhost:4001
+      - VITE_AUTH_SERVER_URL=http://localhost:4101
+      - VITE_BACKEND_URL=http://localhost:4002/api
+    build:
+      context: ./4. maticar/frontend/
+    container_name: maticar-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "4001:4001"
+
+  maticar:
+    build:
+      context: ./4. maticar/maticar-backend/
+      args:
+        - APP_VERSION
+    container_name: maticar
+    environment:
+      - DEVELOP=true
+      - APP_VERSION=1
+      - LOG_LEVEL=DEBUG
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app:3101
+      - MYSQL_PASSWORD=maticar123
+      - MYSQL_DB=maticar
+      - MYSQL_HOST=mysqlDB
+      - MYSQL_PORT=4003
+    networks:
+      tiseu:
+        aliases:
+          - maticar-app
+    ports:
+      - "4002:4002"
+    depends_on:
+      maticar-mysql:
+        condition: service_healthy
+
+  maticar-mysql:
+    image: mysql:8.0.23
+    container_name: maticar-mysql
+    ports:
+      - "4003:4003"
+    environment:
+      - MYSQL_TCP_PORT=4003
+      - MYSQL_ROOT_PASSWORD=maticar123
+      - MYSQL_DATABASE=maticar
+    volumes:
+      - maticar-mysql:/var/lib/mysql
+      - ./4. maticar/init_db:/docker-entrypoint-initdb.d
+    networks:
+      tiseu:
+        aliases:
+          - "mysqlDB"
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  # --- Dokumenti ---
+  dokumenti-frontend:
+    environment:
+      - PORT=11000
+      - APP_URL=http://localhost:11000
+      - AUTH_SERVER_URL=http://localhost:11101
+      - BACKEND_URL=http://locakhost:11001/api
+    build:
+      context: ./11. MUP - licna dokumenta (licne karte i pasosi)/frontend
+    container_name: dokumenti-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "11000:11000"
+    command: npm start
+
+  dokumenti-backend:
+    depends_on:
+      - dokumenti-mysql
+    build:
+      context: ./11. MUP - licna dokumenta (licne karte i pasosi)/backend
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 11001:11001
+    environment:
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:11101
+      - MYSQL_PASSWORD=dokumenti123
+      - MYSQL_DB=dokumenti
+      - MYSQL_HOST=dokumentiDB
+      - MYSQL_PORT=11002
+  
+  dokumenti-mysql:
+    image: mysql:8.0.23
+    container_name: dokumenti-mysql
+    ports:
+      - "11002:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=dokumenti123
+      - MYSQL_DATABASE=dokumenti
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - dokumenti-mysql:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD","mysqladmin","ping","-h" ,"localhost" ]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # --- Zdravstvo ---
+  zdravstvo-frontend:
+    environment:
+      - PORT=5000
+      - APP_URL=http://localhost:5000
+      - AUTH_SERVER_URL=http://localhost:5101
+      - BACKEND_URL=http://localhost:5001/api
+    build:
+      context: ./5. zdravstvo/zdravstvo-frontend
+    container_name: zdravstvo-frontend
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-frontend
+    ports:
+      - "5000:5000"
+    command: npm start
+
+  zdravstvo:
+    depends_on:
+      - zdravstvo-mysql
+    build:
+      context: ./5. zdravstvo/zdravstvo/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 5001:5001
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-app
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - MYSQL_PASSWORD=zdravstvo123
+      - MYSQL_DB=zdravstvo
+      - MYSQL_HOST=zdravstvoDB
+      - MYSQL_PORT=5002
+
+  zdravstvo-mysql:
+    image: mysql:8.0.23
+    container_name: zdravstvo-mysql
+    ports:
+      - "5002:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=zdravstvo123
+      - MYSQL_DATABASE=zdravstvo
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - zdravstvo-mysql:/var/lib/mysql
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-mysqlDB
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+      
+  # --- Zaposljavanje --- 
+
+  zaposljavanje-mysql:
+    image: mysql:8.0.27
+    container_name: zaposljavanje-mysql
+    ports:
+      - "3002:3306"
+    environment:    
+      - MYSQL_ROOT_PASSWORD=RootRoot22
+      - MYSQL_DATABASE=biro
+      - MYSQL_ROOT_USER=root
+      - MYSQL_PASSWORD=RootRoot22
+    volumes:
+      - zaposljavanje-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+  
+  biro-zaposljavanje:
+    depends_on:
+      - zaposljavanje-mysql
+    build:
+      context: ./3. nacionalna sluzba za zaposljavanje/backend/SluzbaZaposljavanja/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 3001:3001
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zaposljavanje-mysql:3002/database?autoReconnect=true&useSSL=false
+      - DATABASE_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - DATABASE_PASSWORD=RootRoot22
+      - DATABASE_NAME=biro
+      - DATABASE_HOST=zaposljavanje-mysql
+      # - MYSQL_PORT=3002
+
+
+  # --- ePortal ---
+  eportal:
+    environment:
+      - VITE_PORT=4011
+      - VITE_APP_URL=http://localhost:4011
+      - VITE_AUTH_SERVER_URL=http://localhost:4101
+    build:
+      context: ./eportal/
+    container_name: eportal
+    networks:
+      tiseu:
+        aliases:
+          - eportal
+    ports:
+      - "4011:4011"
+
+  # --- Predskolsko ---
+
+  # predskolsko-mysql:
+  #   image: mysql:8.0.27
+  #   container_name: predskolsko-mysql
+  #   ports:
+  #     - "13002:3306"
+  #   environment:    
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=predskolsko
+  #     - MYSQL_ROOT_USER=root
+  #     - MYSQL_PASSWORD=root
+  #   volumes:
+  #     - predskolsko-mysql:/var/lib/mysql
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 15s
+  #     timeout: 5s
+  #     retries: 3
+  #     start_period: 20s
+  
+  # predskolsko:
+  #   depends_on:
+  #     - predskolsko-mysql
+  #   build:
+  #     context: ./13. predskolske ustanove/predskolsko/
+  #     args:
+  #       - APP_VERSION
+  #   restart: on-failure
+  #   ports:
+  #     - 13001:13001
+  #   environment:
+  #     - DATABASE_USER=root
+  #     - AUTH_SERVER_API=http://auth-app-proxy:5101
+  #     - DATABASE_PASSWORD=root
+  #     - DATABASE_NAME=predskolsko
+  #     - DATABASE_HOST=predskolsko-mysql
+
+  # --- KOMUNALNA POLICIJA I INSPEKCIJA ---
+  # komunalna-frontend:
+  #   environment:
+  #     - PORT=9001
+  #   build:
+  #     context: ./9. komunalna policija i inspekcija/frontend
+  #   container_name: komunalna-frontend
+  #   volumes:
+  #     - ./9. komunalna policija i inspekcija/frontend:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "9001:9001"
+
+  # komunalna-backend:
+  #   build:
+  #     context: ./9. komunalna policija i inspekcija/KomunalnaPolicijaIInspekcija/
+  #   container_name: komunalna-backend
+  #   ports:
+  #     - "9002:9002"
+  #   networks:
+  #     tiseu:
+  #       aliases:
+  #         - "komunalna-backend"
+  #   depends_on:
+  #     - komunalna-mysql
+
+  # komunalna-mysql:
+  #   image: mysql:8.0.23
+  #   container_name: komunalna-mysql
+  #   ports:
+  #     - "9003:9003"
+  #   environment:
+  #     - MYSQL_TCP_PORT=9003
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=root
+  #   volumes:
+  #     - komunalna-mysql-data:/var/lib/mysql
+  #     - ./9. komunalna policija i inspekcija/database:/tmp/database
+  #   command: mysqld --init-file="/tmp/database/init_db.sql"
+  #   networks:
+  #     tiseu:
+  #       aliases:
+  #         - "komunalna-mysql"
+
+volumes:
+  auth-mongodb:
+    driver: local
+  maticar-mysql:
+    driver: local
+  komunalna-mysql-data:
+    driver: local
+  zdravstvo-mysql:
+    driver: local
+  dokumenti-mysql:
+    driver: local
+  zaposljavanje-mysql:
+    driver: local
+  predskolsko-mysql:
+    driver: local
+
+  # --- MUP-oružije ---
+
+ # mup-oružije-frontend:
+  #  environment:
+   #   - PORT=8000
+    #  - APP_URL=http://localhost:8000
+     # - AUTH_SERVER_URL=http://localhost:8101
+      #- BACKEND_URL=http://localhost:8001/api
+    #build:
+     # context: ./8. mup-oruzije/oruzije-frontend
+    #container_name: oruzije-frontend
+    #networks:
+     # tiseu:
+      #  aliases:
+       #   - oruzije-frontend
+    #ports:
+     # - "8000:8000"
+    #command: npm start
+
+
+
+  mup-oruzije-h2:
+    version: '3.1'
+    services:
+      trans:
+        image: v1.19.5
+        depends_on:
+          - db
+        restart: always
+        ports:
+          - 8001:80
+        command: --http-port=8001 --db-url="jdbc:h2:mem:testdb"
+        volumes:
+          - ./docker_volumes/eUprava-db:/eUprava/db
+
+      db:
+        image: h2database:v1.4.197
+        restart: always
+        command: -tcpAllowOthers -webAllowOthers
+        ports:
+          - 8001:8001
+        volumes:
+          - ./docker_volumes/h2db:/h2db
+
+  

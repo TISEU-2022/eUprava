@@ -1,0 +1,9 @@
+FROM node:lts
+RUN npm i -g @nestjs/cli
+WORKDIR /usr/src/app
+COPY package.json .
+COPY package-lock.json .
+RUN npm i
+COPY . .
+RUN nest build
+CMD ["node dist/main.js"]
