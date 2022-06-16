@@ -1,4 +1,4 @@
-package com.eUprava.eUprava.controller;
+package com.eUprava.eUprava.service.controller;
 import com.eUprava.eUprava.model.dto.OruzniListDTO;
 import com.eUprava.eUprava.model.entity.OruzniList;
 import com.eUprava.eUprava.payload.OruzniListPostRequest;

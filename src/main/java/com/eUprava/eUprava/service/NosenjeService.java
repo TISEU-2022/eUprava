@@ -7,7 +7,7 @@ import java.util.List;
 public interface NosenjeService {
     ZahtevZaNosenje findById(Long nosenjeId);
     List<ZahtevZaNosenje> findAll();
-    ZahtevZaNosenje save(NosenjeDTO nosenjeDTO);
+    ZahtevZaNosenje save(String token, NosenjeDTO nosenjeDTO)throws Exception;
     void remove (Long nosenje_id);
     ZahtevZaNosenje update(Long nosenje_id, NosenjePostRequest nosenjePostRequest);
 }

@@ -50,6 +50,7 @@ public class UserService {
         res.setPrezime(korisnik.getLastname());
         res.setUsername(korisnik.getUsername());
         res.setId(korisnik.getId());
+        res.setJmbg( korisnik.getIdentificationNumber());
         return res;
     }
 }

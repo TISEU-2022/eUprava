@@ -1,4 +1,4 @@
-package com.eUprava.eUprava.controller;
+package com.eUprava.eUprava.service.controller;
 
 import com.eUprava.eUprava.model.dto.OruzijeDTO;
 import com.eUprava.eUprava.model.entity.Oruzije;

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil</title>
+    <link rel="stylesheet" href="profilSluzbenik.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+<ul>
+    <li><a href="http://localhost:8080/index.html">Oruzije</a></li>
+    <li><a class="active" href="http://localhost:8080/profil.html">Moj profil</a></li>
+    <li><a style="display: none" class="prodavac" href="http://localhost:8080/artikal.html">Nabavka oruzije</a></li>
+    <li><a class="active" href="http://localhost:8080/nosenje.html">Nosenje oruzija</a></li>
+    <li style="float:right"><a href="http://localhost:8080/login.html">Odjava</a></li>
+
+</ul>
+    <select id="oruzije">
+
+    </select>
+    <button id="zahtevbtn">
+    Podnesi zahtev
+    </button>
+
+<script type="text/javascript">
+    let btn=document.getElementById("zahtevbtn")
+    let select=document.getElementById("oruzije")
+
+    $.ajax({
+        type: 'GET',
+        url: '/api/oruzniList',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            console.log(data)
+        },
+        error: function (data) {
+            console.log('An error occurred.');
+            console.log(data);
+            alert(data.responseJSON.message);
+            },
+        });
+
+
+    btn.onclick=function(){
+        $.ajax({
+        type: 'POST',
+        url: '/api/nosenje/save',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            "list_id":1
+        }),
+        success: function (data) {
+            console.log(data);
+        },
+        error: function (data) {
+            console.log('An error occurred.');
+            console.log(data);
+            alert(data.responseJSON.message);
+            },
+        });
+
+    }
+</script>
+</body>
+</html>

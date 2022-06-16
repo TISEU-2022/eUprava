@@ -1,4 +1,4 @@
-package com.eUprava.eUprava.controller;
+package com.eUprava.eUprava.service.controller;
 
 import com.eUprava.eUprava.model.dto.NabavkaDTO;
 import com.eUprava.eUprava.model.entity.ZahtevZaNabavku;
@@ -7,7 +7,6 @@ import com.eUprava.eUprava.service.NabavkaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
 import java.util.List;
 

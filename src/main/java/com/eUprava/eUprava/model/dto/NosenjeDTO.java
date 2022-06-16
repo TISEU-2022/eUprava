@@ -14,5 +14,5 @@ public class NosenjeDTO implements Serializable {
     private Long nosenje_id;
     private Boolean vazecaLicna;
     private Boolean sudskoUverenje;
-    private OruzniList list;
+    private Long list_id;
 }

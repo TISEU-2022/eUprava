@@ -1,4 +1,4 @@
-package com.eUprava.eUprava.controller;
+package com.eUprava.eUprava.service.controller;
 
 import com.eUprava.eUprava.model.dto.NosenjeDTO;
 import com.eUprava.eUprava.model.entity.ZahtevZaNosenje;
@@ -35,8 +35,10 @@ public class NosenjeController {
         return new ResponseEntity<>(zahtevZaNosenje, HttpStatus.OK);
     }
     @PostMapping("/save")
-    public ResponseEntity<ZahtevZaNosenje> save(@Valid @RequestBody NosenjeDTO nosenjeDTO) {
-        ZahtevZaNosenje zahtevZaNosenje = nosenjeService.save(nosenjeDTO);
+    public ResponseEntity<ZahtevZaNosenje> save(@RequestHeader("Authorization") String token, @Valid @RequestBody NosenjeDTO nosenjeDTO) throws Exception {
+
+        ZahtevZaNosenje zahtevZaNosenje = nosenjeService.save(token, nosenjeDTO);
+
         return new ResponseEntity<>(zahtevZaNosenje, HttpStatus.CREATED);
 
     }

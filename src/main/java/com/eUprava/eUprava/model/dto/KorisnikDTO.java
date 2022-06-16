@@ -15,4 +15,5 @@ public class KorisnikDTO {
     private String username;
 
     private String role;
+    private String jmbg;
 }
