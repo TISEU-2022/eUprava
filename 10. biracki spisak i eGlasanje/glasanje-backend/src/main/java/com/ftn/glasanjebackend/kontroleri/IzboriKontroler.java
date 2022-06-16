@@ -75,6 +75,22 @@ public class IzboriKontroler {
     }
 
     @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+    @GetMapping(value = "/zavrseni/{id}")
+    public ResponseEntity<List<IzboriDTO>> getAllIzboriZavrseni(@PathVariable Long id){
+        System.out.println("izbori");
+        List<Izbori> izbori = izboriService.findAll();
+
+        List<IzboriDTO> izboriDTO = new ArrayList<>();
+        Date datum = new Date();
+        for (Izbori i : izbori) {
+            if(i.getDatum().before(datum)){
+                izboriDTO.add(new IzboriDTO(i));
+            }
+        }
+        return new ResponseEntity<>(izboriDTO, HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<IzboriDTO> getIzbor(@PathVariable Long id) {
         Izbori izbori = izboriService.findOne(id);
