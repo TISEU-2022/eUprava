@@ -140,22 +140,22 @@ services:
       start_period: 20s
 
   # --- Dokumenti ---
-  dokumenti-frontend:
-    environment:
-      - PORT=11000
-      - APP_URL=http://localhost:11000
-      - AUTH_SERVER_URL=http://localhost:11101
-      - BACKEND_URL=http://locakhost:11001/api
-    build:
-      context: ./11. MUP - licna dokumenta (licne karte i pasosi)/frontend
-    container_name: dokumenti-frontend
-    networks:
-      tiseu:
-        aliases:
-          - frontend
-    ports:
-      - "11000:11000"
-    command: npm start
+  # dokumenti-frontend:
+  #   environment:
+  #     - PORT=11000
+  #     - APP_URL=http://localhost:11000
+  #     - AUTH_SERVER_URL=http://localhost:11101
+  #     - BACKEND_URL=http://locakhost:11001/api
+  #   build:
+  #     context: ./11. MUP - licna dokumenta (licne karte i pasosi)/frontend
+  #   container_name: dokumenti-frontend
+  #   networks:
+  #     tiseu:
+  #       aliases:
+  #         - frontend
+  #   ports:
+  #     - "11000:11000"
+  #   command: npm start
 
   dokumenti-backend:
     depends_on:
@@ -206,7 +206,7 @@ services:
     networks:
       tiseu:
         aliases:
-          - frontend
+          - zdravstvo-frontend
     ports:
       - "5000:5000"
     command: npm start
@@ -221,6 +221,10 @@ services:
     restart: on-failure
     ports:
       - 5001:5001
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-app
     environment:
       # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
       - MYSQL_USER=root
@@ -241,6 +245,10 @@ services:
       - MYSQL_ROOT_HOST=%
     volumes:
       - zdravstvo-mysql:/var/lib/mysql
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-mysqlDB
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
