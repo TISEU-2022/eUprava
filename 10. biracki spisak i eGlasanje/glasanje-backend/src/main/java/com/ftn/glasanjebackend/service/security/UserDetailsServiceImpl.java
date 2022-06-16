@@ -1,7 +1,7 @@
 package com.ftn.glasanjebackend.service.security;
 
 import com.ftn.glasanjebackend.model.Korisnik;
-import com.ftn.glasanjebackend.service.UserService;
+import com.ftn.glasanjebackend.service.KorisniciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,17 +21,17 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserService userService;
+    private KorisniciService korisniciService;
 
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Korisnik user = userService.findByUsername(s);
+        Korisnik user = korisniciService.findByJmbg(s);
         if(user == null){
             throw new UsernameNotFoundException("There is no user with jmbg " + s);
         }else{
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-            String role = "ROLE_" + user.getSluzbenik().toString();
+            String role = "ROLE_" + user.getUloga().toString();
             grantedAuthorities.add(new SimpleGrantedAuthority(role));
 
             return new org.springframework.security.core.userdetails.User(

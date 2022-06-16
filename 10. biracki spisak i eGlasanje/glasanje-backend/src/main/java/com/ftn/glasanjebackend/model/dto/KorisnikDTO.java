@@ -18,10 +18,10 @@ public class KorisnikDTO {
     private String prezime;
     private Date datumRodjenja;
     private String opstina;
-    private Boolean sluzbenik;
     private String jmbg;
     private String lozinka;
     private List<IzboriDTO> izbori;
+    private String uloga;
 
     public KorisnikDTO(Korisnik korisnik){
         this.id = korisnik.getId();
@@ -29,7 +29,6 @@ public class KorisnikDTO {
         this.prezime = korisnik.getPrezime();
         this.datumRodjenja = korisnik.getDatumRodjenja();
         this.opstina = korisnik.getOpstina().toString();
-        this.sluzbenik = korisnik.getSluzbenik();
         this.jmbg = korisnik.getJmbg();
         this.lozinka = korisnik.getLozinka();
 
@@ -37,5 +36,7 @@ public class KorisnikDTO {
         for (Izbori izbori: korisnik.getIzbori()) {
             this.izbori.add(new IzboriDTO(izbori));
         }
+
+        this.uloga = korisnik.getUloga().toString();
     }
 }

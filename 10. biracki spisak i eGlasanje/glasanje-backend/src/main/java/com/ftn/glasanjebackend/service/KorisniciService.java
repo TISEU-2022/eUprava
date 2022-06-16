@@ -19,4 +19,9 @@ public class KorisniciService {
     public Korisnik findById(Long id){
         return korisniciRepository.findById(id).get();
     }
+
+    public Korisnik findByJmbg(String jmbg){
+
+        return korisniciRepository.findKorisnikByJmbg(jmbg);
+    }
 }

@@ -65,21 +65,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         //detaljnije: https://www.baeldung.com/spring-security-cache-control-headers
         httpSecurity.headers().cacheControl().disable();
         //Neophodno da ne bi proveravali autentifikaciju kod Preflight zahteva
-        httpSecurity.cors();
+        httpSecurity.cors().and().csrf().disable();
         //sledeca linija je neophodna iskljucivo zbog nacina na koji h2 konzola komunicira sa aplikacijom
         httpSecurity.headers().frameOptions().disable();
-        httpSecurity.csrf().disable()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/users/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/users/register-kupac").permitAll()
-                .antMatchers(HttpMethod.POST, "/users/register-prodavac").permitAll()
-                .antMatchers(HttpMethod.GET, "/artikli").permitAll()
-
-                .anyRequest().authenticated();
+//        httpSecurity.csrf().disable()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/h2-console/**").permitAll()
+//                .antMatchers(HttpMethod.POST, "/korisnici/prijava").permitAll()
+//                .antMatchers(HttpMethod.GET, "/aktuelni/{id}").permitAll()
+//                .antMatchers(HttpMethod.POST, "/users/register-prodavac").permitAll()
+//                .antMatchers(HttpMethod.GET, "/artikli").permitAll()
+//
+//                .anyRequest().authenticated();
 
         httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }

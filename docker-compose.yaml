@@ -193,6 +193,8 @@ services:
       - MYSQL_ROOT_HOST=%
     volumes:
       - glasanje-mysql:/var/lib/mysql
+      - ./10. biracki spisak i eGlasanje/database:/tmp/database
+    command: mysqld --init-file="/tmp/database/init_db.sql"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
