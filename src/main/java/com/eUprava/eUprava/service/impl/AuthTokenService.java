@@ -12,7 +12,7 @@ public class AuthTokenService {
     final private UserService userService;
 
     //Local
-    private static final String AUTH_APP_URI = "http://localhost:5101/auth/verify_token/";
+    private static final String AUTH_APP_URI = System.getenv("AUTH_SERVER_API")+ "/auth/verify_token/";
 
 
     public AuthTokenService(UserService userService) {

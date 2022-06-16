@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Profil</title>
+  <link rel="stylesheet" href="profilSluzbenik.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body onload="dobaviPodatke()">
+<ul>
+  <li><a href="http://localhost:8080/index.html">Oruzije</a></li>
+  <li><a class="active" href="http://localhost:8080/profil.html">Moj profil</a></li>
+  <li><a style="display: none" class="prodavac" href="http://localhost:8080/artikal.html">Nabavka oruzije</a></li>
+  <li style="float:right"><a href="http://localhost:8080/login.html">Odjava</a></li>
+
+</ul>
+<form autocomplete="off" onsubmit='return onSubmit(this)'>
+  <div class="container">
+    <h1>Moj profil</h1>
+    <hr>
+
+    <label for="ime"><b>Ime</b></label>
+    <input type="text" placeholder="Unesi Ime" name="ime" id="ime" required>
+
+    <label for="prezime"><b>Prezime</b></label>
+    <input type="text" placeholder="Unesi Prezime" name="prezime" id="prezime" required>
+
+
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Unesi Username" name="username" id="username" required autocomplete="off">
+
+
+    <hr>
+
+  </div>
+</form>
+
+<script type="text/javascript">
+
+    function dobaviPodatke() {
+        if(localStorage.getItem("role")==="SLUZBENIK"){
+            $(".sluzbenik").show()
+        }
+        $.ajax({
+            type: 'GET',
+            url: '/myProfile',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            },
+            success: function (data) {
+                $('#ime').val(data.ime);
+                $('#prezime').val(data.prezime);
+                $('#username').val(data.username);
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+                alert(data.responseJSON.message);
+            },
+        });
+    }
+
+
+
+</script>
+</body>
+</html>

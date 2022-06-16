@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body onload="clearStorage()">
+<form onsubmit='return onSubmit(this)'>
+    <div class="container">
+        <h1>Login</h1>
+        <p>Popunite kredencijale da bi se ulogovali</p>
+        <hr>
+
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Unesi Username" name="username" id="username" required>
+
+        <label for="identificationNumber"><b>Identification Number</b></label>
+        <input type="password" placeholder="Unesi identificationNumber" name="identificationNumber" id="identificationNumber" required>
+
+        <hr>
+
+        <button type="submit" class="loginbtn">Login</button>
+    </div>
+
+
+</form>
+
+<script type="text/javascript">
+
+    function clearStorage() {
+        localStorage.removeItem("id");
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("username");
+    }
+
+    function onSubmit( form ){
+
+        var form = $(form).serializeArray();
+        var requestObject = {};
+        $.each(form,
+            function(i, v) {
+                requestObject[v.name] = v.value;
+            }
+        );
+        var requestJson = JSON.stringify(requestObject)
+        $.ajax({
+            type: 'POST',
+            url: '/login',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: requestJson,
+            success: function (data) {
+                localStorage.setItem("id", data.id);
+                localStorage.setItem("token", data.token);
+                localStorage.setItem("role", data.authorities[0].authority.toString());
+                localStorage.setItem("username", data.username);
+                location.href = "http://localhost:8080/index.html"
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+                alert(data.responseJSON.message);
+            },
+        });
+        return false;
+    }
+
+
+</script>
+
+</body>
+</html>
