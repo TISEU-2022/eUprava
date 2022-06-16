@@ -6,6 +6,7 @@ import com.euprava.izradadokumenata.model.DocumentType;
 import com.euprava.izradadokumenata.model.User;
 import com.euprava.izradadokumenata.model.dto.documentAppointment.DocumentAppointmentDto;
 import com.euprava.izradadokumenata.model.dto.documentAppointment.DocumentAppointmentMapper;
+import com.euprava.izradadokumenata.model.dto.documentAppointment.DocumentAppointmentUserDto;
 import com.euprava.izradadokumenata.repository.DocumentAppointmentRepo;
 import com.euprava.izradadokumenata.service.DocumentAppointmentService;
 import com.euprava.izradadokumenata.service.DocumentService;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -85,6 +87,20 @@ public class DocumentAppointmentServiceImpl implements DocumentAppointmentServic
     @Override
     public List<DocumentAppointment> getAll() {
         return documentAppointmentRepo.findAll();
+    }
+
+    @Override
+    public List<DocumentAppointmentUserDto> getAllAppointmentsForUser(String username) {
+        List<DocumentAppointment> appointments = documentAppointmentRepo.findDocumentAppointmentsByUserUsername(username);
+        List<DocumentAppointmentUserDto> appointmentUserDtos = new ArrayList<>();
+
+        for (DocumentAppointment a : appointments) {
+            DocumentAppointmentUserDto dto = DocumentAppointmentUserDto.builder()
+                    .appointmentForMinor(a.isAppointmentForMinor()).appointmentTime(a.getRequestedAppointmentTime())
+                    .documentType(a.getDocument().getDocumentType()).username(username).build();
+            appointmentUserDtos.add(dto);
+        }
+        return appointmentUserDtos;
     }
 
     @Override

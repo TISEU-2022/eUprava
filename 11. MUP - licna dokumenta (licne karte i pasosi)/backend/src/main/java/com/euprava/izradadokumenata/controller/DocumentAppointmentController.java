@@ -3,6 +3,7 @@ package com.euprava.izradadokumenata.controller;
 
 import com.euprava.izradadokumenata.model.DocumentAppointment;
 import com.euprava.izradadokumenata.model.dto.documentAppointment.DocumentAppointmentDto;
+import com.euprava.izradadokumenata.model.dto.documentAppointment.DocumentAppointmentUserDto;
 import com.euprava.izradadokumenata.model.dto.documentAppointment.SimpleDocumentAppointmentDto;
 import com.euprava.izradadokumenata.model.dto.user.LoggedUserDto;
 import com.euprava.izradadokumenata.model.dto.user.UserMapper;
@@ -17,6 +18,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/appointment")
 @AllArgsConstructor
@@ -30,6 +33,17 @@ public class DocumentAppointmentController {
     @PostMapping("/initialRequest")
     public ResponseEntity<Boolean> isInitial(@RequestBody LoggedUserDto loggedUserDto) {
         return new ResponseEntity<>(userService.initialSetup(loggedUserDto), HttpStatus.OK);
+    }
+
+    @GetMapping("/myAppointments")
+    public ResponseEntity<List<DocumentAppointmentUserDto>> userAppointments(@RequestBody LoggedUserDto loggedUserDto) {
+        List<DocumentAppointmentUserDto> appointmentUserDtoList;
+        try {
+            appointmentUserDtoList = documentAppointmentService.getAllAppointmentsForUser(loggedUserDto.getUsername());
+        } catch (UserMissingException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(appointmentUserDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/all")
