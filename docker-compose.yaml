@@ -140,22 +140,22 @@ services:
       start_period: 20s
 
   # --- Dokumenti ---
-  # dokumenti-frontend:
-  #   environment:
-  #     - PORT=11000
-  #     - APP_URL=http://localhost:11000
-  #     - AUTH_SERVER_URL=http://localhost:11101
-  #     - BACKEND_URL=http://locakhost:11001/api
-  #   build:
-  #     context: ./11. MUP - licna dokumenta (licne karte i pasosi)/frontend
-  #   container_name: dokumenti-frontend
-  #   networks:
-  #     tiseu:
-  #       aliases:
-  #         - frontend
-  #   ports:
-  #     - "11000:11000"
-  #   command: npm start
+  dokumenti-frontend:
+    environment:
+      - PORT=11000
+      - APP_URL=http://localhost:11000
+      - AUTH_SERVER_URL=http://localhost:11101
+      - BACKEND_URL=http://locakhost:11001/api
+    build:
+      context: ./11. MUP - licna dokumenta (licne karte i pasosi)/frontend
+    container_name: dokumenti-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "11000:11000"
+    command: npm start
 
   dokumenti-backend:
     depends_on:
