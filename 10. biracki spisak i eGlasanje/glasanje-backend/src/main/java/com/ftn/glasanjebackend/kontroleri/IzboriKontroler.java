@@ -41,14 +41,26 @@ public class IzboriKontroler {
         List<IzboriDTO> izboriDTO = new ArrayList<>();
         Date datum = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        for(Izbori i : izbori){
+        KorisnikDTO prijavljeniKorisnik = new KorisnikDTO(korisniciService.findById(id));
+        for (Izbori i : izbori) {
+            boolean glasao = false;
+            for (IzboriDTO korisnikGlasao : prijavljeniKorisnik.getIzbori()) {
+                if (korisnikGlasao.getId() == i.getId()) {
+                    glasao = true;
+                    break;
+                }
+            }
+            if (glasao) {
+                continue;
+            }
+
+
             if(i.getTipIzbora().equals(ETipIzbora.REPUBLICKI)) {
                 if (sdf.format(i.getDatum()).equals(sdf.format(datum))) {
                     izboriDTO.add(new IzboriDTO(i));
                 }
             }
             else{
-                KorisnikDTO prijavljeniKorisnik = new KorisnikDTO(korisniciService.findById(id));
                 if(prijavljeniKorisnik.getOpstina().equals(i.getEOpstina().toString())) {
                     if (sdf.format(i.getDatum()).equals(sdf.format(datum))) {
                         izboriDTO.add(new IzboriDTO(i));
