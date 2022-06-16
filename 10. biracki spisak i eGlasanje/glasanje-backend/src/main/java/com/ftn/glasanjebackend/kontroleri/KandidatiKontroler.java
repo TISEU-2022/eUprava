@@ -9,6 +9,7 @@ import com.ftn.glasanjebackend.service.KandidatiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,7 @@ public class KandidatiKontroler {
         return new ResponseEntity<>(new KandidatDTO(kandidat),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/kandidati-izbora/{id}")
     public ResponseEntity<List<KandidatDTO>> getKandidatiByIzbor(@PathVariable Long id){
         Izbori izbori = izboriService.findOne(id);

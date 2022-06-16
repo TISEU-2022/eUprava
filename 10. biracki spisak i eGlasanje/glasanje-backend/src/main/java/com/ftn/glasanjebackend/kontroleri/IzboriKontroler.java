@@ -13,6 +13,7 @@ import com.ftn.glasanjebackend.service.KorisniciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +35,7 @@ public class IzboriKontroler {
     private KandidatiService kandidatiService;
 
 
+    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/aktuelni/{id}")
     public ResponseEntity<List<IzboriDTO>> getAllIzbori(@PathVariable Long id){
         List<Izbori> izbori = izboriService.findAll();
@@ -71,6 +73,7 @@ public class IzboriKontroler {
         return new ResponseEntity<>(izboriDTO, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<IzboriDTO> getIzbor(@PathVariable Long id) {
         Izbori izbori = izboriService.findOne(id);
@@ -80,6 +83,7 @@ public class IzboriKontroler {
         return new ResponseEntity<>(new IzboriDTO(izbori),HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('SLUZBENIK')")
     @PostMapping(value="/raspisivanje")
     public ResponseEntity<IzboriDTO> raspisivanje(@RequestBody IzboriDTO izboriDTO){
         List<Kandidat> kandidati = new ArrayList<>();
