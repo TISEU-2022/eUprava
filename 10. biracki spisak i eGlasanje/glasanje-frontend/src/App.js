@@ -12,6 +12,7 @@ import AktuelniIzbori from "./components/AktuelniIzbori";
 import Glasanje from "./components/Glasanje";
 import Login from "./components/Login";
 import {PrivateRoute} from "./PrivateRoute";
+import ProtectedAktuelniIzbori from "./components/ProtectedAktuelniIzbori";
 
 function App() {
   return (
@@ -28,7 +29,7 @@ function App() {
             <Route
                 exact
                 path="/aktuelniIzbori"
-                element={<AktuelniIzbori/>}>
+                element={<ProtectedAktuelniIzbori/>}>
             </Route>
 
             <Route

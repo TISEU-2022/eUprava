@@ -2,6 +2,8 @@ import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Card, Col, Container, Row} from "react-bootstrap";
 import axios from "axios";
+import {Navigate} from "react-router-dom";
+import {AuthenticationService} from "../services/AuthenticationService";
 
 export default class AktuelniIzbori extends React.Component {
 
