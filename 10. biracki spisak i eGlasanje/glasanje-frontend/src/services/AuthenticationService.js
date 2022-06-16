@@ -46,7 +46,7 @@ async function login(userCredentials) {
 
 function logout() {
     TokenService.removeToken();
-    localStorage.setItem("id", null);
+    localStorage.removeItem("id");
     window.location.assign("/prijava");
 }
 
