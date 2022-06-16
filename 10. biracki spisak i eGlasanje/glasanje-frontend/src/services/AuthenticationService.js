@@ -2,6 +2,7 @@ import {TokenService} from "./TokenService";
 import GlasanjeAxiosClient from "./clients/GlasanjeAxiosClient";
 import Swal from "sweetalert2";
 import axios from "axios";
+import jwtDecode from "jwt-decode";
 
 export const AuthenticationService = {
     login,
@@ -17,7 +18,9 @@ async function login(userCredentials) {
         );
 
         if (response.status === 200) {
-            localStorage.setItem("id", response.data.id);
+            let token = jwtDecode(response.data);
+            TokenService.setToken(response.data);
+            localStorage.setItem("id", token.id);
             window.location.assign("/AktuelniIzbori");
         } else {
             await Swal.fire({
@@ -27,14 +30,14 @@ async function login(userCredentials) {
             })
         }
 
-        const decoded_token = TokenService.decodeToken(response.data);
-        if (decoded_token) {
-            TokenService.setToken(response.data);
-
-            window.location.assign("/AktuelniIzbori");
-        } else {
-            console.error("Invalid token");
-        }
+        // const decoded_token = TokenService.decodeToken(response.data);
+        // if (decoded_token) {
+        //     TokenService.setToken(response.data);
+        //
+        //     window.location.assign("/AktuelniIzbori");
+        // } else {
+        //     console.error("Invalid token");
+        // }
     } catch (error) {
         await Swal.fire({
             icon: 'error',
@@ -54,7 +57,7 @@ function getRole() {
     const token = TokenService.getToken();
     const decoded_token = token ? TokenService.decodeToken(token) : null;
     if (decoded_token) {
-        return decoded_token.role.authority;
+        return decoded_token.roles[0];
     } else {
         return null;
     }

@@ -49,14 +49,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-    @Bean
-    public AuthenticationTokenFilter authenticationTokenFilterBean()
-            throws Exception {
-        AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
-        authenticationTokenFilter
-                .setAuthenticationManager(authenticationManagerBean());
-        return authenticationTokenFilter;
-    }
+//    @Bean
+//    public AuthenticationTokenFilter authenticationTokenFilterBean()
+//            throws Exception {
+//        AuthenticationTokenFilter authenticationTokenFilter = new AuthenticationTokenFilter();
+//        authenticationTokenFilter
+//                .setAuthenticationManager(authenticationManagerBean());
+//        return authenticationTokenFilter;
+//    }
 
 
     @Override
@@ -81,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 //
 //                .anyRequest().authenticated();
 
-        httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+//        httpSecurity.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
     }
 
 

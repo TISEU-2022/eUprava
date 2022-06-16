@@ -13,6 +13,7 @@ import Glasanje from "./components/Glasanje";
 import Login from "./components/Login";
 import {PrivateRoute} from "./PrivateRoute";
 import ProtectedAktuelniIzbori from "./components/ProtectedAktuelniIzbori";
+import AuthPage from "./components/AuthPage";
 
 function App() {
   return (
@@ -43,7 +44,10 @@ function App() {
                 path="/raspisivanje"
                 element={<RaspisivanjeIzbora/>}>
             </Route>
-
+            <Route
+                path="/auth"
+                element={<AuthPage/>}>
+            </Route>
 
 
 

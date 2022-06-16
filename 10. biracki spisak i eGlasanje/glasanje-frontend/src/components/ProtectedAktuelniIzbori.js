@@ -7,10 +7,9 @@ import {AuthenticationService} from "../services/AuthenticationService";
 import AktuelniIzbori from "./AktuelniIzbori";
 
 const  ProtectedAktuelniIzbori = () => {
-    console.log(AuthenticationService.getRole());
     const autentikovan = AuthenticationService.getRole() === "KORISNIK" || AuthenticationService.getRole() === "SLUZBENIK";
-
-    return autentikovan ? <AktuelniIzbori /> : <Navigate to="/" />;
+    // return autentikovan ? <AktuelniIzbori /> : <Navigate to="/" />;
+    return <AktuelniIzbori />;
 }
 
 export default ProtectedAktuelniIzbori;

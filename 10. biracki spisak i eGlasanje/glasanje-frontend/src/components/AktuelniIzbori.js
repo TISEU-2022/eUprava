@@ -34,6 +34,7 @@ export default class AktuelniIzbori extends React.Component {
         });*/
 
         const id = localStorage.getItem("id");
+        console.log(id);
         let url = "http://localhost:10002/izbori/aktuelni/" + id;
 
         GlasanjeAxiosClient.get(url)
