@@ -13,9 +13,9 @@ public class AuthTokenService {
     final private UserService userService;
 
     //Local
-    private static final String AUTH_APP_URI = "http://localhost:5101/auth/verify_token/";
+//    private static final String AUTH_APP_URI = "http://localhost:5101/auth/verify_token/";
  //Docker
-//    private static final String AUTH_APP_URI = "http://auth-app:3101/auth/verify_token/";
+    private static final String AUTH_APP_URI = "http://auth-app:3101/auth/verify_token/";
 
     public AuthTokenService(UserService userService) {
         this.userService = userService;

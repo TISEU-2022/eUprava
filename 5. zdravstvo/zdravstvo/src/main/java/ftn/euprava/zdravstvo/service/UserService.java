@@ -23,7 +23,7 @@ public class UserService {
 
     final private UserRepository userRepository;
 
-    private static final String MATICAR_URI = "http://localhost:4002/api/user";
+    private static final String MATICAR_URI = "http://maticar:4002/api/user";
 
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;

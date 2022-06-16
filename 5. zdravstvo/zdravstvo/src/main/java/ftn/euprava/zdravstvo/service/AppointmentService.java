@@ -105,6 +105,7 @@ public class AppointmentService {
             appointment.setVreme(request.getDate().toLocalTime().plusHours(2));
             appointment.setDoctor(userService.getLogged(authentication));
             appointment.setStatusTermina(StatusTermina.SLOBODAN);
+            appointment.setDescription("Opšta praksa");
 
             appointmentRepository.save(appointment);
 

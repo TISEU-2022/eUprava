@@ -42,19 +42,26 @@ public class ReportService {
         throw new BadRequestException(message);
     }
 
-    private String validateAppointment(Appointment appointment){
+    private String validateAppointment(Appointment appointment) {
         String message = "";
-        if(appointment == null){
+        if (appointment == null) {
             message = "Appointment does not exist";
         }
-        if(!appointment.getStatusTermina().equals(StatusTermina.ZAKAZAN)){
+        if (!appointment.getStatusTermina().equals(StatusTermina.ZAKAZAN)) {
             message = "Već ste uneli izveštaj";
         }
-        if(appointment.getDatum().isAfter(LocalDate.now())){
-            message = "Pregled nije počeo";
+        if (appointment.getDatum().isAfter(LocalDate.now())) {
+                message = "Pregled nije počeo";
         }
-        if(appointment.getVreme().isAfter(LocalTime.now())){
-            message = "Pregled nije počeo";
+        if (appointment.getDatum().equals(LocalDate.now())) {
+            if(appointment.getVreme().isAfter(LocalTime.now())){
+                message = "Pregled nije počeo";
+            };
+        }
+        if(appointment.getDatum().isBefore(LocalDate.now())){
+            if(appointment.getVreme().isAfter(LocalTime.now())){
+                message = "Pregled nije počeo";
+            }
         }
         return message;
     }

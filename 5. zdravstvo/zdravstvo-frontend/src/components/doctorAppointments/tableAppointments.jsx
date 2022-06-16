@@ -6,6 +6,7 @@ import { AppointmentReportService } from "../../services/AppointmentReportServic
 import { Typography } from "@mui/material";
 import ModalReport from "../modal";
 import Swal from "sweetalert2";
+import ReportPDFAppointment from "./reportPDFAppointment";
 
 function TableAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -65,6 +66,7 @@ function TableAppointments() {
             <th>JMBG</th>
             <th>status</th>
             <th>Izveštaj</th>
+            <th>Preuzimanje</th>
           </tr>
         </thead>
         <tbody>
@@ -75,25 +77,37 @@ function TableAppointments() {
               </td>
             </tr>
           ) : (
-            appointments.map((a) => {
+            appointments.map((appointment) => {
               return (
-                <tr key={a.id}>
-                  <td>{a.date}</td>
-                  <td>{a.time}</td>
+                <tr key={appointment.id}>
+                  <td>{appointment.date}</td>
+                  <td>{appointment.time}</td>
                   <td>
-                    {a.citizen != null
-                      ? `${a.citizen.name} ${a.citizen.lastname}`
+                    {appointment.citizen != null
+                      ? `${appointment.citizen.name} ${appointment.citizen.lastname}`
                       : ""}
                   </td>
                   <td>
-                    {a.citizen != null ? a.citizen.identificationNumber : ""}
+                    {appointment.citizen != null
+                      ? appointment.citizen.identificationNumber
+                      : ""}
                   </td>
-                  <td>{a.statusTermina}</td>
+                  <td>{appointment.statusTermina}</td>
                   <td>
-                    {a.statusTermina == "ZAKAZAN" ? (
+                    {appointment.statusTermina == "ZAKAZAN" ? (
                       <ModalReport
-                        appointmentId={a.id}
+                        appointmentId={appointment.id}
                         saveAppointmentReport={saveAppointmentReport}
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                  <td>
+                    {appointment.statusTermina == "ZAVRSEN" ? (
+                      <ReportPDFAppointment
+                        appointment={appointment}
+                        appointmentId={appointment.id}
                       />
                     ) : (
                       ""

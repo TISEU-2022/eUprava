@@ -50,14 +50,14 @@ public class UtilService {
         userService.save(user);
         userService.save(user2);
 
-        Appointment appointment = new Appointment(user,user2,"Kardiolog",LocalDate.of(2022,Month.JUNE,10),
+        Appointment appointment = new Appointment(user,user2,"Opšta praksa",LocalDate.of(2022,Month.JUNE,10),
                 LocalTime.of(10,0,0), StatusTermina.ZAKAZAN);
 
-        Appointment appointment2 = new Appointment(user,user2,"Kardiolog",LocalDate.of(2022, Month.JUNE,14),
+        Appointment appointment2 = new Appointment(user,user2,"Opšta praksa",LocalDate.of(2022, Month.JUNE,17),
                 LocalTime.of(14,30,0), StatusTermina.ZAKAZAN);
 
-        Appointment appointment3 = new Appointment(null,user2,"Kardiolog",LocalDate.of(2022,Month.JUNE,10),
-                LocalTime.of(12,30,0), StatusTermina.SLOBODAN);
+        Appointment appointment3 = new Appointment(null,user2,"Opšta praksa",LocalDate.of(2022,Month.JUNE,17),
+                LocalTime.of(9,0,0), StatusTermina.SLOBODAN);
 
         appointmentService.save(appointment);
         appointmentService.save(appointment2);

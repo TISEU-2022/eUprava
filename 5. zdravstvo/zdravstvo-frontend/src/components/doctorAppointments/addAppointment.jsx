@@ -127,7 +127,7 @@ function AddAppointment() {
           locale={es}
           dateFormat="hh:mm aa"
           minDate={new Date()}
-          minTime={setHours(setMinutes(new Date(), 0), 8)}
+          minTime={new Date()}
           maxTime={setHours(setMinutes(new Date(), 0), 18)}
           placeholderText={"Vreme"}
         />

@@ -20,7 +20,6 @@ const BookAppointment = () => {
       console.log(response.data);
       setAppointments(response.data);
     } catch (e) {
-      setAppointments(appointment);
       console.error("Error while getting api")
     }
   }

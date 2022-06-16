@@ -13,9 +13,4 @@ public class AppoinmentReportResponse {
     private Long id;
     private String report;
 
-
-    public AppoinmentReportResponse(AppointmentReport appointmentReport){
-        this.id = appointmentReport.getId();
-        this.report = appointmentReport.getReport();
-    }
 }
