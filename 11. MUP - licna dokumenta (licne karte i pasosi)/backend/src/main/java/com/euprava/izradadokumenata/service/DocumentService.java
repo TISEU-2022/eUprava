@@ -18,4 +18,6 @@ public interface DocumentService {
 
     void removeDocument(Long documentId);
 
+    Document saveDocument(Document document);
+
 }

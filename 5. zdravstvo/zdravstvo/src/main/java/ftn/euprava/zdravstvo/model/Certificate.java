@@ -14,13 +14,12 @@ public class Certificate {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne
-    private User user;
+    private String userJmbg;
 
     private String message;
 
-    public Certificate(User user, String message) {
-        this.user = user;
+    public Certificate(String userJmbg, String message) {
+        this.userJmbg = userJmbg;
         this.message = message;
     }
 }

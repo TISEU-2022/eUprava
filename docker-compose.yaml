@@ -206,7 +206,7 @@ services:
     networks:
       tiseu:
         aliases:
-          - frontend
+          - zdravstvo-frontend
     ports:
       - "5000:5000"
     command: npm start
@@ -221,6 +221,10 @@ services:
     restart: on-failure
     ports:
       - 5001:5001
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-app
     environment:
       # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
       - MYSQL_USER=root
@@ -241,6 +245,10 @@ services:
       - MYSQL_ROOT_HOST=%
     volumes:
       - zdravstvo-mysql:/var/lib/mysql
+    networks:
+      tiseu:
+        aliases:
+          - zdravstvo-mysqlDB
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
@@ -312,16 +320,102 @@ services:
     ports:
       - "4011:4011"
 
+  # --- Predskolsko ---
+
+  # predskolsko-mysql:
+  #   image: mysql:8.0.27
+  #   container_name: predskolsko-mysql
+  #   ports:
+  #     - "13002:3306"
+  #   environment:    
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=predskolsko
+  #     - MYSQL_ROOT_USER=root
+  #     - MYSQL_PASSWORD=root
+  #   volumes:
+  #     - predskolsko-mysql:/var/lib/mysql
+  #   healthcheck:
+  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+  #     interval: 15s
+  #     timeout: 5s
+  #     retries: 3
+  #     start_period: 20s
+  
+  # predskolsko:
+  #   depends_on:
+  #     - predskolsko-mysql
+  #   build:
+  #     context: ./13. predskolske ustanove/predskolsko/
+  #     args:
+  #       - APP_VERSION
+  #   restart: on-failure
+  #   ports:
+  #     - 13001:13001
+  #   environment:
+  #     - DATABASE_USER=root
+  #     - AUTH_SERVER_API=http://auth-app-proxy:5101
+  #     - DATABASE_PASSWORD=root
+  #     - DATABASE_NAME=predskolsko
+  #     - DATABASE_HOST=predskolsko-mysql
+
+  # --- KOMUNALNA POLICIJA I INSPEKCIJA ---
+  # komunalna-frontend:
+  #   environment:
+  #     - PORT=9001
+  #   build:
+  #     context: ./9. komunalna policija i inspekcija/frontend
+  #   container_name: komunalna-frontend
+  #   volumes:
+  #     - ./9. komunalna policija i inspekcija/frontend:/app
+  #     - /app/node_modules
+  #   ports:
+  #     - "9001:9001"
+
+  # komunalna-backend:
+  #   build:
+  #     context: ./9. komunalna policija i inspekcija/KomunalnaPolicijaIInspekcija/
+  #   container_name: komunalna-backend
+  #   ports:
+  #     - "9002:9002"
+  #   networks:
+  #     tiseu:
+  #       aliases:
+  #         - "komunalna-backend"
+  #   depends_on:
+  #     - komunalna-mysql
+
+  # komunalna-mysql:
+  #   image: mysql:8.0.23
+  #   container_name: komunalna-mysql
+  #   ports:
+  #     - "9003:9003"
+  #   environment:
+  #     - MYSQL_TCP_PORT=9003
+  #     - MYSQL_ROOT_PASSWORD=root
+  #     - MYSQL_DATABASE=root
+  #   volumes:
+  #     - komunalna-mysql-data:/var/lib/mysql
+  #     - ./9. komunalna policija i inspekcija/database:/tmp/database
+  #   command: mysqld --init-file="/tmp/database/init_db.sql"
+  #   networks:
+  #     tiseu:
+  #       aliases:
+  #         - "komunalna-mysql"
+
 volumes:
   auth-mongodb:
     driver: local
   maticar-mysql:
+    driver: local
+  komunalna-mysql-data:
     driver: local
   zdravstvo-mysql:
     driver: local
   dokumenti-mysql:
     driver: local
   zaposljavanje-mysql:
+    driver: local
+  predskolsko-mysql:
     driver: local
 
   

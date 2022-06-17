@@ -33,18 +33,14 @@ public class CertificateService {
     }
 
     private void noteUserRequestedCertificate(final CertificateRequest request, final String message) {
-        User user = new User(request.getUserId());
-        userRepository.save(user);
-
-        Certificate certificate = new Certificate(user, message);
+        Certificate certificate = new Certificate(request.getJmbg(), message);
         certificateRepository.save(certificate);
     }
 
-    public CheckUserCertificateResponse checkIfUserHasCertificateNoted(final Long userId) {
-        User user = new User(userId);
-        List<Certificate> certificatesOfUser = certificateRepository.findByUser(user);
+    public CheckUserCertificateResponse checkIfUserHasCertificateNoted(final String jmbg) {
+        List<Certificate> certificatesOfUser = certificateRepository.findByUserJmbg(jmbg);
         if(certificatesOfUser.isEmpty()) {
-            return  new CheckUserCertificateResponse(false);
+            return new CheckUserCertificateResponse(false);
         }
         return new CheckUserCertificateResponse(true);
     }
