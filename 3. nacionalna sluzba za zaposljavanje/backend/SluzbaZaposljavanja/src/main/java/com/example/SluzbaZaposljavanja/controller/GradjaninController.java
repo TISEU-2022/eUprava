@@ -1,15 +1,22 @@
 package com.example.SluzbaZaposljavanja.controller;
 import com.example.SluzbaZaposljavanja.model.Firma;
 import com.example.SluzbaZaposljavanja.model.Gradjanin;
+import com.example.SluzbaZaposljavanja.model.GradjaninPDFExporter;
 import com.example.SluzbaZaposljavanja.model.OglasZaPosao;
 import com.example.SluzbaZaposljavanja.service.GradjaninService;
 import com.example.SluzbaZaposljavanja.service.OglasZaPosaoService;
+import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -62,6 +69,27 @@ public class GradjaninController {
         Gradjanin gradjanin = gradjaninService.findByKorisnickoIme(korisnickoIme);
 
         return new ResponseEntity<Gradjanin>(gradjanin, HttpStatus.OK);
+    }
+
+    @GetMapping("/export/{username}")
+    public void exportToPDFGradjanina(HttpServletResponse response, @PathVariable String username) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=gradjanin-" + currentDateTime + ".pdf";
+
+        response.setHeader(headerKey, headerValue);
+
+        List<Gradjanin> listaGradjana = gradjaninService.findAll();
+
+        Gradjanin gradjanin = gradjaninService.findByKorisnickoIme(username);
+
+
+        GradjaninPDFExporter exporter = new GradjaninPDFExporter(gradjanin);
+        exporter.export(response);
     }
 
 }

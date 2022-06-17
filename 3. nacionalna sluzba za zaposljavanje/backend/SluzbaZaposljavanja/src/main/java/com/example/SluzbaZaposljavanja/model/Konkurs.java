@@ -37,6 +37,13 @@ public class Konkurs {
         this.zavrseno = zavrseno;
     }
 
+    public Konkurs(Gradjanin gradjanin, OglasZaPosao oglasZaPosao, LocalDate datumKonkurisanja, Boolean zavrseno) {
+        this.gradjanin = gradjanin;
+        this.oglasZaPosao = oglasZaPosao;
+        this.datumKonkurisanja = datumKonkurisanja;
+        this.zavrseno = zavrseno;
+    }
+
     public Integer getId() {
         return id;
     }

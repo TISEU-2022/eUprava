@@ -1,6 +1,7 @@
 package com.example.SluzbaZaposljavanja.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.lowagie.text.pdf.PdfPCell;
 
 import javax.persistence.*;
 import java.time.LocalDate;

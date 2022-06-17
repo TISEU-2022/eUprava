@@ -49,12 +49,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
                 .antMatchers(HttpMethod.POST, "/api/oglasi/*").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/oglasi/**").permitAll()
                 .antMatchers(HttpMethod.PUT, "/api/oglasi/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/gradjani/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/gradjani*").permitAll()
+
                 .antMatchers(HttpMethod.GET, "/api/oglasi*").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/oglasi/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/firme/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/poslovi/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/konkursi/").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/konkursi").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/konkursi/**").permitAll()
 
                 .anyRequest().authenticated();
 
