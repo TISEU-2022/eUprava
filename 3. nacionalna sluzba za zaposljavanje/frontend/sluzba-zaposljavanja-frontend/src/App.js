@@ -12,6 +12,7 @@ import ViewOglasComponent from "./components/ViewOglasComponent";
 import TokenHandler from "./auth/TokenHandler";
 import UpdateOglasComponent from "./components/UpdateOglasComponent";
 import AddOglasComponent from "./components/AddOglasComponent";
+import SignUpComponent from "./components/SignUpComponent";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/oglasi/add" element={<AddOglasComponent />}></Route>
           <Route exact path="/oglasi/:id" element={<UpdateOglasComponent />}></Route>
           <Route exact path="/viewOglas/:id" element={<ViewOglasComponent />}></Route>
+          <Route exact path="/signUp/:id" element={<SignUpComponent />}></Route>
         </Routes>
       </Router>
     </>

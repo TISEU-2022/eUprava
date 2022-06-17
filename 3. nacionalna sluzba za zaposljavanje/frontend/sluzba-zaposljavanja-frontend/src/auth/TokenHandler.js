@@ -1,5 +1,8 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import React, { useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
+import * as jwt_decodee from 'jwt-decode';
+
 
 const TokenHandler = () => {
     const [searchParams] = useSearchParams();
@@ -15,5 +18,6 @@ const TokenHandler = () => {
   
     return <>a</>;
   };
-  
+ 
+
   export default TokenHandler;

@@ -40,11 +40,11 @@ const ViewOglasComponent = (id) => {
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}> <b>Firma:</b> {oglas.firma.imeFirme}</label>
+                            <label style={{color:"black", fontWeight:"400"}}> <b>Firma: </b> </label>
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}> <b>Vrsta Posla:</b> {oglas.vrstaPosla.ime}</label>
+                            <label style={{color:"black", fontWeight:"400"}}> <b>Vrsta Posla: </b> </label>
                         </div>
 
                         <br/><br/>

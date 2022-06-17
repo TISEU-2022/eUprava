@@ -3,6 +3,7 @@ import { getAllAdvertisements } from "../services/OglasService";
 import { getAdvertisementById } from "../services/OglasService";
 import { useNavigate } from "react-router-dom";
 import AddOglasComponent from "./AddOglasComponent";
+import SignUpComponent from "./SignUpComponent";
 
 
 const OglasiComponent = (props) => {
@@ -25,6 +26,19 @@ const OglasiComponent = (props) => {
 
   const toViewOglas = (id) => {
     navigate(`/viewOglas/${id}`, JSON.stringify(id))
+  }
+
+  function SignUp(id){
+    getAdvertisementById(id).then((response) => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+    })
+    toSignUp(id);
+  }
+
+   const toSignUp = (id) => {
+    navigate(`/signUp/${id}`, JSON.stringify(id))
   }
 
   return (
@@ -51,8 +65,9 @@ const OglasiComponent = (props) => {
               <td>{oglas.datumOd}</td>
               <td>{oglas.datumDo}</td>
               <td>{oglas.firma.imeFirme}</td>
+              <td>{oglas.vrstaPosla.ime}</td>
 
-              <td></td>
+              
               <td>
                 <button
                   onClick={() => ViewOglas(oglas.id)}
@@ -60,7 +75,12 @@ const OglasiComponent = (props) => {
                 >
                   View
                 </button>
-                <button className="btn btn-success">SignUp</button>
+                <button className="btn btn-success"
+                  onClick={() => SignUp(oglas.id)}
+
+                >
+                  SignUp
+                  </button>
                 <button className="btn btn-danger">Delete</button>
               </td>
             </tr>

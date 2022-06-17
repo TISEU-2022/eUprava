@@ -10,7 +10,19 @@ export async function getAllCitizen() {
     }catch(err){
         console.log(err);
     }
+
+
     
+}
+
+export const getCitizenByusername = async (username) => {
+    try{
+    const response = await httpClient.get(`${CITIZEN_REST_API_URL}/username/${username}`)
+    return response.data;
+
+    } catch(error){
+        console.log(error);
+    }
 }
 
 
