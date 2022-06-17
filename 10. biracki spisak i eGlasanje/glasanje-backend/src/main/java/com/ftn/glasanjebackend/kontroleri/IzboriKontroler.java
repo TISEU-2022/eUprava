@@ -79,7 +79,7 @@ public class IzboriKontroler {
         return new ResponseEntity<>(izboriDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/zavrseni")
     public ResponseEntity<List<IzboriDTO>> getAllIzboriZavrseni(){
         System.out.println("izbori");
@@ -95,7 +95,7 @@ public class IzboriKontroler {
         return new ResponseEntity<>(izboriDTO, HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<IzboriDTO> getIzbor(@PathVariable Long id) {
         Izbori izbori = izboriService.findOne(id);
@@ -126,7 +126,7 @@ public class IzboriKontroler {
         return new ResponseEntity<>(rezultati,HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('SLUZBENIK')")
     @PostMapping(value="/raspisivanje")
     public ResponseEntity<IzboriDTO> raspisivanje(@RequestBody IzboriDTO izboriDTO){
         List<Kandidat> kandidati = new ArrayList<>();

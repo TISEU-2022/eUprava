@@ -52,12 +52,4 @@ public class KorisniciKontroler {
             return ResponseEntity.noContent().build();
         }
     }
-
-//    @GetMapping("/encode")
-//    public void encode(){
-//        for (Korisnik korisnik: korisniciService.findAll()) {
-//            korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
-//            korisniciService.save(korisnik);
-//        }
-//    }
 }

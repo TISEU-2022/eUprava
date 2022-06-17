@@ -34,7 +34,7 @@ export default class NavigationBar extends React.Component {
                         <b/>
                         :
                         <a className="btn btn-primary"
-                           onClick={() => AuthenticationService.logout()}
+                           href="http://localhost:4101/auth/logout?successUrl=http://localhost:10001/prijava"
                            role="button">
                             Одјава
                         </a>

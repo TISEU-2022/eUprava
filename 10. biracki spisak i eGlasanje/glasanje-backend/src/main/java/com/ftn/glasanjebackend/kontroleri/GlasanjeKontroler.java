@@ -29,7 +29,7 @@ public class GlasanjeKontroler {
     @Autowired
     IzboriService izboriService;
 
-    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @PostMapping
     public ResponseEntity<GlasDTO> save(@RequestBody GlasDTO glasDTO){
         boolean glasao = false;

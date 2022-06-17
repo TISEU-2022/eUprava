@@ -51,7 +51,7 @@ public class KandidatiKontroler {
         return new ResponseEntity<>(new KandidatDTO(kandidat),HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "/kandidati-izbora/{id}")
     public ResponseEntity<List<KandidatDTO>> getKandidatiByIzbor(@PathVariable Long id){
         Izbori izbori = izboriService.findOne(id);

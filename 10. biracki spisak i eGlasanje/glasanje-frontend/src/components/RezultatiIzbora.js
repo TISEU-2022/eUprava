@@ -8,7 +8,7 @@ export default class RezultatiIzbora extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            rezultati : {}
+            rezultati : []
         };
     }
 
