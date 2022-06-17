@@ -105,25 +105,24 @@ public class IzboriKontroler {
         return new ResponseEntity<>(new IzboriDTO(izbori),HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
+//    @PreAuthorize("hasAnyRole('KORISNIK','SLUZBENIK')")
     @GetMapping(value = "rezultati/{id}")
     public ResponseEntity<List<RezultatiDTO>> getRezultatiIzbora(@PathVariable Long id) {
         Izbori izbori = izboriService.findOne(id);
-        List<Glas> glasovi = glasService.findAll();
-        List<Kandidat> kandidati = kandidatiService.findAll();
-        List<RezultatiDTO> rezultati = new ArrayList<>();
-        int zbir = 0;
-        for (Glas g: glasovi){
-            for (Kandidat k: kandidati ){
-                if (g.getKandidat().getId().equals(k.getId())){
-                    zbir += 1;
-                }
-                rezultati.add(new RezultatiDTO(k.getImePredstavnika(),zbir));
-            }
-        }
         if(izbori == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+
+        List<RezultatiDTO> rezultati = new ArrayList<>();
+        for (Kandidat kandidat:izbori.getKandidati()) {
+            List<Glas> glasoviKandidata = glasService.findGlasByKandidatIdAndIzboriId(kandidat.getId(), id);
+            if (!glasoviKandidata.isEmpty()){
+                rezultati.add(new RezultatiDTO(kandidat.getImePredstavnika(), glasoviKandidata.size()));
+            }else{
+                rezultati.add(new RezultatiDTO(kandidat.getImePredstavnika(), 0));
+            }
+        }
+
         return new ResponseEntity<>(rezultati,HttpStatus.OK);
     }
 

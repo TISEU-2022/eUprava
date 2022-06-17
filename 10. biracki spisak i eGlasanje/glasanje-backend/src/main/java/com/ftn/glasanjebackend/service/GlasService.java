@@ -24,4 +24,8 @@ public class GlasService {
 //    public Glas findGlasByKorisnikIdAndIzboriId(Long korisnikId, Long izboriId){
 //        return  glasRepository.findGlasByKorisnikIdAndIzboriId(korisnikId, izboriId);
 //    }
+
+    public List<Glas> findGlasByKandidatIdAndIzboriId(Long kandidatId, Long izboriId){
+        return glasRepository.findGlasByKandidatIdAndIzboriId(kandidatId,izboriId);
+    }
 }
