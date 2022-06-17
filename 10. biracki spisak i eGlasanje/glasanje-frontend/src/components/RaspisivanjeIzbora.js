@@ -19,44 +19,45 @@ export default class RaspisivanjeIzbora extends React.Component {
         eOpstina: null,
         //kandidatiDTO: []
 
-        imeKandidata1: '',
-        imeStrankeKandidata1: '',
-        sloganKandidata1: '',
-
-        imeKandidata2: '',
-        imeStrankeKandidata2: '',
-        sloganKandidata2: ''
+        inputList: [{ imeStranke: "", imePredstavnika: "", slogan: "" }]
     }
+
+    handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        const list = [...this.state.inputList];
+        list[index][name] = value;
+        this.state.inputList = list;
+        this.setState(this.state);
+    };
+
+    handleRemoveClick = index => {
+        const list = [...this.state.inputList];
+        list.splice(index, 1);
+        this.state.inputList = list;
+        this.setState(this.state);
+    };
+
+    handleAddClick = () => {
+        this.state.inputList = [...this.state.inputList, { imeStranke: "", imePredstavnika: "", slogan: "" }];
+        this.setState(this.state);
+    };
 
     formChange = event => {
         this.setState({
             [event.target.name]:event.target.value
         });
+        this.setState(this.state);
     }
 
     submit(event) {
         event.preventDefault();
-
-        var kandidati = [
-            {
-                imeStranke: this.state.imeKandidata1,
-                imePredstavnika: this.state.imeStrankeKandidata1,
-                slogan: this.state.sloganKandidata1,
-            },
-            {
-                imeStranke: this.state.imeKandidata2,
-                imePredstavnika: this.state.imeStrankeKandidata2,
-                slogan: this.state.sloganKandidata2,
-            },
-        ];
-        console.log(kandidati);
 
         var izbori = {
             naziv: this.state.naziv,
             datum: this.state.datum,
             etipIzbora: this.state.eTipIzbora,
             eopstina: this.state.eOpstina,
-            kandidatiDTO: kandidati
+            kandidatiDTO: this.state.inputList
         };
         console.log(izbori);
 
@@ -115,45 +116,40 @@ export default class RaspisivanjeIzbora extends React.Component {
                                     <br/>
                                 }
                                 <br/>
-                                <Form.Label>Кандидат 1</Form.Label>
-                                <Form.Group as={Col} controlId={"formGridOpstina"}>
-                                    <Form.Control required type="text" name = "imeKandidata1" autoComplete = "off"
-                                                  className={"bg-dark text-white"}
-                                                  onChange={this.formChange}
-                                                  placeholder = "Име кандидата 1"/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId={"formGridOpstina"}>
-                                    <Form.Control required type="text" name = "imeStrankeKandidata1" autoComplete = "off"
-                                                  className={"bg-dark text-white"}
-                                                  onChange={this.formChange}
-                                                  placeholder = "Име странке кандидата 1"/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId={"formGridOpstina"}>
-                                    <Form.Control required type="text" name = "sloganKandidata1" autoComplete = "off"
-                                                  className={"bg-dark text-white"}
-                                                  onChange={this.formChange}
-                                                  placeholder = "Слоган кандидата 1"/>
-                                </Form.Group>
-                                <br/>
-                                <Form.Label>Кандидат 2</Form.Label>
-                                <Form.Group as={Col} controlId={"formGridOpstina"}>
-                                    <Form.Control required type="text" name = "imeKandidata2" autoComplete = "off"
-                                                  className={"bg-dark text-white"}
-                                                  onChange={this.formChange}
-                                                  placeholder = "Име кандидата 2"/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId={"formGridOpstina"}>
-                                    <Form.Control required type="text" name = "imeStrankeKandidata2" autoComplete = "off"
-                                                  className={"bg-dark text-white"}
-                                                  onChange={this.formChange}
-                                                  placeholder = "Име странке кандидата 2"/>
-                                </Form.Group>
-                                <Form.Group as={Col} controlId={"formGridOpstina"}>
-                                    <Form.Control required type="text" name = "sloganKandidata2" autoComplete = "off"
-                                                  className={"bg-dark text-white"}
-                                                  onChange={this.formChange}
-                                                  placeholder = "Слоган кандидата 2"/>
-                                </Form.Group>
+                                {this.state.inputList.map((x, i) => {
+                                return (
+                                    <div
+                                        key={i} className="box">
+                                        <div className="btn-box">
+                                            <h3>{"Кандидат број " + (i + 1)}</h3>
+                                        </div>
+                                        <Form.Group as={Col} controlId={"formGridOpstina"}>
+                                            <Form.Control required type="text" name = "imeStranke" autoComplete = "off"
+                                                          className={"bg-dark text-white"}
+                                                          onChange={e => this.handleInputChange(e, i)}
+                                                          placeholder = "Име странке"/>
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId={"formGridOpstina"}>
+                                            <Form.Control required type="text" name = "imePredstavnika" autoComplete = "off"
+                                                          className={"bg-dark text-white"}
+                                                          onChange={e => this.handleInputChange(e, i)}
+                                                          placeholder = "Име кандидата"/>
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId={"formGridOpstina"}>
+                                            <Form.Control required type="text" name = "slogan" autoComplete = "off"
+                                                          className={"bg-dark text-white"}
+                                                          onChange={e => this.handleInputChange(e, i)}
+                                                          placeholder = "Слоган"/>
+                                        </Form.Group>
+                                        <br/>
+                                        <div className="btn-box">
+                                            {this.state.inputList.length - 1 === i
+                                            &&
+                                            <Button size={"sm"} variant={"success"} onClick={this.handleAddClick}>Додај</Button>}
+                                        </div>
+                                    </div>
+                                );
+                            })}
                             </Card.Body>
                             <Card.Footer style={{"textAlign":"center"}}>
                                 <Button size={"sm"} variant={"success"} type={"submit"}>
