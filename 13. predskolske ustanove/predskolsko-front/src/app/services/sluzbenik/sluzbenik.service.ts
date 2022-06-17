@@ -31,7 +31,7 @@ export class SluzbenikService {
     return this.http.get<Sluzbenik[]>(this.apiSluzbenikUrl);
   }
 
-  getVerticById(id:number): Observable<any>{
+  getSluzbenikById(id:number): Observable<any>{
     return this.http.get(`${this.apiSluzbenikUrl}/${id}`);
     
   }

@@ -19,7 +19,7 @@ export class CreateSluzbenikComponent implements OnInit {
     this.sluzbenik = new Sluzbenik();
   }
   redirectToHome(){
-    this.router.navigate(['/home']);
+    this.router.navigate(['/sluzbenik']);
   }
   createSluzbenik(){
     this.sluzbenikService.createSluzbenik(this.sluzbenik).subscribe(data=>{

@@ -30,6 +30,12 @@ public class Sluzbenik {
 
 	@Column(name = "deleted", unique = false, nullable = false)
 	private boolean deleted;
+	
+	
+
+	public Sluzbenik() {
+		super();
+	}
 
 	public Sluzbenik(Integer id, String jmbg, String name, String lastname, String address, boolean deleted) {
 		super();

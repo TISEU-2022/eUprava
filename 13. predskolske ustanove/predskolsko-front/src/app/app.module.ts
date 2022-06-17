@@ -13,6 +13,8 @@ import { CreateKonkursComponent } from './components/create-konkurs/create-konku
 import { CreateDeteComponent } from './components/create-dete/create-dete.component';
 import { UpdateVrticComponent } from './components/update-vrtic/update-vrtic.component';
 import { CreateSluzbenikComponent } from './components/create-sluzbenik/create-sluzbenik.component';
+import { HttpClientModule } from '@angular/common/http';
+import { UpdateSluzbenikComponent } from './components/update-sluzbenik/update-sluzbenik.component';
 
 @NgModule({
   declarations: [
@@ -25,12 +27,14 @@ import { CreateSluzbenikComponent } from './components/create-sluzbenik/create-s
     CreateKonkursComponent,
     CreateDeteComponent,
     UpdateVrticComponent,
-    CreateSluzbenikComponent
+    CreateSluzbenikComponent,
+    UpdateSluzbenikComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
