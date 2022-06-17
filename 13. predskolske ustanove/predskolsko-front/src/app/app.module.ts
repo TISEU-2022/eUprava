@@ -7,6 +7,9 @@ import { KonkursComponent } from './components/konkurs/konkurs.component';
 import { DeteComponent } from './components/dete/dete.component';
 import { VrticComponent } from './components/vrtic/vrtic.component';
 import { SluzbenikComponent } from './components/sluzbenik/sluzbenik.component';
+import { CreateVrticComponent } from './components/create-vrtic/create-vrtic.component';
+import { FormsModule } from '@angular/forms';
+import { CreateKonkursComponent } from './components/create-konkurs/create-konkurs.component';
 
 @NgModule({
   declarations: [
@@ -14,11 +17,14 @@ import { SluzbenikComponent } from './components/sluzbenik/sluzbenik.component';
     AppComponent,
     DeteComponent,
     VrticComponent,
-    SluzbenikComponent
+    SluzbenikComponent,
+    CreateVrticComponent,
+    CreateKonkursComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

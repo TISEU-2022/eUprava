@@ -1,0 +1,23 @@
+<div class="card col-md-6 offset-md-3">
+    <h3>Create Konkurs</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="department.id">Vrtic</label>
+                <br />
+                <!-- <input type="text" class="form-control" [(ngModel)]="semesters.department" id="department.id" required name="department.id"> -->
+                <select class="form-control" (ngModelChange)="onChange($event)" [(ngModel)]="konkurs.vrtic" name="vrtic"> 
+                    <option *ngFor="let vrtic of (vrtici$ | async)" id="vrtic" [ngValue]="vrtic" required name="vrtic">{{vrtic.name}}</option>
+                </select> 
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+            <div class="form-group">
+                <label for="brojDece">Broj dece</label>
+                <input type="text" class="form-control" [(ngModel)]="konkurs.brojDece" id="brojDece" required name="brojDece">
+            </div>
+            <div class="form-group">
+                <label for="datum">Datum</label>
+                <input type="date" class="form-control" [(ngModel)]="konkurs.datum" id="datum" required name="datum">
+            </div>
+        </form> 
+        
+</div>
