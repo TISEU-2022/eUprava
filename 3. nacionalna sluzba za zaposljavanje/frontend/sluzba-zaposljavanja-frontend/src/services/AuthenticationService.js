@@ -9,7 +9,7 @@ export const AuthenticationService = {
 
 function logout() {
   TokenService.removeToken();
-  window.location.assign("/login");
+  window.location.assign("");
 }
 
 function getRole() {

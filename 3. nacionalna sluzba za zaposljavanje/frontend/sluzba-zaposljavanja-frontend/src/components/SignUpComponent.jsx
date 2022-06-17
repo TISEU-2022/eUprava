@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { AuthenticationService } from '../services/AuthenticationService';
 import { useNavigate, useParams } from 'react-router-dom';
 import { TokenService } from '../services/TokenService';
+import { getCitizenByusername } from '../services/GradjaninService';
+import { addKonkurs } from '../services/KonkursService';
 
 const SignUpComponent = () => {
     const [konkurs, setKonkurs] = useState({});
@@ -25,21 +27,28 @@ const SignUpComponent = () => {
 
         const username = AuthenticationService.getUsername();
         setUsername(username);
-        console.log(username)
-        
+
+        getCitizenByusername(username).then((response) => {
+            console.log(response);
+            setGradjanin(response);
+          }).catch(error => {
+            console.log(error);
+          })
+        console.log(gradjanin);
         
 
     }, []);
 
     const onSubmit = () => {
-        let konkurss = {
+        let konkurs = {
           gradjanin:gradjanin,
           oglasZaPosao: oglas,
-          datumKonkurisanja:'2022-03-03',
+          datumKonkurisanja:'2022-07-07',
           zavrseno:false
         }
-        console.log(konkurss)
-        //addAdvertisement(oglass)
+        setKonkurs(konkurs);
+        console.log(konkurs)
+        addKonkurs(konkurs);
       }
 
   return (
@@ -56,24 +65,34 @@ const SignUpComponent = () => {
                           </div><br/>
 
                           <div className="row">
-                              <label htmlFor="opis" style={{color:"black", fontWeight:"400"}}>Opis Oglasa:
+                              <label style={{color:"black", fontWeight:"400"}}>Opis Oglasa:
                                 <input type="text" name="opis" value={oglas.opis} readonly />
                               </label>
                           </div><br/>
 
                            <div className="row">
-                              <label htmlFor="opis" style={{color:"black", fontWeight:"400"}}>Oglas:
-                                <input type="text" name="opis" value={oglas} readonly />
+                              <label style={{color:"black", fontWeight:"400"}}>Username:
+                                <input type="text" name="username" value={username} readonly />
                               </label>
                           </div><br/>
 
-                           <div className="row">
-                              <label htmlFor="opis" style={{color:"black", fontWeight:"400"}}>Username:
-                                <input type="text" name="opis" value={username} readonly />
+                          <div className="row">
+                              <label style={{color:"black", fontWeight:"400"}}>Ime: 
+                                <input type="text" name="ime" value={gradjanin.ime} readonly />
                               </label>
                           </div><br/>
 
-                          
+                          <div className="row">
+                              <label style={{color:"black", fontWeight:"400"}}>Prezime: 
+                                <input type="text" name="prezime" value={gradjanin.prezime} readonly />
+                              </label>
+                          </div><br/>
+
+                          <div className="row">
+                              <label style={{color:"black", fontWeight:"400"}}>JMBG: 
+                                <input type="text" name="jmbg" value={gradjanin.jmbg} readonly />
+                              </label>
+                          </div><br/>
                         
                         </form>
                         <button className="btn btn-success" style={{ marginTop: "8px", width:"150px" }} onClick={onSubmit}>Confirm SignUp</button>

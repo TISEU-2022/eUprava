@@ -8,6 +8,10 @@ import {
     NavBtn,
     NavBtnLink,
 } from "./NavbarElements";
+import { useEffect, useState } from 'react';
+import { AuthenticationService } from '../services/AuthenticationService';
+
+
 
 const performLogin = () => {
   window.open(
@@ -21,9 +25,21 @@ const performLogout = () => {
     `${process.env.AUTH_SERVER_URL}/auth/logout?successUrl=${process.env.ROOT_APP_URL}/auth/logout_handler`,
     '_self',
   );
+  AuthenticationService.logout();
 };
 
 const Navbar = () => {
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+
+    const username = AuthenticationService.getUsername();
+    setUsername(username);
+    console.log(username);
+    
+
+}, []);
+
   return (
     <>
            <Nav>
@@ -51,6 +67,7 @@ const Navbar = () => {
                 >
                     Oglasi
                 </NavLink>
+                {username==null ? (
                 <NavLink 
                   to=""
                   activestyle={{ color: 'black' }}
@@ -59,8 +76,25 @@ const Navbar = () => {
                 >
                     Login
                 </NavLink>
+                ) : 
+                (
+                    <div></div>
+                    )}
+
+                {username!=null ? (
+                <NavLink 
+                  to=""
+                  activestyle={{ color: 'black' }}
+                  onClick={performLogout}
+                >
+                    Logout
+                </NavLink>
+                ) : 
+                (
+                    <div></div>
+                    )}
                 <NavBtn>
-                    <NavBtnLink to="/sign-up">Sign Up</NavBtnLink>                
+                    <NavBtnLink to="/sign-up">Feature</NavBtnLink>                
                 </NavBtn>
             </NavMenu> 
            </Nav> 
