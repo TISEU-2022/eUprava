@@ -49,7 +49,7 @@ export default class RezultatiIzbora extends React.Component {
         const {rezultati} = this.state;
 
         return (
-            <body>
+            <div>
             <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
@@ -69,7 +69,7 @@ export default class RezultatiIzbora extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
-            </body>
+            </div>
         );
     }
 }

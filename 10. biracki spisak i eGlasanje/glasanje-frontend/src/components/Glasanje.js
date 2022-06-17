@@ -102,7 +102,7 @@ export default class Glasanje extends React.Component {
         const {kandidatiLista} = this.state;
 
         return (
-            <body>
+            <div>
             <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
@@ -138,7 +138,7 @@ export default class Glasanje extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
-            </body>
+            </div>
         );
     }
 }

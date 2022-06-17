@@ -46,7 +46,7 @@ export default class ZavrseniIzbori extends React.Component {
         const {izboriLista} = this.state;
 
         return (
-            <body>
+            <div>
             <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
@@ -66,7 +66,7 @@ export default class ZavrseniIzbori extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
-            </body>
+            </div>
         );
     }
 }

@@ -65,7 +65,7 @@ export default class RaspisivanjeIzbora extends React.Component {
 
     render() {
         return (
-            <body>
+            <div>
             <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
@@ -164,7 +164,7 @@ export default class RaspisivanjeIzbora extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
-            </body>
+            </div>
         );
     }
 }
