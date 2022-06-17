@@ -10,6 +10,7 @@ import { SluzbenikComponent } from './components/sluzbenik/sluzbenik.component';
 import { CreateVrticComponent } from './components/create-vrtic/create-vrtic.component';
 import { FormsModule } from '@angular/forms';
 import { CreateKonkursComponent } from './components/create-konkurs/create-konkurs.component';
+import { CreateDeteComponent } from './components/create-dete/create-dete.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { CreateKonkursComponent } from './components/create-konkurs/create-konku
     VrticComponent,
     SluzbenikComponent,
     CreateVrticComponent,
-    CreateKonkursComponent
+    CreateKonkursComponent,
+    CreateDeteComponent
   ],
   imports: [
     BrowserModule,

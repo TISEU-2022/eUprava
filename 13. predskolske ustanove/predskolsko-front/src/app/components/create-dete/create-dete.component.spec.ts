@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateVrticComponent } from './create-dete.component';
+import { CreateDeteComponent } from './create-dete.component';
 
 describe('CreateDeteComponent', () => {
   let component: CreateDeteComponent;

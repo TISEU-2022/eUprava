@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.projekat.predskolsko.model.Konkurs;
 import com.projekat.predskolsko.model.Vrtic;
+import com.projekat.predskolsko.services.KonkursService;
 import com.projekat.predskolsko.services.VrticService;
 
 @Controller
@@ -27,6 +29,9 @@ public class VrticController {
 	@Autowired
 	private VrticService vrticService;
 	
+	@Autowired 
+	private KonkursService konkursService;
+	
 	@GetMapping
 	public ResponseEntity<List<Vrtic>> getVrtici() {
 		List<Vrtic> vrtici = vrticService.findAll();
@@ -36,6 +41,16 @@ public class VrticController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<Vrtic> getVrtic(@PathVariable("id") Integer id) {
+		Konkurs konkurs = konkursService.findOne(id);
+		Vrtic vrtic = vrticService.findOne(konkurs.getVrtic().getVrtic_id());
+		if (vrtic == null) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(vrtic, HttpStatus.OK);
+	}
+	
+	@GetMapping(value = "/konkurs/{id}")
+	public ResponseEntity<Vrtic> getVrticFromKonkurs(@PathVariable("id") Integer id) {
 		Vrtic vrtic = vrticService.findOne(id);
 		if (vrtic == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

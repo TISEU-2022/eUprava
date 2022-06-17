@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -31,14 +33,19 @@ public class Dete {
 	@Column(name = "placeOfBirth", unique = false, nullable = false)
 	private String placeOfBirth;
 
-	@Column(name = "gender", unique = false, nullable = false)
-	private boolean gender;
+	@Column(name = "enrolled", unique = false, nullable = false)
+	private boolean enrolled;
+	
+	@ManyToOne
+	@JoinColumn(name = "vrtic_id", referencedColumnName = "vrtic_id")
+	private Vrtic vrtic;
 
-	@Column(name = "deleted", unique = false, nullable = false)
-	private boolean deleted;
+	public Dete() {
+		super();
+	}
 
 	public Dete(Integer id, String jmbg, String name, String lastname, String address, String placeOfBirth,
-			boolean gender, boolean deleted) {
+			boolean enrolled, Vrtic vrtic) {
 		super();
 		this.id = id;
 		this.jmbg = jmbg;
@@ -46,8 +53,20 @@ public class Dete {
 		this.lastname = lastname;
 		this.address = address;
 		this.placeOfBirth = placeOfBirth;
-		this.gender = gender;
-		this.deleted = deleted;
+		this.enrolled = enrolled;
+		this.vrtic = vrtic;
+	}
+
+	public Dete(String jmbg, String name, String lastname, String address, String placeOfBirth, boolean enrolled,
+			Vrtic vrtic) {
+		super();
+		this.jmbg = jmbg;
+		this.name = name;
+		this.lastname = lastname;
+		this.address = address;
+		this.placeOfBirth = placeOfBirth;
+		this.enrolled = enrolled;
+		this.vrtic = vrtic;
 	}
 
 	public Integer getId() {
@@ -98,20 +117,27 @@ public class Dete {
 		this.placeOfBirth = placeOfBirth;
 	}
 
-	public boolean isGender() {
-		return gender;
+	public boolean isEnrolled() {
+		return enrolled;
 	}
 
-	public void setGender(boolean gender) {
-		this.gender = gender;
+	public void setEnrolled(boolean enrolled) {
+		this.enrolled = enrolled;
 	}
 
-	public boolean isDeleted() {
-		return deleted;
+	public Vrtic getVrtic() {
+		return vrtic;
 	}
 
-	public void setDeleted(boolean deleted) {
-		this.deleted = deleted;
+	public void setVrtic(Vrtic vrtic) {
+		this.vrtic = vrtic;
 	}
 
+	@Override
+	public String toString() {
+		return "Dete [id=" + id + ", jmbg=" + jmbg + ", name=" + name + ", lastname=" + lastname + ", address="
+				+ address + ", placeOfBirth=" + placeOfBirth + ", enrolled=" + enrolled + ", vrtic=" + vrtic + "]";
+	}
+
+	
 }

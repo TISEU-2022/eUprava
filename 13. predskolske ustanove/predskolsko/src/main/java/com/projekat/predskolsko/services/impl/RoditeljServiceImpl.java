@@ -3,11 +3,13 @@ package com.projekat.predskolsko.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.projekat.predskolsko.model.Roditelj;
 import com.projekat.predskolsko.repository.RoditeljRepository;
 import com.projekat.predskolsko.services.RoditeljService;
 
+@Service
 public class RoditeljServiceImpl implements RoditeljService{
 
 	@Autowired

@@ -18,6 +18,10 @@ export class KonkursComponent implements OnInit {
     this.konkursService.getKonkurs().subscribe((konkursi) => {this.konkursi = konkursi;})
   }
 
+  public createDete(id: number) {
+    this.router.navigate(['createDete', id]);
+  }
+
   public updateKonkurs(id:number){
     this.router.navigate(['updateKonkurs', id]);
   }

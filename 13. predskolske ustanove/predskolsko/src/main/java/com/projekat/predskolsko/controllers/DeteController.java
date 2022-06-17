@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -42,12 +43,12 @@ public class DeteController {
 		return new ResponseEntity<>(dete, HttpStatus.OK);
 	}
 
-	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<?> deleteKonkurs(@PathVariable("id") Integer id) {
+	@PutMapping(value = "/{id}")
+	public ResponseEntity<?> odobriDete(@PathVariable("id") Integer id) {
 		Dete dete = deteSer.findOne(id);
 
-		if (!dete.isDeleted()) {
-			dete.setDeleted(true);
+		if (!dete.isEnrolled()) {
+			dete.setEnrolled(true);
 			deteSer.save(dete);
 		}
 		return new ResponseEntity<>(HttpStatus.OK);

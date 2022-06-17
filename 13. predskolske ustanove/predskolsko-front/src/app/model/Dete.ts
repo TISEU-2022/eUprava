@@ -1,3 +1,5 @@
+import { Vrtic } from "./Vrtic";
+
 export class Dete{
     id:number;
     jmbg:String;
@@ -6,5 +8,6 @@ export class Dete{
     address:String;
     placeOfBirth:String;
     gender:boolean;
+    vrtic: Vrtic;
     deleted:boolean;
 }

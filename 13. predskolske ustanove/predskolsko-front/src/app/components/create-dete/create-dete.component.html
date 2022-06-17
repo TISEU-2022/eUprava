@@ -1,25 +1,29 @@
 <div class="card col-md-6 offset-md-3">
-    <h3>Create Vrtic</h3>
+    <h3>Upis deteta</h3>
         <form (ngSubmit)="onSubmit()">
             <div class="form-group">
-                <label for="name">Ime Vrtica </label>
-                <input type="text" class="form-control" [(ngModel)]="vrtic.name" id="name" required name="name">
+                <label for="jmbg">JMBG</label>
+                <input type="text" class="form-control" [(ngModel)]="dete.jmbg" id="jmbg" required name="jmbg">
             </div>
             <div class="form-group">
-                <label for="adress">Adresa Vrtica </label>
-                <input type="text" class="form-control" [(ngModel)]="vrtic.adress" id="adress" required name="adress">
+                <label for="name">Ime </label>
+                <input type="text" class="form-control" [(ngModel)]="dete.name" id="name" required name="name">
             </div>
             <div class="form-group">
-                <label for="numberOfEmployees">Broj Zaposlenih</label>
-                <input type="text" class="form-control" [(ngModel)]="vrtic.numberOfEmployees" id="numberOfEmployees" required name="numberOfEmployees">
+                <label for="lastname">Prezime</label>
+                <input type="text" class="form-control" [(ngModel)]="dete.lastname" id="lastname" required name="lastname">
             </div>
             <div class="form-group">
-                <label for="phoneNumber">Broj Telefona </label>
-                <input type="text" class="form-control" [(ngModel)]="vrtic.phoneNumber" id="phoneNumber" required name="phoneNumber">
+                <label for="address">Adresa </label>
+                <input type="text" class="form-control" [(ngModel)]="dete.address" id="address" required name="address">
             </div>
             <div class="form-group">
-                <label for="numberOfChildren">Number Of Students</label>
-                <input type="text" class="form-control" [(ngModel)]="vrtic.numberOfChildren" id="numberOfChildren" required name="numberOfChildren">
+                <label for="placeOfBirth">Mesto rodjenja</label>
+                <input type="text" class="form-control" [(ngModel)]="dete.placeOfBirth" id="placeOfBirth" required name="placeOfBirth">
+            </div>
+            <div class="form-group">
+                <label for="vrtic">Mesto rodjenja</label>
+                <input type="hidden" class="form-control" [(ngModel)]="dete.vrtic" id="vrtic" required name="vrtic">
             </div>
             <button type="submit" class="btn btn-success">Submit</button>
         </form> 

@@ -24,6 +24,7 @@ const uploadHeader = {
   providedIn: 'root'
 })
 export class VrticiService {
+ 
 
   private apiVrticiUrl = `${environment.apiURL}/api/vrtic`;
 
@@ -36,6 +37,10 @@ export class VrticiService {
   getVerticById(id:number): Observable<any>{
     return this.http.get(`${this.apiVrticiUrl}/${id}`);
     
+  }
+
+  getVerticByKonkursId(id: number): Observable<any> {
+    return this.http.get(`${this.apiVrticiUrl}/konkurs/${id}`);
   }
 
   updateVrtic(id:number,vrtici: Vrtic) : Observable<Vrtic>{

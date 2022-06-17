@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.projekat.predskolsko.model.Roditelj;
 
-@Service
 public interface RoditeljService {
 	
 	List<Roditelj> findAll();
