@@ -31,7 +31,7 @@ const Login =() => {
     };
 
     return (
-        <body>
+        <div>
             <NavigationBar/>
             <Container className={"kontejner"}>
                 <Card style={{ width: '70rem', margin: 'auto'}} className={"border border-dark bg-dark text-white"}>
@@ -66,7 +66,7 @@ const Login =() => {
                     </Row>
                 </Card>
             </Container>
-        </body>
+        </div>
     );
 };
 export default Login;
