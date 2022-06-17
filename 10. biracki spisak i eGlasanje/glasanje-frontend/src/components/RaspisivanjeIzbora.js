@@ -46,7 +46,6 @@ export default class RaspisivanjeIzbora extends React.Component {
         this.setState({
             [event.target.name]:event.target.value
         });
-        this.setState(this.state);
     }
 
     submit(event) {
