@@ -57,4 +57,11 @@ public class GradjaninController {
         return new ResponseEntity<Boolean>(zaposlenje, HttpStatus.OK);
     }
 
+    @GetMapping(value = "username/{korisnickoIme}")
+    public ResponseEntity<Gradjanin> getGradjaninByKorisnickoIme(@PathVariable("korisnickoIme") String korisnickoIme){
+        Gradjanin gradjanin = gradjaninService.findByKorisnickoIme(korisnickoIme);
+
+        return new ResponseEntity<Gradjanin>(gradjanin, HttpStatus.OK);
+    }
+
 }
