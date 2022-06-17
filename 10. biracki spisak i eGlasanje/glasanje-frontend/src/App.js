@@ -13,6 +13,7 @@ import AuthPage from "./components/AuthPage";
 import ProtectedGlasanje from "./components/protected/ProtectedGlasanje";
 import ProtectedRaspisivanjeIzbora from "./components/protected/ProtectedRaspisivanjeIzbora";
 import ProtectedZavrseniIzbori from "./components/protected/ProtectedZavrseniIzbori";
+import ProtectedRezultatiIzbora from "./components/protected/ProtectedRezultatiIzbora";
 
 function App() {
   return (
