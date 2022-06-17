@@ -34,7 +34,7 @@ export default class NavigationBar extends React.Component {
                         <b/>
                         :
                         <a className="btn btn-primary"
-                           onClick={"/raspisivanje"}
+                           href={"/raspisivanje"}
                            role="button">
                             Расписивање избора
                         </a>
