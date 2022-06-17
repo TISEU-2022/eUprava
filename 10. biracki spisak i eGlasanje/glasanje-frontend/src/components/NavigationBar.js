@@ -29,7 +29,7 @@ export default class NavigationBar extends React.Component {
                         </a>
                 }
                 {
-                    localStorage.getItem("id") == null && AuthenticationService.getRole() === "SLUZBENIK"
+                    localStorage.getItem("id") == null || !AuthenticationService.getRole() === "SLUZBENIK"
                         ?
                         <b/>
                         :
