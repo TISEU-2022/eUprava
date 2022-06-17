@@ -1,6 +1,7 @@
 import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Button, Card, Col, Container, Form} from "react-bootstrap";
+import NavigationBar from "./NavigationBar";
 
 export default class RaspisivanjeIzbora extends React.Component {
 
@@ -64,6 +65,8 @@ export default class RaspisivanjeIzbora extends React.Component {
 
     render() {
         return (
+            <body>
+            <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><h3>Расписивање ибора</h3></Card.Header>
@@ -161,6 +164,7 @@ export default class RaspisivanjeIzbora extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
+            </body>
         );
     }
 }

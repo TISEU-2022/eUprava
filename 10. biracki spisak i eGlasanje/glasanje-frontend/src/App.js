@@ -18,7 +18,6 @@ import ProtectedRezultatiIzbora from "./components/protected/ProtectedRezultatiI
 function App() {
   return (
       <Router>
-        <NavigationBar/>
 
         <Routes>
           <Route

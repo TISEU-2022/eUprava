@@ -2,6 +2,7 @@ import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Card, Container} from "react-bootstrap";
 import Swal from "sweetalert2";
+import NavigationBar from "./NavigationBar";
 
 export default class Glasanje extends React.Component {
 
@@ -101,6 +102,8 @@ export default class Glasanje extends React.Component {
         const {kandidatiLista} = this.state;
 
         return (
+            <body>
+            <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><h3>Листа кандидата</h3></Card.Header>
@@ -135,6 +138,7 @@ export default class Glasanje extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
+            </body>
         );
     }
 }

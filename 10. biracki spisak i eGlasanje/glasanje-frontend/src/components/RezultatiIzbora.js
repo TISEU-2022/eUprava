@@ -1,6 +1,7 @@
 import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Card, Container, Row} from "react-bootstrap";
+import NavigationBar from "./NavigationBar";
 
 export default class RezultatiIzbora extends React.Component {
 
@@ -48,6 +49,8 @@ export default class RezultatiIzbora extends React.Component {
         const {rezultati} = this.state;
 
         return (
+            <body>
+            <NavigationBar/>
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
                     <Card.Header><h3>Резултати избора</h3></Card.Header>
@@ -66,6 +69,7 @@ export default class RezultatiIzbora extends React.Component {
                     </Card.Body>
                 </Card>
             </Container>
+            </body>
         );
     }
 }

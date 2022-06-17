@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import {Button, Card, Col, Container, Form, Row} from "react-bootstrap";
 import { AuthenticationService } from "../services/AuthenticationService";
+import NavigationBar from "./NavigationBar";
+import {BrowserRouter as Router} from "react-router-dom";
 
 const Login =() => {
 
@@ -29,39 +31,42 @@ const Login =() => {
     };
 
     return (
-        <Container className={"kontejner"}>
-            <Card style={{ width: '70rem', margin: 'auto'}} className={"border border-dark bg-dark text-white"}>
-            <Row>
-                <Col md={{ span: 6, offset: 3 }} style={{ textAlign: "center" }}>
-                    <h1>Пријава</h1>
-                    <hr/>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>JМБГ</Form.Label>
-                            <Form.Control
-                                type="text"
-                                name="jmbg"
-                                value={credentials.jmbg}
-                                onChange={handleFormInputChange("jmbg")}
-                            />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Лозинка</Form.Label>
-                            <Form.Control
-                                type="password"
-                                name="lozinka"
-                                value={credentials.lozinka}
-                                onChange={handleFormInputChange("lozinka")}
-                            />
-                        </Form.Group>
-                        <Button variant="success" href="http://localhost:4101/auth/login?successUrl=http://localhost:10001/auth">
-                            Пријави се
-                        </Button>
-                    </Form>
-                </Col>
-            </Row>
-            </Card>
-        </Container>
+        <body>
+            <NavigationBar/>
+            <Container className={"kontejner"}>
+                <Card style={{ width: '70rem', margin: 'auto'}} className={"border border-dark bg-dark text-white"}>
+                    <Row>
+                        <Col md={{ span: 6, offset: 3 }} style={{ textAlign: "center" }}>
+                            <h1>Пријава</h1>
+                            <hr/>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label>JМБГ</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="jmbg"
+                                        value={credentials.jmbg}
+                                        onChange={handleFormInputChange("jmbg")}
+                                    />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Лозинка</Form.Label>
+                                    <Form.Control
+                                        type="password"
+                                        name="lozinka"
+                                        value={credentials.lozinka}
+                                        onChange={handleFormInputChange("lozinka")}
+                                    />
+                                </Form.Group>
+                                <Button variant="success" href="http://localhost:4101/auth/login?successUrl=http://localhost:10001/auth">
+                                    Пријави се
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
+                </Card>
+            </Container>
+        </body>
     );
 };
 export default Login;
