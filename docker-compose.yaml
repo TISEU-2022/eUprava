@@ -272,6 +272,23 @@ services:
       timeout: 5s
       retries: 3
       start_period: 20s
+
+  zaposljavanje-frontend:
+    environment:
+      - PORT=3000
+      - APP_URL=http://localhost:3000
+      - AUTH_SERVER_URL=http://localhost:3101
+      - BACKEND_URL=http://localhost:3001/api
+    build:
+      context: ./3. nacionalna sluzba za zaposljavanje/frontend/sluzba-zaposljavanja-frontend
+    container_name: zaposljavanje-frontend
+    networks:
+      tiseu:
+        aliases:
+          - zaposljavanje-frontend
+    ports:
+      - "3000:3000"
+    command: npm start
   
   biro-zaposljavanje:
     depends_on:
