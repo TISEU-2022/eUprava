@@ -6,5 +6,4 @@ export class Vrtic {
     phoneNumber: string;
     numberOfChildren: number;
     deleted: boolean;
-
 }

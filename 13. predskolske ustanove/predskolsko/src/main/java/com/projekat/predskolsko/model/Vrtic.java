@@ -14,7 +14,7 @@ public class Vrtic {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "vrtic_id", unique = true, nullable = false)
-	private Integer vrtic_id;
+	private Integer id;
 	
 	@Column(name = "name", unique = true, nullable = false)
 	private String name;
@@ -40,10 +40,10 @@ public class Vrtic {
 	}
 
 
-	public Vrtic(Integer vrtic_id, String name, String adress, Integer numberOfEmployees, String phoneNumber,
+	public Vrtic(Integer id, String name, String adress, Integer numberOfEmployees, String phoneNumber,
 			Integer numberOfChildren, boolean deleted) {
 		super();
-		this.vrtic_id = vrtic_id;
+		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.numberOfEmployees = numberOfEmployees;
@@ -54,12 +54,12 @@ public class Vrtic {
 
 
 	public Integer getVrtic_id() {
-		return vrtic_id;
+		return id;
 	}
 
 
-	public void setVrtic_id(Integer vrtic_id) {
-		this.vrtic_id = vrtic_id;
+	public void setVrtic_id(Integer id) {
+		this.id = id;
 	}
 
 
@@ -125,7 +125,7 @@ public class Vrtic {
 
 	@Override
 	public String toString() {
-		return "Vrtic [vrtic_id=" + vrtic_id + ", name=" + name + ", address=" + adress + ", numberOfEmployees="
+		return "Vrtic [id=" + id + ", name=" + name + ", address=" + adress + ", numberOfEmployees="
 				+ numberOfEmployees + ", phoneNumber=" + phoneNumber + ", numberOfChildren=" + numberOfChildren
 				+ ", deleted=" + deleted + "]";
 	}

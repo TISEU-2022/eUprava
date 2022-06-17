@@ -4,6 +4,7 @@ import { CreateDeteComponent } from './components/create-dete/create-dete.compon
 import { CreateKonkursComponent } from './components/create-konkurs/create-konkurs.component';
 import { CreateVrticComponent } from './components/create-vrtic/create-vrtic.component';
 import { KonkursComponent } from './components/konkurs/konkurs.component';
+import { UpdateVrticComponent } from './components/update-vrtic/update-vrtic.component';
 import { VrticComponent } from './components/vrtic/vrtic.component';
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'vrtici', component: VrticComponent},
   { path: 'createVrtici', component: CreateVrticComponent},
   { path: 'createKonkurs', component: CreateKonkursComponent},
-  { path: 'createDete', component: CreateDeteComponent}
+  { path: 'createDete', component: CreateDeteComponent},
+  { path: 'updateVrtic', component: UpdateVrticComponent}
 ];
 
 @NgModule({

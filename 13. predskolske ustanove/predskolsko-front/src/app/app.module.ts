@@ -11,6 +11,8 @@ import { CreateVrticComponent } from './components/create-vrtic/create-vrtic.com
 import { FormsModule } from '@angular/forms';
 import { CreateKonkursComponent } from './components/create-konkurs/create-konkurs.component';
 import { CreateDeteComponent } from './components/create-dete/create-dete.component';
+import { UpdateVrticComponent } from './components/update-vrtic/update-vrtic.component';
+import { CreateSluzbenikComponent } from './components/create-sluzbenik/create-sluzbenik.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { CreateDeteComponent } from './components/create-dete/create-dete.compon
     SluzbenikComponent,
     CreateVrticComponent,
     CreateKonkursComponent,
-    CreateDeteComponent
+    CreateDeteComponent,
+    UpdateVrticComponent,
+    CreateSluzbenikComponent
   ],
   imports: [
     BrowserModule,

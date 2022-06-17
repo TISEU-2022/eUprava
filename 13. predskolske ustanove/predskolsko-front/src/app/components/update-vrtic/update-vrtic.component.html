@@ -1,0 +1,26 @@
+<div class="card col-md-6 offset-md-3">
+    <h3>Update Vrtic</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="vrtici.name" name="name">
+            </div>
+            <div class="form-group">
+                <label for="name">Adress</label>
+                <input type="text" class="form-control" id="adress" required [(ngModel)]="vrtici.adress" name="adress">
+            </div>
+            <div class="form-group">
+                <label for="name">Number of employes</label>
+                <input type="number" class="form-control" id="numberOfEmployees" required [(ngModel)]="vrtici.name" name="numberOfEmployees">
+            </div>
+            <div class="form-group">
+                <label for="name">Phone number</label>
+                <input type="" class="form-control" id="phoneNumber" required [(ngModel)]="vrtici.phoneNumber" name="phoneNumber">
+            </div>
+            <div class="form-group">
+                <label for="name">Number of children</label>
+                <input type="number" class="form-control" id="numberOfChildren" required [(ngModel)]="vrtici.numberOfChildren" name="numberOfChildren">
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form> 
+</div>

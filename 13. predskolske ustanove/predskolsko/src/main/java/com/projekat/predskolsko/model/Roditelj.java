@@ -13,7 +13,7 @@ public class Roditelj {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "roditelj_id", unique = true, nullable = false)
-	private Integer roditelj_id;
+	private Integer id;
 
 	@Column(name = "name", unique = false, nullable = false)
 	private String name;
@@ -48,10 +48,10 @@ public class Roditelj {
 		super();
 	}
 
-	public Roditelj(Integer roditelj_id, String name, String lastname, String username, String password, String address,
+	public Roditelj(Integer id, String name, String lastname, String username, String password, String address,
 			String jmbg, String placeOfBirth, boolean gender, boolean blocked) {
 		super();
-		this.roditelj_id = roditelj_id;
+		this.id = id;
 		this.name = name;
 		this.lastname = lastname;
 		this.username = username;
@@ -66,11 +66,11 @@ public class Roditelj {
 
 
 	public Integer getRoditelj_id() {
-		return roditelj_id;
+		return id;
 	}
 
-	public void setRoditelj_id(Integer roditelj_id) {
-		this.roditelj_id = roditelj_id;
+	public void setRoditelj_id(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {

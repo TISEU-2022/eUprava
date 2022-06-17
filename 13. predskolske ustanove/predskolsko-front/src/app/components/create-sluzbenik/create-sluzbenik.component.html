@@ -1,0 +1,22 @@
+<div class="card col-md-6 offset-md-3">
+    <h3>Upis deteta</h3>
+        <form (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="jmbg">JMBG</label>
+                <input type="text" class="form-control" [(ngModel)]="sluzbenik.jmbg" id="jmbg" required name="jmbg">
+            </div>
+            <div class="form-group">
+                <label for="name">Ime </label>
+                <input type="text" class="form-control" [(ngModel)]="sluzbenik.name" id="name" required name="name">
+            </div>
+            <div class="form-group">
+                <label for="lastname">Prezime</label>
+                <input type="text" class="form-control" [(ngModel)]="sluzbenik.lastname" id="lastname" required name="lastname">
+            </div>
+            <div class="form-group">
+                <label for="address">Adresa </label>
+                <input type="text" class="form-control" [(ngModel)]="sluzbenik.address" id="address" required name="address">
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+        </form> 
+</div>

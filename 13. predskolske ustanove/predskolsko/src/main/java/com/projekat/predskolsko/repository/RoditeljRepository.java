@@ -3,9 +3,11 @@ package com.projekat.predskolsko.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.projekat.predskolsko.model.Roditelj;
 
+@Repository
 public interface RoditeljRepository extends JpaRepository<Roditelj, Integer> {
 
 	Roditelj findRoditeljById(Integer id);
