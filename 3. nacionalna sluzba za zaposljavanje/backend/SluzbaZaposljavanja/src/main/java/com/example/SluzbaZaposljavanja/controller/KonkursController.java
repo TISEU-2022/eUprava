@@ -37,6 +37,18 @@ public class KonkursController {
 
         return new ResponseEntity<>(konkurs, HttpStatus.OK);
     }
+    
+    @GetMapping(value = "/user/{userId}")
+    public ResponseEntity<Konkurs> getKonkursByUser(@PathVariable("userId") Integer userId) {
+    	List<Konkurs> konkursi = konkursService.findAll();
+        for (Konkurs konkurs2 : konkursi) {
+        	if(konkurs2.getGradjanin().getId() != userId) {
+        		return new ResponseEntity<>(konkurs2, HttpStatus.OK);
+        	}
+		}
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        
+    }
 
     @PostMapping()
     public ResponseEntity<Konkurs> saveKonkurs(@RequestBody Konkurs konkurs){

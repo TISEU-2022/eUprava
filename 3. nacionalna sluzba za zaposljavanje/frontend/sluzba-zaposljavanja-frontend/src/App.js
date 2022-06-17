@@ -1,5 +1,6 @@
 import "./App.css";
 import GradjaniComponent from "./components/GradjaniComponent";
+import GradjaninComponent from "./components/GradjaninComponent";
 import OglasiComponent from "./components/OglasiComponent";
 import Navbar from "./navbar/Navbar";
 import {
@@ -26,6 +27,7 @@ function App() {
             {/* <Route path="logout_handler" element={<LogoutHandler />} /> */}
           </Route>
           <Route exact path="/gradjani" element={<GradjaniComponent />}></Route>
+          <Route exact path="/gradjani/:username" element={<GradjaninComponent />}></Route>
           <Route path="/oglasi" element={<OglasiComponent />}></Route>
           <Route exact path="/oglasi/add" element={<AddOglasComponent />}></Route>
           <Route exact path="/oglasi/:id" element={<UpdateOglasComponent />}></Route>
