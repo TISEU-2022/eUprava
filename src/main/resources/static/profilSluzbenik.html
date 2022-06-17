@@ -51,8 +51,8 @@
                 'Authorization': 'Bearer ' + localStorage.getItem("token"),
             },
             success: function (data) {
-                $('#ime').val(data.ime);
-                $('#prezime').val(data.prezime);
+                $('#ime').val(data.name);
+                $('#prezime').val(data.lastname);
                 $('#username').val(data.username);
                 console.log(data);
             },

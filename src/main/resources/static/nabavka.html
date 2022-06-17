@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nabavka oruzija</title>
+    <link rel="stylesheet" href="nabavka.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body >
+<form onsubmit='return onSubmit(this)'>
+    <div class="container">
+        <h1>Nabavka oruzija</h1>
+        <p>Popunite podatke da bi ste nabavili oruzije</p>
+        <hr>
+
+        <label for="markaOruzija"><b>Marka oruzija</b></label>
+        <input type="text" placeholder="Unesite marku oruzija" name="markaOruzija" id="markaOruzija" required>
+
+        <label for="vrstaOruzija"><b>Vrsta oruzija</b></label>
+        <input type="text" placeholder="Unesite vrstu oruzija" name="vrstaOruzija" id="vrstaOruzija" required>
+
+        <label for="kalibar"><b>Kalibar</b></label>
+        <input type="text" placeholder="Unesite kalibar" name="kalibar" id="kalibar" required>
+
+        <label for="serijskiBroj"><b>Serijski broj</b></label>
+        <input type="text" placeholder="Unesite serijski broj" name="serijskiBroj" id="serijskiBroj" required>
+
+        <hr>
+
+        <button type="submit" class="loginbtn">Nabavi</button>
+    </div>
+
+
+</form>
+
+<script type="text/javascript">
+
+    function getSearchParams(k){
+       var p={};
+       location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v})
+       return k?p[k]:p;
+    }
+
+
+
+    function onSubmit( form ){
+        var id = getSearchParams("id");
+        var form = $(form).serializeArray();
+        var requestObject = {};
+        if(id){
+          requestObject["id"] = id;
+        }
+        $.each(form,
+            function(i, v) {
+                requestObject[v.name] = v.value;
+            }
+        );
+        console.log(requestObject);
+        var requestJson = JSON.stringify(requestObject)
+        console.log(requestJson);
+        $.ajax({
+            type: 'POST',
+            url: '/api/oruzije/save',
+            dataType: 'json',
+            contentType: 'application/json',
+            data: requestJson,
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            },
+            success: function (data) {
+                location.href = "http://localhost:8080/index.html"
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+                alert(data.responseJSON.message);
+            },
+        });
+        return false;
+    }
+
+
+</script>
+
+</body>
+</html>

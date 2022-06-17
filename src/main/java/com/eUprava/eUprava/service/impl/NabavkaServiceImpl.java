@@ -35,7 +35,7 @@ public class NabavkaServiceImpl implements NabavkaService {
     public List<ZahtevZaNabavku> findAll() {
          return nabavkaRepository.findAll();
     }
-
+//prihvata dto -> kreira novi objekat -> mapira dto u taj novi objekat -> cuva obj u bazi-> uzima sacuvan obj->mapira u novi dto->vraca response
     @Override
     public ZahtevZaNabavku save(NabavkaDTO nabavkaDTO) {
         ZahtevZaNabavku zahtevZaNabavku = new ZahtevZaNabavku();

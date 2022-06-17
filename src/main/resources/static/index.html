@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Oruzije</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body onload="dobaviOruzije()">
+<ul>
+    <li><a href="http://localhost:8080/profil.html">Moj profil</a></li>
+    <li><a style="display: none" class="prodavac" href="http://localhost:8080/artikal.html">Dodaj oruzije</a></li>
+    <li style="float:right"><a href="http://localhost:8080/login.html">Odjava</a></li>
+
+</ul>
+<table id="oruzije">
+    <tr>
+        <th>Marka</th>
+        <th>Vrsta</th>
+        <th>Kalibar</th>
+        <th>Serijski broj</th>
+
+    </tr>
+</table>
+
+<button><a href="http://localhost:8080/nabavka.html">Nabavi oruzije</a></button>
+
+<script type="text/javascript">
+
+    function dobaviOruzije() {
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/oruzije',
+            dataType: 'json',
+            contentType: 'application/json',
+            headers: {
+                'Authorization': 'Bearer ' + localStorage.getItem("token"),
+            },
+            success: function (data) {
+                data.forEach(element => {
+                    $('#oruzije').append(`
+                    <tr>
+                        <td>${element.markaOruzija}</td>
+                        <td>${element.vrstaOruzija}</td>
+                        <td>${element.kalibar}</td>
+                        <td>${element.serijskiBroj}</td>
+                    </tr>
+                    `);
+                });
+
+                console.log(data);
+            },
+            error: function (data) {
+                console.log('An error occurred.');
+                console.log(data);
+                alert(data.responseJSON.message);
+            },
+        });
+    }
+
+</script>
+
+</body>
+</html>
