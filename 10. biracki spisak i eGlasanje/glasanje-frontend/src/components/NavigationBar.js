@@ -29,6 +29,17 @@ export default class NavigationBar extends React.Component {
                         </a>
                 }
                 {
+                    localStorage.getItem("id") == null && AuthenticationService.getRole() === "SLUZBENIK"
+                        ?
+                        <b/>
+                        :
+                        <a className="btn btn-primary"
+                           onClick={"/raspisivanje"}
+                           role="button">
+                            Расписивање избора
+                        </a>
+                }
+                {
                     localStorage.getItem("id") == null
                         ?
                         <b/>
