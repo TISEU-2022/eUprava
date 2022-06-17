@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getAllAdvertisements } from "../services/OglasService";
 import { getAdvertisementById } from "../services/OglasService";
 import { useNavigate } from "react-router-dom";
+import AddOglasComponent from "./AddOglasComponent";
 
 
 const OglasiComponent = (props) => {
@@ -29,6 +30,7 @@ const OglasiComponent = (props) => {
   return (
     <div style={{ marginTop: "20px" }}>
       <h3>Svi Oglasi</h3>
+      <button style={{ marginBottom: "7px" }} className="btn btn-info" onClick={() => navigate(`/oglasi/add`)}>Add</button>
       <table className="table table-striped" border="1">
         <thead>
           <tr>
@@ -54,12 +56,12 @@ const OglasiComponent = (props) => {
               <td>
                 <button
                   onClick={() => ViewOglas(oglas.id)}
-                  className="btn-primary"
+                  className="btn btn-primary"
                 >
                   View
                 </button>
-                <button className="btn-success">SignUp</button>
-                <button className="btn-danger">Delete</button>
+                <button className="btn btn-success">SignUp</button>
+                <button className="btn btn-danger">Delete</button>
               </td>
             </tr>
           ))}

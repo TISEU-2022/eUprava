@@ -16,7 +16,27 @@ export const getAllAdvertisements = async () => {
 
 export const getAdvertisementById = async (id) => {
     try{
-    const response = await httpClient.get(`http://localhost:3001/api/oglasi/${id}`)
+    const response = await httpClient.get(`${ADVERTISEMENTS_REST_API_URL}/${id}`)
+    return response.data;
+
+    } catch(error){
+        console.log(error);
+    }
+}
+
+export const addAdvertisement = async (object) => {
+    try{
+    const response = await httpClient.post(`${ADVERTISEMENTS_REST_API_URL}`, object)
+    return response.data;
+
+    } catch(error){
+        console.log(error);
+    }
+}
+
+export const updateAdvertisement = async (id, object) => {
+    try{
+    const response = await httpClient.put(`${ADVERTISEMENTS_REST_API_URL}/update/${id}`, object)
     return response.data;
 
     } catch(error){

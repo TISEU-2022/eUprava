@@ -2,9 +2,16 @@ import "./App.css";
 import GradjaniComponent from "./components/GradjaniComponent";
 import OglasiComponent from "./components/OglasiComponent";
 import Navbar from "./navbar/Navbar";
-import { BrowserRouter as Router, Routes, Route, Link, Outlet } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import ViewOglasComponent from "./components/ViewOglasComponent";
 import TokenHandler from "./auth/TokenHandler";
+import UpdateOglasComponent from "./components/UpdateOglasComponent";
+import AddOglasComponent from "./components/AddOglasComponent";
 
 function App() {
   return (
@@ -18,22 +25,14 @@ function App() {
             {/* <Route path="logout_handler" element={<LogoutHandler />} /> */}
           </Route>
           <Route exact path="/gradjani" element={<GradjaniComponent />}></Route>
-          <Route exact path="/oglasi" element={<OglasiComponent />}></Route>
-          <Route
-            exact
-            path="/viewOglas/:id"
-            element={<ViewOglasComponent />}
-          ></Route>
+          <Route path="/oglasi" element={<OglasiComponent />}></Route>
+          <Route exact path="/oglasi/add" element={<AddOglasComponent />}></Route>
+          <Route exact path="/oglasi/:id" element={<UpdateOglasComponent />}></Route>
+          <Route exact path="/viewOglas/:id" element={<ViewOglasComponent />}></Route>
         </Routes>
       </Router>
     </>
   );
 }
-
-// let loginBtn = document.getElementById('loginNavbar')
-// console.log(loginBtn)
-// loginBtn.addEventListener('click', () => {
-//   window.location.href = "http://localhost:4011"
-// })
 
 export default App;

@@ -1,9 +1,10 @@
 import {getAdvertisementById} from "../services/OglasService";
 import React, { useEffect, useState } from "react";
-import {useLocation, useParams} from 'react-router-dom';
+import {useLocation, useNavigate, useParams} from 'react-router-dom';
 
 const ViewOglasComponent = (id) => {
     const [oglas, setOglas] = useState({});
+    const navigate = useNavigate();
     const params = useParams();
 
     useEffect(() => {
@@ -23,30 +24,31 @@ const ViewOglasComponent = (id) => {
                         <div className="text-center" style={{marginTop:"8px"}}>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}>Naziv: {oglas.naziv}   </label>
+                            <label style={{color:"black", fontWeight:"400"}}><b>Naziv:</b> {oglas.naziv}   </label>
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}>Opis: {oglas.opis}  </label>
+                            <label style={{color:"black", fontWeight:"400"}}><b>Opis:</b> {oglas.opis}  </label>
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}>Datum Od: {oglas.datumOd} </label>
+                            <label style={{color:"black", fontWeight:"400"}}><b>Datum Od:</b> {oglas.datumOd} </label>
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}>Datum Do: {oglas.datumDo} </label>
+                            <label style={{color:"black", fontWeight:"400"}}><b>Datum Do:</b> {oglas.datumDo} </label>
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}> Firma: </label>
+                            <label style={{color:"black", fontWeight:"400"}}> <b>Firma:</b> {oglas.firma.imeFirme}</label>
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}> Vrsta Posla: </label>
+                            <label style={{color:"black", fontWeight:"400"}}> <b>Vrsta Posla:</b> {oglas.vrstaPosla.ime}</label>
                         </div>
 
                         <br/><br/>
+                        <button className="btn btn-success" style={{ margin: "8px", width:"150px" }} onClick={() => navigate(`/oglasi/${params.id}`)}>Update</button>
                         
                     
                     </div>
