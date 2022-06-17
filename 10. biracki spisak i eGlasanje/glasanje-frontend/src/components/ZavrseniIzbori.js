@@ -2,7 +2,7 @@ import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Card, Container, Row} from "react-bootstrap";
 
-export default class AktuelniIzbori extends React.Component {
+export default class ZavrseniIzbori extends React.Component {
 
     constructor(props) {
         super(props);
@@ -30,9 +30,7 @@ export default class AktuelniIzbori extends React.Component {
             izboriLista: izbori
         });*/
 
-        const id = localStorage.getItem("id");
-        console.log(id);
-        let url = "http://localhost:10002/izbori/aktuelni/" + id;
+        let url = "http://localhost:10002/izbori/zavrseni";
 
         GlasanjeAxiosClient.get(url)
             .then(response => response.data)
@@ -49,16 +47,16 @@ export default class AktuelniIzbori extends React.Component {
         return (
             <Container className="kontejner">
                 <Card className={"border border-dark bg-dark text-white"}>
-                    <Card.Header><h3>Листа актуелних избора</h3></Card.Header>
+                    <Card.Header><h3>Листа завршених избора</h3></Card.Header>
                     <Card.Body>
                         {
                             izboriLista.length === 0
                                 ?
-                                <div>Нема актуелних избора</div>
+                                <div>Нема завршених избора</div>
                                 :
                                 izboriLista.map((izbori)=>(
                                     <Row key={izbori.id} xs={6} md={4} style={{marginBottom:"45px"}}>
-                                        <h3><a href={"glasanje/" + izbori.id}>{izbori.naziv}</a></h3>
+                                        <h3><a href={"rezultati/" + izbori.id}>{izbori.naziv}</a></h3>
                                     </Row>
                                 ))
                         }

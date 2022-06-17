@@ -7,13 +7,12 @@ import {
 import React from "react";
 import NavigationBar from "./components/NavigationBar";
 import Footer from "./components/Footer";
-import RaspisivanjeIzbora from "./components/RaspisivanjeIzbora";
-import AktuelniIzbori from "./components/AktuelniIzbori";
-import Glasanje from "./components/Glasanje";
 import Login from "./components/Login";
-import {PrivateRoute} from "./PrivateRoute";
-import ProtectedAktuelniIzbori from "./components/ProtectedAktuelniIzbori";
+import ProtectedAktuelniIzbori from "./components/protected/ProtectedAktuelniIzbori";
 import AuthPage from "./components/AuthPage";
+import ProtectedGlasanje from "./components/protected/ProtectedGlasanje";
+import ProtectedRaspisivanjeIzbora from "./components/protected/ProtectedRaspisivanjeIzbora";
+import ProtectedZavrseniIzbori from "./components/protected/ProtectedZavrseniIzbori";
 
 function App() {
   return (
@@ -35,14 +34,26 @@ function App() {
 
             <Route
                 exact
+                path="/zavrseniIzbori"
+                element={<ProtectedZavrseniIzbori/>}>
+            </Route>
+
+            <Route
+                exact
+                path="/rezultati/:id"
+                element={<ProtectedRezultatiIzbora/>}>
+            </Route>
+
+            <Route
+                exact
                 path="/glasanje/:id"
-                element={<Glasanje/>}>
+                element={<ProtectedGlasanje/>}>
             </Route>
 
             <Route
                 exact
                 path="/raspisivanje"
-                element={<RaspisivanjeIzbora/>}>
+                element={<ProtectedRaspisivanjeIzbora/>}>
             </Route>
             <Route
                 path="/auth"

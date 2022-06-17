@@ -18,15 +18,26 @@ export default class NavigationBar extends React.Component {
                     Почетна
                 </a>
                 {
-                localStorage.getItem("id") == null
-                    ?
-                    <b/>
-                    :
-                    <a className="btn btn-primary"
-                       onClick={() => AuthenticationService.logout()}
-                       role="button">
-                        Одјава
-                    </a>
+                    localStorage.getItem("id") == null
+                        ?
+                        <b/>
+                        :
+                        <a className="btn btn-primary"
+                            href={"/zavrseniIzbori"}
+                            role="button">
+                            Завршени избори
+                        </a>
+                }
+                {
+                    localStorage.getItem("id") == null
+                        ?
+                        <b/>
+                        :
+                        <a className="btn btn-primary"
+                           onClick={() => AuthenticationService.logout()}
+                           role="button">
+                            Одјава
+                        </a>
                 }
             </Navbar>
         );

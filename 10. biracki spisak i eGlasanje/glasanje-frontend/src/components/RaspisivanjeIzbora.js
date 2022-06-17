@@ -1,7 +1,6 @@
 import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
 import {Button, Card, Col, Container, Form} from "react-bootstrap";
-import axios from "axios";
 
 export default class RaspisivanjeIzbora extends React.Component {
 

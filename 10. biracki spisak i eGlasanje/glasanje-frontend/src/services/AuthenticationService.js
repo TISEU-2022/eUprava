@@ -1,7 +1,6 @@
 import {TokenService} from "./TokenService";
 import GlasanjeAxiosClient from "./clients/GlasanjeAxiosClient";
 import Swal from "sweetalert2";
-import axios from "axios";
 import jwtDecode from "jwt-decode";
 
 export const AuthenticationService = {

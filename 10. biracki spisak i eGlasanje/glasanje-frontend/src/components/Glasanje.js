@@ -1,7 +1,6 @@
 import React from 'react';
 import GlasanjeAxiosClient from "./../services/clients/GlasanjeAxiosClient";
-import {Card, Col, Container, Row} from "react-bootstrap";
-import axios from "axios";
+import {Card, Container} from "react-bootstrap";
 import Swal from "sweetalert2";
 
 export default class Glasanje extends React.Component {
@@ -74,7 +73,6 @@ export default class Glasanje extends React.Component {
         console.log(glas);
 
         GlasanjeAxiosClient.post("http://localhost:10002/glasanje", glas).then((response) => {
-            console.log("aaaaaaaaaaa");
             if (response.status === 200) {
                 console.log("USPEH");
                 Swal.fire({
