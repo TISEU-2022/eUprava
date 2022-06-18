@@ -54,7 +54,7 @@ const Navbar = () => {
     <>
            <Nav>
             <NavLogo to="/">
-                Logo
+                E - Zaposljavanje
             </NavLogo>
             <Bars />
 
