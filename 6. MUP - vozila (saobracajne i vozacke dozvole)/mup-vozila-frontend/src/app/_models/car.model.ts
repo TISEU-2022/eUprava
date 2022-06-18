@@ -1,6 +1,6 @@
 export class Car {
 
-  id!: number
+  id?: number
   chassisNumber!: string
   make!: string
   model!: string

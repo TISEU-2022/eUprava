@@ -16,18 +16,24 @@ export class RegistrationCertificateRequestsComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit(): void {
-    this.service.getRequests().subscribe((requests) => {
+    this.getRequests()
+  }
+
+  getRequests(){
+    this.service.getRequests().subscribe((requests: any) => {
       this.requests = requests
+      console.log(this.requests)
     })
   }
 
   onDeclineReq(request: RegistrationCertificate) {
-    this.service.declineRequest(request.id)
-    this.requests.filter((el) => (el.id !== request.id))
+    this.service.declineRequest(request.id).subscribe((response:any) => {
+      console.log(response)
+      this.getRequests()
+    })
   }
 
   onAcceptRequest(request: RegistrationCertificate){
-    this.service.createCertificate(request.id, request)
-    this.requests.filter((el) => (el.id !== request.id))
+    this.router.navigate([`/registration-certificate/create/${request.id}`])
   }
 }

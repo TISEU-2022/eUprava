@@ -3,25 +3,29 @@
     <form class="col-md-6 offset-md-3 offset-md-3" (ngSubmit)="onSubmit()">
       <h3 class="text-center">Zahtev za izdavanje saobracajne dozvole</h3>
       <h5 class="text-center">Popunite podatke o vozilu</h5>
-      <div class="mb-3">
-        <label for="make" class="form-label">Marka: </label>
-        <input class="form-control" id="make" name="make" [(ngModel)]="make">
-      </div>
-      <div class="mb-3">
-        <label for="model" class="form-label">Model: </label>
-        <input class="form-control" id="model" name="model" [(ngModel)]="model">
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="make" class="form-label">Marka: </label>
+          <input class="form-control" id="make" name="make" [(ngModel)]="make">
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="model" class="form-label">Model: </label>
+          <input class="form-control" id="model" name="model" [(ngModel)]="model">
+        </div>
       </div>
       <div class="mb-3">
         <label for="chassisNumber" class="form-label">Broj sasije: </label>
         <input class="form-control" id="chassisNumber" name="chassisNumber" [(ngModel)]="chassisNumber">
       </div>
-      <div class="mb-3">
-        <label for="engine" class="form-label">Zapremina motora: </label>
-        <input type="number" class="form-control" id="engine" name="engine" [(ngModel)]="engine">
-      </div>
-      <div class="mb-3">
-        <label for="horsePower" class="form-label">Snaga motora: </label>
-        <input type="number" class="form-control" id="horsePower" name="horsePower" [(ngModel)]="horsePower">
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="engine" class="form-label">Zapremina motora: </label>
+          <input type="number" class="form-control" id="engine" name="engine" [(ngModel)]="engine">
+        </div>
+        <div class="mb-3 col-md-6">
+          <label for="horsePower" class="form-label">Snaga motora: </label>
+          <input type="number" class="form-control" id="horsePower" name="horsePower" [(ngModel)]="horsePower">
+        </div>
       </div>
       <div class="mb-3">
         <label for="weight" class="form-label">Tezina: </label>

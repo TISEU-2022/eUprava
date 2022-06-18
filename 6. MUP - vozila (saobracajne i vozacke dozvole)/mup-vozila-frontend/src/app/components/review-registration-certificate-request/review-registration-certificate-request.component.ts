@@ -10,7 +10,7 @@ import {RegistrationCertificate} from "../../_models/registration-certificate.mo
 })
 export class ReviewRegistrationCertificateRequestComponent implements OnInit {
 
-  request: RegistrationCertificate = new RegistrationCertificate()
+  request: RegistrationCertificate =  <RegistrationCertificate>{}
 
   constructor(private service: RegistrationCertificateService,
               private tokenService: TokenService) { }

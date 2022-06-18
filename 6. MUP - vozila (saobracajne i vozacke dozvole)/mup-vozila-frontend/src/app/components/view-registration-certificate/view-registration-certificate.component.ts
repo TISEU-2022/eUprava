@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {RegistrationCertificate} from "../../_models/registration-certificate.model";
 import {RegistrationCertificateService} from "../../_services/registration-certificate.service";
 import {TokenService} from "../../_services/token.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-view-registration-certificate',
@@ -10,14 +11,16 @@ import {TokenService} from "../../_services/token.service";
 })
 export class ViewRegistrationCertificateComponent implements OnInit {
 
-  request: RegistrationCertificate = new RegistrationCertificate()
+  request: RegistrationCertificate = <RegistrationCertificate>{}
 
   constructor(private service: RegistrationCertificateService,
-              private tokenService: TokenService) { }
+              private tokenService: TokenService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.service.getRequestForUser(this.tokenService.getUserId().toString()).subscribe((req)=> {
+    this.service.getOneForUser(this.route.snapshot.params["id"]).subscribe((req)=> {
       this.request = req
+      console.log(this.request)
     })
   }
 

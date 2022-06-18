@@ -37,6 +37,6 @@ public class RegistrationCertificate {
     @Column(nullable = false)
     private String userId;
 
-    @OneToOne(mappedBy = "registrationCertificate", orphanRemoval = true)
+    @OneToOne(mappedBy = "registrationCertificate", orphanRemoval = true, fetch = FetchType.EAGER)
     private Car car;
 }

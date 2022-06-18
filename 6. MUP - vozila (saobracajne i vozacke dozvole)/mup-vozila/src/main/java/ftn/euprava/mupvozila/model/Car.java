@@ -9,7 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+//@ToString
 //Lombok end
 @Entity
 public class Car {

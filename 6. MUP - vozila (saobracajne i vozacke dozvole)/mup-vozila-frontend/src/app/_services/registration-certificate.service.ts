@@ -12,6 +12,14 @@ export class RegistrationCertificateService {
 
   constructor(private http: HttpClient) { }
 
+  getAllForUser(userId: string): Observable<RegistrationCertificate[]>{
+    return this.http.get<RegistrationCertificate[]>(`${this.api}/user/${userId}`)
+  }
+
+  getOneForUser(id: number): Observable<RegistrationCertificate>{
+    return this.http.get<RegistrationCertificate>(`${this.api}/user/registration-certificate/${id}`)
+  }
+
   createRequest(request: RegistrationCertificate): Observable<RegistrationCertificate>{
     return this.http.post<RegistrationCertificate>(`${this.api}/requests`, request)
   }
@@ -37,6 +45,7 @@ export class RegistrationCertificateService {
 
   declineRequest(id: number){
     const url = `${this.api}/requests/${id}`
+    console.log(url)
     return this.http.delete(url)
   }
 }

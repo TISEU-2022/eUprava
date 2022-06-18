@@ -10,8 +10,12 @@ import { CreateDriverLicenseComponent } from './components/create-driver-license
 import { DrivingLicenceCitizenPageComponent } from './components/driving-licence-citizen-page/driving-licence-citizen-page.component';
 import { DrivingLicenceEmployeePageComponent } from './components/driving-licence-employee-page/driving-licence-employee-page.component';
 import {ViewRegistrationCertificateComponent} from "./components/view-registration-certificate/view-registration-certificate.component";
+import {ViewRegistrstionCertificatesComponent} from "./components/view-registrstion-certificates/view-registrstion-certificates.component";
 import {RegistrationCertificateRequestsComponent} from "./components/registration-certificate-requests/registration-certificate-requests.component";
 import {ReviewRegistrationCertificateRequestComponent} from "./components/review-registration-certificate-request/review-registration-certificate-request.component";
+import {
+  CreateRegistrationCertificateComponent
+} from "./components/create-registration-certificate/create-registration-certificate.component";
 
 const routes: Routes = [
   {
@@ -42,7 +46,14 @@ const routes: Routes = [
     }
   },
   {
-    path: "registration-certificate", component: ViewRegistrationCertificateComponent,
+    path: "registration-certificates", component: ViewRegistrstionCertificatesComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['gradjanin']
+    }
+  },
+  {
+    path: "registration-certificates/:id", component: ViewRegistrationCertificateComponent,
     canActivate: [AuthGuard],
     data: {
       role: ['gradjanin']
@@ -50,6 +61,13 @@ const routes: Routes = [
   },
   {
     path: "registration-certificate/requests", component: RegistrationCertificateRequestsComponent,
+    canActivate: [AuthGuard],
+    data: {
+      role: ['zaposleni']
+    }
+  },
+  {
+    path: "registration-certificate/create/:id", component: CreateRegistrationCertificateComponent,
     canActivate: [AuthGuard],
     data: {
       role: ['zaposleni']

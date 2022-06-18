@@ -1,8 +1,8 @@
 import {Car} from "./car.model";
 
 export class RegistrationCertificate {
-  id!: number
-  licencePlate?: string
+  id?: any
+  licensePlate?: string
   dayOfIssue?: string
   placeOfIssue?: string
   request?: boolean

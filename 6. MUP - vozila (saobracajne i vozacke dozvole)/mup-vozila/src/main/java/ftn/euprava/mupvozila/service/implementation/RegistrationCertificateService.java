@@ -11,6 +11,7 @@ import ftn.euprava.mupvozila.util.mapper.CarMapper;
 import ftn.euprava.mupvozila.util.mapper.RegistrationCertificateMapper;
 import ftn.euprava.mupvozila.web.dto.CarDTO;
 import ftn.euprava.mupvozila.web.dto.RegistrationCertificateDTO;
+import lombok.extern.java.Log;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -50,7 +51,13 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
 
     @Override
     public List<RegistrationCertificateDTO> getAllRequests() {
+        Logger.getAnonymousLogger().info(registrationCertificateRepository.findAllByRequestTrue().toString());
         return registrationCertificateRepository.findAllByRequestTrue().stream().map(registrationCertificateMapper::toDto).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    public List<RegistrationCertificateDTO> findAllByUserId(String userId){
+        return registrationCertificateRepository.findAllByUserId(userId).stream().map(registrationCertificateMapper::toDto).collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override
@@ -76,11 +83,13 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
 
         RegistrationCertificate certificate = new RegistrationCertificate();
         certificate.setUserId(registrationCertificateDTO.getUserId());
-        Car car = carMapper.toEntity(iCarService.save(registrationCertificateDTO.getCarDTO()));
+        Car car = carMapper.toEntity(iCarService.save(registrationCertificateDTO.getCarDTO(), certificate));
         certificate.setCar(car);
         certificate.setRequest(true);
 
         certificate = registrationCertificateRepository.save(certificate);
+        car.setRegistrationCertificate(certificate);
+        iCarService.save(carMapper.toDto(car), certificate);
 
         return registrationCertificateMapper.toDto(certificate);
     }
@@ -93,14 +102,15 @@ public class RegistrationCertificateService implements IRegistrationCertificateS
         if (certificate == null)
             throw new EntityNotFoundException("Zahtev nije pronadjen");
 
-        if (certificate.getRequest())
+        if (!certificate.getRequest())
             throw new RequestIsNotValidException("Zahtev nije validan");
 
         certificate.setDayOfIssue(LocalDate.now());
         certificate.setRequest(false);
         certificate.setStatus(true);
         certificate.setPlaceOfIssue(registrationCertificateDTO.getPlaceOfIssue());
-        certificate.setLicensePlate(registrationCertificateDTO.getLicencePlate());
+        certificate.setLicensePlate(registrationCertificateDTO.getLicensePlate());
+        Logger.getAnonymousLogger().info("Ovde je: " + certificate);
 
         certificate = registrationCertificateRepository.save(certificate);
 

@@ -1,17 +1,18 @@
 <div class="container-fluid">
   <h3 class="text-center text-dark" style="margin-bottom: 30px">Zahtevi za saobracajnu dozvolu</h3>
-
   <table class="table table-striped">
     <thead>
-      <th>JMBG</th>
-      <th>Marka</th>
-      <th>Model</th>
-      <th></th>
-      <th></th>
+      <tr>
+        <th>JMBG</th>
+        <th>Marka</th>
+        <th>Model</th>
+        <th></th>
+        <th></th>
+      </tr>
     </thead>
     <tbody>
-       <tr *ngFor="let request of requests">
-         <td>{{request.userId}}</td>
+       <tr *ngFor = " let request of requests " >
+         <td>{{request.id}}</td>
          <td>{{request.carDTO.make}}</td>
          <td>{{request.carDTO.model}}</td>
          <td>
@@ -22,7 +23,7 @@
          </td>
          <td>
            <button class="btn btn-danger"
-                   (click)="onDeclineReq(request)" )>
+                   (click)="onDeclineReq(request)" >
              Odbij
            </button>
          </td>

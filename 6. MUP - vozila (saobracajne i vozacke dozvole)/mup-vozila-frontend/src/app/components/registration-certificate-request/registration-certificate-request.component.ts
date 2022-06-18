@@ -3,6 +3,7 @@ import {TokenService} from '../../_services/token.service';
 import {RegistrationCertificateService} from "../../_services/registration-certificate.service";
 import {RegistrationCertificate} from "../../_models/registration-certificate.model";
 import {Car} from "../../_models/car.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration-certificate-request',
@@ -21,7 +22,8 @@ export class RegistrationCertificateRequestComponent implements OnInit {
   warning: string = "";
 
   constructor(private service: RegistrationCertificateService,
-              private tokenService: TokenService) { }
+              private tokenService: TokenService,
+              private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -32,7 +34,7 @@ export class RegistrationCertificateRequestComponent implements OnInit {
       return
     }
 
-    const carDTO = new Car()
+    const carDTO: Car = <Car>{};
     carDTO.chassisNumber = this.chassisNumber
     carDTO.make= this.make
     carDTO.model= this.model
@@ -41,13 +43,16 @@ export class RegistrationCertificateRequestComponent implements OnInit {
     carDTO.weight= this.weight
     carDTO.fuelType= this.fuelType
 
-    const registrationCertificateDTO = new RegistrationCertificate()
+    const registrationCertificateDTO: RegistrationCertificate = <RegistrationCertificate>{}
     registrationCertificateDTO.userId = this.tokenService.getUserId()
     registrationCertificateDTO.carDTO = carDTO
 
     console.log("Ovo su podaci ", registrationCertificateDTO)
 
-    this.service.createRequest(registrationCertificateDTO)
+    this.service.createRequest(registrationCertificateDTO).subscribe( data => {
+      console.log(data)
+    },
+      error => console.error(error))
 
     this.fuelType = ""
     this.weight = 0
@@ -57,6 +62,7 @@ export class RegistrationCertificateRequestComponent implements OnInit {
     this.chassisNumber = ""
     this.horsePower = 0
 
-  }
+    this.router.navigate(["/"])
 
+  }
 }

@@ -20,15 +20,23 @@ public class RegistrationCertificateController {
         this.iRegistrationCertificateService = iRegistrationCertificateService;
     }
 
+    @GetMapping(value = "/user/{userId}")
+    public ResponseEntity<List<RegistrationCertificateDTO>> getRegistrationCertificatesForUser(@PathVariable String userId){
+        return new ResponseEntity<>(iRegistrationCertificateService.findAllByUserId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/user/registration-certificate/{id}")
+    public ResponseEntity<RegistrationCertificateDTO> getRegistrationCertificate(@PathVariable Long id){
+        return new ResponseEntity<>(iRegistrationCertificateService.findOne(id),HttpStatus.OK);
+    }
+
     @PostMapping(value = "/requests")
     public ResponseEntity<RegistrationCertificateDTO> createRequestForRegistrationCertificate(@RequestBody RegistrationCertificateDTO registrationCertificateDTO){
-        Logger.getAnonymousLogger().info("Kreiranje requesta " + registrationCertificateDTO);
         return new ResponseEntity<>(iRegistrationCertificateService.createRequest(registrationCertificateDTO), HttpStatus.CREATED);
     }
 
     @GetMapping(value = "/requests")
     public ResponseEntity<List<RegistrationCertificateDTO>> getAllRequestsForCreating(){
-        Logger.getAnonymousLogger().info("Requestovi za kreiranje ");
         return new ResponseEntity<>(iRegistrationCertificateService.getAllRequests(), HttpStatus.OK);
     }
 

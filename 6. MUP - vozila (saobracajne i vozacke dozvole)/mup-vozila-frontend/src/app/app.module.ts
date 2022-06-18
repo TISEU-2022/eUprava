@@ -19,6 +19,8 @@ import { DrivingLicenceEmployeePageComponent } from './components/driving-licenc
 
 import { RegistrationCertificateRequestsComponent } from './components/registration-certificate-requests/registration-certificate-requests.component';
 import { ViewRegistrationCertificateComponent } from './components/view-registration-certificate/view-registration-certificate.component';
+import { CreateRegistrationCertificateComponent } from './components/create-registration-certificate/create-registration-certificate.component';
+import { ViewRegistrstionCertificatesComponent } from './components/view-registrstion-certificates/view-registrstion-certificates.component';
 
 @NgModule({
   declarations: [
@@ -31,10 +33,12 @@ import { ViewRegistrationCertificateComponent } from './components/view-registra
     CreateDriverLicenseComponent,
     ReviewRegistrationCertificateRequestComponent,
     DrivingLicenceCitizenPageComponent,
-    DrivingLicenceEmployeePageComponent
+    DrivingLicenceEmployeePageComponent,
     ReviewRegistrationCertificateRequestComponent,
     RegistrationCertificateRequestsComponent,
-    ViewRegistrationCertificateComponent
+    ViewRegistrationCertificateComponent,
+    CreateRegistrationCertificateComponent,
+    ViewRegistrstionCertificatesComponent
   ],
   imports: [
     BrowserModule,

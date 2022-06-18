@@ -1,6 +1,7 @@
 package ftn.euprava.mupvozila.service.implementation;
 
 import ftn.euprava.mupvozila.model.Car;
+import ftn.euprava.mupvozila.model.RegistrationCertificate;
 import ftn.euprava.mupvozila.repository.CarRepository;
 import ftn.euprava.mupvozila.service.ICarService;
 import ftn.euprava.mupvozila.util.mapper.CarMapper;
@@ -31,8 +32,9 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public CarDTO save(CarDTO carDTO) {
+    public CarDTO save(CarDTO carDTO, RegistrationCertificate registrationCertificate) {
         Car car = carRepository.save(carMapper.toEntity(carDTO));
+        car.setRegistrationCertificate(registrationCertificate);
         return carMapper.toDto(car);
     }
 

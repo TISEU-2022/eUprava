@@ -5,9 +5,18 @@
   <button *ngIf="userRole == 'gradjanin'" class="btn btn-info" routerLink="/citizen/driving-licence" routerLinkActive="active">
     Driving licence
   </button>
+  <button *ngIf="userRole == 'gradjanin'" class="btn btn-info" routerLink="/registration-certificate/create-request" routerLinkActive="active">
+    Create request for registration certificate
+  </button>
+  <button *ngIf="userRole == 'gradjanin'" class="btn btn-info" routerLink="/registration-certificates" routerLinkActive="active">
+    View registration certificates
+  </button>
 
   <button *ngIf="userRole == 'zaposleni'" class="btn btn-info" routerLink="/employee/driving-licence" routerLinkActive="active">
     Driving licence
+  </button>
+  <button *ngIf="userRole == 'zaposleni'" class="btn btn-info" routerLink="/registration-certificate/requests" routerLinkActive="active">
+    Registration certificate
   </button>
 
 
