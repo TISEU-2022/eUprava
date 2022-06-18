@@ -74,125 +74,125 @@ services:
           - auth-command-seed-user
 
   # --- MATICAR ---
-  # maticar-frontend:
-  #   environment:
-  #     - VITE_PORT=4001
-  #     - VITE_APP_URL=http://localhost:4001
-  #     - VITE_AUTH_SERVER_URL=http://localhost:4101
-  #     - VITE_BACKEND_URL=http://localhost:4002/api
-  #   build:
-  #     context: ./4. maticar/frontend/
-  #   container_name: maticar-frontend
-  #   networks:
-  #     tiseu:
-  #       aliases:
-  #         - frontend
-  #   ports:
-  #     - "4001:4001"
+  maticar-frontend:
+    environment:
+      - VITE_PORT=4001
+      - VITE_APP_URL=http://localhost:4001
+      - VITE_AUTH_SERVER_URL=http://localhost:4101
+      - VITE_BACKEND_URL=http://localhost:4002/api
+    build:
+      context: ./4. maticar/frontend/
+    container_name: maticar-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "4001:4001"
 
-  # maticar:
-  #   build:
-  #     context: ./4. maticar/maticar-backend/
-  #     args:
-  #       - APP_VERSION
-  #   container_name: maticar
-  #   environment:
-  #     - DEVELOP=true
-  #     - APP_VERSION=1
-  #     - LOG_LEVEL=DEBUG
-  #     - MYSQL_USER=root
-  #     - AUTH_SERVER_API=http://auth-app:3101
-  #     - MYSQL_PASSWORD=maticar123
-  #     - MYSQL_DB=maticar
-  #     - MYSQL_HOST=mysqlDB
-  #     - MYSQL_PORT=4003
-  #   networks:
-  #     tiseu:
-  #       aliases:
-  #         - maticar-app
-  #   ports:
-  #     - "4002:4002"
-  #   depends_on:
-  #     maticar-mysql:
-  #       condition: service_healthy
+  maticar:
+    build:
+      context: ./4. maticar/maticar-backend/
+      args:
+        - APP_VERSION
+    container_name: maticar
+    environment:
+      - DEVELOP=true
+      - APP_VERSION=1
+      - LOG_LEVEL=DEBUG
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app:3101
+      - MYSQL_PASSWORD=maticar123
+      - MYSQL_DB=maticar
+      - MYSQL_HOST=mysqlDB
+      - MYSQL_PORT=4003
+    networks:
+      tiseu:
+        aliases:
+          - maticar-app
+    ports:
+      - "4002:4002"
+    depends_on:
+      maticar-mysql:
+        condition: service_healthy
 
-  # maticar-mysql:
-  #   image: mysql:8.0.23
-  #   container_name: maticar-mysql
-  #   ports:
-  #     - "4003:4003"
-  #   environment:
-  #     - MYSQL_TCP_PORT=4003
-  #     - MYSQL_ROOT_PASSWORD=maticar123
-  #     - MYSQL_DATABASE=maticar
-  #   volumes:
-  #     - maticar-mysql:/var/lib/mysql
-  #     - ./4. maticar/init_db:/docker-entrypoint-initdb.d
-  #   networks:
-  #     tiseu:
-  #       aliases:
-  #         - "mysqlDB"
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-  #     interval: 15s
-  #     timeout: 5s
-  #     retries: 3
-  #     start_period: 20s
+  maticar-mysql:
+    image: mysql:8.0.23
+    container_name: maticar-mysql
+    ports:
+      - "4003:4003"
+    environment:
+      - MYSQL_TCP_PORT=4003
+      - MYSQL_ROOT_PASSWORD=maticar123
+      - MYSQL_DATABASE=maticar
+    volumes:
+      - maticar-mysql:/var/lib/mysql
+      - ./4. maticar/init_db:/docker-entrypoint-initdb.d
+    networks:
+      tiseu:
+        aliases:
+          - "mysqlDB"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
-  # # --- Zdravstvo ---
-  # zdravstvo-frontend:
-  #   environment:
-  #     - PORT=5000
-  #     - APP_URL=http://localhost:5000
-  #     - AUTH_SERVER_URL=http://localhost:5101
-  #     - BACKEND_URL=http://localhost:5001/api
-  #   build:
-  #     context: ./5. zdravstvo/zdravstvo-frontend
-  #   container_name: zdravstvo-frontend
-  #   networks:
-  #     tiseu:
-  #       aliases:
-  #         - frontend
-  #   ports:
-  #     - "5000:5000"
-  #   command: npm start
+  # --- Zdravstvo ---
+  zdravstvo-frontend:
+    environment:
+      - PORT=5000
+      - APP_URL=http://localhost:5000
+      - AUTH_SERVER_URL=http://localhost:5101
+      - BACKEND_URL=http://localhost:5001/api
+    build:
+      context: ./5. zdravstvo/zdravstvo-frontend
+    container_name: zdravstvo-frontend
+    networks:
+      tiseu:
+        aliases:
+          - frontend
+    ports:
+      - "5000:5000"
+    command: npm start
 
-  # zdravstvo:
-  #   depends_on:
-  #     - zdravstvo-mysql
-  #   build:
-  #     context: ./5. zdravstvo/zdravstvo/
-  #     args:
-  #       - APP_VERSION
-  #   restart: on-failure
-  #   ports:
-  #     - 5001:5001
-  #   environment:
-  #     # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
-  #     - MYSQL_USER=root
-  #     - AUTH_SERVER_API=http://auth-app-proxy:5101
-  #     - MYSQL_PASSWORD=zdravstvo123
-  #     - MYSQL_DB=zdravstvo
-  #     - MYSQL_HOST=zdravstvoDB
-  #     - MYSQL_PORT=5002
+  zdravstvo:
+    depends_on:
+      - zdravstvo-mysql
+    build:
+      context: ./5. zdravstvo/zdravstvo/
+      args:
+        - APP_VERSION
+    restart: on-failure
+    ports:
+      - 5001:5001
+    environment:
+      # - SPRING_DATASOURCE_URL=jdbc:mysql://zdravstvo-mysql:5002/database?autoReconnect=true&useSSL=false
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - MYSQL_PASSWORD=zdravstvo123
+      - MYSQL_DB=zdravstvo
+      - MYSQL_HOST=zdravstvoDB
+      - MYSQL_PORT=5002
 
-  # zdravstvo-mysql:
-  #   image: mysql:8.0.23
-  #   container_name: zdravstvo-mysql
-  #   ports:
-  #     - "5002:3306"
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=zdravstvo123
-  #     - MYSQL_DATABASE=zdravstvo
-  #     - MYSQL_ROOT_HOST=%
-  #   volumes:
-  #     - zdravstvo-mysql:/var/lib/mysql
-  #   healthcheck:
-  #     test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-  #     interval: 15s
-  #     timeout: 5s
-  #     retries: 3
-  #     start_period: 20s
+  zdravstvo-mysql:
+    image: mysql:8.0.23
+    container_name: zdravstvo-mysql
+    ports:
+      - "5002:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=zdravstvo123
+      - MYSQL_DATABASE=zdravstvo
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - zdravstvo-mysql:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
 
   # --- MUP-vozila ---
   mup-vozila-backend:
