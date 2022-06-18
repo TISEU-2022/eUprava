@@ -13,4 +13,6 @@ public interface RegistrationCertificateRepository extends JpaRepository<Registr
     List<RegistrationCertificate> findAllByRequestTrue();
 
     Optional<RegistrationCertificate> findByUserId(String userId);
+
+    List<RegistrationCertificate> findAllByUserId(String userId);
 }

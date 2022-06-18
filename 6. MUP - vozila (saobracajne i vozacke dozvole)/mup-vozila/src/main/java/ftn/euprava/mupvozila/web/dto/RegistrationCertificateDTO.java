@@ -9,7 +9,7 @@ public class RegistrationCertificateDTO {
 
     private Long id;
 
-    private String licencePlate;
+    private String licensePlate;
 
     private LocalDate dayOfIssue;
 
