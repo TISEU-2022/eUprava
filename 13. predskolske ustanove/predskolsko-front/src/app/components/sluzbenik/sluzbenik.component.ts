@@ -26,7 +26,8 @@ export class SluzbenikComponent implements OnInit {
     this.router.navigate(['createSluzbenik']);
   }
 
-  public blockSluzbenik(id:number) {
+    public blockSluzbenik(id:number) {
+    console.log(id);
     let response = this.sluzbenikService.blockSluzbenik(id);
     response.subscribe((sluzbenici)=> this.sluzbenici = sluzbenici)
   }
