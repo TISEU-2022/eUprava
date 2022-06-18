@@ -55,10 +55,12 @@ public class GradjaninPDFExporter {
             table.addCell(gradjanin.getKorisnickoIme());
             table.addCell(gradjanin.getIme());
             table.addCell(gradjanin.getPrezime());
-            table.addCell(String.valueOf(gradjanin.getFirma().getImeFirme()));
+            
             if(gradjanin.getFirma() == null) {
+            	table.addCell("/");
                 table.addCell("Nije Zaposlen");
             }else{
+            	table.addCell(String.valueOf(gradjanin.getFirma().getImeFirme()));
                 table.addCell("Zaposlen je");
             }
 

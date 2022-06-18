@@ -25,4 +25,14 @@ export const getCitizenByusername = async (username) => {
     }
 }
 
+export const getBirthCertificate = async (jmbg) => {
+    try{
+    const response = await httpClient.get(`${CITIZEN_REST_API_URL}/info/${jmbg}`)
+    return response.data;
+
+    } catch(error){
+        console.log(error);
+    }
+}
+
 

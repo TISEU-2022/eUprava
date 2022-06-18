@@ -5,12 +5,16 @@ import com.example.SluzbaZaposljavanja.model.GradjaninPDFExporter;
 import com.example.SluzbaZaposljavanja.model.OglasZaPosao;
 import com.example.SluzbaZaposljavanja.service.GradjaninService;
 import com.example.SluzbaZaposljavanja.service.OglasZaPosaoService;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.lowagie.text.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,6 +28,8 @@ import java.util.List;
 @RequestMapping(value = "api/gradjani")
 public class GradjaninController {
 
+	private static final String MATICAR_API_URL = "http://maticar:4002/api/user/";
+	
     @Autowired
     private GradjaninService gradjaninService;
 
@@ -47,6 +53,8 @@ public class GradjaninController {
         Gradjanin newGradjanin = gradjaninService.save(gradjanin);
         return ResponseEntity.status(201).body(newGradjanin);
     }
+    
+    
 
     @GetMapping(value = "zaposlenje/{korisnickoIme}")
     public ResponseEntity<Boolean> getStatusZaposlenjaGradjanina(@PathVariable("korisnickoIme") String korisnickoIme){
@@ -90,6 +98,18 @@ public class GradjaninController {
 
         GradjaninPDFExporter exporter = new GradjaninPDFExporter(gradjanin);
         exporter.export(response);
+    }
+    
+    @GetMapping("/info/{jmbg}")
+    public ResponseEntity<?> getUserInfo(@PathVariable("jmbg") String jmbg) {
+    	final RestTemplate restTemplate = new RestTemplate();
+    	try {
+        	ResponseEntity<JsonNode> response = restTemplate.getForEntity(MATICAR_API_URL  + jmbg, JsonNode.class);
+        	return response;
+        }
+        catch (Exception e) {
+        	return null;
+        }
     }
 
 }

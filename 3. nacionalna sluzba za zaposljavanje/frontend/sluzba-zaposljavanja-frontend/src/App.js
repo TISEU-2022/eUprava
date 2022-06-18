@@ -27,7 +27,7 @@ function App() {
             {/* <Route path="logout_handler" element={<LogoutHandler />} /> */}
           </Route>
           <Route exact path="/gradjani" element={<GradjaniComponent />}></Route>
-          <Route exact path="/gradjani/:username" element={<GradjaninComponent />}></Route>
+          <Route exact path="/gradjani/:jmbg" element={<GradjaninComponent />}></Route>
           <Route path="/oglasi" element={<OglasiComponent />}></Route>
           <Route exact path="/oglasi/add" element={<AddOglasComponent />}></Route>
           <Route exact path="/oglasi/:id" element={<UpdateOglasComponent />}></Route>

@@ -35,7 +35,6 @@ const Navbar = () => {
 
     const username = AuthenticationService.getUsername();
     setUsername(username);
-    console.log(username);
     
 
 }, []);

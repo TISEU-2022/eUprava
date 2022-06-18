@@ -11,7 +11,6 @@ const ViewOglasComponent = (id) => {
 
     useEffect(() => {
         getAdvertisementById(params.id).then((response) => {
-            console.log(response);
             setOglas(response);
           }).catch(error => {
             console.log(error);
@@ -77,7 +76,7 @@ const ViewOglasComponent = (id) => {
                             <td>{gradjanin.gradjanin.korisnickoIme}</td>
                             <td>{gradjanin.gradjanin.datumRodjenja}</td>
                             <td>
-                                <button className="btn btn-primary" onClick={e => {navigate(`/gradjani/${gradjanin.gradjanin.id}`)}}>VIew</button>
+                                <button className="btn btn-primary" onClick={e => {navigate(`/gradjani/${gradjanin.gradjanin.jmbg}`)}}>VIew</button>
                             </td>
                             </tr>
                     ) : null
