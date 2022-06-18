@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import yu.rs.co.edfeahs.model.Student;
+import yu.rs.co.edfeahs.model.Subject;
+import yu.rs.co.edfeahs.service.ParentService;
 import yu.rs.co.edfeahs.util.converter.StudentMapper;
 import yu.rs.co.edfeahs.web.dto.FoundStudentDto;
 import yu.rs.co.edfeahs.web.dto.StudentSearchParam;
@@ -28,6 +30,8 @@ public class StudentController {
 
     private final StudentService studentService;
     private final StudentMapper studentMapper;
+
+    private final ParentService parentService;
 
     @GetMapping(path = "{jmbg}/diploma/{tip_ustanove}", produces = "application/json")
     public ResponseEntity<Map<String, Object>> getDiploma(
@@ -79,6 +83,20 @@ public class StudentController {
                 .map(student -> studentMapper.toFoundStudentDto(student, searchParam.getSubjectId()))
                 .collect(Collectors.toList());
         System.out.println("Hello World!!");
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "parent/{parentUCN}")
+    public ResponseEntity<List<FoundStudentDto>> findParentStudents(@PathVariable(name = "parentUCN") String parentUCN) {
+        List<FoundStudentDto> result = parentService.findParentsStudents(parentUCN)
+                .stream()
+                .map(student -> studentMapper.toFoundStudentDto(student, null)).collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("{studentUCN}/subjects")
+    public ResponseEntity<List<Subject>> findsStudentsSubjects(@PathVariable("teacherUCN") String teacherUCN) {
+        List<Subject> result = subjectService.findSubjectsByTeacherUCN(teacherUCN);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 

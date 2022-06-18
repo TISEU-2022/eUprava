@@ -2,11 +2,12 @@ package yu.rs.co.edfeahs.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.DiscriminatorOptions;
 
 import javax.persistence.*;
 
-@Getter @Setter // Lombok
+@Getter @Setter @ToString// Lombok
 @Entity @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Jakarta
 @DiscriminatorColumn(name = "role", discriminatorType = DiscriminatorType.STRING) // Jakarta
 @DiscriminatorOptions(force = true) // Jakarta

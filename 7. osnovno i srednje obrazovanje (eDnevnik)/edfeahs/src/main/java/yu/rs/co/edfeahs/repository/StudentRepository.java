@@ -26,4 +26,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT s FROM Student s WHERE s.firstName LIKE CONCAT('%', :firstName, '%')" )
     List<Student> findStudentByName(@Param("firstName") String firstName);
 
+    Student findStudentByUCN(String UCN);
+
 }

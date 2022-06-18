@@ -11,7 +11,6 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class CreateMarkDto {
 
     private Long subjectId;
