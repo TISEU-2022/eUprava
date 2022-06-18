@@ -41,7 +41,7 @@ export const Registration = () => {
             .then((res) => {
                 console.log(res)
                 if (res.statusText = "Created") {
-                    navigate("login")
+                    navigate("/")
                 }
             })
             .catch((err) => {

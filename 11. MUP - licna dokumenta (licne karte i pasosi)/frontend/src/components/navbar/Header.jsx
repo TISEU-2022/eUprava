@@ -14,15 +14,15 @@ export const Header = () => {
     const [username, setUsername] = useState(false)
     const usertoken = localStorage.getItem("token")
     const { decodedToken, isExpired } = useJwt(usertoken);
-     
+
     // console.log(isExpired)
 
     useEffect(() => {
-        if(decodedToken && isExpired){
+        if (decodedToken && isExpired) {
             localStorage.removeItem('token');
             navigate('/');
         }
-    })
+    }, [])
 
     const logOut = () => {
         window.open(
@@ -49,6 +49,12 @@ export const Header = () => {
 
                         {!decodedToken &&
                             <>
+                                <Nav.Link onClick={() => {
+                                    window.open(
+                                        `http://localhost:5101/auth/login?successUrl=http://localhost:11000/auth/token_handler`,
+                                        '_self',
+                                    );
+                                }}>Login</Nav.Link>
                                 <Nav.Link onClick={() => navigate("/registration")}>Registration</Nav.Link>
                             </>
                         }

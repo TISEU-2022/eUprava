@@ -36,10 +36,10 @@ public class DocumentAppointmentController {
     }
 
     @GetMapping("/myAppointments")
-    public ResponseEntity<List<DocumentAppointmentUserDto>> userAppointments(@RequestBody LoggedUserDto loggedUserDto) {
+    public ResponseEntity<List<DocumentAppointmentUserDto>> userAppointments(@RequestParam String username) {
         List<DocumentAppointmentUserDto> appointmentUserDtoList;
         try {
-            appointmentUserDtoList = documentAppointmentService.getAllAppointmentsForUser(loggedUserDto.getUsername());
+            appointmentUserDtoList = documentAppointmentService.getAllAppointmentsForUser(username);
         } catch (UserMissingException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
