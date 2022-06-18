@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.projekat.predskolsko.model.Sluzbenik;
 import com.projekat.predskolsko.model.Vrtic;
 import com.projekat.predskolsko.services.VrticService;
 
@@ -55,25 +56,30 @@ public class VrticController {
 		}
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
+	
 	@PutMapping("/{id}")
-	public ResponseEntity<Vrtic> updateVrtic(@PathVariable(value = "id", required = false) final Integer id,
-			@RequestBody Vrtic vrtic) throws URISyntaxException {
-		if (vrtic.getVrtic_id() == null) {
-			System.out.println("");
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		if (!Objects.equals(id, vrtic.getVrtic_id())) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+    public ResponseEntity<Vrtic> updateVrtic(
+        @PathVariable(value = "id", required = false) final Integer id,
+        @RequestBody Vrtic vrtic
+    ) throws URISyntaxException {
+        if (vrtic.getVrtic_id() == null) {
+        	System.out.println("");
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if (!Objects.equals(id, vrtic.getVrtic_id())) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-		if (vrticService.findOne(id) == null) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
+        if (vrticService.findOne(id) == null) {
+        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-		Vrtic result = vrticService.save(vrtic);
-		return ResponseEntity.ok().body(result);
-	}
+        Vrtic result = vrticService.save(vrtic);
+        return ResponseEntity
+            .ok()
+            .body(result);
+    }	
 
 	@PostMapping()
 	public ResponseEntity<Vrtic> save(@RequestBody Vrtic vrtic) {

@@ -1,0 +1,25 @@
+.center{
+    text-align: center;
+    
+}
+h3{
+    text-align: center;
+}
+
+.form-group
+{
+    text-align: center;
+    margin-top: 20px;
+}
+
+label{
+    color: green;
+    font-size: 18px;
+}
+
+button{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 40%;
+    width: 200px;
+}

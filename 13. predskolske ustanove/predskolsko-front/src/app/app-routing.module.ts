@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: 'createKonkurs', component: CreateKonkursComponent},
   { path: 'createDete', component: CreateDeteComponent},
   { path: 'updateVrtic/:id', component: UpdateVrticComponent},
-  { path: 'sluzbenik', component: SluzbenikComponent},
+  { path: 'sluzbenici', component: SluzbenikComponent},
   { path: 'createSluzbenik', component: CreateSluzbenikComponent},
   { path: 'updateSluzbenik/:id', component: UpdateSluzbenikComponent}
 ];
