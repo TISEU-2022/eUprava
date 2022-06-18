@@ -49,7 +49,10 @@ public class RequestForDrivingLicenceService implements IRequestForDrivingLicenc
         List<RequestForDrivingLicence> requests = requestForDrivingLicenceRepository.findAllByCitizenIdEqualsAndRequestStatus(userId, RequestStatus.PENDING);
 
         if (requests.size() == 0){
-            return null;
+            requests = requestForDrivingLicenceRepository.findAllByCitizenIdEqualsAndRequestStatus(userId, RequestStatus.ACCEPTED);
+            if (requests.size() == 0){
+                return null;
+            }
         }
 
         return requestForDrivingLicenceMapper.toDto(requests.get(0));
@@ -88,7 +91,8 @@ public class RequestForDrivingLicenceService implements IRequestForDrivingLicenc
 
     @Override
     public RequestForDrivingLicenceDTO save(RequestForDrivingLicenceDTO requestForDrivingLicenceDTO) {
-        RequestForDrivingLicence requestForDrivingLicence = requestForDrivingLicenceMapper.toEntity(requestForDrivingLicenceDTO);
+        RequestForDrivingLicence requestForDrivingLicence =
+                requestForDrivingLicenceMapper.toEntity(requestForDrivingLicenceDTO);
         return requestForDrivingLicenceMapper.toDto(requestForDrivingLicenceRepository.save(requestForDrivingLicence));
     }
 

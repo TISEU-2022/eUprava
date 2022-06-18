@@ -58,7 +58,7 @@ export class DrivingLicenceCitizenPageComponent implements OnInit {
           this.createDLrequestExist = false;
         }
         else {
-          this.createRequestResultMsg = "*You have already sent a request for a new driving licence that is still pending"
+          this.createRequestResultMsg = "*You have already sent a request for a new driving licence that is still being processed"
         }
       }
     )
