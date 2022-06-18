@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import yu.rs.co.edfeahs.model.Student;
 import yu.rs.co.edfeahs.model.Subject;
 import yu.rs.co.edfeahs.service.ParentService;
+import yu.rs.co.edfeahs.service.SubjectService;
 import yu.rs.co.edfeahs.util.converter.StudentMapper;
 import yu.rs.co.edfeahs.web.dto.FoundStudentDto;
 import yu.rs.co.edfeahs.web.dto.StudentSearchParam;
@@ -30,8 +31,8 @@ public class StudentController {
 
     private final StudentService studentService;
     private final StudentMapper studentMapper;
-
     private final ParentService parentService;
+    private final SubjectService subjectService;
 
     @GetMapping(path = "{jmbg}/diploma/{tip_ustanove}", produces = "application/json")
     public ResponseEntity<Map<String, Object>> getDiploma(
@@ -94,9 +95,9 @@ public class StudentController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("{studentUCN}/subjects")
-    public ResponseEntity<List<Subject>> findsStudentsSubjects(@PathVariable("teacherUCN") String teacherUCN) {
-        List<Subject> result = subjectService.findSubjectsByTeacherUCN(teacherUCN);
+    @GetMapping("{studentId}/subjects")
+    public ResponseEntity<List<Subject>> findsStudentsSubjects(@PathVariable("studentId") Long studentId) {
+        List<Subject> result = subjectService.findSubjectsByStudentId(studentId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
