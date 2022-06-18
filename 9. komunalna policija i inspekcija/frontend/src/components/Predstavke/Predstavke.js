@@ -55,7 +55,7 @@ const Predstavke = () => {
                         const vremePodnosenja = new Date(predstavka.vremePodnosenja);
                         const datumDogadjaja = new Date(predstavka.datumDogadjaja);
 
-                        let izvestaj = "Poslat";
+                        let izvestaj = "Na čekanju";
                         if(predstavka.izvestaj) {
                             if(predstavka.izvestaj.prihvaceno) {
                                 izvestaj = "Prihvaćen";

@@ -8,5 +8,5 @@ public interface SluzbenikService {
     Long createSluzbenik(SluzbenikDTO sluzbenikDTO);
     void updateSluzbenik(Long uuid, SluzbenikDTO sluzbenikDTO);
     boolean deleteSluzbenik(Long id);
-
+    SluzbenikDTO getByJmbg(String jmbg);
 }

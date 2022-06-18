@@ -84,26 +84,21 @@ public class KomunalniProblemController {
     public ResponseEntity<?> createKomunalniProblem(@ModelAttribute KomunalniProblemRequestDTO komunalniProblemRequestDTO){
         try {
             RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<Object> maticarResponse = restTemplate.getForEntity("http://maticar-app:4002/api/user/" + komunalniProblemRequestDTO.getJmbg().toString(), Object.class );
+            ResponseEntity<Object> maticarResponse = restTemplate.
+                    getForEntity("http://maticar-app:4002/api/user/" + komunalniProblemRequestDTO.getJmbg().toString(), Object.class );
             KomunalniProblem komunalniProblem = KomunalniProblemMapper.mapModel(komunalniProblemRequestDTO);
             komunalniProblem.setDatumPodnosenja(new Date());
-
             podnosilacService.create(komunalniProblem.getPodnosilac());
             Long id = komunalniProblemService.createKomunalniProblem(komunalniProblem);
-
             String location = ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/{id}")
                     .buildAndExpand(id)
                     .toUriString();
-
             return ResponseEntity.status(HttpStatus.CREATED).header(HttpHeaders.LOCATION, location).body(id);
-
         }catch (HttpClientErrorException.NotFound httpClientErrorExceptionNotFound){
-            System.out.println("Ivke greska 404.");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }catch (HttpClientErrorException.MethodNotAllowed httpClientErrorExceptionMethodNotAllowed){
-            System.out.println("Ivke greska 405.");
             return new ResponseEntity<>(HttpStatus.METHOD_NOT_ALLOWED);
         }
     }
@@ -113,7 +108,8 @@ public class KomunalniProblemController {
     public ResponseEntity<?> writeIzvestaj(@PathVariable("id") Long id, @RequestBody IzvestajRequestDTO izvestajDTO){
         System.out.println(izvestajDTO);
         KomunalniProblem komunalniProblem = komunalniProblemService.getOne(id);
-        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getOne(1L));
+        String jmbg = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getByJmbg(jmbg));
         Izvestaj novIzvestaj = new Izvestaj();
         novIzvestaj.setIzvestaj(izvestajDTO.getReport());
         novIzvestaj.setPrihvaceno(true);
@@ -129,7 +125,8 @@ public class KomunalniProblemController {
     @PostMapping(value="/odbaci-izvestaj/{id}")
     public ResponseEntity<?> rejectIzvestaj(@PathVariable("id") Long id){
         KomunalniProblem komunalniProblem = komunalniProblemService.getOne(id);
-        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getOne(1L));
+        String jmbg = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getByJmbg(jmbg));
         Izvestaj novIzvestaj = new Izvestaj();
         novIzvestaj.setIzvestaj("Vaš izveštaj je odbijen.");
         novIzvestaj.setPrihvaceno(false);

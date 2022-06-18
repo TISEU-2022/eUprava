@@ -51,4 +51,10 @@ public class SluzbenikServiceImpl implements SluzbenikService {
         sluzbenikRepository.delete(sluzbenik);
         return true;
     }
+
+    @Override
+    public SluzbenikDTO getByJmbg(String jmbg) {
+        SluzbenikDTO dto = SluzbenikMapper.mapDTO(sluzbenikRepository.findSluzbenikByJmbg(jmbg));
+        return dto;
+    }
 }

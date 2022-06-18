@@ -54,7 +54,7 @@ const KomunalniProblemi = () =>{
                         const datumPodnosenja = new Date(komunalniProblem.datumPodnosenja);
                         const datumDogadjaja = new Date(komunalniProblem.datumDogadjaja);
 
-                        let izvestaj = "Poslat";
+                        let izvestaj = "Na čekanju";
                         if(komunalniProblem.izvestaj) {
                             if(komunalniProblem.izvestaj.prihvaceno) {
                                 izvestaj = "Prihvaćen";

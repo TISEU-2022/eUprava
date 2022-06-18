@@ -99,7 +99,8 @@ public class PredstavkaController {
     public ResponseEntity<?> writeIzvestaj(@PathVariable("id") Long id, @RequestBody IzvestajRequestDTO izvestajDTO){
         System.out.println(izvestajDTO);
         Predstavka predstavka = predstavkaService.findOne(id);
-        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getOne(1L));
+        String jmbg = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getByJmbg(jmbg));
         Izvestaj novIzvestaj = new Izvestaj();
         novIzvestaj.setIzvestaj(izvestajDTO.getReport());
         novIzvestaj.setPrihvaceno(true);
@@ -115,7 +116,8 @@ public class PredstavkaController {
     @PostMapping(value="/odbaci-izvestaj/{id}")
     public ResponseEntity<?> rejectIzvestaj(@PathVariable("id") Long id){
         Predstavka predstavka = predstavkaService.findOne(id);
-        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getOne(1L));
+        String jmbg = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+        Sluzbenik sluzbenik = SluzbenikMapper.mapModel(sluzbenikService.getByJmbg(jmbg));
         Izvestaj novIzvestaj = new Izvestaj();
         novIzvestaj.setIzvestaj("Vaša predstavka je odbijena.");
         novIzvestaj.setPrihvaceno(false);
