@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profil</title>
+    <title>Dozvola za nosenje</title>
     <link rel="stylesheet" href="profilSluzbenik.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
@@ -10,13 +10,13 @@
 <ul>
     <li><a href="http://localhost:8080/index.html">Oruzije</a></li>
     <li><a class="active" href="http://localhost:8080/profil.html">Moj profil</a></li>
-    <li><a style="display: none" class="prodavac" href="http://localhost:8080/artikal.html">Nabavka oruzije</a></li>
+    <li><a style="active" class="prodavac" href="http://localhost:8080/artikal.html">Nabavka oruzije</a></li>
     <li><a class="active" href="http://localhost:8080/nosenje.html">Nosenje oruzija</a></li>
     <li style="float:right"><a href="http://localhost:8080/login.html">Odjava</a></li>
 
 </ul>
     <select id="oruzije">
-
+    <option>Zastava m70 7x64</option><option>CZ 999</option>
     </select>
     <button id="zahtevbtn">
     Podnesi zahtev
@@ -43,6 +43,7 @@
 
 
     btn.onclick=function(){
+        alert("Dozvola za nosenje je dobijena!");
         $.ajax({
         type: 'POST',
         url: '/api/nosenje/save',
@@ -62,6 +63,10 @@
         });
 
     }
+
+    function myFunction() {
+  alert("Hello! I am an alert box!");
+}
 </script>
 </body>
 </html>
