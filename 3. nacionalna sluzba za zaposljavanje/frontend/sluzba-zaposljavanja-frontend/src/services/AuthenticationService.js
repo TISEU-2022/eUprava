@@ -16,7 +16,7 @@ function getRole() {
   const token = TokenService.getToken();
   const decoded_token = token ? TokenService.decodeToken(token) : null;
   if (decoded_token) {
-    return decoded_token.role.authority;
+    return decoded_token.roles[0];
   } else {
     return null;
   }

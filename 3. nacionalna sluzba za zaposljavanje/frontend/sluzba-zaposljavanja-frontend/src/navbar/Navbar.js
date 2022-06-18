@@ -9,13 +9,22 @@ import {
     NavBtnLink,
 } from "./NavbarElements";
 import { useEffect, useState } from 'react';
-import { AuthenticationService } from '../services/AuthenticationService';
+import { AuthenticationService, getRole } from '../services/AuthenticationService';
+
+
 
 
 
 const performLogin = () => {
   window.open(
     `${process.env.REACT_APP_AUTH_SERVER_URL}/auth/login?successUrl=${process.env.REACT_APP_ROOT_URL}/auth/token_handler`,
+    '_self',
+  );
+};
+
+const performEportal = () => {
+  window.open(
+    `http://localhost:4011/p/portals`,
     '_self',
   );
 };
@@ -29,10 +38,12 @@ const performLogout = () => {
 };
 
 const Navbar = () => {
+  const [role, setRole] = useState('');
   const [username, setUsername] = useState("");
 
   useEffect(() => {
-
+    let role = AuthenticationService.getRole()
+    setRole(role)
     const username = AuthenticationService.getUsername();
     setUsername(username);
     
@@ -54,12 +65,14 @@ const Navbar = () => {
                 >
                     Home
                 </NavLink>
+                {role == 'biro_sluzbenik' ? (
                 <NavLink 
                   to="/gradjani" 
                   activestyle={{ color: 'black' }}
                 >
                     Gradjani
                 </NavLink>
+                ): (<div></div>) }
                 <NavLink 
                   to="/oglasi" 
                   activestyle={{ color: 'black' }}
@@ -93,7 +106,7 @@ const Navbar = () => {
                     <div></div>
                     )}
                 <NavBtn>
-                    <NavBtnLink to="/sign-up">Feature</NavBtnLink>                
+                    <NavBtnLink to="" onClick={performEportal}>ePortal</NavBtnLink>                
                 </NavBtn>
             </NavMenu> 
            </Nav> 

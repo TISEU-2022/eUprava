@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 import ViewOglasComponent from "./components/ViewOglasComponent";
 import TokenHandler from "./auth/TokenHandler";
+import LogoutHandler from "./auth/LogoutHandler";
 import UpdateOglasComponent from "./components/UpdateOglasComponent";
 import AddOglasComponent from "./components/AddOglasComponent";
 import SignUpComponent from "./components/SignUpComponent";

@@ -1,11 +1,13 @@
 import {getAdvertisementById} from "../services/OglasService";
 import {getAllKonkurse} from "../services/KonkursService";
 import React, { useEffect, useState } from "react";
-import {useLocation, useNavigate, useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
+import { AuthenticationService } from "../services/AuthenticationService";
 
 const ViewOglasComponent = (id) => {
     const [oglas, setOglas] = useState({});
     const [konkursi, setKonkursi] = useState([]);
+    const [role, setRole] = useState('');
     const navigate = useNavigate();
     const params = useParams();
 
@@ -15,6 +17,8 @@ const ViewOglasComponent = (id) => {
           }).catch(error => {
             console.log(error);
           });
+          let role = AuthenticationService.getRole()
+          setRole(role)
         getAllKonkurse().then((konkursi) => setKonkursi(konkursi))
     }, []);
 
@@ -42,7 +46,7 @@ const ViewOglasComponent = (id) => {
                         </div><br/>
 
                         <div className="row">
-                            <label style={{color:"black", fontWeight:"400"}}> <b>Firma: </b> </label>
+                            <label style={{color:"black", fontWeight:"400"}}> <b>Firma:</b> </label>
                         </div><br/>
 
                         <div className="row">
@@ -50,11 +54,15 @@ const ViewOglasComponent = (id) => {
                         </div>
 
                         <br/><br/>
-                        <button className="btn btn-success" style={{ margin: "8px", width:"150px" }} onClick={() => navigate(`/oglasi/${params.id}`)}>Update</button>
+                        {role == 'biro_sluzbenik' ? (
+                        <button className="btn btn-success" style={{ margin: "8px", width:"150px" }} onClick={() => navigate(`/oglasi/${params.id}`)}>Update</button>)
+                        : (<div></div>)}
                     </div>
                 </div>    
                 </div>   
-                <h3>Konkurisani</h3>
+                {role == 'biro_sluzbenik' ? (
+                <h3>Konkurisani</h3>) : (<div></div>)}
+                {role == 'biro_sluzbenik' ? (
                 <table className="table table-striped" border="1">
                     <thead>
                     <tr>
@@ -82,7 +90,7 @@ const ViewOglasComponent = (id) => {
                     ) : null
                     ))}
                     </tbody>
-                </table>
+                </table>) : (<div></div>)}
             </div>  
 
             

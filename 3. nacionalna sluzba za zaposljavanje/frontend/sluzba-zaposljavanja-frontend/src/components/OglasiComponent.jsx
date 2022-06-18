@@ -4,15 +4,18 @@ import { getAdvertisementById } from "../services/OglasService";
 import { useNavigate } from "react-router-dom";
 import AddOglasComponent from "./AddOglasComponent";
 import SignUpComponent from "./SignUpComponent";
+import { AuthenticationService } from "../services/AuthenticationService";
 
 
 const OglasiComponent = (props) => {
   const [oglasi, setOglasi] = useState([]);
+  const [role, setRole] = useState('');
   const navigate = useNavigate();
   
   useEffect(() => {
     getAllAdvertisements().then((response)=> setOglasi(response))
-    
+    let role = AuthenticationService.getRole()
+    setRole(role)
   }, []);
 
   function ViewOglas(id){
@@ -44,7 +47,9 @@ const OglasiComponent = (props) => {
   return (
     <div style={{ marginTop: "20px" }}>
       <h3>Svi Oglasi</h3>
-      <button style={{ marginBottom: "7px" }} className="btn btn-info" onClick={() => navigate(`/oglasi/add`)}>Add</button>
+      {role == 'biro_sluzbenik' 
+      ? (<button style={{ marginBottom: "7px" }} className="btn btn-info" onClick={() => navigate(`/oglasi/add`)}>Add</button>)
+      : (<div></div>)}
       <table className="table table-striped" border="1">
         <thead>
           <tr>
@@ -68,20 +73,22 @@ const OglasiComponent = (props) => {
               <td>{oglas.vrstaPosla.ime}</td>
 
               
-              <td>
+              <td style={{display:'inline-flex'}}>
                 <button
                   onClick={() => ViewOglas(oglas.id)}
                   className="btn btn-primary"
                 >
                   View
                 </button>
-                <button className="btn btn-success"
-                  onClick={() => SignUp(oglas.id)}
-
+                {role == 'biro_gradjanin' 
+                ? (<button className="btn btn-success" onClick={() => SignUp(oglas.id)}
                 >
                   SignUp
-                  </button>
-                <button className="btn btn-danger">Delete</button>
+                  </button>)
+                  : (<div></div>)}
+                  {role == 'biro_sluzbenik' 
+                  ? (<button className="btn btn-danger">Delete</button>)
+                  : (<div></div>)}
               </td>
             </tr>
           ))}

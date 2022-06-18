@@ -22,8 +22,17 @@ const GradjaninComponent = () => {
   let diplomaSrednja = {
     skola: "Gimnazija 'Jovan Jovanovic Zmaj'",
     smer: "Prirodno-matematicki",
+    uspeh:"Odlican",
     godinaUpisa: 2015,
-    godinaZavrsetka: 2019,
+    godinaZavrsetka: 2019
+  };
+
+  let diplomaFakultet = {
+    fakultet: "Fakultet Tehnickih Nauka",
+    smer: "Softverske i informacione tehnologije",
+    zvanje:"Strukovni inzinjer elektrotehnike i racunarstva",
+    godinaUpisa: 2019,
+    godinaZavrsetka: 2022
   };
 
   return (
@@ -56,7 +65,7 @@ const GradjaninComponent = () => {
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Sex:</b> {gradjanin.gender}{" "}
+                <b>Pol:</b> {gradjanin.gender}{" "}
               </label>
             </div>
             <br />
@@ -89,7 +98,7 @@ const GradjaninComponent = () => {
           className="card col-md-3 offset-md-3"
           style={{ marginLeft: "18px", marginRight: "18px" }}
         >
-          <h3>Rodni list {gradjanin.first_name} </h3>
+          <h3>Diploma - Srednja Skola</h3>
 
           <div className="text-center" style={{ marginTop: "8px" }}>
             <div className="row">
@@ -108,36 +117,39 @@ const GradjaninComponent = () => {
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>JMBG:</b> {gradjanin.identification_number}{" "}
+                <b>Skola:</b> {diplomaSrednja.skola}{" "}
               </label>
             </div>
             <br />
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Sex:</b> {gradjanin.gender}{" "}
+                <b>Smer:</b> {diplomaSrednja.smer}{" "}
               </label>
             </div>
             <br />
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Zemlja Rodjenja:</b> {gradjanin.country_of_birth}{" "}
+                <b>Uspeh:</b> {diplomaSrednja.uspeh}{" "}
               </label>
             </div>
             <br />
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Drzavljanstvo:</b> {gradjanin.citizenship}{" "}
+                <b>Godina Upisa:</b> {diplomaSrednja.godinaUpisa}{" "}
               </label>
             </div>
             <br />
+
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Datum rodjenja:</b> {gradjanin.date_of_birth}{" "}
+                <b>Godina Zavrsetka:</b> {diplomaSrednja.godinaZavrsetka}{" "}
               </label>
             </div>
+            <br />
+
             <br />
 
             <br />
@@ -145,7 +157,7 @@ const GradjaninComponent = () => {
           </div>
         </div>
         <div className="card col-md-3 offset-md-3">
-          <h3>Rodni list {gradjanin.first_name} </h3>
+          <h3>Diploma - Fakultet </h3>
 
           <div className="text-center" style={{ marginTop: "8px" }}>
             <div className="row">
@@ -164,34 +176,34 @@ const GradjaninComponent = () => {
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>JMBG:</b> {gradjanin.identification_number}{" "}
+                <b>Fakultet:</b> {diplomaFakultet.fakultet}{" "}
               </label>
             </div>
             <br />
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Sex:</b> {gradjanin.gender}{" "}
+                <b>Smer:</b> {diplomaFakultet.smer}{" "}
               </label>
             </div>
             <br />
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Zemlja Rodjenja:</b> {gradjanin.country_of_birth}{" "}
+                <b>Zvanje:</b> {diplomaFakultet.zvanje}{" "}
               </label>
             </div>
             <br />
 
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Drzavljanstvo:</b> {gradjanin.citizenship}{" "}
+                <b>Godina upisa:</b> {diplomaFakultet.godinaUpisa}{" "}
               </label>
             </div>
             <br />
             <div className="row">
               <label style={{ color: "black", fontWeight: "400" }}>
-                <b>Datum rodjenja:</b> {gradjanin.date_of_birth}{" "}
+                <b>Godina zavrsetka:</b> {diplomaFakultet.godinaZavrsetka}{" "}
               </label>
             </div>
             <br />
