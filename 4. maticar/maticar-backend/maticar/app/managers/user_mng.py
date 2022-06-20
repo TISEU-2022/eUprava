@@ -77,72 +77,47 @@ class UserManager(object):
         ).filter(
             m_mng.UserBirthRegister.identification_number == identification_number
         ).first()
+
         if not child:
-            return {
-                    "detail": [
-                        {
-                            "loc": [
-                                "body",
-                                "identification_number"
-                            ],
-                            "msg": "Child identification number does not exist!",
-                            "type": "value_error.identification_number"
-                        }
-                    ]
-                }
+            return "Child identification number does not exist!"
+
         if parents['parent_1_iden_number'] == parents['parent_2_iden_number']:
-            return {
-                    "detail": [
-                        {
-                            "loc": [
-                                "body",
-                                "parent_1_iden_number",
-                                "parent_2_iden_number"
-                            ],
-                            "msg": "Two different identification numbers required!",
-                            "type": "value_error.unique"
-                        }
-                    ]
-                }
+            return "Two different identification numbers required!"
+
+        if child.identification_number in parents:
+            return "Values must be unique. Child cannot be its own parent."
+
         parents = self.db.query(
             m_mng.UserBirthRegister.identification_number
         ).filter(
             m_mng.UserBirthRegister.identification_number.in_(parents.values())
         ).all()
+
         if not parents:
-            return {
-                    "detail": [
-                        {
-                            "loc": [
-                                "body",
-                                "parent_1_iden_number",
-                                "parent_2_iden_number"
-                            ],
-                            "msg": "One of the parents doesen't have a birth certificate!",
-                            "type": "value_error.unique"
-                        }
-                    ]
-                }
+            return "One of the parents doesen't have a birth certificate!"
+
         already_is_child = self.db.query(
-            m_mng.UserRelation
+            m_mng.UserRelation.child_id,
+            m_mng.UserRelation.parent_id
         ).filter(
             m_mng.UserRelation.child_id == identification_number
         ).all()
+
         if already_is_child:
             if len(list(already_is_child)) >= 2:
-                return {
-                        "detail": [
-                            {
-                                "loc": [
-                                    "body",
-                                    "parent_1_iden_number",
-                                    "parent_2_iden_number"
-                                ],
-                                "msg": "Child already has parents!",
-                                "type": "value_error.unique"
-                            }
-                        ]
-                    }
+                return "Child already has parents!"
+
+        is_related = self.db.query(
+            m_mng.UserRelation.child_id
+        ).filter(
+            m_mng.UserRelation.parent_id == identification_number
+        ).all()
+
+        if is_related:
+            for parent in is_related:
+                if parent in parents:
+                    return "Cannot have cross relations!"
+
         parents = [k.identification_number for k in parents]
         for parent_id in parents:
             relation = m_mng.UserRelation(
