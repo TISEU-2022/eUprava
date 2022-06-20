@@ -270,12 +270,33 @@ services:
       - MYSQL_PASSWORD=RootRoot22
     volumes:
       - zaposljavanje-mysql:/var/lib/mysql
+    networks:
+      tiseu:
+        aliases:
+          - "zaposljavanje-mysql"
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 15s
       timeout: 5s
       retries: 3
       start_period: 20s
+
+  zaposljavanje-frontend:
+    environment:
+     - PORT=3000
+     - APP_URL=http://localhost:3000
+     - AUTH_SERVER_URL=http://localhost:3101
+     - BACKEND_URL=http://localhost:3001/api
+    build:
+     context: ./3. nacionalna sluzba za zaposljavanje/frontend/sluzba-zaposljavanja-frontend
+    container_name: zaposljavanje-frontend
+    networks:
+     tiseu:
+       aliases:
+         - zaposljavanje-frontend
+    ports:
+     - "3000:3000"
+    command: npm start
   
   biro-zaposljavanje:
     depends_on:
@@ -288,13 +309,16 @@ services:
     ports:
       - 3001:3001
     environment:
-      # - SPRING_DATASOURCE_URL=jdbc:mysql://zaposljavanje-mysql:3002/database?autoReconnect=true&useSSL=false
       - DATABASE_USER=root
-      - AUTH_SERVER_API=http://auth-app-proxy:5101
+      - AUTH_SERVER_API=http://auth-app:3101
       - DATABASE_PASSWORD=RootRoot22
       - DATABASE_NAME=biro
       - DATABASE_HOST=zaposljavanje-mysql
       # - MYSQL_PORT=3002
+    networks:
+      tiseu:
+        aliases:
+          - biro-zaposljavanje
 
 
   # --- ePortal ---

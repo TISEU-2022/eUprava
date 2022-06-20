@@ -13,6 +13,6 @@ public interface KonkursService {
 
     void remove(Integer id);
 
-    OglasZaPosao save(OglasZaPosao oglasZaPosao);
+    Konkurs save(Konkurs konkurs);
 
 }

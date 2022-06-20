@@ -31,7 +31,8 @@ public class KonkursServiceImpl implements KonkursService {
     }
 
     @Override
-    public OglasZaPosao save(OglasZaPosao oglasZaPosao) {
-        return null;
+    public Konkurs save(Konkurs konkurs) {
+        konkursRepository.save(konkurs);
+        return  konkurs;
     }
 }
