@@ -16,8 +16,19 @@ code {
   padding: 100px;
 }
 
-.card{
-  margin-top: 5rem;
+span.yourApp {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+span.yourApp2 {
+  font-size: 23px;
+  font-weight: 500;
+  color: red;
+}
+
+.modalWarning{
+  background-color: yellow;
 }
 
 #headerText {

@@ -6,6 +6,11 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import axios from 'axios';
 import moment from 'moment';
+import Modal from 'react-bootstrap/Modal'
+import ModalHeader from 'react-bootstrap/ModalHeader'
+import ModalTitle from 'react-bootstrap/ModalTitle'
+import ModalBody from 'react-bootstrap/ModalBody'
+import ModalFooter from 'react-bootstrap/ModalFooter'
 
 export const ZakazivanjeForma = ({ docType, minor }) => {
 
@@ -23,6 +28,10 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
     const [genderMinor, setGenderMinor] = useState("")
     const [jmbgMinor, setJMGBMinor] = useState("")
 
+    const [show, setShow] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const handleClose = () => setShowModal(false);
+
     useEffect(() => {
     }, [])
 
@@ -34,11 +43,12 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
                 documentType: docType,
                 requestedAppointmentTime: moment(appDateTime).format(format),
                 appointmentForMinor: false
-            }, 
-            {
-                params: {
-                    loggedUsername: decodedToken.username
-            }})
+            },
+                {
+                    params: {
+                        loggedUsername: decodedToken.username
+                    }
+                })
                 .then((res) => {
                     console.log(res)
                     if (res.status == 200) {
@@ -46,10 +56,7 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
                     }
                 })
                 .catch((err) => {
-                    console.log(JSON.parse(JSON.stringify(err)))
-                    // if (err.status != 200) {
-                    //     return
-                    // }
+                    setShowModal(true)
                 })
         } else if (minor == true) {
             const format = "YYYY-MM-DD HH:mm"
@@ -65,11 +72,12 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
                 minorCitizenship: citizenshipMinor,
                 minorGender: genderMinor,
                 minorJmbg: jmbgMinor
-            }, 
-            {
-                params: {
-                    loggedUsername: decodedToken.username
-            }})
+            },
+                {
+                    params: {
+                        loggedUsername: decodedToken.username
+                    }
+                })
                 .then((res) => {
                     console.log(res)
                     if (res.status == 200) {
@@ -79,7 +87,7 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
                 .catch((err) => {
                     console.log(err)
                     if (err.status != 200) {
-                        return
+                        setShowModal(true)
                     }
                 })
         }
@@ -95,6 +103,17 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
 
     return (
         <>
+             <Modal centered show={showModal} onHide={handleClose}>
+                <Modal.Header>
+                    <Modal.Title>Error message!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Enter all required information, try again!</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleClose}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             <div className="formaDiv">
                 <Form>
                     <fieldset disabled>
@@ -106,7 +125,7 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
 
                     <Form.Group className="mb-3" controlId="formBasicAppTime">
                         <Form.Label>Appointment date-time</Form.Label>
-                        <Form.Control type="datetime-local" onChange={(e) => setAppDateTimeMinor(e.target.value)}/>
+                        <Form.Control type="datetime-local" onChange={(e) => setAppDateTimeMinor(e.target.value)} />
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -144,6 +163,7 @@ export const ZakazivanjeForma = ({ docType, minor }) => {
                             <Form.Group className="mb-3" controlId="formGenderMinor">
                                 <Form.Label>Gender minor</Form.Label>
                                 <Form.Select aria-label="genderSelect" onChange={(e) => setGenderMinor(e.target.value)}>
+                                    <option value="null">-</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>

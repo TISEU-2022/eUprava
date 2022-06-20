@@ -6,9 +6,21 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router-dom';
 import Header from "../components/navbar/Header"
+import TabelaZakazivanja from "../components/forms/TabelaZakazivanja"
+import { useJwt } from "react-jwt";
 
 export const Home = () => {
     const navigate = useNavigate();
+    const usertoken = localStorage.getItem("token")
+    const { decodedToken, isExpired } = useJwt(usertoken);
+
+
+    useEffect(() => {
+        if(decodedToken && isExpired){
+            localStorage.removeItem('token');
+            navigate('/');
+        }
+    }, [decodedToken])
 
     const startWorkflow = (route) => {
         let token = localStorage.getItem("token")
@@ -26,9 +38,9 @@ export const Home = () => {
         <>
             <Header />
             <Container>
-                <Row>
+                <Row style={{ marginTop: '4rem' }}>
                     <Col>
-                        <Card border="primary" text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
+                        <Card border="primary" text={'white'} bg={"dark"} style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>Zakazivanje - Licna karta</Card.Title>
                                 <Card.Text>
@@ -39,7 +51,7 @@ export const Home = () => {
                         </Card>
                     </Col>
                     <Col>
-                        <Card border="primary" text={'white'} bg={"secondary"} style={{ width: '18rem' }} >
+                        <Card border="primary" text={'white'} bg={"dark"} style={{ width: '18rem' }} >
                             <Card.Body>
                                 <Card.Title text={'white'}>Zakazivanje za dete - Licna karta</Card.Title>
                                 <Card.Text>
@@ -50,7 +62,7 @@ export const Home = () => {
                         </Card>
                     </Col>
                     <Col>
-                        <Card border="warning" text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
+                        <Card border="warning" text={'white'} bg={"dark"} style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>Zakazivanje - Pasos</Card.Title>
                                 <Card.Text>
@@ -61,7 +73,7 @@ export const Home = () => {
                         </Card>
                     </Col>
                     <Col>
-                        <Card border="warning" text={'white'} bg={"secondary"} style={{ width: '18rem' }}>
+                        <Card border="warning" text={'white'} bg={"dark"} style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>Zakazivanje za dete - Pasos </Card.Title>
                                 <Card.Text>
@@ -72,6 +84,9 @@ export const Home = () => {
                         </Card>
                     </Col>
                 </Row>
+                
+                <TabelaZakazivanja />
+
             </Container>
         </>
     )
