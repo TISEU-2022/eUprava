@@ -1,0 +1,173 @@
+<div class="container">
+
+  <div *ngIf="drivingLicence != null">
+    <br />
+    <button (click)="onViewDLclick()" class="btn btn-info">
+      {{drivingLicenceView}} driving licence info
+    </button>
+
+    <form (ngSubmit)="onCreateEditRequestClick()" *ngIf="drivingLicenceView =='Hide'">
+      <br />
+      <div class="form-group">
+        <label> Licence number </label>
+        <input type="text" class="form-control" readonly
+               [(ngModel)]="drivingLicence.licenceNumber" name="licenceNumber" />
+      </div>
+
+      <div class="form-group">
+        <label> Place of issue </label>
+        <input type="text" class="form-control" readonly
+               [(ngModel)]="drivingLicence.placeOfIssue" name="placeOfIssue" />
+      </div>
+
+      <div class="form-group">
+        <label> Day of issue </label>
+        <input type="text" class="form-control" readonly
+               [(ngModel)]="drivingLicence.dayOfIssue" name="dayOfIssue" />
+      </div>
+
+      <div class="form-group">
+        <label> Valid until </label>
+        <input type="text" class="form-control" readonly
+               [(ngModel)]="drivingLicence.validUntil" name="validUntil" />
+      </div>
+
+      <div class="form-group">
+        <label> Driving licence type </label>
+        <input type="text" class="form-control" readonly
+               [(ngModel)]="drivingLicence.drivingLicenceType" name="drivingLicenceType" />
+      </div>
+      <br />
+
+      <div *ngIf="!changeDLrequestExist">
+        <u>Below you can create request for a new driving licence</u>
+
+        <div class="form-group">
+          Request reason
+          <select>
+            <option *ngFor="let requestType of requestTypes" (click)="onRequestTypeChange(requestType)">
+              {{requestType}}
+            </option>
+          </select>
+        </div>
+
+        <br />
+
+        <button class="btn btn-success" type="submit">
+          Send request
+        </button>
+      </div>
+      <div *ngIf="changeRequestResultMsg != ''">
+        {{changeRequestResultMsg}}
+      </div>
+    </form>
+    <hr />
+  </div>
+
+
+
+  <!-- will put this into view driving licence page --!
+
+  <div *ngIf="drivingLicence != null && !changeDLrequestExist">
+    <u>Kreiranje zahteva za izmenu vozacke dozvole</u>
+    <br />
+    <button (click)="onCreateEditRequestClick()" class="btn btn-info">
+      Pokreni uslugu
+    </button>
+  </div>
+
+  -->
+
+  <div *ngIf="drivingLicence == null">
+    <div *ngIf="!createDLrequestExist">
+      <u>You don't have driving licence, you can send request for one below</u>
+      <br />
+      Driving licence type:
+      <select>
+        <option *ngFor="let drivingLicenceType of drivingLicenceTypes" (click)="onDLtypeChange(drivingLicenceType)">
+          {{drivingLicenceType}}
+        </option>
+      </select>
+      <br />
+      <button (click)="onCreateRequestClick()" class="btn btn-info">
+        Send request
+      </button>
+      <hr />
+    </div>
+    <br />
+    <div *ngIf="createRequestResultMsg != ''">
+      {{createRequestResultMsg}}
+      <hr />
+    </div>
+  </div>
+
+  <br />
+
+  <h3 id="title">All sent requests</h3>
+
+  <div id="requestStatus">
+    Request status
+    <select>
+      <option *ngFor="let requestStatus of requestStatuses" (click)="onRequestStatusChange(requestStatus)">
+        {{requestStatus}}
+      </option>
+    </select>
+  </div>
+
+  <div id="viewType">
+    Requests for
+    <select>
+      <option *ngFor="let viewType of viewTypes" (click)="onViewTypeChange(viewType)">
+        {{viewType}}
+      </option>
+    </select>
+    driving licence
+  </div>
+
+  <table class="table table-striped" *ngIf="viewType=='new'">
+    <thead>
+      <tr>
+        <th>Driving licence type</th>
+        <th>Request status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of newDLrequests | paginate: { itemsPerPage: 5,
+          currentPage: page,
+          totalItems: totalElements }">
+
+
+        <td>{{ request.drivingLicenceType }}</td>
+        <td>{{ request.requestStatus }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <table class="table table-striped" *ngIf="viewType=='update of'">
+    <thead>
+      <tr>
+        <th>Request type</th>
+        <th>Request status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of changeDLrequests | paginate: {itemsPerPage: 5,
+          currentPage: page,
+          totalItems: totalElements }">
+
+        <td>{{ request.requestType }}</td>
+        <td>{{ request.requestStatus }}</td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="pagination">
+    <pagination-controls (pageChange)="onChangePage($event)"></pagination-controls>
+  </div>
+
+</div>
+

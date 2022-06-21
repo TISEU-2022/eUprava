@@ -1,0 +1,18 @@
+<div class="container-fluid" style="margin-top: 50px">
+  <div class="row">
+    <form class="col-md-6 offset-md-3 offset-md-3" (ngSubmit)="onSubmit()">
+      <h3 class="text-center">Kreiranje saobracajne dozvole</h3>
+      <h5 class="text-center">Popunite podatke o saobracajnoj dozvoli</h5>
+      <div class="mb-3">
+        <label for="placeOfIssue" class="form-label">Mesto izdavanja: </label>
+        <input class="form-control" id="placeOfIssue" name="placeOfIssue" [(ngModel)]="placeOfIssue">
+      </div>
+      <div class="mb-3">
+        <label for="plates" class="form-label">Registarske tablice: </label>
+        <input class="form-control" id="plates" name="plates" [(ngModel)]="plates">
+      </div>
+      <p class="text-lg-center text-danger" [(ngModel)]="warning">{{warning}}</p>
+      <input type="submit" class="btn-lg btn-primary offset-md-5" value="Kreiraj">
+    </form>
+  </div>
+</div>

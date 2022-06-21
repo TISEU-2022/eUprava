@@ -1,0 +1,125 @@
+<div class="container">
+
+
+  <!-- will put this into view driving licence page --!
+
+  <div *ngIf="drivingLicence != null && !changeDLrequestExist">
+    <u>Kreiranje zahteva za izmenu vozacke dozvole</u>
+    <br />
+    <button (click)="onCreateEditRequestClick()" class="btn btn-info">
+      Pokreni uslugu
+    </button>
+  </div>
+
+  -->
+
+
+  <br />
+
+  <h3 id="title">All requests</h3>
+
+  <div id="requestStatus">
+    Request status
+    <select>
+      <option *ngFor="let requestStatus of requestStatuses" (click)="onRequestStatusChange(requestStatus)">
+        {{requestStatus}}
+      </option>
+    </select>
+  </div>
+
+  <div id="viewType">
+    Requests for
+    <select>
+      <option *ngFor="let viewType of viewTypes" (click)="onViewTypeChange(viewType)">
+        {{viewType}}
+      </option>
+    </select>
+    driving licence
+  </div>
+
+  <table class="table table-striped" *ngIf="viewType=='new'">
+    <thead>
+      <tr>
+        <th>Citizen ID</th>
+        <th>Driving licence type</th>
+        <th>Request status</th>
+        <th *ngIf="requestStatus=='ACCEPTED'">
+          Driving licence
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of newDLrequests | paginate: { itemsPerPage: 5,
+          currentPage: page,
+          totalItems: totalElements }">
+
+        <td>{{ request.citizenId }}</td>
+        <td>{{ request.drivingLicenceType }}</td>
+        <td>{{ request.requestStatus }}</td>
+
+        <td class="button" *ngIf="requestStatus=='PENDING'">
+          <button (click)="onAcceptCreateRequest(request)" class="btn btn-success">
+            ACCEPT
+          </button>
+        </td>
+
+        <td class="button" *ngIf="requestStatus=='PENDING'">
+          <button (click)="onDeclineCreateRequest(request)" class="btn btn-danger">
+            DECLINE
+          </button>
+        </td>
+
+        <td id="createDL" *ngIf="requestStatus=='ACCEPTED' && request.drivingLicenceDTO == null">
+          <button routerLink="/driving-licence/create/{{request.id}}" routerLinkActive="active" class="btn btn-info">
+            Create driving licence
+          </button>
+        </td>
+
+        <td *ngIf="requestStatus=='ACCEPTED' && request.drivingLicenceDTO != null">
+          <a routerLink="/driving-licence/{{request.drivingLicenceDTO.id}}" routerLinkActive="active">
+            {{ request.drivingLicenceDTO.licenceNumber }}
+          </a>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <table class="table table-striped" *ngIf="viewType=='update of'">
+    <thead>
+      <tr>
+        <th>Request type</th>
+        <th>Request status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of changeDLrequests | paginate: {itemsPerPage: 5,
+          currentPage: page,
+          totalItems: totalElements }">
+
+        <td>{{ request.requestType }}</td>
+        <td>{{ request.requestStatus }}</td>
+
+        <td class="button" *ngIf="requestStatus=='PENDING'">
+          <button (click)="onAcceptEditRequest(request)" class="btn btn-success">
+            ACCEPT
+          </button>
+        </td>
+
+        <td class="button" *ngIf="requestStatus=='PENDING'">
+          <button (click)="onDeclineEditRequest(request)" class="btn btn-danger">
+            DECLINE
+          </button>
+        </td>
+
+      </tr>
+    </tbody>
+  </table>
+
+  <div id="pagination">
+    <pagination-controls (pageChange)="onChangePage($event)"></pagination-controls>
+  </div>
+
+</div>

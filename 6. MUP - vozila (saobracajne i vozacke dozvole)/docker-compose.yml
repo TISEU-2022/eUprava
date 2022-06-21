@@ -1,0 +1,59 @@
+version: '3.7'
+
+services:
+  mup-vozila-backend:
+    build: 
+      context: ./mup-vozila
+      dockerfile: Dockerfile
+    ports:
+      - "6001:8080"
+    restart: always
+    container_name: mup-vozila-backend
+    depends_on:
+      - mup-vozila-mysql
+    environment:
+      #SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mup-vozila?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=NewUser123
+      - SPRING_DATASOURCE_DATABASE=mup-vozila
+    networks:
+      - backend
+      - frontend  
+
+  mup-vozila-mysql:
+    image: mysql:8.0.29
+    ports:
+      - "6002:3306"
+    restart: always
+    container_name: mup-vozila-mysql
+    volumes:
+      - mup-vozila-mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=NewUser123
+      - MYSQL_DATABASE=mup-vozila
+      - MYSQL_ROOT_HOST=%
+    networks:
+      - backend
+
+  mup-vozila-frontend:
+    build:
+      context: ./mup-vozila-frontend
+      dockerfile: Dockerfile
+    ports:
+      - "6003:80"
+    restart: always
+    container_name: mup-vozila-frontend
+    networks:
+      - frontend  
+
+volumes:
+  mup-vozila-mysql:
+    driver: local
+
+networks:
+  backend:
+  frontend:
+  
+
+
+    

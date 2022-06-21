@@ -1,0 +1,24 @@
+<div class="container-fluid">
+  <h3 class="text-center text-dark" style="margin-bottom: 30px">Registration certificates</h3>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Make</th>
+      <th>Model</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor = " let reg of regs " >
+      <td>{{reg.carDTO.make}}</td>
+      <td>{{reg.carDTO.model}}</td>
+      <td>
+        <button class="btn btn-success"
+                (click)="viewMoreInfo(reg)">
+          View
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

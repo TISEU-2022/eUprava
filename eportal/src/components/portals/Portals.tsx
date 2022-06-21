@@ -16,7 +16,7 @@ const Portals: React.FC = () => {
         3000: "Nacionalna sluzba za zaposljavanje",
         4001: "Maticar",
         5000: "Zdravstvo",
-        6000: "MUP Vozila",
+        6003: "MUP Vozila",
         7000: "eObrazovanje",
         8000: "MUP Oruzije",
         9000: "Komunalna milicija i inspekcija",
