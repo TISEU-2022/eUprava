@@ -6,4 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GradjaninRepository extends JpaRepository<Gradjanin, Integer> {
+
+    Gradjanin findByKorisnickoIme(String korisnickoIme);
+
+
 }

@@ -1,11 +1,9 @@
 package com.euprava.izradadokumenata.model;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Getter
@@ -15,10 +13,18 @@ import java.time.LocalDate;
 @ToString
 @Entity
 @Table
-public class User {
+@Builder
+public class User extends BaseEntity {
 
     @Id
-    @Column
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", updatable = false, nullable = false)
+    private String id;
+
     private String jmbg;
 
     @Column
@@ -36,12 +42,17 @@ public class User {
     @Column
     private String citizenship;
 
+    @Column(columnDefinition = "boolean default true")
+    private boolean initialRequest = true;
+
     @Column
     private String gender;
 
     @Column
     private Municipality municipality;
 
+    private String username;
 
+    private String password;
 
 }
