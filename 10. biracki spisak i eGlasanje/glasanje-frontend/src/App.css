@@ -1,0 +1,106 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 24vmin;
+  pointer-events: none;
+}
+
+.card {
+  margin-bottom: 30px;
+}
+
+/*@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}*/
+
+.info-border{
+  border: 1px solid black;
+  margin-top: 7px;
+}
+.navbarLogout{
+  float: right;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.linkovi{
+  font-size: 21px;
+}
+.boja{
+  color: red;
+}
+.text{
+  color: white;
+}
+
+.btn{
+  margin: 7px;
+  font-size: 18px;
+  background-color: #dc3444;
+  border-color: #dc3444;
+}
+
+.kontejner{
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.velikaTabela{
+  margin-top: 25px;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.App-link {
+  color: #61dafb;
+}
+.kalendar {
+  margin-left: 85vh;
+}
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+button {
+  margin: 5px;
+}
+
+.buttons {
+  display: inline-block;
+}
+
+nav {
+  background-color:#282a36;
+  color: white;
+  text-align: center;
+  border-bottom: 2px solid black;
+  position: fixed;
+  z-index: 9998;
+  width: 100%;
+}
+
+footer {
+  background-color: #282a36;
+  color: white;
+  text-align: center;
+  border-top: 2px solid black;
+  padding: 10px;
+}

@@ -337,6 +337,55 @@ services:
     ports:
       - "4011:4011"
 
+  # ---eGlasanje---
+  glasanje-frontend:
+    build:
+      context: ./10. biracki spisak i eGlasanje/glasanje-frontend
+    container_name: glasanje-frontend
+    volumes:
+      - ./10. biracki spisak i eGlasanje/glasanje-frontend:/app
+      - /app/node_modules
+    ports:
+      - "10001:10001"
+    environment:
+      - PORT=10001
+
+  glasanje-backend:
+    depends_on:
+      - glasanje-mysql
+    build:
+      context: ./10. biracki spisak i eGlasanje/glasanje-backend/
+    container_name: glasanje-backend
+    ports:
+      - "10002:10002"
+    environment:
+      - MYSQL_USER=root
+      - AUTH_SERVER_API=http://auth-app-proxy:10101
+      - MYSQL_PASSWORD=glasanje123
+      - MYSQL_DB=glasanje
+      - MYSQL_HOST=glasanjeDB
+      - MYSQL_PORT=10003
+
+  glasanje-mysql:
+    image: mysql:8.0.23
+    container_name: glasanje-mysql
+    ports:
+      - "10003:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=glasanje123
+      - MYSQL_DATABASE=glasanje
+      - MYSQL_ROOT_HOST=%
+    volumes:
+      - glasanje-mysql:/var/lib/mysql
+      - ./10. biracki spisak i eGlasanje/database:/tmp/database
+    command: mysqld --init-file="/tmp/database/init_db.sql"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+  
   # --- Predskolsko ---
 
   # predskolsko-mysql:
@@ -434,5 +483,8 @@ volumes:
     driver: local
   predskolsko-mysql:
     driver: local
+  glasanje-mysql:
+    driver: local
 
   
+

@@ -1,182 +1,174 @@
-Bačka Topola
-Mali Iđoš
-Subotica
-Žitište
-Zrenjanin
-Nova Crnja
-Novi Bečej
-Sečanj
-Ada
-Kanjiža
-Kikinda
-Novi Kneževac
-Senta
-Čoka
-Alibunar
-Bela Crkva
-Vršac
-Kovačica
-Kovin
-Opovo
-Pančevo
-Plandište
-Apatin
-Kula
-Odžaci
-Sombor
-Bač
-Bačka Palanka
-Bački Petrovac
-Beočin
-Bečej
-Vrbas
-Žabalj
-Novi Sad
-Petrovaradin
-Srbobran
-Sremski Karlovci
-Temerin
-Titel
-Inđija
-Irig
-Pećinci
-Ruma
-Sremska Mitrovica
-Stara Pazova
-Šid
-Šabac
-Bogatić
-Loznica
-Vladimirci
-Koceljeva
-Mali Zvornik
-Krupanj
-Ljubovija
-Valjevo
-Osečina
-Ub
-Lajkovac
-Mionica
-Ljig
-Smederevo
-Smederevska Palanka
-Velika Plana
-Veliko Gradište
-Grad Požarevac
-Golubac
-Malo Crniće
-Žabari
-Petrovac
-Kučevo
-Žagubica
-Aranđelovac
-Topola
-Rača
-Aerodrom
-Pivara
-Stanovo
-Stari grad
-Stragari
-Batočina
-Knić
-Lapovo
-Jagodina
-Ćuprija
-Paraćin
-Svilajnac
-Despotovac
-Rekovac
-Bor
-Kladovo
-Majdanpek
-Negotin
-Boljevac
-Knjaževac
-Zaječar
-Sokobanja
-Bajina Bašta
-Kosjerić
-Užice
-Požega
-Čajetina
-Arilje
-Priboj
-Nova Varoš
-Prijepolje
-Sjenica
-Čačak
-Gornji Milanovac
-Lučani
-Velika Ivanjica
-Kraljevo
-Vrnjačka Banja
-Raška
-Novi Pazar
-Tutin
-Varvarin
-Trstenik
-Ćićevac
-Kruševac
-Aleksandrovac
-Brus
-Aleksinac
-Svrljig
-Merošina
-Ražanj
-Mediana
-Niška Banja
-Palilula
-Pantelej
-Crveni Krst
-Doljevac
-Gadžin Han
-Prokuplje
-Blace
-Kuršumlija
-Žitorađa
-Bela Palanka
-Pirot
-Babušnica
-Dimitrovgrad
-Leskovac
-Bojnik
-Lebane
-Medveđa
-Vlasotince
-Crna Trava
-Vladičin Han
-Surdulica
-Bosilegrad
-Trgovište
-Vranje
-Bujanovac
-Preševo
-Podujevo
-Obilić
-Priština
-Kosovo Polje
-Glogovac
-Štimlje
-Štrpce
-Uroševac
-Kačanik
-Lipljan
-Istok
-Peć
-Klina
-Dečani
-Đakovica
-Suva Reka
-Orahovac
-Prizren
-Gora
-Zubin Potok
-Leposavić
-Zvečan
-Kosovska Mitrovica
-Srbica
-Vučitrn
-Kosovska Kamenica
-Novo Brdo
-Gnjilane
-Vitina
+BEOGRAD,
+BACKA_TOPOLA,
+MALI_IDJOS,
+SUBOTICA,
+ZITISTE,
+ZRENJANIN,
+NOVA_CRNJA,
+NOVI_BECEJ,
+SECANJ,
+ADA,
+KANJIZA,
+KIKINDA,
+NOVI_KNEZEVAC,
+SENTA,
+COKA,
+ALIBUNAR,
+BELA_CRKVA,
+VRSAC,
+KOVACICA,
+KOVIN,
+OPOVO,
+PANCEVO,
+PLANDISTE,
+APATIN,
+KULA,
+ODZACI,
+SOMBOR,
+BAC,
+BACKA_PALANKA,
+BACKI_PETROVAC,
+BEOCIN,
+BECEJ,
+VRBAS,
+ZABALJ,
+NOVI_SAD,
+SRBOBRAN,
+SREMSKI_KARLOVCI,
+TEMERIN,
+TITEL,
+INDJIJA,
+IRIG,
+PECINCI,
+RUMA,
+SREMSKA_MITROVICA,
+STARA_PAZOVA,
+SID,
+SABAC,
+BOGATIC,
+LOZNICA,
+VLADIMIRCI,
+KOCELJEVA,
+MALI_ZVORNIK,
+KRUPANJ,
+LJUBOVIJA,
+VALJEVO,
+OSECINA,
+UB,
+LAJKOVAC,
+MIONICA,
+LJIG,
+SMEDEREVO,
+SMEDEREVSKA_PALANKA,
+VELIKA_PLANA,
+VELIKO_GRADISTE,
+GRAD_POZAREVAC,
+GOLUBAC,
+MALO_CRNICE,
+ZABARI,
+PETROVAC,
+KUCEVO,
+ZAGUBICA,
+ARANDJELOVAC,
+TOPOLA,
+RACA,
+KRAGUJEVAC,
+BATOCINA,
+KNIC,
+LAPOVO,
+JAGODINA,
+CUPRIJA,
+PARACIN,
+SVILAJNAC,
+DESPOTOVAC,
+REKOVAC,
+BOR,
+KLADOVO,
+MAJDANPEK,
+NEGOTIN,
+BOLJEVAC,
+KNJAZEVAC,
+ZAJECAR,
+SOKOBANJA,
+BAJINA_BASTA,
+KOSJERIC,
+UZICE,
+POZEGA,
+CAJETINA,
+ARILJE,
+PRIBOJ,
+NOVA_VAROS,
+PRIJEPOLJE,
+SJENICA,
+CACAK,
+GORNJI_MILANOVAC,
+LUCANI,
+IVANJICA,
+KRALJEVO,
+VRNJACKA_BANJA,
+RASKA,
+NOVI_PAZAR,
+TUTIN,
+VARVARIN,
+TRSTENIK,
+CICEVAC,
+KRUSEVAC,
+ALEKSANDROVAC,
+BRUS,
+ALEKSINAC,
+SVRLJIG,
+MEROSINA,
+RAZANJ,
+NIS,
+DOLJEVAC,
+GADZIN_HAN,
+PROKUPLJE,
+BLACE,
+KURSUMLIJA,
+ZITORADJA,
+BELA_PALANKA,
+PIROT,
+BABUSNICA,
+DIMITROVGRAD,
+LESKOVAC,
+BOJNIK,
+LEBANE,
+MEDVEDJA,
+VLASOTINCE,
+CRNA_TRAVA,
+VLADICIN_HAN,
+SURDULICA,
+BOSILEGRAD,
+TRGOVISTE,
+VRANJE,
+BUJANOVAC,
+PRESEVO,
+PODUJEVO,
+OBILIC,
+PRISTINA,
+KOSOVO_POLJE,
+GLOGOVAC,
+STIMLJE,
+STRPCE,
+UROSEVAC,
+KACANIK,
+LIPLJAN,
+ISTOK,
+PEC,
+KLINA,
+DECANI,
+DJAKOVICA,
+SUVA_REKA,
+ORAHOVAC,
+PRIZREN,
+GORA,
+ZUBIN_POTOK,
+LEPOSAVIC,
+ZVECAN,
+KOSOVSKA_MITROVICA,
+SRBICA,
+VUCITRN,
+KOSOVSKA_KAMENICA,
+NOVO_BRDO,
+GNJILANE,
+VITINA,

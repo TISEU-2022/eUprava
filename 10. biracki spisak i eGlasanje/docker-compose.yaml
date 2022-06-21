@@ -1,0 +1,53 @@
+version: "3.1"
+
+networks:
+  tiseu:
+    name: tiseu
+
+services:
+  glasanje-frontend:
+    build:
+      context: ./glasanje-frontend
+    container_name: glasanje-frontend
+    volumes:
+      - ./glasanje-frontend:/app
+      - /app/node_modules
+    ports:
+      - "10001:10001"
+
+  glasanje-backend:
+    build:
+      context: ./glasanje-backend/
+    container_name: glasanje-backend
+    ports:
+      - "10002:10002"
+    networks:
+      tiseu:
+        aliases:
+          - "glasanje-backend"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://glasanje-mysql:10003/eupravaglasanje?allowPublicKeyRetrieval=true&useSSL=false
+    depends_on:
+      - glasanje-mysql
+
+  glasanje-mysql:
+    image: mysql:8.0.23
+    container_name: glasanje-mysql
+    ports:
+      - "10003:10003"
+    environment:
+      - MYSQL_TCP_PORT=10003
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=root
+    volumes:
+      - glasanje-mysql-data:/var/lib/mysql
+      - ./database:/tmp/database
+    command: mysqld --init-file="/tmp/database/init_db.sql"
+    networks:
+      tiseu:
+        aliases:
+          - "glasanje-mysql"
+
+volumes:
+  glasanje-mysql-data:
+    driver: local
