@@ -35,16 +35,20 @@ public class MarkService {
                         searchParam.getStudentId(),
                         searchParam.getSubjectId()
                 );
-        List<Mark> result =
-                attendance.getMarks().stream().filter(
-                        mark -> mark.getSemester().equals(
-                                searchParam.getSemester()
-                        )
-                ).collect(Collectors.toList());
+        List<Mark> result;
+        if(searchParam.getSemester() != null) {
+             result =
+                    attendance.getMarks().stream().filter(
+                            mark -> mark.getSemester().equals(
+                                    searchParam.getSemester()
+                            )
+                    ).collect(Collectors.toList());
+        } else {
+            result = attendance.getMarks().stream().collect(Collectors.toList());
+        }
 
         Collections.sort(result, Comparator.comparing(Mark::getDate));
         Collections.reverse(result);
-
         return result;
     }
 

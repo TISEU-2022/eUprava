@@ -15,4 +15,5 @@ public class FoundStudentDto {
     private String firstName;
     private String lastName;
     private Double averageSubjectMark;
+    private Integer grade;
 }

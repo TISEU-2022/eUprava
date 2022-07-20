@@ -21,6 +21,7 @@ public class StudentMapper {
         foundStudentDto.setUCN(student.getUCN());
         foundStudentDto.setFirstName(student.getFirstName());
         foundStudentDto.setLastName(student.getLastName());
+        foundStudentDto.setGrade(student.getGrade());
 
         if(subjectId == null || subjectId == 0) {
             foundStudentDto.setAverageSubjectMark(0.0);

@@ -33,7 +33,10 @@ public class MarkController {
 
     @GetMapping
     public ResponseEntity<List<Mark>> findMarks(@Valid MarkSearchParam searchParam) {
+        System.out.println("natalyyy");
+        System.out.println(searchParam);
         List<Mark> result = markService.findMarks(searchParam);
+        System.out.println(result);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
